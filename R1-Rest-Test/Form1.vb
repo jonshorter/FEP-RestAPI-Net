@@ -192,13 +192,7 @@ Public Class Form1
             MsgBox(response)
         End If
 
-        Dim newproject As New ADG.RIA.DataServices.Web.NewProjectDefinition
-        newproject.Name = txtProjectName.Text
-        newproject.FTKCaseFolderPath = "\\10.0.1.52\Share\Projects"
-        newproject.ResponsiveFilePath = "\\10.0.1.52\Share\JobData"
-        newproject.ProcessingMode = Web.ProcessModeEnum.Security
-
-        txtapicallpostjson.Text = Json.JsonConvert.SerializeObject(newproject)
+       
 
     End Sub
 
@@ -311,6 +305,37 @@ Public Class Form1
     End Sub
 
     Private Sub tabCreateJob_Click(sender As Object, e As EventArgs) Handles tabCreateJob.Click
+
+    End Sub
+
+    Private Sub tabAlerts_Click(sender As Object, e As EventArgs) Handles tabAlerts.Click
+
+    End Sub
+
+    Private Sub tabAlerts_Enter(sender As Object, e As EventArgs) Handles tabAlerts.Enter
+        Dim response = R1RestFunctions.R1RestRequest(Method.GET, "alerts/getTotalResponses/?predicate=null")
+        lblTotalResponses.Text = "Total Responses: " & response
+
+        response = R1RestFunctions.R1RestRequest(Method.GET, "alerts/getTotalAutomatedResponses/?predicate=null")
+        lblTotalAutomatedResponses.Text = "Total Automated Responses: " & response
+
+        response = R1RestFunctions.R1RestRequest(Method.GET, "alerts/getAlertSourceBreakdown/?predicate=null")
+
+
+        If response.GetType Is GetType(List(Of R1SimpleRestClasses.AlertSourceBreakdownResult)) Then
+            If response.count > 0 Then
+                lstAlertSourceBreakdown.Items.Clear()
+                Dim alertSrcBreakdowns As List(Of R1SimpleRestClasses.AlertSourceBreakdownResult) = response
+                For Each alertSrc As R1SimpleRestClasses.AlertSourceBreakdownResult In alertSrcBreakdowns
+                    lstAlertSourceBreakdown.Items.Add(alertSrc.Name & " " & alertSrc.Count)
+                Next
+            Else
+                MsgBox(response.error.message)
+            End If
+        Else
+            MsgBox(response)
+        End If
+
 
     End Sub
 End Class

@@ -99,4 +99,13 @@ Module R1SimpleRestClasses
         Status
     End Enum
 
+    Public Class AlertSourceBreakdownResult
+        Public Property Name As String
+        Public Property Count As Integer
+        Public Property Percent As Integer
+    End Class
+
+
+
+
 End Module

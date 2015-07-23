@@ -26,10 +26,24 @@ Module R1RestFunctions
         If response.StatusCode = HttpStatusCode.NotFound Then
             Return "Error: Not Found" & vbCrLf & response.Content
         Else
+         
+            Select Case True
 
-            Dim content As ADG.WebLab.Web.Controllers.API.ApiResponse(Of Object) = JsonConvert.DeserializeObject(Of ADG.WebLab.Web.Controllers.API.ApiResponse(Of Object))(response.Content)
-            Return content
-        End If
+                Case response.ResponseUri.AbsolutePath.Contains("/R1/api/alerts/getAlertSourceBreakdown/")
+                    Dim content As List(Of R1SimpleRestClasses.AlertSourceBreakdownResult) = JsonConvert.DeserializeObject(Of List(Of R1SimpleRestClasses.AlertSourceBreakdownResult))(response.Content)
+                    Return content
+                Case response.ResponseUri.AbsolutePath.Contains("/R1/api/projects")
+                    Dim content As ADG.WebLab.Web.Controllers.API.ApiResponse(Of Object) = JsonConvert.DeserializeObject(Of ADG.WebLab.Web.Controllers.API.ApiResponse(Of Object))(response.Content)
+                    Return content
+                Case response.ResponseUri.AbsolutePath.Contains("/R1/api/jobs")
+                    Dim content As ADG.WebLab.Web.Controllers.API.ApiResponse(Of Object) = JsonConvert.DeserializeObject(Of ADG.WebLab.Web.Controllers.API.ApiResponse(Of Object))(response.Content)
+                    Return content
+                Case Else
+                    Return response.Content
+
+            End Select
+            End If
+
     End Function
 
     Public Function AuthenticateWithR1(ByVal R1Server As String, ByVal UserName As String, ByVal Password As String) As Object

@@ -65,12 +65,20 @@ Partial Class Form1
         Me.Label10 = New System.Windows.Forms.Label()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.tabCreateJob = New System.Windows.Forms.TabPage()
+        Me.comboJobAction = New System.Windows.Forms.ComboBox()
+        Me.Label17 = New System.Windows.Forms.Label()
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.lstTargets = New System.Windows.Forms.CheckedListBox()
+        Me.btnRemoveSelectedTargets = New System.Windows.Forms.Button()
+        Me.btnAddNewTarget = New System.Windows.Forms.Button()
+        Me.txtNewTarget = New System.Windows.Forms.TextBox()
         Me.Label16 = New System.Windows.Forms.Label()
         Me.txtProjectID = New System.Windows.Forms.TextBox()
         Me.comboJobType = New System.Windows.Forms.ComboBox()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.txtJobName = New System.Windows.Forms.TextBox()
+        Me.tabAlerts = New System.Windows.Forms.TabPage()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.btnAPICallCustom = New System.Windows.Forms.Button()
         Me.Label6 = New System.Windows.Forms.Label()
@@ -80,13 +88,10 @@ Partial Class Form1
         Me.Label4 = New System.Windows.Forms.Label()
         Me.txtapicallpostjson = New System.Windows.Forms.TextBox()
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
-        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
-        Me.txtNewTarget = New System.Windows.Forms.TextBox()
-        Me.btnAddNewTarget = New System.Windows.Forms.Button()
-        Me.btnRemoveSelectedTargets = New System.Windows.Forms.Button()
-        Me.lstTargets = New System.Windows.Forms.CheckedListBox()
-        Me.comboJobAction = New System.Windows.Forms.ComboBox()
-        Me.Label17 = New System.Windows.Forms.Label()
+        Me.lblTotalResponses = New System.Windows.Forms.Label()
+        Me.lblTotalAutomatedResponses = New System.Windows.Forms.Label()
+        Me.lstAlertSourceBreakdown = New System.Windows.Forms.ListBox()
+        Me.Label18 = New System.Windows.Forms.Label()
         CType(Me.dgvprojects, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvprojectjobs, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabTopMenu.SuspendLayout()
@@ -97,8 +102,9 @@ Partial Class Form1
         Me.tabProjects.SuspendLayout()
         CType(Me.dgvProjectReports, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabCreateJob.SuspendLayout()
-        Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
+        Me.tabAlerts.SuspendLayout()
+        Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
         'btnRefreshProjectList
@@ -304,6 +310,7 @@ Partial Class Form1
         Me.tabBottomMenu.Controls.Add(Me.tabCreateProject)
         Me.tabBottomMenu.Controls.Add(Me.tabProjects)
         Me.tabBottomMenu.Controls.Add(Me.tabCreateJob)
+        Me.tabBottomMenu.Controls.Add(Me.tabAlerts)
         Me.tabBottomMenu.Location = New System.Drawing.Point(8, 112)
         Me.tabBottomMenu.Name = "tabBottomMenu"
         Me.tabBottomMenu.SelectedIndex = 0
@@ -515,6 +522,70 @@ Partial Class Form1
         Me.tabCreateJob.Text = "Create Job"
         Me.tabCreateJob.UseVisualStyleBackColor = True
         '
+        'comboJobAction
+        '
+        Me.comboJobAction.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.comboJobAction.FormattingEnabled = True
+        Me.comboJobAction.Location = New System.Drawing.Point(106, 102)
+        Me.comboJobAction.Name = "comboJobAction"
+        Me.comboJobAction.Size = New System.Drawing.Size(158, 21)
+        Me.comboJobAction.TabIndex = 13
+        '
+        'Label17
+        '
+        Me.Label17.AutoSize = True
+        Me.Label17.Location = New System.Drawing.Point(24, 105)
+        Me.Label17.Name = "Label17"
+        Me.Label17.Size = New System.Drawing.Size(60, 13)
+        Me.Label17.TabIndex = 12
+        Me.Label17.Text = "Job Action:"
+        '
+        'GroupBox2
+        '
+        Me.GroupBox2.Controls.Add(Me.lstTargets)
+        Me.GroupBox2.Controls.Add(Me.btnRemoveSelectedTargets)
+        Me.GroupBox2.Controls.Add(Me.btnAddNewTarget)
+        Me.GroupBox2.Controls.Add(Me.txtNewTarget)
+        Me.GroupBox2.Location = New System.Drawing.Point(26, 155)
+        Me.GroupBox2.Name = "GroupBox2"
+        Me.GroupBox2.Size = New System.Drawing.Size(320, 154)
+        Me.GroupBox2.TabIndex = 11
+        Me.GroupBox2.TabStop = False
+        Me.GroupBox2.Text = "Targets"
+        '
+        'lstTargets
+        '
+        Me.lstTargets.FormattingEnabled = True
+        Me.lstTargets.Location = New System.Drawing.Point(6, 53)
+        Me.lstTargets.Name = "lstTargets"
+        Me.lstTargets.Size = New System.Drawing.Size(120, 94)
+        Me.lstTargets.TabIndex = 4
+        '
+        'btnRemoveSelectedTargets
+        '
+        Me.btnRemoveSelectedTargets.Location = New System.Drawing.Point(142, 125)
+        Me.btnRemoveSelectedTargets.Name = "btnRemoveSelectedTargets"
+        Me.btnRemoveSelectedTargets.Size = New System.Drawing.Size(131, 23)
+        Me.btnRemoveSelectedTargets.TabIndex = 3
+        Me.btnRemoveSelectedTargets.Text = "Remove Checked"
+        Me.btnRemoveSelectedTargets.UseVisualStyleBackColor = True
+        '
+        'btnAddNewTarget
+        '
+        Me.btnAddNewTarget.Location = New System.Drawing.Point(142, 25)
+        Me.btnAddNewTarget.Name = "btnAddNewTarget"
+        Me.btnAddNewTarget.Size = New System.Drawing.Size(75, 23)
+        Me.btnAddNewTarget.TabIndex = 2
+        Me.btnAddNewTarget.Text = "Add"
+        Me.btnAddNewTarget.UseVisualStyleBackColor = True
+        '
+        'txtNewTarget
+        '
+        Me.txtNewTarget.Location = New System.Drawing.Point(6, 27)
+        Me.txtNewTarget.Name = "txtNewTarget"
+        Me.txtNewTarget.Size = New System.Drawing.Size(120, 20)
+        Me.txtNewTarget.TabIndex = 1
+        '
         'Label16
         '
         Me.Label16.AutoSize = True
@@ -564,6 +635,20 @@ Partial Class Form1
         Me.txtJobName.Name = "txtJobName"
         Me.txtJobName.Size = New System.Drawing.Size(158, 20)
         Me.txtJobName.TabIndex = 5
+        '
+        'tabAlerts
+        '
+        Me.tabAlerts.Controls.Add(Me.Label18)
+        Me.tabAlerts.Controls.Add(Me.lstAlertSourceBreakdown)
+        Me.tabAlerts.Controls.Add(Me.lblTotalAutomatedResponses)
+        Me.tabAlerts.Controls.Add(Me.lblTotalResponses)
+        Me.tabAlerts.Location = New System.Drawing.Point(4, 22)
+        Me.tabAlerts.Name = "tabAlerts"
+        Me.tabAlerts.Padding = New System.Windows.Forms.Padding(3)
+        Me.tabAlerts.Size = New System.Drawing.Size(865, 493)
+        Me.tabAlerts.TabIndex = 3
+        Me.tabAlerts.Text = "Alerts"
+        Me.tabAlerts.UseVisualStyleBackColor = True
         '
         'GroupBox1
         '
@@ -650,69 +735,40 @@ Partial Class Form1
         Me.StatusStrip1.TabIndex = 15
         Me.StatusStrip1.Text = "StatusStrip1"
         '
-        'GroupBox2
+        'lblTotalResponses
         '
-        Me.GroupBox2.Controls.Add(Me.lstTargets)
-        Me.GroupBox2.Controls.Add(Me.btnRemoveSelectedTargets)
-        Me.GroupBox2.Controls.Add(Me.btnAddNewTarget)
-        Me.GroupBox2.Controls.Add(Me.txtNewTarget)
-        Me.GroupBox2.Location = New System.Drawing.Point(26, 155)
-        Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(320, 154)
-        Me.GroupBox2.TabIndex = 11
-        Me.GroupBox2.TabStop = False
-        Me.GroupBox2.Text = "Targets"
+        Me.lblTotalResponses.AutoSize = True
+        Me.lblTotalResponses.Location = New System.Drawing.Point(12, 14)
+        Me.lblTotalResponses.Name = "lblTotalResponses"
+        Me.lblTotalResponses.Size = New System.Drawing.Size(87, 13)
+        Me.lblTotalResponses.TabIndex = 0
+        Me.lblTotalResponses.Text = "Total Responses"
         '
-        'txtNewTarget
+        'lblTotalAutomatedResponses
         '
-        Me.txtNewTarget.Location = New System.Drawing.Point(6, 27)
-        Me.txtNewTarget.Name = "txtNewTarget"
-        Me.txtNewTarget.Size = New System.Drawing.Size(120, 20)
-        Me.txtNewTarget.TabIndex = 1
+        Me.lblTotalAutomatedResponses.AutoSize = True
+        Me.lblTotalAutomatedResponses.Location = New System.Drawing.Point(12, 39)
+        Me.lblTotalAutomatedResponses.Name = "lblTotalAutomatedResponses"
+        Me.lblTotalAutomatedResponses.Size = New System.Drawing.Size(141, 13)
+        Me.lblTotalAutomatedResponses.TabIndex = 1
+        Me.lblTotalAutomatedResponses.Text = "Total Automated Responses"
         '
-        'btnAddNewTarget
+        'lstAlertSourceBreakdown
         '
-        Me.btnAddNewTarget.Location = New System.Drawing.Point(142, 25)
-        Me.btnAddNewTarget.Name = "btnAddNewTarget"
-        Me.btnAddNewTarget.Size = New System.Drawing.Size(75, 23)
-        Me.btnAddNewTarget.TabIndex = 2
-        Me.btnAddNewTarget.Text = "Add"
-        Me.btnAddNewTarget.UseVisualStyleBackColor = True
+        Me.lstAlertSourceBreakdown.FormattingEnabled = True
+        Me.lstAlertSourceBreakdown.Location = New System.Drawing.Point(15, 76)
+        Me.lstAlertSourceBreakdown.Name = "lstAlertSourceBreakdown"
+        Me.lstAlertSourceBreakdown.Size = New System.Drawing.Size(120, 95)
+        Me.lstAlertSourceBreakdown.TabIndex = 2
         '
-        'btnRemoveSelectedTargets
+        'Label18
         '
-        Me.btnRemoveSelectedTargets.Location = New System.Drawing.Point(142, 125)
-        Me.btnRemoveSelectedTargets.Name = "btnRemoveSelectedTargets"
-        Me.btnRemoveSelectedTargets.Size = New System.Drawing.Size(131, 23)
-        Me.btnRemoveSelectedTargets.TabIndex = 3
-        Me.btnRemoveSelectedTargets.Text = "Remove Checked"
-        Me.btnRemoveSelectedTargets.UseVisualStyleBackColor = True
-        '
-        'lstTargets
-        '
-        Me.lstTargets.FormattingEnabled = True
-        Me.lstTargets.Location = New System.Drawing.Point(6, 53)
-        Me.lstTargets.Name = "lstTargets"
-        Me.lstTargets.Size = New System.Drawing.Size(120, 94)
-        Me.lstTargets.TabIndex = 4
-        '
-        'comboJobAction
-        '
-        Me.comboJobAction.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.comboJobAction.FormattingEnabled = True
-        Me.comboJobAction.Location = New System.Drawing.Point(106, 102)
-        Me.comboJobAction.Name = "comboJobAction"
-        Me.comboJobAction.Size = New System.Drawing.Size(158, 21)
-        Me.comboJobAction.TabIndex = 13
-        '
-        'Label17
-        '
-        Me.Label17.AutoSize = True
-        Me.Label17.Location = New System.Drawing.Point(24, 105)
-        Me.Label17.Name = "Label17"
-        Me.Label17.Size = New System.Drawing.Size(60, 13)
-        Me.Label17.TabIndex = 12
-        Me.Label17.Text = "Job Action:"
+        Me.Label18.AutoSize = True
+        Me.Label18.Location = New System.Drawing.Point(12, 60)
+        Me.Label18.Name = "Label18"
+        Me.Label18.Size = New System.Drawing.Size(122, 13)
+        Me.Label18.TabIndex = 3
+        Me.Label18.Text = "Alert Source Breakdown"
         '
         'Form1
         '
@@ -721,7 +777,7 @@ Partial Class Form1
         Me.ClientSize = New System.Drawing.Size(947, 729)
         Me.Controls.Add(Me.tabTopMenu)
         Me.Name = "Form1"
-        Me.Text = "R1 RestAPI Test"
+        Me.Text = "W"
         CType(Me.dgvprojects, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dgvprojectjobs, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tabTopMenu.ResumeLayout(False)
@@ -737,10 +793,12 @@ Partial Class Form1
         CType(Me.dgvProjectReports, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tabCreateJob.ResumeLayout(False)
         Me.tabCreateJob.PerformLayout()
-        Me.GroupBox1.ResumeLayout(False)
-        Me.GroupBox1.PerformLayout()
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
+        Me.tabAlerts.ResumeLayout(False)
+        Me.tabAlerts.PerformLayout()
+        Me.GroupBox1.ResumeLayout(False)
+        Me.GroupBox1.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -809,5 +867,10 @@ Partial Class Form1
     Friend WithEvents lstTargets As System.Windows.Forms.CheckedListBox
     Friend WithEvents comboJobAction As System.Windows.Forms.ComboBox
     Friend WithEvents Label17 As System.Windows.Forms.Label
+    Friend WithEvents tabAlerts As System.Windows.Forms.TabPage
+    Friend WithEvents lblTotalResponses As System.Windows.Forms.Label
+    Friend WithEvents lblTotalAutomatedResponses As System.Windows.Forms.Label
+    Friend WithEvents lstAlertSourceBreakdown As System.Windows.Forms.ListBox
+    Friend WithEvents Label18 As System.Windows.Forms.Label
 
 End Class
