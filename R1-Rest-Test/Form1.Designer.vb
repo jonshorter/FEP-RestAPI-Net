@@ -23,10 +23,12 @@ Partial Class Form1
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.btnRefreshProjectList = New System.Windows.Forms.Button()
-        Me.Button3 = New System.Windows.Forms.Button()
-        Me.Button5 = New System.Windows.Forms.Button()
-        Me.txtProjectDelete = New System.Windows.Forms.TextBox()
+        Me.btnJobCreate = New System.Windows.Forms.Button()
         Me.dgvprojects = New System.Windows.Forms.DataGridView()
+        Me.projectname = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ftkcaseid = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colDelete = New System.Windows.Forms.DataGridViewButtonColumn()
+        Me.colCreateJob = New System.Windows.Forms.DataGridViewButtonColumn()
         Me.dgvprojectjobs = New System.Windows.Forms.DataGridView()
         Me.jobname = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.status = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -63,6 +65,8 @@ Partial Class Form1
         Me.Label10 = New System.Windows.Forms.Label()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.tabCreateJob = New System.Windows.Forms.TabPage()
+        Me.Label16 = New System.Windows.Forms.Label()
+        Me.txtProjectID = New System.Windows.Forms.TextBox()
         Me.comboJobType = New System.Windows.Forms.ComboBox()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.Label7 = New System.Windows.Forms.Label()
@@ -76,14 +80,13 @@ Partial Class Form1
         Me.Label4 = New System.Windows.Forms.Label()
         Me.txtapicallpostjson = New System.Windows.Forms.TextBox()
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
-        Me.statconnection = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.btnConnect = New System.Windows.Forms.Button()
-        Me.Label16 = New System.Windows.Forms.Label()
-        Me.txtProjectID = New System.Windows.Forms.TextBox()
-        Me.projectname = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ftkcaseid = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colDelete = New System.Windows.Forms.DataGridViewButtonColumn()
-        Me.colCreateJob = New System.Windows.Forms.DataGridViewButtonColumn()
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.txtNewTarget = New System.Windows.Forms.TextBox()
+        Me.btnAddNewTarget = New System.Windows.Forms.Button()
+        Me.btnRemoveSelectedTargets = New System.Windows.Forms.Button()
+        Me.lstTargets = New System.Windows.Forms.CheckedListBox()
+        Me.comboJobAction = New System.Windows.Forms.ComboBox()
+        Me.Label17 = New System.Windows.Forms.Label()
         CType(Me.dgvprojects, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvprojectjobs, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabTopMenu.SuspendLayout()
@@ -95,7 +98,7 @@ Partial Class Form1
         CType(Me.dgvProjectReports, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabCreateJob.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
-        Me.StatusStrip1.SuspendLayout()
+        Me.GroupBox2.SuspendLayout()
         Me.SuspendLayout()
         '
         'btnRefreshProjectList
@@ -107,31 +110,14 @@ Partial Class Form1
         Me.btnRefreshProjectList.Text = "Refresh Project List"
         Me.btnRefreshProjectList.UseVisualStyleBackColor = True
         '
-        'Button3
+        'btnJobCreate
         '
-        Me.Button3.Location = New System.Drawing.Point(6, 425)
-        Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(75, 24)
-        Me.Button3.TabIndex = 2
-        Me.Button3.Text = "Delete"
-        Me.Button3.UseVisualStyleBackColor = True
-        '
-        'Button5
-        '
-        Me.Button5.Location = New System.Drawing.Point(27, 154)
-        Me.Button5.Name = "Button5"
-        Me.Button5.Size = New System.Drawing.Size(96, 28)
-        Me.Button5.TabIndex = 4
-        Me.Button5.Text = "Jobs Put"
-        Me.Button5.UseVisualStyleBackColor = True
-        '
-        'txtProjectDelete
-        '
-        Me.txtProjectDelete.Location = New System.Drawing.Point(87, 427)
-        Me.txtProjectDelete.Name = "txtProjectDelete"
-        Me.txtProjectDelete.Size = New System.Drawing.Size(76, 20)
-        Me.txtProjectDelete.TabIndex = 7
-        Me.txtProjectDelete.Text = "FTKCASEID"
+        Me.btnJobCreate.Location = New System.Drawing.Point(250, 327)
+        Me.btnJobCreate.Name = "btnJobCreate"
+        Me.btnJobCreate.Size = New System.Drawing.Size(96, 28)
+        Me.btnJobCreate.TabIndex = 4
+        Me.btnJobCreate.Text = "Create Job"
+        Me.btnJobCreate.UseVisualStyleBackColor = True
         '
         'dgvprojects
         '
@@ -145,6 +131,38 @@ Partial Class Form1
         Me.dgvprojects.RowHeadersVisible = False
         Me.dgvprojects.Size = New System.Drawing.Size(324, 151)
         Me.dgvprojects.TabIndex = 8
+        '
+        'projectname
+        '
+        Me.projectname.HeaderText = "Project"
+        Me.projectname.Name = "projectname"
+        Me.projectname.ReadOnly = True
+        '
+        'ftkcaseid
+        '
+        Me.ftkcaseid.FillWeight = 20.0!
+        Me.ftkcaseid.HeaderText = "FTKCaseID"
+        Me.ftkcaseid.Name = "ftkcaseid"
+        Me.ftkcaseid.ReadOnly = True
+        Me.ftkcaseid.Width = 65
+        '
+        'colDelete
+        '
+        Me.colDelete.FillWeight = 5.0!
+        Me.colDelete.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.colDelete.HeaderText = "Delete"
+        Me.colDelete.Name = "colDelete"
+        Me.colDelete.ReadOnly = True
+        Me.colDelete.ToolTipText = "Delete Project"
+        Me.colDelete.Width = 45
+        '
+        'colCreateJob
+        '
+        Me.colCreateJob.FillWeight = 20.0!
+        Me.colCreateJob.HeaderText = "Create Job"
+        Me.colCreateJob.Name = "colCreateJob"
+        Me.colCreateJob.ReadOnly = True
+        Me.colCreateJob.Width = 75
         '
         'dgvprojectjobs
         '
@@ -273,7 +291,6 @@ Partial Class Form1
         Me.tabTesting.Controls.Add(Me.tabBottomMenu)
         Me.tabTesting.Controls.Add(Me.GroupBox1)
         Me.tabTesting.Controls.Add(Me.StatusStrip1)
-        Me.tabTesting.Controls.Add(Me.btnConnect)
         Me.tabTesting.Location = New System.Drawing.Point(4, 25)
         Me.tabTesting.Name = "tabTesting"
         Me.tabTesting.Padding = New System.Windows.Forms.Padding(3)
@@ -287,7 +304,7 @@ Partial Class Form1
         Me.tabBottomMenu.Controls.Add(Me.tabCreateProject)
         Me.tabBottomMenu.Controls.Add(Me.tabProjects)
         Me.tabBottomMenu.Controls.Add(Me.tabCreateJob)
-        Me.tabBottomMenu.Location = New System.Drawing.Point(22, 144)
+        Me.tabBottomMenu.Location = New System.Drawing.Point(8, 112)
         Me.tabBottomMenu.Name = "tabBottomMenu"
         Me.tabBottomMenu.SelectedIndex = 0
         Me.tabBottomMenu.Size = New System.Drawing.Size(873, 519)
@@ -399,8 +416,6 @@ Partial Class Form1
         Me.tabProjects.Controls.Add(Me.btnRefreshProjectList)
         Me.tabProjects.Controls.Add(Me.dgvprojects)
         Me.tabProjects.Controls.Add(Me.dgvprojectjobs)
-        Me.tabProjects.Controls.Add(Me.Button3)
-        Me.tabProjects.Controls.Add(Me.txtProjectDelete)
         Me.tabProjects.Location = New System.Drawing.Point(4, 22)
         Me.tabProjects.Name = "tabProjects"
         Me.tabProjects.Padding = New System.Windows.Forms.Padding(3)
@@ -482,13 +497,16 @@ Partial Class Form1
         '
         'tabCreateJob
         '
+        Me.tabCreateJob.Controls.Add(Me.comboJobAction)
+        Me.tabCreateJob.Controls.Add(Me.Label17)
+        Me.tabCreateJob.Controls.Add(Me.GroupBox2)
         Me.tabCreateJob.Controls.Add(Me.Label16)
         Me.tabCreateJob.Controls.Add(Me.txtProjectID)
         Me.tabCreateJob.Controls.Add(Me.comboJobType)
         Me.tabCreateJob.Controls.Add(Me.Label8)
         Me.tabCreateJob.Controls.Add(Me.Label7)
         Me.tabCreateJob.Controls.Add(Me.txtJobName)
-        Me.tabCreateJob.Controls.Add(Me.Button5)
+        Me.tabCreateJob.Controls.Add(Me.btnJobCreate)
         Me.tabCreateJob.Location = New System.Drawing.Point(4, 22)
         Me.tabCreateJob.Name = "tabCreateJob"
         Me.tabCreateJob.Padding = New System.Windows.Forms.Padding(3)
@@ -496,6 +514,22 @@ Partial Class Form1
         Me.tabCreateJob.TabIndex = 1
         Me.tabCreateJob.Text = "Create Job"
         Me.tabCreateJob.UseVisualStyleBackColor = True
+        '
+        'Label16
+        '
+        Me.Label16.AutoSize = True
+        Me.Label16.Location = New System.Drawing.Point(24, 9)
+        Me.Label16.Name = "Label16"
+        Me.Label16.Size = New System.Drawing.Size(57, 13)
+        Me.Label16.TabIndex = 10
+        Me.Label16.Text = "Project ID:"
+        '
+        'txtProjectID
+        '
+        Me.txtProjectID.Location = New System.Drawing.Point(106, 6)
+        Me.txtProjectID.Name = "txtProjectID"
+        Me.txtProjectID.Size = New System.Drawing.Size(158, 20)
+        Me.txtProjectID.TabIndex = 9
         '
         'comboJobType
         '
@@ -610,75 +644,75 @@ Partial Class Form1
         'StatusStrip1
         '
         Me.StatusStrip1.BackColor = System.Drawing.SystemColors.Control
-        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.statconnection})
         Me.StatusStrip1.Location = New System.Drawing.Point(3, 675)
         Me.StatusStrip1.Name = "StatusStrip1"
         Me.StatusStrip1.Size = New System.Drawing.Size(933, 22)
         Me.StatusStrip1.TabIndex = 15
         Me.StatusStrip1.Text = "StatusStrip1"
         '
-        'statconnection
+        'GroupBox2
         '
-        Me.statconnection.Name = "statconnection"
-        Me.statconnection.Size = New System.Drawing.Size(88, 17)
-        Me.statconnection.Text = "Not Connected"
+        Me.GroupBox2.Controls.Add(Me.lstTargets)
+        Me.GroupBox2.Controls.Add(Me.btnRemoveSelectedTargets)
+        Me.GroupBox2.Controls.Add(Me.btnAddNewTarget)
+        Me.GroupBox2.Controls.Add(Me.txtNewTarget)
+        Me.GroupBox2.Location = New System.Drawing.Point(26, 155)
+        Me.GroupBox2.Name = "GroupBox2"
+        Me.GroupBox2.Size = New System.Drawing.Size(320, 154)
+        Me.GroupBox2.TabIndex = 11
+        Me.GroupBox2.TabStop = False
+        Me.GroupBox2.Text = "Targets"
         '
-        'btnConnect
+        'txtNewTarget
         '
-        Me.btnConnect.Location = New System.Drawing.Point(26, 112)
-        Me.btnConnect.Name = "btnConnect"
-        Me.btnConnect.Size = New System.Drawing.Size(75, 23)
-        Me.btnConnect.TabIndex = 14
-        Me.btnConnect.Text = "Connect"
-        Me.btnConnect.UseVisualStyleBackColor = True
+        Me.txtNewTarget.Location = New System.Drawing.Point(6, 27)
+        Me.txtNewTarget.Name = "txtNewTarget"
+        Me.txtNewTarget.Size = New System.Drawing.Size(120, 20)
+        Me.txtNewTarget.TabIndex = 1
         '
-        'Label16
+        'btnAddNewTarget
         '
-        Me.Label16.AutoSize = True
-        Me.Label16.Location = New System.Drawing.Point(24, 9)
-        Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(57, 13)
-        Me.Label16.TabIndex = 10
-        Me.Label16.Text = "Project ID:"
+        Me.btnAddNewTarget.Location = New System.Drawing.Point(142, 25)
+        Me.btnAddNewTarget.Name = "btnAddNewTarget"
+        Me.btnAddNewTarget.Size = New System.Drawing.Size(75, 23)
+        Me.btnAddNewTarget.TabIndex = 2
+        Me.btnAddNewTarget.Text = "Add"
+        Me.btnAddNewTarget.UseVisualStyleBackColor = True
         '
-        'txtProjectID
+        'btnRemoveSelectedTargets
         '
-        Me.txtProjectID.Location = New System.Drawing.Point(106, 6)
-        Me.txtProjectID.Name = "txtProjectID"
-        Me.txtProjectID.Size = New System.Drawing.Size(158, 20)
-        Me.txtProjectID.TabIndex = 9
+        Me.btnRemoveSelectedTargets.Location = New System.Drawing.Point(142, 125)
+        Me.btnRemoveSelectedTargets.Name = "btnRemoveSelectedTargets"
+        Me.btnRemoveSelectedTargets.Size = New System.Drawing.Size(131, 23)
+        Me.btnRemoveSelectedTargets.TabIndex = 3
+        Me.btnRemoveSelectedTargets.Text = "Remove Checked"
+        Me.btnRemoveSelectedTargets.UseVisualStyleBackColor = True
         '
-        'projectname
+        'lstTargets
         '
-        Me.projectname.HeaderText = "Project"
-        Me.projectname.Name = "projectname"
-        Me.projectname.ReadOnly = True
+        Me.lstTargets.FormattingEnabled = True
+        Me.lstTargets.Location = New System.Drawing.Point(6, 53)
+        Me.lstTargets.Name = "lstTargets"
+        Me.lstTargets.Size = New System.Drawing.Size(120, 94)
+        Me.lstTargets.TabIndex = 4
         '
-        'ftkcaseid
+        'comboJobAction
         '
-        Me.ftkcaseid.FillWeight = 20.0!
-        Me.ftkcaseid.HeaderText = "FTKCaseID"
-        Me.ftkcaseid.Name = "ftkcaseid"
-        Me.ftkcaseid.ReadOnly = True
-        Me.ftkcaseid.Width = 65
+        Me.comboJobAction.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.comboJobAction.FormattingEnabled = True
+        Me.comboJobAction.Location = New System.Drawing.Point(106, 102)
+        Me.comboJobAction.Name = "comboJobAction"
+        Me.comboJobAction.Size = New System.Drawing.Size(158, 21)
+        Me.comboJobAction.TabIndex = 13
         '
-        'colDelete
+        'Label17
         '
-        Me.colDelete.FillWeight = 5.0!
-        Me.colDelete.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.colDelete.HeaderText = "Delete"
-        Me.colDelete.Name = "colDelete"
-        Me.colDelete.ReadOnly = True
-        Me.colDelete.ToolTipText = "Delete Project"
-        Me.colDelete.Width = 45
-        '
-        'colCreateJob
-        '
-        Me.colCreateJob.FillWeight = 20.0!
-        Me.colCreateJob.HeaderText = "Create Job"
-        Me.colCreateJob.Name = "colCreateJob"
-        Me.colCreateJob.ReadOnly = True
-        Me.colCreateJob.Width = 75
+        Me.Label17.AutoSize = True
+        Me.Label17.Location = New System.Drawing.Point(24, 105)
+        Me.Label17.Name = "Label17"
+        Me.Label17.Size = New System.Drawing.Size(60, 13)
+        Me.Label17.TabIndex = 12
+        Me.Label17.Text = "Job Action:"
         '
         'Form1
         '
@@ -705,15 +739,13 @@ Partial Class Form1
         Me.tabCreateJob.PerformLayout()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
-        Me.StatusStrip1.ResumeLayout(False)
-        Me.StatusStrip1.PerformLayout()
+        Me.GroupBox2.ResumeLayout(False)
+        Me.GroupBox2.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
     Friend WithEvents btnRefreshProjectList As System.Windows.Forms.Button
-    Friend WithEvents Button3 As System.Windows.Forms.Button
-    Friend WithEvents Button5 As System.Windows.Forms.Button
-    Friend WithEvents txtProjectDelete As System.Windows.Forms.TextBox
+    Friend WithEvents btnJobCreate As System.Windows.Forms.Button
     Friend WithEvents dgvprojects As System.Windows.Forms.DataGridView
     Friend WithEvents dgvprojectjobs As System.Windows.Forms.DataGridView
     Friend WithEvents jobname As System.Windows.Forms.DataGridViewTextBoxColumn
@@ -728,10 +760,8 @@ Partial Class Form1
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents txtServer As System.Windows.Forms.TextBox
     Friend WithEvents btnSaveSettings As System.Windows.Forms.Button
-    Friend WithEvents btnConnect As System.Windows.Forms.Button
     Friend WithEvents lblStatusSettings As System.Windows.Forms.Label
     Friend WithEvents StatusStrip1 As System.Windows.Forms.StatusStrip
-    Friend WithEvents statconnection As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents btnAPICallCustom As System.Windows.Forms.Button
     Friend WithEvents txtapicallpath As System.Windows.Forms.TextBox
     Friend WithEvents txtapicallpostjson As System.Windows.Forms.TextBox
@@ -772,5 +802,12 @@ Partial Class Form1
     Friend WithEvents ftkcaseid As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents colDelete As System.Windows.Forms.DataGridViewButtonColumn
     Friend WithEvents colCreateJob As System.Windows.Forms.DataGridViewButtonColumn
+    Friend WithEvents GroupBox2 As System.Windows.Forms.GroupBox
+    Friend WithEvents btnRemoveSelectedTargets As System.Windows.Forms.Button
+    Friend WithEvents btnAddNewTarget As System.Windows.Forms.Button
+    Friend WithEvents txtNewTarget As System.Windows.Forms.TextBox
+    Friend WithEvents lstTargets As System.Windows.Forms.CheckedListBox
+    Friend WithEvents comboJobAction As System.Windows.Forms.ComboBox
+    Friend WithEvents Label17 As System.Windows.Forms.Label
 
 End Class
