@@ -22,6 +22,7 @@ Partial Class Form1
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.btnRefreshProjectList = New System.Windows.Forms.Button()
         Me.btnJobCreate = New System.Windows.Forms.Button()
         Me.dgvprojects = New System.Windows.Forms.DataGridView()
@@ -31,7 +32,9 @@ Partial Class Form1
         Me.colCreateJob = New System.Windows.Forms.DataGridViewButtonColumn()
         Me.dgvprojectjobs = New System.Windows.Forms.DataGridView()
         Me.jobname = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colJobType = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.status = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colJobID = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.tabTopMenu = New System.Windows.Forms.TabControl()
         Me.tabSettings = New System.Windows.Forms.TabPage()
         Me.lblStatusSettings = New System.Windows.Forms.Label()
@@ -55,13 +58,15 @@ Partial Class Form1
         Me.btnCreateProject = New System.Windows.Forms.Button()
         Me.txtProjectName = New System.Windows.Forms.TextBox()
         Me.tabProjects = New System.Windows.Forms.TabPage()
+        Me.Label19 = New System.Windows.Forms.Label()
+        Me.dgvprojectjobreports = New System.Windows.Forms.DataGridView()
+        Me.DataGridViewTextBoxColumn3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn5 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewLinkColumn1 = New System.Windows.Forms.DataGridViewLinkColumn()
+        Me.DataGridViewTextBoxColumn6 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.dgvProjectReports = New System.Windows.Forms.DataGridView()
-        Me.DataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colStatus = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.colLink = New System.Windows.Forms.DataGridViewLinkColumn()
-        Me.colrptid = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.tabCreateJob = New System.Windows.Forms.TabPage()
@@ -79,6 +84,10 @@ Partial Class Form1
         Me.Label7 = New System.Windows.Forms.Label()
         Me.txtJobName = New System.Windows.Forms.TextBox()
         Me.tabAlerts = New System.Windows.Forms.TabPage()
+        Me.Label18 = New System.Windows.Forms.Label()
+        Me.lstAlertSourceBreakdown = New System.Windows.Forms.ListBox()
+        Me.lblTotalAutomatedResponses = New System.Windows.Forms.Label()
+        Me.lblTotalResponses = New System.Windows.Forms.Label()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.btnAPICallCustom = New System.Windows.Forms.Button()
         Me.Label6 = New System.Windows.Forms.Label()
@@ -88,10 +97,15 @@ Partial Class Form1
         Me.Label4 = New System.Windows.Forms.Label()
         Me.txtapicallpostjson = New System.Windows.Forms.TextBox()
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
-        Me.lblTotalResponses = New System.Windows.Forms.Label()
-        Me.lblTotalAutomatedResponses = New System.Windows.Forms.Label()
-        Me.lstAlertSourceBreakdown = New System.Windows.Forms.ListBox()
-        Me.Label18 = New System.Windows.Forms.Label()
+        Me.Label20 = New System.Windows.Forms.Label()
+        Me.txtProjectDescription = New System.Windows.Forms.TextBox()
+        Me.pgProject = New System.Windows.Forms.PropertyGrid()
+        Me.Label21 = New System.Windows.Forms.Label()
+        Me.DataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colStatus = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.colLink = New System.Windows.Forms.DataGridViewLinkColumn()
+        Me.colrptid = New System.Windows.Forms.DataGridViewTextBoxColumn()
         CType(Me.dgvprojects, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvprojectjobs, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabTopMenu.SuspendLayout()
@@ -100,6 +114,7 @@ Partial Class Form1
         Me.tabBottomMenu.SuspendLayout()
         Me.tabCreateProject.SuspendLayout()
         Me.tabProjects.SuspendLayout()
+        CType(Me.dgvprojectjobreports, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvProjectReports, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabCreateJob.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
@@ -154,6 +169,9 @@ Partial Class Form1
         '
         'colDelete
         '
+        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle7.BackColor = System.Drawing.Color.Red
+        Me.colDelete.DefaultCellStyle = DataGridViewCellStyle7
         Me.colDelete.FillWeight = 5.0!
         Me.colDelete.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.colDelete.HeaderText = "Delete"
@@ -175,7 +193,7 @@ Partial Class Form1
         Me.dgvprojectjobs.AllowUserToAddRows = False
         Me.dgvprojectjobs.AllowUserToDeleteRows = False
         Me.dgvprojectjobs.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvprojectjobs.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.jobname, Me.status})
+        Me.dgvprojectjobs.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.jobname, Me.colJobType, Me.status, Me.colJobID})
         Me.dgvprojectjobs.Location = New System.Drawing.Point(9, 219)
         Me.dgvprojectjobs.Name = "dgvprojectjobs"
         Me.dgvprojectjobs.ReadOnly = True
@@ -189,11 +207,23 @@ Partial Class Form1
         Me.jobname.Name = "jobname"
         Me.jobname.ReadOnly = True
         '
+        'colJobType
+        '
+        Me.colJobType.HeaderText = "Job Type"
+        Me.colJobType.Name = "colJobType"
+        Me.colJobType.ReadOnly = True
+        '
         'status
         '
         Me.status.HeaderText = "Job Status"
         Me.status.Name = "status"
         Me.status.ReadOnly = True
+        '
+        'colJobID
+        '
+        Me.colJobID.HeaderText = "JobID"
+        Me.colJobID.Name = "colJobID"
+        Me.colJobID.ReadOnly = True
         '
         'tabTopMenu
         '
@@ -314,11 +344,13 @@ Partial Class Form1
         Me.tabBottomMenu.Location = New System.Drawing.Point(8, 112)
         Me.tabBottomMenu.Name = "tabBottomMenu"
         Me.tabBottomMenu.SelectedIndex = 0
-        Me.tabBottomMenu.Size = New System.Drawing.Size(873, 519)
+        Me.tabBottomMenu.Size = New System.Drawing.Size(873, 592)
         Me.tabBottomMenu.TabIndex = 24
         '
         'tabCreateProject
         '
+        Me.tabCreateProject.Controls.Add(Me.txtProjectDescription)
+        Me.tabCreateProject.Controls.Add(Me.Label20)
         Me.tabCreateProject.Controls.Add(Me.Label15)
         Me.tabCreateProject.Controls.Add(Me.cmbProjectProcessingMode)
         Me.tabCreateProject.Controls.Add(Me.Label14)
@@ -339,7 +371,7 @@ Partial Class Form1
         'Label15
         '
         Me.Label15.AutoSize = True
-        Me.Label15.Location = New System.Drawing.Point(6, 87)
+        Me.Label15.Location = New System.Drawing.Point(361, 61)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(92, 13)
         Me.Label15.TabIndex = 15
@@ -349,7 +381,7 @@ Partial Class Form1
         '
         Me.cmbProjectProcessingMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbProjectProcessingMode.FormattingEnabled = True
-        Me.cmbProjectProcessingMode.Location = New System.Drawing.Point(127, 84)
+        Me.cmbProjectProcessingMode.Location = New System.Drawing.Point(482, 58)
         Me.cmbProjectProcessingMode.Name = "cmbProjectProcessingMode"
         Me.cmbProjectProcessingMode.Size = New System.Drawing.Size(228, 21)
         Me.cmbProjectProcessingMode.TabIndex = 14
@@ -357,7 +389,7 @@ Partial Class Form1
         'Label14
         '
         Me.Label14.AutoSize = True
-        Me.Label14.Location = New System.Drawing.Point(6, 61)
+        Me.Label14.Location = New System.Drawing.Point(361, 35)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(117, 13)
         Me.Label14.TabIndex = 13
@@ -365,7 +397,7 @@ Partial Class Form1
         '
         'txtProjectJobDataFolder
         '
-        Me.txtProjectJobDataFolder.Location = New System.Drawing.Point(127, 58)
+        Me.txtProjectJobDataFolder.Location = New System.Drawing.Point(482, 32)
         Me.txtProjectJobDataFolder.Name = "txtProjectJobDataFolder"
         Me.txtProjectJobDataFolder.Size = New System.Drawing.Size(228, 20)
         Me.txtProjectJobDataFolder.TabIndex = 12
@@ -374,7 +406,7 @@ Partial Class Form1
         'Label13
         '
         Me.Label13.AutoSize = True
-        Me.Label13.Location = New System.Drawing.Point(6, 35)
+        Me.Label13.Location = New System.Drawing.Point(361, 9)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(107, 13)
         Me.Label13.TabIndex = 11
@@ -382,7 +414,7 @@ Partial Class Form1
         '
         'txtProjectCaseFolder
         '
-        Me.txtProjectCaseFolder.Location = New System.Drawing.Point(127, 32)
+        Me.txtProjectCaseFolder.Location = New System.Drawing.Point(482, 6)
         Me.txtProjectCaseFolder.Name = "txtProjectCaseFolder"
         Me.txtProjectCaseFolder.Size = New System.Drawing.Size(228, 20)
         Me.txtProjectCaseFolder.TabIndex = 10
@@ -399,7 +431,7 @@ Partial Class Form1
         '
         'btnCreateProject
         '
-        Me.btnCreateProject.Location = New System.Drawing.Point(216, 127)
+        Me.btnCreateProject.Location = New System.Drawing.Point(571, 106)
         Me.btnCreateProject.Name = "btnCreateProject"
         Me.btnCreateProject.Size = New System.Drawing.Size(139, 24)
         Me.btnCreateProject.TabIndex = 7
@@ -416,6 +448,10 @@ Partial Class Form1
         '
         'tabProjects
         '
+        Me.tabProjects.Controls.Add(Me.Label21)
+        Me.tabProjects.Controls.Add(Me.pgProject)
+        Me.tabProjects.Controls.Add(Me.Label19)
+        Me.tabProjects.Controls.Add(Me.dgvprojectjobreports)
         Me.tabProjects.Controls.Add(Me.Label11)
         Me.tabProjects.Controls.Add(Me.dgvProjectReports)
         Me.tabProjects.Controls.Add(Me.Label10)
@@ -426,19 +462,74 @@ Partial Class Form1
         Me.tabProjects.Location = New System.Drawing.Point(4, 22)
         Me.tabProjects.Name = "tabProjects"
         Me.tabProjects.Padding = New System.Windows.Forms.Padding(3)
-        Me.tabProjects.Size = New System.Drawing.Size(865, 493)
+        Me.tabProjects.Size = New System.Drawing.Size(865, 566)
         Me.tabProjects.TabIndex = 0
         Me.tabProjects.Text = "Projects"
         Me.tabProjects.UseVisualStyleBackColor = True
         '
+        'Label19
+        '
+        Me.Label19.AutoSize = True
+        Me.Label19.Location = New System.Drawing.Point(801, 495)
+        Me.Label19.Name = "Label19"
+        Me.Label19.Size = New System.Drawing.Size(64, 13)
+        Me.Label19.TabIndex = 15
+        Me.Label19.Text = "Job Reports"
+        Me.Label19.Visible = False
+        '
+        'dgvprojectjobreports
+        '
+        Me.dgvprojectjobreports.AllowUserToAddRows = False
+        Me.dgvprojectjobreports.AllowUserToDeleteRows = False
+        Me.dgvprojectjobreports.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvprojectjobreports.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn3, Me.DataGridViewTextBoxColumn4, Me.DataGridViewTextBoxColumn5, Me.DataGridViewLinkColumn1, Me.DataGridViewTextBoxColumn6})
+        Me.dgvprojectjobreports.Location = New System.Drawing.Point(804, 511)
+        Me.dgvprojectjobreports.Name = "dgvprojectjobreports"
+        Me.dgvprojectjobreports.ReadOnly = True
+        Me.dgvprojectjobreports.RowHeadersVisible = False
+        Me.dgvprojectjobreports.Size = New System.Drawing.Size(48, 47)
+        Me.dgvprojectjobreports.TabIndex = 14
+        Me.dgvprojectjobreports.Visible = False
+        '
+        'DataGridViewTextBoxColumn3
+        '
+        Me.DataGridViewTextBoxColumn3.HeaderText = "Name"
+        Me.DataGridViewTextBoxColumn3.Name = "DataGridViewTextBoxColumn3"
+        Me.DataGridViewTextBoxColumn3.ReadOnly = True
+        '
+        'DataGridViewTextBoxColumn4
+        '
+        Me.DataGridViewTextBoxColumn4.HeaderText = "Type"
+        Me.DataGridViewTextBoxColumn4.Name = "DataGridViewTextBoxColumn4"
+        Me.DataGridViewTextBoxColumn4.ReadOnly = True
+        '
+        'DataGridViewTextBoxColumn5
+        '
+        Me.DataGridViewTextBoxColumn5.HeaderText = "Status"
+        Me.DataGridViewTextBoxColumn5.Name = "DataGridViewTextBoxColumn5"
+        Me.DataGridViewTextBoxColumn5.ReadOnly = True
+        '
+        'DataGridViewLinkColumn1
+        '
+        Me.DataGridViewLinkColumn1.HeaderText = "Link"
+        Me.DataGridViewLinkColumn1.Name = "DataGridViewLinkColumn1"
+        Me.DataGridViewLinkColumn1.ReadOnly = True
+        '
+        'DataGridViewTextBoxColumn6
+        '
+        Me.DataGridViewTextBoxColumn6.HeaderText = "ReportID"
+        Me.DataGridViewTextBoxColumn6.Name = "DataGridViewTextBoxColumn6"
+        Me.DataGridViewTextBoxColumn6.ReadOnly = True
+        Me.DataGridViewTextBoxColumn6.Visible = False
+        '
         'Label11
         '
         Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(336, 34)
+        Me.Label11.Location = New System.Drawing.Point(6, 373)
         Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(44, 13)
+        Me.Label11.Size = New System.Drawing.Size(80, 13)
         Me.Label11.TabIndex = 13
-        Me.Label11.Text = "Reports"
+        Me.Label11.Text = "Project Reports"
         '
         'dgvProjectReports
         '
@@ -446,43 +537,12 @@ Partial Class Form1
         Me.dgvProjectReports.AllowUserToDeleteRows = False
         Me.dgvProjectReports.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvProjectReports.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn1, Me.DataGridViewTextBoxColumn2, Me.colStatus, Me.colLink, Me.colrptid})
-        Me.dgvProjectReports.Location = New System.Drawing.Point(339, 50)
+        Me.dgvProjectReports.Location = New System.Drawing.Point(9, 389)
         Me.dgvProjectReports.Name = "dgvProjectReports"
         Me.dgvProjectReports.ReadOnly = True
         Me.dgvProjectReports.RowHeadersVisible = False
-        Me.dgvProjectReports.Size = New System.Drawing.Size(459, 151)
+        Me.dgvProjectReports.Size = New System.Drawing.Size(324, 151)
         Me.dgvProjectReports.TabIndex = 12
-        '
-        'DataGridViewTextBoxColumn1
-        '
-        Me.DataGridViewTextBoxColumn1.HeaderText = "Name"
-        Me.DataGridViewTextBoxColumn1.Name = "DataGridViewTextBoxColumn1"
-        Me.DataGridViewTextBoxColumn1.ReadOnly = True
-        '
-        'DataGridViewTextBoxColumn2
-        '
-        Me.DataGridViewTextBoxColumn2.HeaderText = "Type"
-        Me.DataGridViewTextBoxColumn2.Name = "DataGridViewTextBoxColumn2"
-        Me.DataGridViewTextBoxColumn2.ReadOnly = True
-        '
-        'colStatus
-        '
-        Me.colStatus.HeaderText = "Status"
-        Me.colStatus.Name = "colStatus"
-        Me.colStatus.ReadOnly = True
-        '
-        'colLink
-        '
-        Me.colLink.HeaderText = "Link"
-        Me.colLink.Name = "colLink"
-        Me.colLink.ReadOnly = True
-        '
-        'colrptid
-        '
-        Me.colrptid.HeaderText = "ReportID"
-        Me.colrptid.Name = "colrptid"
-        Me.colrptid.ReadOnly = True
-        Me.colrptid.Visible = False
         '
         'Label10
         '
@@ -650,6 +710,41 @@ Partial Class Form1
         Me.tabAlerts.Text = "Alerts"
         Me.tabAlerts.UseVisualStyleBackColor = True
         '
+        'Label18
+        '
+        Me.Label18.AutoSize = True
+        Me.Label18.Location = New System.Drawing.Point(12, 60)
+        Me.Label18.Name = "Label18"
+        Me.Label18.Size = New System.Drawing.Size(122, 13)
+        Me.Label18.TabIndex = 3
+        Me.Label18.Text = "Alert Source Breakdown"
+        '
+        'lstAlertSourceBreakdown
+        '
+        Me.lstAlertSourceBreakdown.FormattingEnabled = True
+        Me.lstAlertSourceBreakdown.Location = New System.Drawing.Point(15, 76)
+        Me.lstAlertSourceBreakdown.Name = "lstAlertSourceBreakdown"
+        Me.lstAlertSourceBreakdown.Size = New System.Drawing.Size(120, 95)
+        Me.lstAlertSourceBreakdown.TabIndex = 2
+        '
+        'lblTotalAutomatedResponses
+        '
+        Me.lblTotalAutomatedResponses.AutoSize = True
+        Me.lblTotalAutomatedResponses.Location = New System.Drawing.Point(12, 39)
+        Me.lblTotalAutomatedResponses.Name = "lblTotalAutomatedResponses"
+        Me.lblTotalAutomatedResponses.Size = New System.Drawing.Size(141, 13)
+        Me.lblTotalAutomatedResponses.TabIndex = 1
+        Me.lblTotalAutomatedResponses.Text = "Total Automated Responses"
+        '
+        'lblTotalResponses
+        '
+        Me.lblTotalResponses.AutoSize = True
+        Me.lblTotalResponses.Location = New System.Drawing.Point(12, 14)
+        Me.lblTotalResponses.Name = "lblTotalResponses"
+        Me.lblTotalResponses.Size = New System.Drawing.Size(87, 13)
+        Me.lblTotalResponses.TabIndex = 0
+        Me.lblTotalResponses.Text = "Total Responses"
+        '
         'GroupBox1
         '
         Me.GroupBox1.Controls.Add(Me.btnAPICallCustom)
@@ -735,40 +830,77 @@ Partial Class Form1
         Me.StatusStrip1.TabIndex = 15
         Me.StatusStrip1.Text = "StatusStrip1"
         '
-        'lblTotalResponses
+        'Label20
         '
-        Me.lblTotalResponses.AutoSize = True
-        Me.lblTotalResponses.Location = New System.Drawing.Point(12, 14)
-        Me.lblTotalResponses.Name = "lblTotalResponses"
-        Me.lblTotalResponses.Size = New System.Drawing.Size(87, 13)
-        Me.lblTotalResponses.TabIndex = 0
-        Me.lblTotalResponses.Text = "Total Responses"
+        Me.Label20.AutoSize = True
+        Me.Label20.Location = New System.Drawing.Point(6, 32)
+        Me.Label20.Name = "Label20"
+        Me.Label20.Size = New System.Drawing.Size(99, 13)
+        Me.Label20.TabIndex = 16
+        Me.Label20.Text = "Project Description:"
         '
-        'lblTotalAutomatedResponses
+        'txtProjectDescription
         '
-        Me.lblTotalAutomatedResponses.AutoSize = True
-        Me.lblTotalAutomatedResponses.Location = New System.Drawing.Point(12, 39)
-        Me.lblTotalAutomatedResponses.Name = "lblTotalAutomatedResponses"
-        Me.lblTotalAutomatedResponses.Size = New System.Drawing.Size(141, 13)
-        Me.lblTotalAutomatedResponses.TabIndex = 1
-        Me.lblTotalAutomatedResponses.Text = "Total Automated Responses"
+        Me.txtProjectDescription.Location = New System.Drawing.Point(127, 29)
+        Me.txtProjectDescription.Multiline = True
+        Me.txtProjectDescription.Name = "txtProjectDescription"
+        Me.txtProjectDescription.Size = New System.Drawing.Size(228, 49)
+        Me.txtProjectDescription.TabIndex = 17
         '
-        'lstAlertSourceBreakdown
+        'pgProject
         '
-        Me.lstAlertSourceBreakdown.FormattingEnabled = True
-        Me.lstAlertSourceBreakdown.Location = New System.Drawing.Point(15, 76)
-        Me.lstAlertSourceBreakdown.Name = "lstAlertSourceBreakdown"
-        Me.lstAlertSourceBreakdown.Size = New System.Drawing.Size(120, 95)
-        Me.lstAlertSourceBreakdown.TabIndex = 2
+        Me.pgProject.HelpVisible = False
+        Me.pgProject.Location = New System.Drawing.Point(339, 50)
+        Me.pgProject.Name = "pgProject"
+        Me.pgProject.PropertySort = System.Windows.Forms.PropertySort.Alphabetical
+        Me.pgProject.Size = New System.Drawing.Size(342, 323)
+        Me.pgProject.TabIndex = 16
+        Me.pgProject.ToolbarVisible = False
         '
-        'Label18
+        'Label21
         '
-        Me.Label18.AutoSize = True
-        Me.Label18.Location = New System.Drawing.Point(12, 60)
-        Me.Label18.Name = "Label18"
-        Me.Label18.Size = New System.Drawing.Size(122, 13)
-        Me.Label18.TabIndex = 3
-        Me.Label18.Text = "Alert Source Breakdown"
+        Me.Label21.AutoSize = True
+        Me.Label21.Location = New System.Drawing.Point(336, 34)
+        Me.Label21.Name = "Label21"
+        Me.Label21.Size = New System.Drawing.Size(75, 13)
+        Me.Label21.TabIndex = 17
+        Me.Label21.Text = "Project Details"
+        '
+        'DataGridViewTextBoxColumn1
+        '
+        Me.DataGridViewTextBoxColumn1.HeaderText = "Name"
+        Me.DataGridViewTextBoxColumn1.Name = "DataGridViewTextBoxColumn1"
+        Me.DataGridViewTextBoxColumn1.ReadOnly = True
+        '
+        'DataGridViewTextBoxColumn2
+        '
+        Me.DataGridViewTextBoxColumn2.FillWeight = 80.0!
+        Me.DataGridViewTextBoxColumn2.HeaderText = "Type"
+        Me.DataGridViewTextBoxColumn2.Name = "DataGridViewTextBoxColumn2"
+        Me.DataGridViewTextBoxColumn2.ReadOnly = True
+        Me.DataGridViewTextBoxColumn2.Width = 80
+        '
+        'colStatus
+        '
+        Me.colStatus.FillWeight = 75.0!
+        Me.colStatus.HeaderText = "Status"
+        Me.colStatus.Name = "colStatus"
+        Me.colStatus.ReadOnly = True
+        Me.colStatus.Width = 75
+        '
+        'colLink
+        '
+        Me.colLink.HeaderText = "Link"
+        Me.colLink.Name = "colLink"
+        Me.colLink.ReadOnly = True
+        Me.colLink.Width = 40
+        '
+        'colrptid
+        '
+        Me.colrptid.HeaderText = "ReportID"
+        Me.colrptid.Name = "colrptid"
+        Me.colrptid.ReadOnly = True
+        Me.colrptid.Visible = False
         '
         'Form1
         '
@@ -790,6 +922,7 @@ Partial Class Form1
         Me.tabCreateProject.PerformLayout()
         Me.tabProjects.ResumeLayout(False)
         Me.tabProjects.PerformLayout()
+        CType(Me.dgvprojectjobreports, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dgvProjectReports, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tabCreateJob.ResumeLayout(False)
         Me.tabCreateJob.PerformLayout()
@@ -806,8 +939,6 @@ Partial Class Form1
     Friend WithEvents btnJobCreate As System.Windows.Forms.Button
     Friend WithEvents dgvprojects As System.Windows.Forms.DataGridView
     Friend WithEvents dgvprojectjobs As System.Windows.Forms.DataGridView
-    Friend WithEvents jobname As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents status As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents tabTopMenu As System.Windows.Forms.TabControl
     Friend WithEvents tabSettings As System.Windows.Forms.TabPage
     Friend WithEvents tabTesting As System.Windows.Forms.TabPage
@@ -839,11 +970,6 @@ Partial Class Form1
     Friend WithEvents Label9 As System.Windows.Forms.Label
     Friend WithEvents Label11 As System.Windows.Forms.Label
     Friend WithEvents dgvProjectReports As System.Windows.Forms.DataGridView
-    Friend WithEvents DataGridViewTextBoxColumn1 As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents DataGridViewTextBoxColumn2 As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents colStatus As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents colLink As System.Windows.Forms.DataGridViewLinkColumn
-    Friend WithEvents colrptid As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents tabCreateProject As System.Windows.Forms.TabPage
     Friend WithEvents btnCreateProject As System.Windows.Forms.Button
     Friend WithEvents txtProjectName As System.Windows.Forms.TextBox
@@ -856,10 +982,6 @@ Partial Class Form1
     Friend WithEvents cmbProjectProcessingMode As System.Windows.Forms.ComboBox
     Friend WithEvents Label16 As System.Windows.Forms.Label
     Friend WithEvents txtProjectID As System.Windows.Forms.TextBox
-    Friend WithEvents projectname As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents ftkcaseid As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents colDelete As System.Windows.Forms.DataGridViewButtonColumn
-    Friend WithEvents colCreateJob As System.Windows.Forms.DataGridViewButtonColumn
     Friend WithEvents GroupBox2 As System.Windows.Forms.GroupBox
     Friend WithEvents btnRemoveSelectedTargets As System.Windows.Forms.Button
     Friend WithEvents btnAddNewTarget As System.Windows.Forms.Button
@@ -872,5 +994,29 @@ Partial Class Form1
     Friend WithEvents lblTotalAutomatedResponses As System.Windows.Forms.Label
     Friend WithEvents lstAlertSourceBreakdown As System.Windows.Forms.ListBox
     Friend WithEvents Label18 As System.Windows.Forms.Label
+    Friend WithEvents Label19 As System.Windows.Forms.Label
+    Friend WithEvents dgvprojectjobreports As System.Windows.Forms.DataGridView
+    Friend WithEvents DataGridViewTextBoxColumn3 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn4 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn5 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewLinkColumn1 As System.Windows.Forms.DataGridViewLinkColumn
+    Friend WithEvents DataGridViewTextBoxColumn6 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents projectname As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents ftkcaseid As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents colDelete As System.Windows.Forms.DataGridViewButtonColumn
+    Friend WithEvents colCreateJob As System.Windows.Forms.DataGridViewButtonColumn
+    Friend WithEvents jobname As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents colJobType As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents status As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents colJobID As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents txtProjectDescription As System.Windows.Forms.TextBox
+    Friend WithEvents Label20 As System.Windows.Forms.Label
+    Friend WithEvents pgProject As System.Windows.Forms.PropertyGrid
+    Friend WithEvents Label21 As System.Windows.Forms.Label
+    Friend WithEvents DataGridViewTextBoxColumn1 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn2 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents colStatus As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents colLink As System.Windows.Forms.DataGridViewLinkColumn
+    Friend WithEvents colrptid As System.Windows.Forms.DataGridViewTextBoxColumn
 
 End Class

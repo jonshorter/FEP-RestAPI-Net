@@ -57,7 +57,7 @@ Module R1SimpleRestClasses
         Public Property hasPassword As Boolean
         Public Property encryptedPassword As String 'Object
         Public Property encryptionPasswordSalt As String 'Object
-        Public Property customPropertyValues As String 'Object
+        Public Property customPropertyValues As List(Of Object) 'Object
         Public Property encryptionType As String 'Object
         Public Property networkAcquisitionRetainValue As Integer
         Public Property networkAcquisitionPurgeFirstPurge As DateTime
