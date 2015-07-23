@@ -16,39 +16,16 @@ Public Class Form1
     Dim r1c As New RestSharp.RestClient
 
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
 
-  
-        Dim newproject As New ADG.RIA.DataServices.Web.NewProjectDefinition
-        newproject.Name = txtProjectName.Text
-        newproject.FTKCaseFolderPath = "\\10.0.1.52\Share\Projects"
-        newproject.ResponsiveFilePath = "\\10.0.1.52\Share\JobData"
-        newproject.ProcessingMode = Web.ProcessModeEnum.Security
-
-        Dim response = R1RestFunctions.R1RestRequest(Method.POST, "projects", Json.JsonConvert.SerializeObject(newproject))
-        If response.GetType Is GetType(ADG.WebLab.Web.Controllers.API.ApiResponse(Of Object)) Then
-            If response.Success = True Then
-                Dim project = JsonConvert.DeserializeObject(Of ADG.RIA.DataServices.Web.NewProjectDefinition)(response.Data.ToString)
-
-                MsgBox("Project " & project.name & " created successfully.")
-
-            Else
-                MsgBox(response.error.message)
-            End If
-        Else
-            MsgBox(response)
-        End If
-    End Sub
-
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
-        DataGridView1.Rows.Clear()
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles btnRefreshProjectList.Click
+        dgvprojects.Rows.Clear()
 
         Dim response = R1RestFunctions.R1RestRequest(Method.GET, "projects")
         If response.GetType Is GetType(ADG.WebLab.Web.Controllers.API.ApiResponse(Of Object)) Then
             If response.Success = True Then
                 Dim projects = JsonConvert.DeserializeObject(Of List(Of R1SimpleRestClasses.ProjectInformation))(response.Data.ToString)
                 For Each item As R1SimpleRestClasses.ProjectInformation In projects
-                    DataGridView1.Rows.Add(New String() {item.name, item.ftkCaseId})
+                    dgvprojects.Rows.Add(New String() {item.name, item.ftkCaseId, "X", "0"})
                 Next
             Else
                 MsgBox(response.error.message)
@@ -61,7 +38,7 @@ Public Class Form1
 
 
     Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
-    
+
 
         Dim response = R1RestFunctions.R1RestRequest(Method.DELETE, "projects/" & txtProjectDelete.Text)
         If response.GetType Is GetType(ADG.WebLab.Web.Controllers.API.ApiResponse(Of Object)) Then
@@ -92,14 +69,14 @@ Public Class Form1
     End Sub
 
     Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
-      
+
         Dim nj As New ADG.WebLab.Web.Controllers.API.Job.JobDefinitionModel
         Dim njdef As New ADG.Wizard.Shared.JobDefinition
         nj.JobDef = njdef
         nj.JobDef.Name = txtJobName.Text
-        nj.JobDef.JobType = JobTypes.SoftwareInventory
+        nj.JobDef.JobType = comboJobType.SelectedItem
 
-        nj.JobDef.SecondaryActionsEnabled = True
+
 
         nj.ProjectId = 2
         nj.JobAction = JobAction.Create
@@ -143,7 +120,7 @@ Public Class Form1
     End Sub
 
     Private Sub Button6_Click(sender As Object, e As EventArgs)
-        DataGridView2.Rows.Clear()
+        dgvprojectjobs.Rows.Clear()
         '  Dim client As New RestSharp.RestClient("https://10.0.1.52/R1/api")
         '  client.CookieContainer = AuthenticateWithR1()
 
@@ -157,7 +134,7 @@ Public Class Form1
         Dim JobList As R1SimpleRestClasses.JobList = JsonConvert.DeserializeObject(Of R1SimpleRestClasses.JobList)(returnjson)
 
         For Each item As ADG.WebLab.Web.Controllers.API.Job.JobInfo In JobList.data
-            DataGridView2.Rows.Add(New String() {item.Name, item.Status})
+            dgvprojectjobs.Rows.Add(New String() {item.Name, item.Status})
 
         Next
     End Sub
@@ -166,21 +143,62 @@ Public Class Form1
 
     End Sub
 
-    Private Sub DataGridView1_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellContentClick
+    Private Sub DataGridView1_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvprojects.CellContentClick
+        Try
+            If e.ColumnIndex = 2 Then
+                Dim x = MsgBox("Are you sure you want to delete the project?", MsgBoxStyle.YesNo, "Delete Project?")
+                If x = 6 Then
+                    Dim response = R1RestFunctions.R1RestRequest(Method.DELETE, "projects/" & dgvprojects.Rows.Item(e.RowIndex).Cells(1).Value.ToString)
+                    If response.GetType Is GetType(ADG.WebLab.Web.Controllers.API.ApiResponse(Of Object)) Then
+                        If response.Success = True Then
+                            MsgBox("Project # " & dgvprojects.Rows.Item(e.RowIndex).Cells(1).Value.ToString & " deleted.")
+                        Else
+                            MsgBox(response.error.message)
+                        End If
+                    Else
+                        MsgBox(response)
+                    End If
+                End If
+            ElseIf e.ColumnIndex = 3 Then
+                txtProjectID.Text = dgvprojects.Rows.Item(e.RowIndex).Cells(1).Value.ToString
+                tabBottomMenu.SelectedTab = tabCreateJob
 
+
+            End If
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
     End Sub
 
-    Private Sub DataGridView1_RowEnter(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.RowEnter
-        DataGridView2.Rows.Clear()
- 
+    Private Sub DataGridView1_RowEnter(sender As Object, e As DataGridViewCellEventArgs) Handles dgvprojects.RowEnter
+        dgvprojectjobs.Rows.Clear()
 
-        Dim response = R1RestFunctions.R1RestRequest(Method.GET, "jobs/" & DataGridView1.Rows.Item(e.RowIndex).Cells(1).Value.ToString)
+
+        Dim response = R1RestFunctions.R1RestRequest(Method.GET, "jobs/" & dgvprojects.Rows.Item(e.RowIndex).Cells(1).Value.ToString)
         If response.GetType Is GetType(ADG.WebLab.Web.Controllers.API.ApiResponse(Of Object)) Then
             If response.Success = True Then
                 Dim jobs = JsonConvert.DeserializeObject(Of List(Of ADG.WebLab.Web.Controllers.API.Job.JobInfo))(response.Data.ToString)
-                For Each item As ADG.WebLab.Web.Controllers.API.Job.JobInfo In jobs
-                    DataGridView2.Rows.Add(New String() {item.Name, item.Status})
+                For Each job As ADG.WebLab.Web.Controllers.API.Job.JobInfo In jobs
+                    dgvprojectjobs.Rows.Add(New String() {job.Name, job.Status})
                 Next
+            Else
+                MsgBox(response.error.message)
+            End If
+        Else
+            MsgBox(response)
+        End If
+
+        dgvProjectReports.Rows.Clear()
+        response = R1RestFunctions.R1RestRequest(Method.GET, "projects/" & dgvprojects.Rows.Item(e.RowIndex).Cells(1).Value.ToString & "/reports")
+        If response.GetType Is GetType(ADG.WebLab.Web.Controllers.API.ApiResponse(Of Object)) Then
+            If response.Success = True Then
+
+                Dim reports = JsonConvert.DeserializeObject(Of List(Of ADG.WebLab.Web.Controllers.API.Reports.BasicReport))(response.Data.ToString)
+                If reports.Count > 0 Then
+                    For Each report As ADG.WebLab.Web.Controllers.API.Reports.BasicReport In reports
+                        dgvProjectReports.Rows.Add(New String() {report.ReportInfo.Name, report.ReportInfo.ReportType.ToString, report.ReportInfo.Status.ToString, report.ReportInfo.FilePath, report.ReportInfo.ReportId})
+                    Next
+                End If
             Else
                 MsgBox(response.error.message)
             End If
@@ -191,7 +209,7 @@ Public Class Form1
 
     End Sub
 
-  
+
 
     Private Sub Button8_Click(sender As Object, e As EventArgs)
 
@@ -222,7 +240,7 @@ Public Class Form1
     End Sub
 
     Private Sub Button8_Click_1(sender As Object, e As EventArgs)
-        DataGridView1.Rows.Clear()
+        dgvprojects.Rows.Clear()
         '  Dim client As New RestSharp.RestClient("https://10.0.1.52/R1/api")
         '  client.CookieContainer = AuthenticateWithR1()
 
@@ -254,7 +272,7 @@ Public Class Form1
         Dim ProjectList As R1SimpleRestClasses.ProjectList = JsonConvert.DeserializeObject(Of R1SimpleRestClasses.ProjectList)(returnjson)
         For Each item As R1SimpleRestClasses.ProjectInformation In ProjectList.data
 
-            DataGridView1.Rows.Add(New String() {item.name, item.ftkCaseId})
+            dgvprojects.Rows.Add(New String() {item.name, item.ftkCaseId})
 
         Next
 
@@ -318,21 +336,93 @@ Public Class Form1
 
     End Sub
 
-    Private Sub TabPage2_Click(sender As Object, e As EventArgs) Handles tabTesting.Click
-
-    End Sub
 
     Private Sub TabPage2_Enter(sender As Object, e As EventArgs) Handles tabTesting.Enter
         cmbRESTOPTION.Items.Clear()
         For Each item In GetType(RestSharp.Method).GetEnumValues
             cmbRESTOPTION.Items.Add(item)
-
         Next
         cmbRESTOPTION.SelectedItem = RestSharp.Method.GET
 
+
+
     End Sub
 
-    Private Sub cmbRESTOPTION_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbRESTOPTION.SelectedIndexChanged
+  
 
+
+    Private Sub tabJobs_Enter(sender As Object, e As EventArgs) Handles tabCreateJob.Enter
+        comboJobType.Items.Clear()
+        For Each item In GetType(ADG.Wizard.Shared.JobTypes).GetEnumValues
+            comboJobType.Items.Add(item)
+        Next
+        comboJobType.SelectedItem = JobTypes.SoftwareInventory
+    End Sub
+
+    Private Sub dgvProjectReports_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvProjectReports.CellContentClick
+        Try
+            If e.ColumnIndex = 3 And dgvProjectReports.Rows.Item(e.RowIndex).Cells(2).Value.ToString = "Completed" Then
+                System.Diagnostics.Process.Start(dgvProjectReports.Rows.Item(e.RowIndex).Cells(3).Value.ToString)
+            End If
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+    End Sub
+
+   
+    Private Sub btnCreateProject_Click(sender As Object, e As EventArgs) Handles btnCreateProject.Click
+
+
+        Dim newproject As New ADG.RIA.DataServices.Web.NewProjectDefinition
+        newproject.Name = txtProjectName.Text
+        newproject.FTKCaseFolderPath = txtProjectCaseFolder.Text
+        newproject.ResponsiveFilePath = txtProjectJobDataFolder.Text
+        newproject.ProcessingMode = cmbProjectProcessingMode.SelectedItem
+
+        Dim response = R1RestFunctions.R1RestRequest(Method.POST, "projects", Json.JsonConvert.SerializeObject(newproject))
+        If response.GetType Is GetType(ADG.WebLab.Web.Controllers.API.ApiResponse(Of Object)) Then
+            If response.Success = True Then
+                Dim project = JsonConvert.DeserializeObject(Of ADG.RIA.DataServices.Web.NewProjectDefinition)(response.Data.ToString)
+
+                MsgBox("Project " & project.Name & " created successfully.")
+
+            Else
+                MsgBox(response.error.message)
+            End If
+        Else
+            MsgBox(response)
+        End If
+    End Sub
+
+  
+
+    Private Sub tabCreateProject_Paint(sender As Object, e As PaintEventArgs) Handles tabCreateProject.Paint
+        cmbProjectProcessingMode.Items.Clear()
+        For Each item In GetType(Web.ProcessModeEnum).GetEnumValues
+            cmbProjectProcessingMode.Items.Add(item)
+        Next
+        cmbProjectProcessingMode.SelectedItem = Web.ProcessModeEnum.Security
+    End Sub
+
+    Private Sub tabProjects_Click(sender As Object, e As EventArgs) Handles tabProjects.Click
+
+    End Sub
+
+    Private Sub tabProjects_Enter(sender As Object, e As EventArgs) Handles tabProjects.Enter
+        dgvprojects.Rows.Clear()
+
+        Dim response = R1RestFunctions.R1RestRequest(Method.GET, "projects")
+        If response.GetType Is GetType(ADG.WebLab.Web.Controllers.API.ApiResponse(Of Object)) Then
+            If response.Success = True Then
+                Dim projects = JsonConvert.DeserializeObject(Of List(Of R1SimpleRestClasses.ProjectInformation))(response.Data.ToString)
+                For Each item As R1SimpleRestClasses.ProjectInformation In projects
+                    dgvprojects.Rows.Add(New String() {item.name, item.ftkCaseId, "X", "0"})
+                Next
+            Else
+                MsgBox(response.error.message)
+            End If
+        Else
+            MsgBox(response)
+        End If
     End Sub
 End Class
