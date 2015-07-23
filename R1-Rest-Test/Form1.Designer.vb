@@ -777,7 +777,7 @@ Partial Class Form1
         Me.ClientSize = New System.Drawing.Size(947, 729)
         Me.Controls.Add(Me.tabTopMenu)
         Me.Name = "Form1"
-        Me.Text = "W"
+        Me.Text = "R1-Rest-Test"
         CType(Me.dgvprojects, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dgvprojectjobs, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tabTopMenu.ResumeLayout(False)
