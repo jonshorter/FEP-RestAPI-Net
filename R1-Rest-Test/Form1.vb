@@ -1,7 +1,4 @@
-﻿Imports ADG.Wizard.Shared
-Imports ADG.Wizard.Shared.Filters
-Imports ADG.RIA.DataServices
-Imports ADG.RIA.DataServices.Web.EncryptionType
+﻿
 Imports RestSharp
 Imports System.Net
 Imports System.Text
@@ -21,7 +18,7 @@ Public Class Form1
         dgvprojects.Rows.Clear()
 
         Dim response = R1RestFunctions.R1RestRequest(Method.GET, "projects")
-        If response.GetType Is GetType(ADG.WebLab.Web.Controllers.API.ApiResponse(Of Object)) Then
+        If response.GetType Is GetType(R1SimpleRestClasses.ApiResponse(Of Object)) Then
             If response.Success = True Then
                 Dim projects = JsonConvert.DeserializeObject(Of List(Of R1SimpleRestClasses.ProjectInformation))(response.Data.ToString)
                 For Each item As R1SimpleRestClasses.ProjectInformation In projects
@@ -40,9 +37,10 @@ Public Class Form1
 
 
     Private Sub btnJobCreate_Click(sender As Object, e As EventArgs) Handles btnJobCreate.Click
-
-        Dim nj As New ADG.WebLab.Web.Controllers.API.Job.JobDefinitionModel
-        Dim njdef As New ADG.Wizard.Shared.JobDefinition
+        '<FIX MY REFERENCE - ADG.WebLab.Web.Controllers.API.Job.JobDefinitionModel
+        '<FIX MY REFERENCE - ADG.Wizard.Shared.JobDefinition
+        Dim nj As New R1SimpleRestClasses.JobDefinitionModel ' ADG.WebLab.Web.Controllers.API.Job.JobDefinitionModel
+        Dim njdef As New Object 'ADG.Wizard.Shared.JobDefinition
         nj.JobDef = njdef
         nj.JobDef.Name = txtJobName.Text
         nj.JobDef.JobType = comboJobType.SelectedItem
@@ -51,7 +49,7 @@ Public Class Form1
 
         nj.ProjectId = txtProjectID.Text
         nj.JobAction = comboJobAction.SelectedItem
-        Dim njc As New ADG.WebLab.Web.Controllers.API.Job.Target
+        Dim njc As New R1SimpleRestClasses.Target
         njc.Addresses = New List(Of String)
         For Each item In lstTargets.Items
             njc.Addresses.Add(item)
@@ -67,9 +65,9 @@ Public Class Form1
 
 
         Dim response = R1RestFunctions.R1RestRequest(Method.PUT, "jobs", Json.JsonConvert.SerializeObject(nj))
-        If response.GetType Is GetType(ADG.WebLab.Web.Controllers.API.ApiResponse(Of Object)) Then
+        If response.GetType Is GetType(R1SimpleRestClasses.ApiResponse(Of Object)) Then
             If response.Success = True Then
-                Dim job = JsonConvert.DeserializeObject(Of List(Of ADG.WebLab.Web.Controllers.API.Job.JobInfo))(response.Data.ToString)
+                Dim job = JsonConvert.DeserializeObject(Of List(Of R1SimpleRestClasses.JobInfo))(response.Data.ToString)
 
                 MsgBox("Job " & job(0).Name & " created successfully.")
 
@@ -103,10 +101,10 @@ Public Class Form1
                 currproject = dgvprojects.Rows.Item(e.RowIndex).Cells(1).Value.ToString
 
                 Dim response = R1RestFunctions.R1RestRequest(Method.GET, "jobs/" & dgvprojects.Rows.Item(e.RowIndex).Cells(1).Value.ToString)
-                If response.GetType Is GetType(ADG.WebLab.Web.Controllers.API.ApiResponse(Of Object)) Then
+                If response.GetType Is GetType(R1SimpleRestClasses.ApiResponse(Of Object)) Then
                     If response.Success = True Then
-                        Dim jobs = JsonConvert.DeserializeObject(Of List(Of ADG.WebLab.Web.Controllers.API.Job.JobInfo))(response.Data.ToString)
-                        For Each job As ADG.WebLab.Web.Controllers.API.Job.JobInfo In jobs
+                        Dim jobs = JsonConvert.DeserializeObject(Of List(Of R1SimpleRestClasses.JobInfo))(response.Data.ToString)
+                        For Each job As R1SimpleRestClasses.JobInfo In jobs
                             dgvprojectjobs.Rows.Add(New String() {job.Name, job.JobType.ToString, job.Status, job.JobID.ToString})
                         Next
                     Else
@@ -117,7 +115,7 @@ Public Class Form1
                 End If
 
                 response = R1RestFunctions.R1RestRequest(Method.GET, "projects/" & dgvprojects.Rows.Item(e.RowIndex).Cells(1).Value.ToString)
-                If response.GetType Is GetType(ADG.WebLab.Web.Controllers.API.ApiResponse(Of Object)) Then
+                If response.GetType Is GetType(R1SimpleRestClasses.ApiResponse(Of Object)) Then
                     If response.Success = True Then
                         Try
                             Dim prjinfo = JsonConvert.DeserializeObject(Of R1SimpleRestClasses.ProjectInformation)(response.Data.ToString)
@@ -135,12 +133,12 @@ Public Class Form1
 
                 dgvProjectReports.Rows.Clear()
                 response = R1RestFunctions.R1RestRequest(Method.GET, "projects/" & dgvprojects.Rows.Item(e.RowIndex).Cells(1).Value.ToString & "/reports")
-                If response.GetType Is GetType(ADG.WebLab.Web.Controllers.API.ApiResponse(Of Object)) Then
+                If response.GetType Is GetType(R1SimpleRestClasses.ApiResponse(Of Object)) Then
                     If response.Success = True Then
 
-                        Dim reports = JsonConvert.DeserializeObject(Of List(Of ADG.WebLab.Web.Controllers.API.Reports.BasicReport))(response.Data.ToString)
+                        Dim reports = JsonConvert.DeserializeObject(Of List(Of R1SimpleRestClasses.BasicReport))(response.Data.ToString)
                         If reports.Count > 0 Then
-                            For Each report As ADG.WebLab.Web.Controllers.API.Reports.BasicReport In reports
+                            For Each report As R1SimpleRestClasses.BasicReport In reports
                                 dgvProjectReports.Rows.Add(New String() {report.ReportInfo.Name, report.ReportInfo.ReportType.ToString, report.ReportInfo.Status.ToString, report.ReportInfo.FilePath, report.ReportInfo.ReportId})
                             Next
                         End If
@@ -154,7 +152,7 @@ Public Class Form1
                 Dim x = MsgBox("Are you sure you want to delete the project?", MsgBoxStyle.YesNo, "Delete Project?")
                 If x = 6 Then
                     Dim response = R1RestFunctions.R1RestRequest(Method.DELETE, "projects/" & dgvprojects.Rows.Item(e.RowIndex).Cells(1).Value.ToString)
-                    If response.GetType Is GetType(ADG.WebLab.Web.Controllers.API.ApiResponse(Of Object)) Then
+                    If response.GetType Is GetType(R1SimpleRestClasses.ApiResponse(Of Object)) Then
                         If response.Success = True Then
                             MsgBox("Project # " & dgvprojects.Rows.Item(e.RowIndex).Cells(1).Value.ToString & " deleted.")
                         Else
@@ -176,7 +174,7 @@ Public Class Form1
         End Try
     End Sub
 
-   
+
 
 
     Private Sub btnSaveSettings_Click(sender As Object, e As EventArgs) Handles btnSaveSettings.Click
@@ -196,10 +194,10 @@ Public Class Form1
 
         Dim response = R1RestFunctions.R1RestRequest(cmbRESTOPTION.SelectedItem, txtapicallpath.Text, txtapicallpostjson.Text)
 
-     
+
         MsgBox(response.ToString)
-       
-       
+
+
 
     End Sub
 
@@ -217,16 +215,16 @@ Public Class Form1
 
     Private Sub tabJobs_Enter(sender As Object, e As EventArgs) Handles tabCreateJob.Enter
         comboJobType.Items.Clear()
-        For Each item In GetType(ADG.Wizard.Shared.JobTypes).GetEnumValues
+        For Each item In GetType(R1SimpleRestClasses.JobTypes).GetEnumValues
             comboJobType.Items.Add(item)
         Next
-        comboJobType.SelectedItem = JobTypes.SoftwareInventory
+        comboJobType.SelectedItem = R1SimpleRestClasses.JobTypes.SoftwareInventory
 
         comboJobAction.Items.Clear()
-        For Each item In GetType(JobAction).GetEnumValues
+        For Each item In GetType(R1SimpleRestClasses.JobAction).GetEnumValues
             comboJobAction.Items.Add(item)
         Next
-        comboJobAction.SelectedItem = JobAction.Create
+        comboJobAction.SelectedItem = R1SimpleRestClasses.JobAction.Create
     End Sub
 
     Private Sub dgvProjectReports_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvProjectReports.CellClick
@@ -239,13 +237,13 @@ Public Class Form1
         End Try
     End Sub
 
- 
 
-   
+
+
     Private Sub btnCreateProject_Click(sender As Object, e As EventArgs) Handles btnCreateProject.Click
 
-
-        Dim newproject As New ADG.RIA.DataServices.Web.NewProjectDefinition
+        '<FIX MY REFERENCE - ADG.RIA.DataServices.Web.NewProjectDefinition
+        Dim newproject As New Object ' ADG.RIA.DataServices.Web.NewProjectDefinition
         newproject.Name = txtProjectName.Text
         newproject.FTKCaseFolderPath = txtProjectCaseFolder.Text
         newproject.ResponsiveFilePath = txtProjectJobDataFolder.Text
@@ -253,9 +251,10 @@ Public Class Form1
         newproject.Comments = txtProjectDescription.Text
 
         Dim response = R1RestFunctions.R1RestRequest(Method.POST, "projects", Json.JsonConvert.SerializeObject(newproject))
-        If response.GetType Is GetType(ADG.WebLab.Web.Controllers.API.ApiResponse(Of Object)) Then
+        If response.GetType Is GetType(R1SimpleRestClasses.ApiResponse(Of Object)) Then
             If response.Success = True Then
-                Dim project = JsonConvert.DeserializeObject(Of ADG.RIA.DataServices.Web.NewProjectDefinition)(response.Data.ToString)
+                ' 'ADG.RIA.DataServices.Web.NewProjectDefinition
+                Dim project = JsonConvert.DeserializeObject(Of Object)(response.Data.ToString)
 
                 MsgBox("Project " & project.Name & " created successfully.")
 
@@ -267,14 +266,14 @@ Public Class Form1
         End If
     End Sub
 
-  
+
 
     Private Sub tabCreateProject_Paint(sender As Object, e As PaintEventArgs) Handles tabCreateProject.Paint
         cmbProjectProcessingMode.Items.Clear()
-        For Each item In GetType(Web.ProcessModeEnum).GetEnumValues
+        For Each item In GetType(R1SimpleRestClasses.ProcessModeEnum).GetEnumValues
             cmbProjectProcessingMode.Items.Add(item)
         Next
-        cmbProjectProcessingMode.SelectedItem = Web.ProcessModeEnum.Security
+        cmbProjectProcessingMode.SelectedItem = R1SimpleRestClasses.ProcessModeEnum.Security
 
 
 
@@ -285,7 +284,7 @@ Public Class Form1
         dgvprojects.Rows.Clear()
 
         Dim response = R1RestFunctions.R1RestRequest(Method.GET, "projects")
-        If response.GetType Is GetType(ADG.WebLab.Web.Controllers.API.ApiResponse(Of Object)) Then
+        If response.GetType Is GetType(R1SimpleRestClasses.ApiResponse(Of Object)) Then
             If response.Success = True Then
                 Dim projects = JsonConvert.DeserializeObject(Of List(Of R1SimpleRestClasses.ProjectInformation))(response.Data.ToString)
                 For Each item As R1SimpleRestClasses.ProjectInformation In projects
@@ -359,9 +358,9 @@ Public Class Form1
 
 
         '        Dim response = R1RestFunctions.R1RestRequest(Method.GET, "projects/" & currproject & "/jobs/jobresultreports/" & dgvprojectjobs.Rows.Item(e.RowIndex).Cells(3).Value.ToString & "/")
-        '        If response.GetType Is GetType(ADG.WebLab.Web.Controllers.API.ApiResponse(Of Object)) Then
+        '        If response.GetType Is GetType(R1SimpleRestClasses.ApiResponse(Of Object)) Then
         '            If response.Success = True Then
-        '                Dim reportstatus = JsonConvert.DeserializeObject(Of ADG.WebLab.Web.Controllers.API.ApiResponse(Of ADG.RIA.DataServices.Web.JobReportDataStatus))(response.Data.ToString)
+        '                Dim reportstatus = JsonConvert.DeserializeObject(Of R1SimpleRestClasses.ApiResponse(Of ADG.RIA.DataServices.Web.JobReportDataStatus))(response.Data.ToString)
         '                ' For Each report As ADG.RIA.DataServices.Web.JobReportDataStatus In reports.Data
         '                dgvprojectjobreports.Rows.Add(New String() {reportstatus.Data.Status, reportstatus.Data.ReportType.ToString})
         '                'Next

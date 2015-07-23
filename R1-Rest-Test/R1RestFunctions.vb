@@ -35,10 +35,10 @@ Module R1RestFunctions
                 Case response.ResponseUri.AbsolutePath.Contains("/jobs/jobresultsreportstatus/")
                     Return response.Content
                 Case response.ResponseUri.AbsolutePath.Contains("/R1/api/projects")
-                    Dim content As ADG.WebLab.Web.Controllers.API.ApiResponse(Of Object) = JsonConvert.DeserializeObject(Of ADG.WebLab.Web.Controllers.API.ApiResponse(Of Object))(response.Content)
+                    Dim content As R1SimpleRestClasses.ApiResponse(Of Object) = JsonConvert.DeserializeObject(Of R1SimpleRestClasses.ApiResponse(Of Object))(response.Content)
                     Return content
                 Case response.ResponseUri.AbsolutePath.Contains("/R1/api/jobs")
-                    Dim content As ADG.WebLab.Web.Controllers.API.ApiResponse(Of Object) = JsonConvert.DeserializeObject(Of ADG.WebLab.Web.Controllers.API.ApiResponse(Of Object))(response.Content)
+                    Dim content As R1SimpleRestClasses.ApiResponse(Of Object) = JsonConvert.DeserializeObject(Of R1SimpleRestClasses.ApiResponse(Of Object))(response.Content)
                     Return content
       
                 Case Else

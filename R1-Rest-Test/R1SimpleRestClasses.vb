@@ -1,20 +1,18 @@
-﻿Imports ADG.Wizard.Shared.Filters
-Imports ADG.Wizard.Shared
-Imports ADG.ServicesCommon
-Imports System.Runtime.Serialization
-Imports ADG.Wizard.Shared.Filters.JobFilters
-Imports ADG.WebLab.Web.Controllers.API.Job.Target
+﻿
 
 Module R1SimpleRestClasses
-    Public Class Project
-        Public Property name As String
-        Public Property FTKCaseFolderPath As String
-        Public Property ResponsiveFilePath As String
-        Public Property ProcessingMode As ProcessModeEnum
 
-
-
+    Public Class ApiResponse(Of T)
+        Public Property Success As Boolean
+        Public Property [Error] As [Error]
+        Public Property Data As T
     End Class
+    Public Class [Error]
+        Public Property StatusCode As Integer
+        Public Property Message As String
+    End Class
+
+
     Public Enum ProcessModeEnum
         eDiscoveryMode
         FieldMode
@@ -79,18 +77,6 @@ Module R1SimpleRestClasses
         Public Property defaultSortOrder As String 'Object
     End Class
 
-    Public Class ProjectList
-        Public Property success As Boolean
-        Public Property err As String
-        Public Property data As List(Of ProjectInformation)
-    End Class
-
-    Public Class JobList
-        Public Property success As Boolean
-        Public Property err As String
-        Public Property data As List(Of ADG.WebLab.Web.Controllers.API.Job.JobInfo)
-    End Class
-
     Public Enum JobAction
         Create
         Approve
@@ -105,7 +91,93 @@ Module R1SimpleRestClasses
         Public Property Percent As Integer
     End Class
 
+    Public Class JobDefinitionModel
+        Public Property JobDef As Object ' JobDefinition
+        Public Property ProjectId As Long
+        Public Property JobAction As JobAction
+        Public Property ComputerTargets As Target
+        Public Property NetworkShareTargets As Target
+    End Class
+
+    Public Class Target
+        Public Property Addresses As List(Of String)
+        Public Property SearchString As String
+    End Class
+
+    Public Class JobInfo
+        Public Property JobID As Guid
+        Public Property Name As String
+        Public Property JobType As String
+        Public Property Status As String
+        Public Property Targets As String()
+    End Class
+
+    Public Class BasicReport
+        Public Property ReportInfo As ExcelExportInfoPresenter
+
+    End Class
+    Public Class ExcelExportInfoPresenter
+        Public Property Key As Guid
+        Public Property CreationDate As DateTime
+        Public Property Description As String
+        Public Property ErrorMessage As String
+        Public Property FilePath As String
+        Public Property ItemsExported As Integer
+        Public Property MimeType As String
+        Public Property Name As String
+        Public Property ReportId As Long
+        Public Property ReportType As CaseReportType
+        Public Property Status As CaseReportStatus
+        Public Property TotalItems As Integer
+
+    End Class
+
+    Public Enum JobTypes
+        SearchAndReview
+        MetadataOnly
+        ReportOnly
+        Archive
+        Remediate
+        RemediateAndReview
+        RMM
+        Volatile
+        MemoryAnalysis
+        MemoryAcquisition
+        SoftwareInventory
+        AgentRemediation
+        MemoryOperations
+        NetworkAcquisition
+        CombinationJob
+        ProcessDump
+        ThreatScan
+        EventEndpointQuery
+    End Enum
 
 
-
+    Public Enum CaseReportType
+        ProductionSet
+        ProcessingExceptions
+        Search
+        Generic
+        AuditLog
+        ImageConversionExceptions
+        ExportRenamingMap
+        TBRSet
+        DataVolume_EncryptedFiles
+        DataVolume_CaseBreakout
+        DataVolume_CustodianBreakout
+        DeduplicationFiles
+        DeduplicationEmails
+        DataVolume
+        LegalMatterResultReport
+        CompletionStatus
+        CustodianDataMap
+        Bookmark
+    End Enum
+    Public Enum CaseReportStatus
+        Initializing
+        Populating
+        Completed
+        Failed
+    End Enum
 End Module
