@@ -12,8 +12,8 @@ Public Class Form1
 
     Private Sub btnRefreshProjectList_Click(sender As Object, e As EventArgs) Handles btnRefreshProjectList.Click
         dgvprojects.Rows.Clear()
-
-        Dim response = R1RestFunctions.R1RestRequest(Method.GET, "projects")
+        Dim R1Client As New R1SimpleRestClient.R1SimpleRestClient
+        Dim response = R1Client.R1RestRequest(txtServer.Text, txtUsername.Text, txtPassword.Text, Method.GET, "projects")
         If response.GetType Is GetType(R1SimpleRestModels.Models.ApiResponse(Of Object)) Then
             If response.Success = True Then
                 Dim projects = JsonConvert.DeserializeObject(Of List(Of R1SimpleRestModels.Models.ProjectPresenter))(response.Data.ToString)
@@ -35,27 +35,25 @@ Public Class Form1
         nj.JobDef = njdef
         nj.JobDef.Name = txtJobName.Text
         nj.JobDef.JobType = comboJobType.SelectedItem
-
-
-
         nj.ProjectId = txtProjectID.Text
         nj.JobAction = comboJobAction.SelectedItem
-        Dim njc As New R1SimpleRestModels.Models.Target
-        njc.Addresses = New List(Of String)
+
+        '   Dim njc As New R1SimpleRestModels.Models.Target
+        '  njc.Addresses = New List(Of String)
+
         For Each item In lstTargets.Items
-            njc.Addresses.Add(item)
+            ' njc.Addresses.Add(item)
+            nj.ComputerTargets.Addresses.Add(item)
         Next
-
-        ' njc.Addresses.Add("10.0.1.5")
-        '  njc.SearchString = ""
-        nj.ComputerTargets = njc
-
-        Dim stc As New R1SimpleRestModels.Models.Target
-        nj.NetworkShareTargets = stc
+        ' nj.ComputerTargets = njc
 
 
+        'Dim stc As New R1SimpleRestModels.Models.Target
+        'nj.NetworkShareTargets = stc
 
-        Dim response = R1RestFunctions.R1RestRequest(Method.PUT, "jobs", Json.JsonConvert.SerializeObject(nj))
+
+        Dim R1Client As New R1SimpleRestClient.R1SimpleRestClient
+        Dim response = R1Client.R1RestRequest(txtServer.Text, txtUsername.Text, txtPassword.Text,Method.PUT, "jobs", Json.JsonConvert.SerializeObject(nj))
         If response.GetType Is GetType(R1SimpleRestModels.Models.ApiResponse(Of Object)) Then
             If response.Success = True Then
                 Dim job = JsonConvert.DeserializeObject(Of List(Of R1SimpleRestModels.Models.JobInfo))(response.Data.ToString)
@@ -85,7 +83,8 @@ Public Class Form1
                 dgvprojectjobs.Rows.Clear()
                 currproject = dgvprojects.Rows.Item(e.RowIndex).Cells(1).Value.ToString
 
-                Dim response = R1RestFunctions.R1RestRequest(Method.GET, "jobs/" & dgvprojects.Rows.Item(e.RowIndex).Cells(1).Value.ToString)
+                Dim R1Client As New R1SimpleRestClient.R1SimpleRestClient
+                Dim response = R1Client.R1RestRequest(txtServer.Text, txtUsername.Text, txtPassword.Text, Method.GET, "jobs/" & dgvprojects.Rows.Item(e.RowIndex).Cells(1).Value.ToString)
                 If response.GetType Is GetType(R1SimpleRestModels.Models.ApiResponse(Of Object)) Then
                     If response.Success = True Then
                         Dim jobs = JsonConvert.DeserializeObject(Of List(Of R1SimpleRestModels.Models.JobInfo))(response.Data.ToString)
@@ -99,7 +98,7 @@ Public Class Form1
                     MsgBox(response)
                 End If
 
-                response = R1RestFunctions.R1RestRequest(Method.GET, "projects/" & dgvprojects.Rows.Item(e.RowIndex).Cells(1).Value.ToString)
+                response = R1Client.R1RestRequest(txtServer.Text, txtUsername.Text, txtPassword.Text, Method.GET, "projects/" & dgvprojects.Rows.Item(e.RowIndex).Cells(1).Value.ToString)
                 If response.GetType Is GetType(R1SimpleRestModels.Models.ApiResponse(Of Object)) Then
                     If response.Success = True Then
 
@@ -115,7 +114,8 @@ Public Class Form1
                 End If
 
                 dgvProjectReports.Rows.Clear()
-                response = R1RestFunctions.R1RestRequest(Method.GET, "projects/" & dgvprojects.Rows.Item(e.RowIndex).Cells(1).Value.ToString & "/reports")
+
+                response = R1Client.R1RestRequest(txtServer.Text, txtUsername.Text, txtPassword.Text, Method.GET, "projects/" & dgvprojects.Rows.Item(e.RowIndex).Cells(1).Value.ToString & "/reports")
                 If response.GetType Is GetType(R1SimpleRestModels.Models.ApiResponse(Of Object)) Then
                     If response.Success = True Then
 
@@ -134,7 +134,8 @@ Public Class Form1
             ElseIf e.ColumnIndex = 2 Then
                 Dim x = MsgBox("Are you sure you want to delete the project?", MsgBoxStyle.YesNo, "Delete Project?")
                 If x = 6 Then
-                    Dim response = R1RestFunctions.R1RestRequest(Method.DELETE, "projects/" & dgvprojects.Rows.Item(e.RowIndex).Cells(1).Value.ToString)
+                    Dim R1Client As New R1SimpleRestClient.R1SimpleRestClient
+                    Dim response = R1Client.R1RestRequest(txtServer.Text, txtUsername.Text, txtPassword.Text, Method.DELETE, "projects/" & dgvprojects.Rows.Item(e.RowIndex).Cells(1).Value.ToString)
                     If response.GetType Is GetType(R1SimpleRestModels.Models.ApiResponse(Of Object)) Then
                         If response.Success = True Then
                             MsgBox("Project # " & dgvprojects.Rows.Item(e.RowIndex).Cells(1).Value.ToString & " deleted.")
@@ -168,7 +169,8 @@ Public Class Form1
         lblStatusSettings.Text = ""
     End Sub
     Private Sub btnAPICallCustom_Click(sender As Object, e As EventArgs) Handles btnAPICallCustom.Click
-        Dim response = R1RestFunctions.R1RestRequest(cmbRESTOPTION.SelectedItem, txtapicallpath.Text, txtapicallpostjson.Text)
+        Dim R1Client As New R1SimpleRestClient.R1SimpleRestClient
+        Dim response = R1Client.R1RestRequest(txtServer.Text, txtUsername.Text, txtPassword.Text, cmbRESTOPTION.SelectedItem, txtapicallpath.Text, txtapicallpostjson.Text)
         MsgBox(response.ToString)
     End Sub
     Private Sub tabTesting_Enter(sender As Object, e As EventArgs) Handles tabTesting.Enter
@@ -211,7 +213,8 @@ Public Class Form1
         newproject.ProcessingMode = cmbProjectProcessingMode.SelectedItem
         newproject.Comments = txtProjectDescription.Text
 
-        Dim response = R1RestFunctions.R1RestRequest(Method.POST, "projects", Json.JsonConvert.SerializeObject(newproject))
+        Dim R1Client As New R1SimpleRestClient.R1SimpleRestClient
+        Dim response = R1Client.R1RestRequest(txtServer.Text, txtUsername.Text, txtPassword.Text, Method.POST, "projects", Json.JsonConvert.SerializeObject(newproject))
         If response.GetType Is GetType(R1SimpleRestModels.Models.ApiResponse(Of Object)) Then
             If response.Success = True Then
                 Dim project = JsonConvert.DeserializeObject(Of R1SimpleRestModels.Models.NewProjectDefinition)(response.Data.ToString)
@@ -233,7 +236,8 @@ Public Class Form1
     Private Sub tabProjects_Enter(sender As Object, e As EventArgs) Handles tabProjects.Enter
         dgvprojects.Rows.Clear()
 
-        Dim response = R1RestFunctions.R1RestRequest(Method.GET, "projects")
+        Dim R1Client As New R1SimpleRestClient.R1SimpleRestClient
+        Dim response = R1Client.R1RestRequest(txtServer.Text, txtUsername.Text, txtPassword.Text, Method.GET, "projects")
         If response.GetType Is GetType(R1SimpleRestModels.Models.ApiResponse(Of Object)) Then
             If response.Success = True Then
                 Dim projects = JsonConvert.DeserializeObject(Of List(Of R1SimpleRestModels.Models.ProjectPresenter))(response.Data.ToString)
@@ -272,13 +276,14 @@ Public Class Form1
     End Sub
 
     Private Sub tabAlerts_Enter(sender As Object, e As EventArgs) Handles tabAlerts.Enter
-        Dim response = R1RestFunctions.R1RestRequest(Method.GET, "alerts/getTotalResponses/?predicate=null")
+        Dim R1Client As New R1SimpleRestClient.R1SimpleRestClient
+        Dim response = R1Client.R1RestRequest(txtServer.Text, txtUsername.Text, txtPassword.Text, Method.GET, "alerts/getTotalResponses/?predicate=null")
         lblTotalResponses.Text = "Total Responses: " & response
 
-        response = R1RestFunctions.R1RestRequest(Method.GET, "alerts/getTotalAutomatedResponses/?predicate=null")
+        response = R1Client.R1RestRequest(txtServer.Text, txtUsername.Text, txtPassword.Text, Method.GET, "alerts/getTotalAutomatedResponses/?predicate=null")
         lblTotalAutomatedResponses.Text = "Total Automated Responses: " & response
 
-        response = R1RestFunctions.R1RestRequest(Method.GET, "alerts/getAlertSourceBreakdown/?predicate=null")
+       response = R1Client.R1RestRequest(txtServer.Text, txtUsername.Text, txtPassword.Text, Method.GET, "alerts/getAlertSourceBreakdown/?predicate=null")
 
 
         If response.GetType Is GetType(List(Of R1SimpleRestModels.Models.AlertSourceBreakdownResult)) Then

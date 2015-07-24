@@ -100,16 +100,18 @@ Public Class Models
         Public Property Count As Integer
         Public Property Percent As Integer
     End Class
+
     Public Class JobDefinitionModel
         Public Property JobDef As JobDefinition
         Public Property ProjectId As Long
         Public Property JobAction As JobAction
-        Public Property ComputerTargets As Target
-        Public Property NetworkShareTargets As Target
+        Public Property ComputerTargets As New Target
+        Public Property NetworkShareTargets As New Target
     End Class
+
     Public Class Target
-        Public Property Addresses As List(Of String)
-        Public Property SearchString As String
+        Public Property Addresses As New List(Of String)
+        Public Property SearchString As String = vbNullString
     End Class
     Public Class JobInfo
         Public Property JobID As Guid
@@ -294,7 +296,6 @@ Public Class Models
         Public Property processDumpInfo As ProcessDumpInfo
         Public Property CombinationJobInfo As CombinationJobInfo
         Public Property IsFullDiskAcquisition As Boolean
-        Private Shared HasAgentOperationsDefinitionName As String
         Public Property BasicJamSelected As Boolean
         Public Property AdvancedJamSelected As Boolean
         Public Property ShowUnscorables As Boolean
@@ -311,6 +312,31 @@ Public Class Models
         Public Property impersonationPasswordEncrypted As String
         Public Property ImpersonationPasswordEncryptedChanged As Boolean
         Public Property scriptFileName As String
+
+        Public Sub New()
+            Me.SecondaryActionTemplateId = Guid.Empty
+            Me.ComputerFilters = New IncludeExcludeFilterContainer()
+            Me.JobArchiveAndRemediateInfo = New JobArchiveAndRemediateInfo()
+            Me.ShareFilters = New IncludeExcludeFilterContainer()
+            '  Me.JobApprovers = New ObservableCollection(Of Long)()
+            Me.JobType = New System.Nullable(Of JobTypes)()
+            Me.RMPolicyDefinition = New RMPolicyDefinition()
+            Me.RMPolicyDefinition2 = New RMPolicyDefinition2()
+            Me.JobSchedule = New JobSchedule()
+            Me.VolatileDefinition = New VolatileDefinition()
+            Me.VolatileScheduleDefinition = New VolatileScheduleDefinition()
+            Me.MemoryAnalysisDefinition = New MemoryAnalysisDefinition()
+            Me.MemoryAcquisitionInfo = New MemoryAcquisitionInfo()
+            Me.AgentRemediateInfo = New AgentRemediateInfo()
+            Me.ProcessDumpInfo = New ProcessDumpInfo()
+            Me.NetworkAcquisitionDefinition = New NetworkAcquisitionDefinition()
+            Me.Description = String.Empty
+            Me.Name = String.Empty
+            Me.TargetTypeSelected = JobTargetType.[Custom]
+            Me.CombinationJobInfo = New CombinationJobInfo()
+            Me.AutoProcessJob = False
+            Me.ThreatScanJobOptions = New ThreatScanJobOptions()
+        End Sub
     End Class
     Public Class RMPolicyDefinition
 

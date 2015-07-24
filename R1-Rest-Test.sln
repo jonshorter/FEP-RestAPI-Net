@@ -7,7 +7,7 @@ Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "R1-Rest-Test", "R1-Rest-Tes
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "R1SimpleRestModels", "R1SimpleRestModels\R1SimpleRestModels.vbproj", "{9C045E24-DBAD-4F09-B600-3B798D109ED6}"
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "R1RestFunctions", "R1RestFunctions\R1RestFunctions.vbproj", "{458007CE-D492-4D53-BAA8-A5E04B4DDBC8}"
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "R1SimpleRestClient", "R1RestFunctions\R1SimpleRestClient.vbproj", "{458007CE-D492-4D53-BAA8-A5E04B4DDBC8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

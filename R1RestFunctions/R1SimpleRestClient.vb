@@ -1,21 +1,19 @@
-﻿Imports System.IO
-Imports System.Net
+﻿Imports System.Net
 Imports System.Text
-Imports Newtonsoft.Json
+Imports System.IO
 Imports RestSharp
+Imports System.Windows.Forms
 
-Module R1RestFunctions
-
-
-    Public Function R1RestRequest(ByVal Method As RestSharp.Method, ByVal apicall As String, Optional ByVal jsonstr As String = Nothing)
-        Dim client As New RestSharp.RestClient("https://" & Form1.txtServer.Text & "/R1/api")
-        client.CookieContainer = AuthenticateWithR1(Form1.txtServer.Text, Form1.txtUsername.Text, Form1.txtPassword.Text)
+Public Class R1SimpleRestClient
+    Public Function R1RestRequest(ByVal Server As String, ByVal APIUserName As String, ByVal APIPassword As String, ByVal Method As RestSharp.Method, ByVal apicall As String, Optional ByVal jsonstr As String = Nothing)
+        Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api")
+        client.CookieContainer = AuthenticateWithR1(Server, APIUserName, APIPassword)
 
         Dim request = New RestSharp.RestRequest(apicall, Method)
         If Not jsonstr Is Nothing Then
 
             request.RequestFormat = DataFormat.Json
-            request.JsonSerializer = New RestSharpSerializer.RestSharpJsonNetSerializer
+            request.JsonSerializer = New RestSharp.Serializers.JsonSerializer
             request.AddHeader("Accept", "application/json")
             request.Parameters.Clear()
             request.AddParameter("application/json", jsonstr, ParameterType.RequestBody)
@@ -26,26 +24,28 @@ Module R1RestFunctions
         If response.StatusCode = HttpStatusCode.NotFound Then
             Return "Error: Not Found" & vbCrLf & response.Content
         Else
-         
+
             Select Case True
 
                 Case response.ResponseUri.AbsolutePath.Contains("/R1/api/alerts/getAlertSourceBreakdown/")
-                    Dim content As List(Of R1SimpleRestModels.Models.AlertSourceBreakdownResult) = JsonConvert.DeserializeObject(Of List(Of R1SimpleRestModels.Models.AlertSourceBreakdownResult))(response.Content)
-                    Return content
+                    ' Dim content As List(Of R1SimpleRestModels.Models.AlertSourceBreakdownResult) = JsonConvert.DeserializeObject(Of List(Of R1SimpleRestModels.Models.AlertSourceBreakdownResult))(response.Content)
+                    ' Return content
+                    Return response.Content
                 Case response.ResponseUri.AbsolutePath.Contains("/jobs/jobresultsreportstatus/")
                     Return response.Content
                 Case response.ResponseUri.AbsolutePath.Contains("/R1/api/projects")
-                    Dim content As R1SimpleRestModels.Models.ApiResponse(Of Object) = JsonConvert.DeserializeObject(Of R1SimpleRestModels.Models.ApiResponse(Of Object))(response.Content)
-                    Return content
+                    'Dim content As R1SimpleRestModels.Models.ApiResponse(Of Object) = JsonConvert.DeserializeObject(Of R1SimpleRestModels.Models.ApiResponse(Of Object))(response.Content)
+                    'Return content
+                    Return response.Content
                 Case response.ResponseUri.AbsolutePath.Contains("/R1/api/jobs")
-                    Dim content As R1SimpleRestModels.Models.ApiResponse(Of Object) = JsonConvert.DeserializeObject(Of R1SimpleRestModels.Models.ApiResponse(Of Object))(response.Content)
-                    Return content
-      
+                    'Dim content As R1SimpleRestModels.Models.ApiResponse(Of Object) = JsonConvert.DeserializeObject(Of R1SimpleRestModels.Models.ApiResponse(Of Object))(response.Content)
+                    'Return content
+                    Return response.Content
                 Case Else
                     Return response.Content
 
             End Select
-            End If
+        End If
 
     End Function
 
@@ -118,7 +118,7 @@ Module R1RestFunctions
             postreqreader = New StreamReader(postresponse.GetResponseStream())
 
             '  thepage = postreqreader2.ReadToEnd
-         
+
             Dim authrespcookies() = postresponse.Headers.GetValues("Set-Cookie")
             For Each item In authrespcookies
                 Dim tc As New System.Net.Cookie
@@ -142,4 +142,4 @@ Module R1RestFunctions
             Return ex.Message.ToString
         End Try
     End Function
-End Module
+End Class

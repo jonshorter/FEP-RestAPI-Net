@@ -95,8 +95,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="R1RestFunctions.vb" />
-    <Compile Include="RestSharpSerializer.vb" />
+    <None Include="R1RestFunctions.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Form1.resx">
@@ -123,6 +122,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\R1RestFunctions\R1SimpleRestClient.vbproj">
+      <Project>{458007ce-d492-4d53-baa8-a5e04b4ddbc8}</Project>
+      <Name>R1SimpleRestClient</Name>
+    </ProjectReference>
     <ProjectReference Include="..\R1SimpleRestModels\R1SimpleRestModels.vbproj">
       <Project>{9c045e24-dbad-4f09-b600-3b798d109ed6}</Project>
       <Name>R1SimpleRestModels</Name>

@@ -87,7 +87,6 @@ Partial Class Form1
         Me.btnAddNewTarget = New System.Windows.Forms.Button()
         Me.txtNewTarget = New System.Windows.Forms.TextBox()
         Me.Label16 = New System.Windows.Forms.Label()
-        Me.txtProjectID = New System.Windows.Forms.TextBox()
         Me.comboJobType = New System.Windows.Forms.ComboBox()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.Label7 = New System.Windows.Forms.Label()
@@ -106,6 +105,7 @@ Partial Class Form1
         Me.Label4 = New System.Windows.Forms.Label()
         Me.txtapicallpostjson = New System.Windows.Forms.TextBox()
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
+        Me.txtProjectID = New System.Windows.Forms.NumericUpDown()
         CType(Me.dgvprojects, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvprojectjobs, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabTopMenu.SuspendLayout()
@@ -120,6 +120,7 @@ Partial Class Form1
         Me.GroupBox2.SuspendLayout()
         Me.tabAlerts.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
+        CType(Me.txtProjectID, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'btnRefreshProjectList
@@ -636,11 +637,11 @@ Partial Class Form1
         '
         'tabCreateJob
         '
+        Me.tabCreateJob.Controls.Add(Me.txtProjectID)
         Me.tabCreateJob.Controls.Add(Me.comboJobAction)
         Me.tabCreateJob.Controls.Add(Me.Label17)
         Me.tabCreateJob.Controls.Add(Me.GroupBox2)
         Me.tabCreateJob.Controls.Add(Me.Label16)
-        Me.tabCreateJob.Controls.Add(Me.txtProjectID)
         Me.tabCreateJob.Controls.Add(Me.comboJobType)
         Me.tabCreateJob.Controls.Add(Me.Label8)
         Me.tabCreateJob.Controls.Add(Me.Label7)
@@ -726,13 +727,6 @@ Partial Class Form1
         Me.Label16.Size = New System.Drawing.Size(57, 13)
         Me.Label16.TabIndex = 10
         Me.Label16.Text = "Project ID:"
-        '
-        'txtProjectID
-        '
-        Me.txtProjectID.Location = New System.Drawing.Point(106, 6)
-        Me.txtProjectID.Name = "txtProjectID"
-        Me.txtProjectID.Size = New System.Drawing.Size(158, 20)
-        Me.txtProjectID.TabIndex = 9
         '
         'comboJobType
         '
@@ -902,6 +896,13 @@ Partial Class Form1
         Me.StatusStrip1.TabIndex = 15
         Me.StatusStrip1.Text = "StatusStrip1"
         '
+        'txtProjectID
+        '
+        Me.txtProjectID.Location = New System.Drawing.Point(106, 7)
+        Me.txtProjectID.Name = "txtProjectID"
+        Me.txtProjectID.Size = New System.Drawing.Size(158, 20)
+        Me.txtProjectID.TabIndex = 14
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -932,6 +933,7 @@ Partial Class Form1
         Me.tabAlerts.PerformLayout()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
+        CType(Me.txtProjectID, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -981,7 +983,6 @@ Partial Class Form1
     Friend WithEvents Label15 As System.Windows.Forms.Label
     Friend WithEvents cmbProjectProcessingMode As System.Windows.Forms.ComboBox
     Friend WithEvents Label16 As System.Windows.Forms.Label
-    Friend WithEvents txtProjectID As System.Windows.Forms.TextBox
     Friend WithEvents GroupBox2 As System.Windows.Forms.GroupBox
     Friend WithEvents btnRemoveSelectedTargets As System.Windows.Forms.Button
     Friend WithEvents btnAddNewTarget As System.Windows.Forms.Button
@@ -1018,5 +1019,6 @@ Partial Class Form1
     Friend WithEvents colStatus As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents colLink As System.Windows.Forms.DataGridViewLinkColumn
     Friend WithEvents colrptid As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents txtProjectID As System.Windows.Forms.NumericUpDown
 
 End Class
