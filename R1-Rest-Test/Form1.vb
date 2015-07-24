@@ -11,22 +11,7 @@ Public Class Form1
     Dim currproject As Integer = 0
 
     Private Sub btnRefreshProjectList_Click(sender As Object, e As EventArgs) Handles btnRefreshProjectList.Click
-        dgvprojects.Rows.Clear()
-        Dim R1Client As New R1SimpleRestClient.R1SimpleRestClient
-        Dim response = R1Client.R1RestRequest(txtServer.Text, txtUsername.Text, txtPassword.Text, Method.GET, "projects")
-        If response.GetType Is GetType(R1SimpleRestModels.Models.ApiResponse(Of Object)) Then
-            If response.Success = True Then
-                Dim projects = JsonConvert.DeserializeObject(Of List(Of R1SimpleRestModels.Models.ProjectPresenter))(response.Data.ToString)
-                For Each item As R1SimpleRestModels.Models.ProjectPresenter In projects
-                    dgvprojects.Rows.Add(New String() {item.Name, item.FtkCaseId, "X", "0"})
-                Next
-            Else
-                MsgBox(response.error.message)
-            End If
-        Else
-            MsgBox(response)
-        End If
-
+        tabProjects_Enter(sender, e)
     End Sub
     Private Sub btnJobCreate_Click(sender As Object, e As EventArgs) Handles btnJobCreate.Click
    
@@ -78,81 +63,41 @@ Public Class Form1
     End Sub
 
     Private Sub dgvprojects_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvprojects.CellClick
+        currproject = dgvprojects.Rows.Item(e.RowIndex).Cells(1).Value.ToString
         Try
-            If e.ColumnIndex = 0 Then
-                dgvprojectjobs.Rows.Clear()
-                currproject = dgvprojects.Rows.Item(e.RowIndex).Cells(1).Value.ToString
-
-                Dim R1Client As New R1SimpleRestClient.R1SimpleRestClient
-                Dim response = R1Client.R1RestRequest(txtServer.Text, txtUsername.Text, txtPassword.Text, Method.GET, "jobs/" & dgvprojects.Rows.Item(e.RowIndex).Cells(1).Value.ToString)
-                If response.GetType Is GetType(R1SimpleRestModels.Models.ApiResponse(Of Object)) Then
-                    If response.Success = True Then
-                        Dim jobs = JsonConvert.DeserializeObject(Of List(Of R1SimpleRestModels.Models.JobInfo))(response.Data.ToString)
-                        For Each job As R1SimpleRestModels.Models.JobInfo In jobs
-                            dgvprojectjobs.Rows.Add(New String() {job.Name, job.JobType.ToString, job.Status, job.JobID.ToString})
-                        Next
-                    Else
-                        MsgBox(response.error.message)
-                    End If
-                Else
-                    MsgBox(response)
-                End If
-
-                response = R1Client.R1RestRequest(txtServer.Text, txtUsername.Text, txtPassword.Text, Method.GET, "projects/" & dgvprojects.Rows.Item(e.RowIndex).Cells(1).Value.ToString)
-                If response.GetType Is GetType(R1SimpleRestModels.Models.ApiResponse(Of Object)) Then
-                    If response.Success = True Then
-
-                        Dim prjinfo = JsonConvert.DeserializeObject(Of R1SimpleRestModels.Models.ProjectPresenter)(response.Data.ToString)
-                        pgProject.SelectedObject = prjinfo
-                      
-
-                    Else
-        MsgBox(response.error.message)
-                    End If
-                Else
-                    MsgBox(response)
-                End If
-
-                dgvProjectReports.Rows.Clear()
-
-                response = R1Client.R1RestRequest(txtServer.Text, txtUsername.Text, txtPassword.Text, Method.GET, "projects/" & dgvprojects.Rows.Item(e.RowIndex).Cells(1).Value.ToString & "/reports")
-                If response.GetType Is GetType(R1SimpleRestModels.Models.ApiResponse(Of Object)) Then
-                    If response.Success = True Then
-
-                        Dim reports = JsonConvert.DeserializeObject(Of List(Of R1SimpleRestModels.Models.BasicReport))(response.Data.ToString)
-                        If reports.Count > 0 Then
-                            For Each report As R1SimpleRestModels.Models.BasicReport In reports
-                                dgvProjectReports.Rows.Add(New String() {report.ReportInfo.Name, report.ReportInfo.ReportType.ToString, report.ReportInfo.Status.ToString, report.ReportInfo.FilePath, report.ReportInfo.ReportId})
-                            Next
-                        End If
-                    Else
-                        MsgBox(response.error.message)
-                    End If
-                Else
-                    MsgBox(response)
-                End If
-            ElseIf e.ColumnIndex = 2 Then
-                Dim x = MsgBox("Are you sure you want to delete the project?", MsgBoxStyle.YesNo, "Delete Project?")
-                If x = 6 Then
+            Select Case e.ColumnIndex
+                Case 0
                     Dim R1Client As New R1SimpleRestClient.R1SimpleRestClient
-                    Dim response = R1Client.R1RestRequest(txtServer.Text, txtUsername.Text, txtPassword.Text, Method.DELETE, "projects/" & dgvprojects.Rows.Item(e.RowIndex).Cells(1).Value.ToString)
-                    If response.GetType Is GetType(R1SimpleRestModels.Models.ApiResponse(Of Object)) Then
-                        If response.Success = True Then
-                            MsgBox("Project # " & dgvprojects.Rows.Item(e.RowIndex).Cells(1).Value.ToString & " deleted.")
+                    Dim Jobs As List(Of R1SimpleRestModels.Models.JobInfo) = R1Client.GetJobsForProject(txtServer.Text, txtUsername.Text, txtPassword.Text, currproject)
+                    dgvprojectjobs.Rows.Clear()
+                    For Each job In Jobs
+                        dgvprojectjobs.Rows.Add(New String() {job.Name, job.JobType.ToString, job.Status, job.JobID.ToString})
+                    Next
+
+                    Dim prjinfo = R1Client.GetProjectDetails(txtServer.Text, txtUsername.Text, txtPassword.Text, currproject)
+                    pgProject.SelectedObject = prjinfo
+
+                    Dim projectreports = R1Client.GetProjectReports(txtServer.Text, txtUsername.Text, txtPassword.Text, currproject)
+                    dgvProjectReports.Rows.Clear()
+                    For Each report As R1SimpleRestModels.Models.BasicReport In projectreports
+                        dgvProjectReports.Rows.Add(New String() {report.ReportInfo.Name, report.ReportInfo.ReportType.ToString, report.ReportInfo.Status.ToString, report.ReportInfo.FilePath, report.ReportInfo.ReportId})
+                    Next
+                Case 2
+                    Dim x = MsgBox("Are you sure you want to delete the project?", MsgBoxStyle.YesNo, "Delete Project?")
+                    If x = 6 Then
+                        Dim R1Client As New R1SimpleRestClient.R1SimpleRestClient
+                        Dim deleteproject = R1Client.DeleteProject(txtServer.Text, txtUsername.Text, txtPassword.Text, currproject)
+                        If deleteproject = True Then
+                            MsgBox("Project # " & currproject & " deleted.")
                         Else
-                            MsgBox(response.error.message)
+                            MsgBox("Failed To Delete Project # " & dgvprojects.Rows.Item(e.RowIndex).Cells(1).Value.ToString)
                         End If
-                    Else
-                        MsgBox(response)
                     End If
-                End If
-
-            ElseIf e.ColumnIndex = 3 Then
-                txtProjectID.Text = dgvprojects.Rows.Item(e.RowIndex).Cells(1).Value.ToString
-                tabBottomMenu.SelectedTab = tabCreateJob
-
-
-            End If
+                Case 3
+                    txtProjectID.Text = dgvprojects.Rows.Item(e.RowIndex).Cells(1).Value.ToString
+                    tabBottomMenu.SelectedTab = tabCreateJob
+            End Select
+          
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
@@ -234,22 +179,13 @@ Public Class Form1
         cmbProjectProcessingMode.SelectedItem = R1SimpleRestModels.Models.ProcessModeEnum.Security
     End Sub
     Private Sub tabProjects_Enter(sender As Object, e As EventArgs) Handles tabProjects.Enter
+          Dim rc As New R1SimpleRestClient.R1SimpleRestClient
+        Dim Projects As List(Of R1SimpleRestModels.Models.ProjectPresenter) = rc.GetProjectList(txtServer.Text, txtUsername.Text, txtPassword.Text)
         dgvprojects.Rows.Clear()
 
-        Dim R1Client As New R1SimpleRestClient.R1SimpleRestClient
-        Dim response = R1Client.R1RestRequest(txtServer.Text, txtUsername.Text, txtPassword.Text, Method.GET, "projects")
-        If response.GetType Is GetType(R1SimpleRestModels.Models.ApiResponse(Of Object)) Then
-            If response.Success = True Then
-                Dim projects = JsonConvert.DeserializeObject(Of List(Of R1SimpleRestModels.Models.ProjectPresenter))(response.Data.ToString)
-                For Each item As R1SimpleRestModels.Models.ProjectPresenter In projects
-                    dgvprojects.Rows.Add(New String() {item.Name, item.FtkCaseId, "X", "0"})
-                Next
-            Else
-                MsgBox(response.error.message)
-            End If
-        Else
-            MsgBox(response)
-        End If
+        For Each project In Projects
+            dgvprojects.Rows.Add(New String() {project.Name, project.FtkCaseId, "X", "0"})
+        Next
     End Sub
 
 
@@ -348,4 +284,18 @@ Public Class Form1
 
     End Sub
 
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        Dim rc As New R1SimpleRestClient.R1SimpleRestClient
+        Dim Projects As List(Of R1SimpleRestModels.Models.ProjectPresenter) = rc.GetProjectList(txtServer.Text, txtUsername.Text, txtPassword.Text)
+        dgvprojects.Rows.Clear()
+
+        For Each project In Projects
+            dgvprojects.Rows.Add(New String() {project.Name, project.FtkCaseId, "X", "0"})
+        Next
+           
+    End Sub
+
+    Private Sub tabProjects_Click(sender As Object, e As EventArgs) Handles tabProjects.Click
+
+    End Sub
 End Class
