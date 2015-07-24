@@ -93,7 +93,7 @@
     End Class
 
     Public Class JobDefinitionModel
-        Public Property JobDef As Object ' JobDefinition
+        Public Property JobDef As JobDefinition
         Public Property ProjectId As Long
         Public Property JobAction As JobAction
         Public Property ComputerTargets As Target
@@ -287,8 +287,8 @@
         Private _JobArchiveAndRemediateInfo As JobArchiveAndRemediateInfo
         Private _JobType As System.Nullable(Of JobTypes)
         Private _ProjectId As Guid
-        Private _rmPolicyDefinition As RMPolicyDefinition
-        Private _rmPolicyDefinition2 As RMPolicyDefinition2
+        Private _rmPolicyDefinition As Object 'RMPolicyDefinition
+        Private _rmPolicyDefinition2 As Object 'RMPolicyDefinition2
         Private _jobSchedule As JobSchedule
         Private _VolatileDefinition As VolatileDefinition
         Private _VolatileScheduleDefinition As VolatileScheduleDefinition
@@ -316,12 +316,126 @@
         Private _ImpersonationPasswordEncryptedChanged As Boolean
         Private _scriptFileName As String
     End Class
+    Public NotInheritable Class JobSchedule
+  
+        Private _isScheduledJob As Boolean
+        Private _startJobOnDate As DateTime
+        Private _endRecurrenceOption As EndRecurrenceOptions
+        Private _noOfOccurenceToEndRecurrence As System.Nullable(Of Integer)
+        Private _endRecurrenceByDate As System.Nullable(Of DateTime)
+        Private _isRecurrenceEnabled As Boolean
+        Private _recurrencePattern As RecurrencePatternTypes
+        Private _minutesInMinutelyPattern As Minutes
+        Private _Hours As Hours
+        Private _noOfDaysInDRP As System.Nullable(Of Integer)
+        Private _isEveryWeekDayEnabledInDRP As Boolean
+        Private _noOfWeeksForRecurrenceInWRP As Integer
+        Private _recurrenceDaysInWRP As ObservableCollection(Of DayOfWeek)
+        Private _isSpecificDayEnabledInMRP As Boolean
+        Private _dayInMRP As System.Nullable(Of Integer)
+        Private _noOfMonthsForRecurrenceInMRP As System.Nullable(Of Integer)
+        Private _rankInMRP As Ranks
+        Private _dayTypeInMRP As DayTypes
+        Private _noOfMonthsForRecurrenceInMRPRankOption As System.Nullable(Of Integer)
+        Private _isSpecificDayMonthEnabledInYRP As Boolean
+        Private _dayInYRP As System.Nullable(Of Integer)
+        Private _monthInYRP As Months
+        Private _rankInYRP As Ranks
+        Private _dayTypeInYRP As DayTypes
+        Private _monthInYRPRankOption As Months
+
+        Public Shared IsScheduledJobName As String
+
+    End Class
+    Public Enum DayTypes
+
+        Day
+        Weekday
+        Weekend
+        Sunday
+        Monday
+        Tuesday
+        Wednesday
+        Thursday
+        Friday
+        Saturday
+  End Enum
+    Public Enum Minutes
+        One
+        Two
+        Three
+        Foure
+        Five
+        Six
+        Ten
+        Twelve
+        Fifteen
+        Twenty
+        Thirty
+    End Enum
+    Public Enum Ranks
+        First
+        Second
+        Third
+        Fourth
+    End Enum
+    Public Enum Months
+        January
+        February
+        March
+        April
+        May
+        June
+        July
+        August
+        September
+        October
+        November
+        December
+    End Enum
+    Public Enum Hours
+        One
+        Two
+        Three
+        Four
+        Six
+        Eight
+        Twelve
+    End Enum
+
+
+    Public NotInheritable Class JobArchiveAndRemediateInfo
+
+        Private _secureDelete As Boolean
+        Private _VerifyRemediation As System.Nullable(Of Boolean)
+        Private _IsHitsPerNodeEnabled As Boolean
+        Private _hitsPerNode As System.Nullable(Of Integer)
+        Private _useExpressExport As Boolean
+        Private _usePreScan As Boolean
+        Private _encryptionCertificateId As System.Nullable(Of Guid)
+        Private _encryptionPassword As String
+        Private _EncryptionPasswordChanged As Boolean
+        Private _Ad1Encryption As Ad1EncryptionTypes
+        Private _raPassword As String
+        Private _raUsername As String
+        Private _redirectedAquisition As Boolean
+        Private _reportOnNonResponsiveItems As Boolean
+        Private _useStubbing As Boolean
+        Private _remediationFileId As System.Nullable(Of Guid)
+    End Class
     Public NotInheritable Class IncludeExcludeFilterContainer
 
         Private _InclusionFilters As ObservableCollection(Of Filters)
         Private _ExclusionFilters As ObservableCollection(Of Filters)
     End Class
+    Public NotInheritable Class JobDefinitionTemplate
 
+        Private _name As String
+        Private _description As String
+        Private _jobId As Guid
+        Private _jobDefinition As JobDefinitionBase
+        Private _IsSystemJob As Boolean
+    End Class
     Public Class Filters
 
         Private Shared ReadOnly _exampleQueries As String = String.Empty
@@ -429,11 +543,47 @@
         Private _isSearchFilenameOnly As Boolean
         Private _isRegexSearch As Boolean
     End Class
+    Public Enum CustomMatchOptions
+        CMO_ANY
+        CMO_ALL
+        NMO_REGEX
+    End Enum
+    Public Class StringMatchSimpleFilter
+
+        Private _Value As String
+        Private _Operator As StringMatchSimpleOptions
+    End Class
+    Public Enum StringMatchSimpleOptions
+        NotEquals
+    End Enum
+
+    Public Class RemediationFile
+        Private _remediationFileId As System.Nullable(Of Guid)
+        Private _fileName As String
+        Private _description As String
+        Private _createBy As Long
+        Private _createdDate As DateTime
+        Private _isReferenced As Boolean
+    End Class
     Public Enum FileSizeDistributionOptions
         FSDO_IS
         FSDO_GREATERTHAN
         FSDO_LESSTHAN
         FSDO_ANY
+    End Enum
+    Public Enum FileSizeOptions
+        FSO_BYTES
+        FSO_KBYTES
+        FSO_MBYTES
+    End Enum
+
+    Public Enum NameMatchOptions
+        NMO_TEXT
+        NMO_REGEX
+    End Enum
+    Public Enum FileExtensionOptions
+        FEO_EQUALS
+        FEO_NOTEQUAL
     End Enum
 
     Public Class FilterDateRange
@@ -508,7 +658,7 @@
         Private _includeTemplateTargetOptions As Boolean
     End Class
     Public Class AgentOperationsDefinition
-   
+
         Private _isUninstallNukeAgentChecked As Boolean
         Private Shared _IsUninstallNukeAgentCheckedName As String
         Private Shared _IsMakePublicInstanceCheckedName As String
