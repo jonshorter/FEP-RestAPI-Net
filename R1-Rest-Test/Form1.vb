@@ -20,9 +20,9 @@ Public Class Form1
         Dim response = R1RestFunctions.R1RestRequest(Method.GET, "projects")
         If response.GetType Is GetType(R1SimpleRestModels.Models.ApiResponse(Of Object)) Then
             If response.Success = True Then
-                Dim projects = JsonConvert.DeserializeObject(Of List(Of R1SimpleRestModels.Models.ProjectInformation))(response.Data.ToString)
-                For Each item As R1SimpleRestModels.Models.ProjectInformation In projects
-                    dgvprojects.Rows.Add(New String() {item.name, item.ftkCaseId, "X", "0"})
+                Dim projects = JsonConvert.DeserializeObject(Of List(Of R1SimpleRestModels.Models.ProjectPresenter))(response.Data.ToString)
+                For Each item As R1SimpleRestModels.Models.ProjectPresenter In projects
+                    dgvprojects.Rows.Add(New String() {item.Name, item.FtkCaseId, "X", "0"})
                 Next
             Else
                 MsgBox(response.error.message)
@@ -42,8 +42,8 @@ Public Class Form1
         Dim nj As New R1SimpleRestModels.Models.JobDefinitionModel ' ADG.WebLab.Web.Controllers.API.Job.JobDefinitionModel
         Dim njdef As New Object 'ADG.Wizard.Shared.JobDefinition
         nj.JobDef = njdef
-        nj.JobDef.Name = txtJobName.Text
-        nj.JobDef.JobType = comboJobType.SelectedItem
+        'nj.JobDef.Name = txtJobName.Text
+        'nj.JobDef.JobType = comboJobType.SelectedItem
 
 
 
@@ -118,7 +118,7 @@ Public Class Form1
                 If response.GetType Is GetType(R1SimpleRestModels.Models.ApiResponse(Of Object)) Then
                     If response.Success = True Then
                         Try
-                            Dim prjinfo = JsonConvert.DeserializeObject(Of R1SimpleRestModels.Models.ProjectInformation)(response.Data.ToString)
+                            Dim prjinfo = JsonConvert.DeserializeObject(Of R1SimpleRestModels.Models.ProjectPresenter)(response.Data.ToString)
                             pgProject.SelectedObject = prjinfo
                         Catch ex As Exception
                             MsgBox(ex.Message)
@@ -286,9 +286,9 @@ Public Class Form1
         Dim response = R1RestFunctions.R1RestRequest(Method.GET, "projects")
         If response.GetType Is GetType(R1SimpleRestModels.Models.ApiResponse(Of Object)) Then
             If response.Success = True Then
-                Dim projects = JsonConvert.DeserializeObject(Of List(Of R1SimpleRestModels.Models.ProjectInformation))(response.Data.ToString)
-                For Each item As R1SimpleRestModels.Models.ProjectInformation In projects
-                    dgvprojects.Rows.Add(New String() {item.name, item.ftkCaseId, "X", "0"})
+                Dim projects = JsonConvert.DeserializeObject(Of List(Of R1SimpleRestModels.Models.ProjectPresenter))(response.Data.ToString)
+                For Each item As R1SimpleRestModels.Models.ProjectPresenter In projects
+                    dgvprojects.Rows.Add(New String() {item.Name, item.FtkCaseId, "X", "0"})
                 Next
             Else
                 MsgBox(response.error.message)
