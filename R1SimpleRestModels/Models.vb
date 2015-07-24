@@ -1,4 +1,6 @@
 ﻿Imports System.Data
+Imports System.ComponentModel
+
 Public Class Models
     Public Class ApiResponse(Of T)
         Public Property Success As Boolean
@@ -18,100 +20,70 @@ Public Class Models
         Security
     End Enum
     Public Class ProjectPresenter
-        Private _projectCustomPropertyValues As List(Of ProjectCustomPropertyValue)
-        Public ForceHasChanges As Integer
-        Public ProjectId As Guid
-        Public ProjectType As String
-        Public Name As String
-        Public Description As String
-        Public CreatedDate As DateTime
-        Public CreatedByUsername As String
-        Public ModifiedDate As DateTime
-        Public ModifiedByUsername As String
-        Public FtkCaseId As System.Nullable(Of Long)
-        Public FtkCaseFolderPath As String
-        Public ResponsiveFilePath As String
-        Public IsSensitive As Boolean
-        Public Priority As Integer
-
-        Public PriorityText As String
-
-        Public AgentPriority As Integer
-        Public Status As Integer
-
-        Public StatusText As String
-        Public Size As Double
-        Public JobsCount As Integer
-        Public Attorney As String
-        Public Jurisdiction As String
-        Public LegalAssistant As String
-        Public OutsideCounsel As String
-        Public Comments As String
-        Public EffectiveStartDate As System.Nullable(Of DateTime)
-        Public EffectiveEndDate As System.Nullable(Of DateTime)
-
-        Public SelectedCertificateId As System.Nullable(Of Guid)
-
-        Public MainPasswordString As String
-
-        Public HasPassword As Boolean
-        Public EncryptedPassword As String
-        Public EncryptionPasswordSalt As String
-        Public ProjectCustomPropertyValues As List(Of ProjectCustomPropertyValue)
-
-
-        Public CustomPropertyValues As List(Of SerializableProjectCustomProperty)
-        Public EncryptionType As EncryptionType
-
-        Public NetworkAcquisitionRetainValue As Integer
-        Public NetworkAcquisitionPurgeFirstPurge As DateTime
-
-        Public NetworkAcquisitionFrequencyValue As Integer
-
-        Public EventRetainValue As Integer
-        Public EventFirstPurge As DateTime
-
-        Public PurgeEventsEnabled As Boolean
-
-        Public PurgeVolatileEnabled As Boolean
-
-        Public PurgeNetworkEnabled As Boolean
-
-        Public EventFrequencyValue As Integer
-
-        Public VolatileRetainValue As Integer
-        Public VolatilePurgeFirstPurge As DateTime
-
-        Public VolatileFrequencyValue As Integer
-
-        Public FeedCheckingEnabled As Boolean
-
-        Public FeedVirusTotalEnabled As Boolean
-
-        Public FeedDataPurgeEnabled As Boolean
-
-
-        Public DisplayTimeZone As String
-
-
-        Public DefaultSortColumn As String
-
-        Public DefaultSortOrder As String
+        Public Property ForceHasChanges As Integer
+        Public Property ProjectId As Guid
+        Public Property ProjectType As String
+        Public Property Name As String
+        Public Property Description As String
+        Public Property CreatedDate As DateTime
+        Public Property CreatedByUsername As String
+        Public Property ModifiedDate As DateTime
+        Public Property ModifiedByUsername As String
+        Public Property FtkCaseId As System.Nullable(Of Long)
+        Public Property FtkCaseFolderPath As String
+        Public Property ResponsiveFilePath As String
+        Public Property IsSensitive As Boolean
+        Public Property Priority As Integer
+        Public Property PriorityText As String
+        Public Property AgentPriority As Integer
+        Public Property Status As Integer
+        Public Property StatusText As String
+        Public Property Size As Double
+        Public Property JobsCount As Integer
+        Public Property Attorney As String
+        Public Property Jurisdiction As String
+        Public Property LegalAssistant As String
+        Public Property OutsideCounsel As String
+        Public Property Comments As String
+        Public Property EffectiveStartDate As System.Nullable(Of DateTime)
+        Public Property EffectiveEndDate As System.Nullable(Of DateTime)
+        Public Property SelectedCertificateId As System.Nullable(Of Guid)
+        Public Property MainPasswordString As String
+        Public Property HasPassword As Boolean
+        Public Property EncryptedPassword As String
+        Public Property EncryptionPasswordSalt As String
+        Public Property ProjectCustomPropertyValues As List(Of ProjectCustomPropertyValue)
+        Public Property CustomPropertyValues As List(Of SerializableProjectCustomProperty)
+        Public Property EncryptionType As EncryptionType
+        Public Property NetworkAcquisitionRetainValue As Integer
+        Public Property NetworkAcquisitionPurgeFirstPurge As DateTime
+        Public Property NetworkAcquisitionFrequencyValue As Integer
+        Public Property EventRetainValue As Integer
+        Public Property EventFirstPurge As DateTime
+        Public Property PurgeEventsEnabled As Boolean
+        Public Property PurgeVolatileEnabled As Boolean
+        Public Property PurgeNetworkEnabled As Boolean
+        Public Property EventFrequencyValue As Integer
+        Public Property VolatileRetainValue As Integer
+        Public Property VolatilePurgeFirstPurge As DateTime
+        Public Property VolatileFrequencyValue As Integer
+        Public Property FeedCheckingEnabled As Boolean
+        Public Property FeedVirusTotalEnabled As Boolean
+        Public Property FeedDataPurgeEnabled As Boolean
+        Public Property DisplayTimeZone As String
+        Public Property DefaultSortColumn As String
+        Public Property DefaultSortOrder As String
     End Class
     Public Class EncryptionType
-
         Private _Id As Integer
         Private _Description As String
     End Class
     Public Class SerializableProjectCustomProperty
         Public PropertyId As Guid
-
         Public Name As String
-
         Public Value As String
     End Class
     Public Class ProjectCustomPropertyValue
-
         Private _PropertyId As Guid
         Private _ProjectId As Guid
         Private _Value As String
@@ -290,55 +262,55 @@ Public Class Models
     End Enum
     Public NotInheritable Class JobDefinition
         Inherits JobDefinitionBase
-        Private _secondaryActionsImmediate As Boolean = True
-        Private _UseRoleBasedApproval As Boolean = True
-        Private _AdvancedOptions As New AdvancedFilterOptions()
-        Private _JamThreshold As Integer = 20
-        Private _secondaryActionTemplateId As Guid
-        Private _secondaryActionsEnabled As Boolean
-        Private _threatScanIsReportOnly As Boolean
-        Private _UseCollectionTemplate As Boolean
-        Private _InheritResponsivePath As Boolean
-        Private _InheritJobPriorityFromProject As Boolean
-        Private _InheritAgentPriorityFromProject As Boolean
-        Private _AD1EncryptionInheritFromProject As Boolean
-        Private _AutoProcessJob As Boolean
-        Private _DestinationRoot As String
-        Private _ProjectResponsiveFilePath As String
-        Private _JobApprovers As ObservableCollection(Of Long)
-        Private _ShareFilters As IncludeExcludeFilterContainer
-        Private _ComputerFilters As IncludeExcludeFilterContainer
-        Private _JobArchiveAndRemediateInfo As JobArchiveAndRemediateInfo
-        Private _JobType As System.Nullable(Of JobTypes)
-        Private _ProjectId As Guid
-        Private _rmPolicyDefinition As RMPolicyDefinition
-        Private _rmPolicyDefinition2 As RMPolicyDefinition2
-        Private _jobSchedule As JobSchedule
-        Private _VolatileDefinition As VolatileDefinition
-        Private _VolatileScheduleDefinition As VolatileScheduleDefinition
-        Private _MemoryAnalysisDefinition As MemoryAnalysisDefinition
-        Private _AgentRemediateInfo As AgentRemediateInfo
-        Private _MemoryAcquisitionInfo As MemoryAcquisitionInfo
-        Private _processDumpInfo As ProcessDumpInfo
-        Private _CombinationJobInfo As CombinationJobInfo
-        Private _IsFullDiskAcquisition As Boolean
-        Private Shared _HasAgentOperationsDefinitionName As String
-        Private _BasicJamSelected As Boolean
-        Private _AdvancedJamSelected As Boolean
-        Private _ShowUnscorables As Boolean
-        Private _MemoryOperationsType As MemoryOperationsTypes
-        Private _networkAcquisitionDefinition As NetworkAcquisitionDefinition
-        Private _CreateArchiveFileOnAgent As Boolean
-        Private _KFFInfo As KFFInfo
-        Private _ThreatScanJobOptions As ThreatScanJobOptions
-        Private _DisableHashing As Boolean
-        Private _RecurringIncrementalCollection As Boolean
-        Private _runScriptsOnJobCompletion As Boolean
-        Private _impersonationUsername As String
-        Private _impersonationDomain As String
-        Private _impersonationPasswordEncrypted As String
-        Private _ImpersonationPasswordEncryptedChanged As Boolean
-        Private _scriptFileName As String
+        Public Property secondaryActionsImmediate As Boolean = True
+        Public Property UseRoleBasedApproval As Boolean = True
+        Public Property AdvancedOptions As New AdvancedFilterOptions()
+        Public Property JamThreshold As Integer = 20
+        Public Property secondaryActionTemplateId As Guid
+        Public Property secondaryActionsEnabled As Boolean
+        Public Property threatScanIsReportOnly As Boolean
+        Public Property UseCollectionTemplate As Boolean
+        Public Property InheritResponsivePath As Boolean
+        Public Property InheritJobPriorityFromProject As Boolean
+        Public Property InheritAgentPriorityFromProject As Boolean
+        Public Property AD1EncryptionInheritFromProject As Boolean
+        Public Property AutoProcessJob As Boolean
+        Public Property DestinationRoot As String
+        Public Property ProjectResponsiveFilePath As String
+        Public Property JobApprovers As ObservableCollection(Of Long)
+        Public Property ShareFilters As IncludeExcludeFilterContainer
+        Public Property ComputerFilters As IncludeExcludeFilterContainer
+        Public Property JobArchiveAndRemediateInfo As JobArchiveAndRemediateInfo
+        Public Property JobType As System.Nullable(Of JobTypes)
+        Public Property ProjectId As Guid
+        Public Property rmPolicyDefinition As RMPolicyDefinition
+        Public Property rmPolicyDefinition2 As RMPolicyDefinition2
+        Public Property jobSchedule As JobSchedule
+        Public Property VolatileDefinition As VolatileDefinition
+        Public Property VolatileScheduleDefinition As VolatileScheduleDefinition
+        Public Property MemoryAnalysisDefinition As MemoryAnalysisDefinition
+        Public Property AgentRemediateInfo As AgentRemediateInfo
+        Public Property MemoryAcquisitionInfo As MemoryAcquisitionInfo
+        Public Property processDumpInfo As ProcessDumpInfo
+        Public Property CombinationJobInfo As CombinationJobInfo
+        Public Property IsFullDiskAcquisition As Boolean
+        Private Shared HasAgentOperationsDefinitionName As String
+        Public Property BasicJamSelected As Boolean
+        Public Property AdvancedJamSelected As Boolean
+        Public Property ShowUnscorables As Boolean
+        Public Property MemoryOperationsType As MemoryOperationsTypes
+        Public Property networkAcquisitionDefinition As NetworkAcquisitionDefinition
+        Public Property CreateArchiveFileOnAgent As Boolean
+        Public Property KFFInfo As KFFInfo
+        Public Property ThreatScanJobOptions As ThreatScanJobOptions
+        Public Property DisableHashing As Boolean
+        Public Property RecurringIncrementalCollection As Boolean
+        Public Property runScriptsOnJobCompletion As Boolean
+        Public Property impersonationUsername As String
+        Public Property impersonationDomain As String
+        Public Property impersonationPasswordEncrypted As String
+        Public Property ImpersonationPasswordEncryptedChanged As Boolean
+        Public Property scriptFileName As String
     End Class
     Public Class RMPolicyDefinition
 
@@ -417,13 +389,10 @@ Public Class Models
         Public Shared ThreatFiltersName As String
     End Class
     Public Class AgentRemediateInfo
-
         Private _RemediateCommands As ObservableCollection(Of AgentRemediateCommand)
-
         Public Shared RemediateCommandsName As String
     End Class
     Public Class NetworkAcquisitionDefinition
-
         Private Shared _NetworkAcquisitionTransactionDefinitionName As String = DirectCast(Nothing, String)
         Private Shared _NetworkAcquisitionSessionDefinitionName As String = DirectCast(Nothing, String)
         Private Shared _NetworkAcquisitionRemoteShellDefinitionName As String = DirectCast(Nothing, String)
@@ -451,13 +420,10 @@ Public Class Models
         Private _IncludeRemoteShell As Boolean
         Private _Collectors As ObservableCollection(Of SentinelCollectorDefinition)
         Private _TimeZones As ObservableCollection(Of NetworkAcquisitionTimeZone)
-
         Public Shared NetworkAcquisitionEmailDefinitionName As String
     End Class
-
     Public Class NetworkAcquisitionEmailDefinition
         Inherits NetworkAcquisitionCommonDefinition
-
         Private _AttachmentSizeMax As New System.Nullable(Of Integer)(0)
         Private _AttachmentSizeMin As New System.Nullable(Of Integer)(0)
         Private _ToAddressCountMin As New System.Nullable(Of Integer)(0)
@@ -486,15 +452,10 @@ Public Class Models
         Private _ToAddressesRTBXaml As String
         Private _SpecifyToAddressMin As Boolean
         Private _specifyToAddressMax As Boolean
-
         Public Shared FilterAttachmentSizeOrNameName As String
     End Class
-
-
-
     Public Class NetworkAcquisitionTransactionDefinition
         Inherits NetworkAcquisitionCommonDefinition
-
         Private Shared _FilterTransactionSizeName As String = DirectCast(Nothing, String)
         Private Shared _FilterPacketCountName As String = DirectCast(Nothing, String)
         Public Shared PacketCountMinName As String
@@ -517,11 +478,8 @@ Public Class Models
         Private _SpecifyTSizeMin As Boolean
         Private _SpecifyTSizeMax As Boolean
     End Class
-
-
     Public Class NetworkAcquisitionSessionDefinition
         Inherits NetworkAcquisitionCommonDefinition
-
         Private Shared _FilterSessionSizeName As String = DirectCast(Nothing, String)
         Private Shared _FilterPacketCountName As String = DirectCast(Nothing, String)
         Public Shared PacketCountMinName As String
@@ -547,14 +505,11 @@ Public Class Models
         Private _filterExtractSessionFiles As Boolean
         Private _filterExtractPCapFiles As Boolean
     End Class
-
-
     Public Class NetworkAcquisitionIocDefinition
         Inherits NetworkAcquisitionCommonDefinition
     End Class
     Public Class NetworkAcquisitionRemoteShellDefinition
         Inherits NetworkAcquisitionCommonDefinition
-
         Private Shared _filterUsersName As String = DirectCast(Nothing, String)
         Private Shared _UsersName As String = DirectCast(Nothing, String)
         Public Shared UsersRtbXamlName As String
@@ -563,7 +518,6 @@ Public Class Models
         Private _usersRtbXaml As String
     End Class
     Public Class SentinelCollectorDefinition
-
         Private Shared _ServerName As String
         Private _Server As String
         Private Shared _DbInstanceName As String
@@ -576,18 +530,12 @@ Public Class Models
         Private _Collect As Boolean
     End Class
     Public Class NetworkAcquisitionTimeZone
-
         Public DisplayName As String
-
-
         Public BaseUtcOffset As TimeSpan
-
-
         Public Index As Integer
     End Class
     Public Class NetworkAcquisitionWebContentDefinition
         Inherits NetworkAcquisitionCommonDefinition
-
         Private Shared _FilterProtocolHttp_ProxyName As String = DirectCast(Nothing, String)
         Private Shared _FilterProtocolHttpName As String = DirectCast(Nothing, String)
         Private Shared _FilterProtocolHttpsName As String = DirectCast(Nothing, String)
@@ -644,9 +592,7 @@ Public Class Models
         Private _FileContent As String
         Private _FullReconstruction As Boolean
     End Class
-
     Public Class NetworkAcquisitionCommonDefinition
-
         Public Shared SpecifyEndDateName As String
         Private Shared ReadOnly _UtcOffsetName As String = DirectCast(Nothing, String)
         Private Shared _TimeZoneNameName As String = DirectCast(Nothing, String)
@@ -708,35 +654,27 @@ Public Class Models
         Private _SpecifyFileSizeMax As Boolean
         Private _FilterFileNames As Boolean
     End Class
-
     Public Class CombinationJobInfo
-
         Private _SearchAndReview As Boolean
         Private Shared _MetaDataOnlyName As String
         Private _MetaDataOnly As Boolean
         Private _Volatile As Boolean
         Private _ComputerSoftwareInventory As Boolean
         Private _MemoryOperations As Boolean
-
         Public Shared SearchAndReviewName As String
     End Class
     Public Class ProcessDumpInfo
-
         Private _FlagsValue As Integer
         Private _ProcessIDs As String
         Private _processNames As String
-
         Public Shared FlagsValueName As String
     End Class
     Public Class MemoryAcquisitionInfo
-
         Private _IncludePageFile As Boolean
         Private _CreateArchive As Boolean
-
         Public Shared IncludePageFileName As String
     End Class
     Public Class AgentRemediateCommand
-
         Private _CommandType As System.Nullable(Of AgentRemediateCommandTypes)
         Private _ProcessOrExcecutableName As String
         Private _ProcessId As Integer
@@ -747,13 +685,10 @@ Public Class Models
         Private _executables As String
         Private _addDeleteFileRow As Boolean
         Private _addExecuteRow As Boolean
-
         Public Shared AvailableAgentRemediateCommands As ObservableCollection(Of AgentRemediateCommandTypes)
-
         Public Shared CommandTypeName As String
     End Class
     Public Class MemoryAnalysisDefinition
-
         Private _includeIdt As Boolean
         Private _includeSdt As Boolean
         Private _includeDrivers As Boolean
@@ -763,11 +698,9 @@ Public Class Models
         Private _includeVAD As Boolean
         Private _includeRegistry As Boolean
         Private _includeCrypto As Boolean
-
         Public Shared IncludeIDTName As String
     End Class
     Public Class VolatileScheduleDefinition
-
         Private _isScheduledJob As Boolean
         Private _recurrencePattern As VolatileRecurrencePatternTypes
         Private _endRecurrenceOptions As EndRecurrenceOptions
@@ -777,10 +710,8 @@ Public Class Models
         Private _byHour As Hours
         Private _endOccurrenceNumber As System.Nullable(Of Integer)
         Private _endOccurrenceDate As System.Nullable(Of DateTime)
-
         Public Shared IsScheduledJobName As String
     End Class
-
     Public Class VolatileDefinition
         Private _jamThreshold As Integer = 20
         Private _includeProcessTree As Boolean
@@ -1302,5 +1233,149 @@ Public Class Models
         ST_AgentServer = 1
         ST_Server = 2
         ST_Agent = 3
+    End Enum
+    Public Class NewProjectDefinition
+        Public ProjectId As Guid
+        Public Name As String
+        Public Description As String
+        Public FTKCaseFolderPath As String
+        Public ResponsiveFilePath As String
+        Public Priority As Integer
+        Public AgentPriority As Integer
+        Public ProjectType As String
+        Public ProcessingMode As ProcessModeEnum
+        Public CreateHTMLForAllFiles As Boolean
+        Public OCREnabled As Boolean
+        Public OCRPDFEnabled As Boolean
+        Public OCRTIFFEnabled As Boolean
+        Public OCRJPEGEnabled As Boolean
+        Public OCRBMPEnabled As Boolean
+        Public OCRPNGEnabled As Boolean
+        Public OCRGIFEnabled As Boolean
+        Public OCRUnCommonEnabled As Boolean
+        Public DoNotOCRUnderEnabled As Boolean
+        Public DoNotOCROverEnabled As Boolean
+        Public DoNotOCRFullColorEnabled As Boolean
+        Public DoNotOCRPdfTextSizeOverEnabled As Boolean
+        Public DoNotOCRUnderValue As System.Nullable(Of Long)
+        Public DoNotOCROverValue As System.Nullable(Of Long)
+        Public DoNotOCRPdfTextSizeOverValue As System.Nullable(Of Long)
+        Public IsDontExpandEmbeddedGraphicsEnabled As Boolean
+        Public EntropyEnabled As Boolean
+        Public CerberusStage1Enabled As Boolean
+        Public CerberusStage2Enabled As Boolean
+        Public Threshold As Integer
+        Public KFFEnabled As Boolean
+        Public ADViewerEnabled As Boolean
+        Public VideoConversionEnabled As Boolean
+        Public VideoResolution As Integer
+        Public VideoBitRate As Integer
+        Public GenerateThumbNailEnabled As Boolean
+        Public ThumbNailInterval As Integer
+        Public ThumbNailMode As ThumbNailModeTypes
+        Public KFFAllowIgnorable As KFFAllowIgnorableEnum
+        Public KFFToken As String
+        Public DedupActualFilesOnly As Boolean
+        Public DupeAtOption As DupeAtOptionEnum
+        Public EmailDupeAtOption As DupeAtOptionEnum
+        Public UseEmailHash As Boolean
+        Public UseEmailTo As Boolean
+        Public UseEmailFrom As Boolean
+        Public UseEmailSubject As Boolean
+        Public UseEmailCc As Boolean
+        Public UseEmailBCc As Boolean
+        Public UseEmailSubmittime As Boolean
+        Public UseEmailDeliverytime As Boolean
+        Public UseEmailAttachmentcount As Boolean
+        Public EmailHashDeduplicationOption As EmailHashDuplicatesEnum
+        Public Password As String
+        Public CertificateId As System.Nullable(Of Guid)
+        Public AssociatedPersonIds As Guid()
+        Public CustomPropertyValues As List(Of CustomPropertyValue)
+        Public Ad1Encryption As Ad1EncryptionPresenter
+        Public Attorney As String
+        Public Jurisdiction As String
+        Public LegalAssistant As String
+        Public OutsideCounsel As String
+        Public Comments As String
+        Public EffectiveStartDate As System.Nullable(Of DateTime)
+        Public EffectiveEndDate As System.Nullable(Of DateTime)
+        Public LanguageOption As LanguageOption
+        Public AutomaticallyPerformClusteringAfterLoad As Boolean
+        Public MaxKeywordPairs As Integer
+        Public ClusterThreshold As Long
+        Public EmailBodyCaching As Boolean
+        Public DoNotDropDbIndexes As Boolean
+        Public GeoLocationEnabled As Boolean
+        Public FeedCheckingEnabled As Boolean
+        Public FeedVirusTotalEnabled As Boolean
+        Public FeedDataPurgeEnabled As Boolean
+        Public ExpandAdditionalTimelineEvents As Boolean
+        Public MinimalIndexing As Boolean
+        Public DisplayTimeZone As String
+        Public DefaultSortColumn As String
+        Public DefaultSortOrder As String
+        Public GenerateImageThumbNailsEnabled As Boolean
+        Public ExtractCreditCardNumbers As Boolean
+        Public ExtractPeople As Boolean
+        Public ExtractLocations As Boolean
+        Public ExtractOrganizations As Boolean
+        Public ExtractEmailAddresses As Boolean
+        Public ExtractSSNs As Boolean
+        Public ExtractPhoneNumbers As Boolean
+        Public SearchProvider As SearchProviderEnum
+        Public NetworkAcquisitionRetainValue As Integer
+        Public NetworkAcquisitionPurgeFirstPurge As DateTime
+        Public NetworkAcquisitionFrequencyValue As Integer
+        Public EventRetainValue As Integer
+        Public EventFirstPurge As DateTime
+        Public EventFrequencyValue As Integer
+        Public VolatileRetainValue As Integer
+        Public VolatilePurgeFirstPurge As DateTime
+        Public VolatileFrequencyValue As Integer
+    End Class
+    Public Enum ThumbNailModeTypes
+        Percent
+        Minutes
+    End Enum
+    Public Enum KFFAllowIgnorableEnum
+        NotAllowIgnorable
+        AllowIgnorable
+    End Enum
+    Public Enum DupeAtOptionEnum
+        <Description("Deduplicate at the Project Level")> _
+        CaseLevel
+        <Description("Deduplicate at the Person Level")> _
+        CustodianLevel
+        <Description("Does not Deduplicate")> _
+        NoDedupe
+    End Enum
+    Public Enum EmailHashDuplicatesEnum
+        None
+        BodyAndAttachments
+        EmailBodyOnly
+    End Enum
+    Public Class CustomPropertyValue
+        Public PropertyId As Guid
+        Public Value As String
+    End Class
+    Public Class Ad1EncryptionPresenter
+        Public EncryptionType As Ad1EncryptionPresenterType
+        Public CertificateId As Guid
+        Public Password As String
+    End Class
+    Public Enum Ad1EncryptionPresenterType
+        Disabled
+        Password
+        Certificate
+    End Enum
+    Public Enum LanguageOption
+        None
+        Basic
+        Extended
+    End Enum
+    Public Enum SearchProviderEnum
+        dtSearch
+        ElasticSearch
     End Enum
 End Class

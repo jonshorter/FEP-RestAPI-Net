@@ -7,12 +7,8 @@ Imports System.Web
 Imports Newtonsoft
 Imports Newtonsoft.Json
 
-
-
 Public Class Form1
-
     Dim currproject As Integer = 0
-
 
     Private Sub btnRefreshProjectList_Click(sender As Object, e As EventArgs) Handles btnRefreshProjectList.Click
         dgvprojects.Rows.Clear()
@@ -32,18 +28,13 @@ Public Class Form1
         End If
 
     End Sub
-
-
-
-
     Private Sub btnJobCreate_Click(sender As Object, e As EventArgs) Handles btnJobCreate.Click
-        '<FIX MY REFERENCE - ADG.WebLab.Web.Controllers.API.Job.JobDefinitionModel
-        '<FIX MY REFERENCE - ADG.Wizard.Shared.JobDefinition
-        Dim nj As New R1SimpleRestModels.Models.JobDefinitionModel ' ADG.WebLab.Web.Controllers.API.Job.JobDefinitionModel
-        Dim njdef As New Object 'ADG.Wizard.Shared.JobDefinition
+   
+        Dim nj As New R1SimpleRestModels.Models.JobDefinitionModel
+        Dim njdef As New R1SimpleRestModels.Models.JobDefinition
         nj.JobDef = njdef
-        'nj.JobDef.Name = txtJobName.Text
-        'nj.JobDef.JobType = comboJobType.SelectedItem
+        nj.JobDef.Name = txtJobName.Text
+        nj.JobDef.JobType = comboJobType.SelectedItem
 
 
 
@@ -59,8 +50,8 @@ Public Class Form1
         '  njc.SearchString = ""
         nj.ComputerTargets = njc
 
-        'Dim stc As New ADG.WebLab.Web.Controllers.API.Job.Target
-        'nj.NetworkShareTargets = stc
+        Dim stc As New R1SimpleRestModels.Models.Target
+        nj.NetworkShareTargets = stc
 
 
 
@@ -80,16 +71,10 @@ Public Class Form1
     End Sub
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
         txtServer.Text = My.Settings.Server
         txtUsername.Text = My.Settings.Username
         txtPassword.Text = My.Settings.Password
-
-
     End Sub
-
-
-
     Private Sub jobload(callback As Action(Of RestSharp.RestResponse, RestSharp.RestRequestAsyncHandle))
 
     End Sub
@@ -117,15 +102,13 @@ Public Class Form1
                 response = R1RestFunctions.R1RestRequest(Method.GET, "projects/" & dgvprojects.Rows.Item(e.RowIndex).Cells(1).Value.ToString)
                 If response.GetType Is GetType(R1SimpleRestModels.Models.ApiResponse(Of Object)) Then
                     If response.Success = True Then
-                        Try
-                            Dim prjinfo = JsonConvert.DeserializeObject(Of R1SimpleRestModels.Models.ProjectPresenter)(response.Data.ToString)
-                            pgProject.SelectedObject = prjinfo
-                        Catch ex As Exception
-                            MsgBox(ex.Message)
-                        End Try
+
+                        Dim prjinfo = JsonConvert.DeserializeObject(Of R1SimpleRestModels.Models.ProjectPresenter)(response.Data.ToString)
+                        pgProject.SelectedObject = prjinfo
+                      
 
                     Else
-                        MsgBox(response.error.message)
+        MsgBox(response.error.message)
                     End If
                 Else
                     MsgBox(response)
@@ -173,10 +156,6 @@ Public Class Form1
             MsgBox(ex.Message)
         End Try
     End Sub
-
-
-
-
     Private Sub btnSaveSettings_Click(sender As Object, e As EventArgs) Handles btnSaveSettings.Click
         My.Settings.Server = txtServer.Text
         My.Settings.Username = txtUsername.Text
@@ -188,28 +167,16 @@ Public Class Form1
     Private Sub tabSettings_Enter(sender As Object, e As EventArgs) Handles tabSettings.Enter
         lblStatusSettings.Text = ""
     End Sub
-
-
     Private Sub btnAPICallCustom_Click(sender As Object, e As EventArgs) Handles btnAPICallCustom.Click
-
         Dim response = R1RestFunctions.R1RestRequest(cmbRESTOPTION.SelectedItem, txtapicallpath.Text, txtapicallpostjson.Text)
-
-
         MsgBox(response.ToString)
-
-
-
     End Sub
-
-
     Private Sub tabTesting_Enter(sender As Object, e As EventArgs) Handles tabTesting.Enter
         cmbRESTOPTION.Items.Clear()
         For Each item In GetType(RestSharp.Method).GetEnumValues
             cmbRESTOPTION.Items.Add(item)
         Next
         cmbRESTOPTION.SelectedItem = RestSharp.Method.GET
-
-
     End Sub
 
 
@@ -236,14 +203,8 @@ Public Class Form1
             MsgBox(ex.Message)
         End Try
     End Sub
-
-
-
-
     Private Sub btnCreateProject_Click(sender As Object, e As EventArgs) Handles btnCreateProject.Click
-
-        '<FIX MY REFERENCE - ADG.RIA.DataServices.Web.NewProjectDefinition
-        Dim newproject As New Object ' ADG.RIA.DataServices.Web.NewProjectDefinition
+        Dim newproject As New R1SimpleRestModels.Models.NewProjectDefinition
         newproject.Name = txtProjectName.Text
         newproject.FTKCaseFolderPath = txtProjectCaseFolder.Text
         newproject.ResponsiveFilePath = txtProjectJobDataFolder.Text
@@ -253,11 +214,8 @@ Public Class Form1
         Dim response = R1RestFunctions.R1RestRequest(Method.POST, "projects", Json.JsonConvert.SerializeObject(newproject))
         If response.GetType Is GetType(R1SimpleRestModels.Models.ApiResponse(Of Object)) Then
             If response.Success = True Then
-                ' 'ADG.RIA.DataServices.Web.NewProjectDefinition
-                Dim project = JsonConvert.DeserializeObject(Of Object)(response.Data.ToString)
-
+                Dim project = JsonConvert.DeserializeObject(Of R1SimpleRestModels.Models.NewProjectDefinition)(response.Data.ToString)
                 MsgBox("Project " & project.Name & " created successfully.")
-
             Else
                 MsgBox(response.error.message)
             End If
@@ -265,21 +223,13 @@ Public Class Form1
             MsgBox(response)
         End If
     End Sub
-
-
-
     Private Sub tabCreateProject_Paint(sender As Object, e As PaintEventArgs) Handles tabCreateProject.Paint
         cmbProjectProcessingMode.Items.Clear()
         For Each item In GetType(R1SimpleRestModels.Models.ProcessModeEnum).GetEnumValues
             cmbProjectProcessingMode.Items.Add(item)
         Next
         cmbProjectProcessingMode.SelectedItem = R1SimpleRestModels.Models.ProcessModeEnum.Security
-
-
-
     End Sub
-
-
     Private Sub tabProjects_Enter(sender As Object, e As EventArgs) Handles tabProjects.Enter
         dgvprojects.Rows.Clear()
 
