@@ -118,7 +118,7 @@ Module R1RestFunctions
             postreqreader = New StreamReader(postresponse.GetResponseStream())
 
             '  thepage = postreqreader2.ReadToEnd
-
+         
             Dim authrespcookies() = postresponse.Headers.GetValues("Set-Cookie")
             For Each item In authrespcookies
                 Dim tc As New System.Net.Cookie
