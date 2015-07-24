@@ -30,15 +30,15 @@ Module R1RestFunctions
             Select Case True
 
                 Case response.ResponseUri.AbsolutePath.Contains("/R1/api/alerts/getAlertSourceBreakdown/")
-                    Dim content As List(Of R1SimpleRestClasses.AlertSourceBreakdownResult) = JsonConvert.DeserializeObject(Of List(Of R1SimpleRestClasses.AlertSourceBreakdownResult))(response.Content)
+                    Dim content As List(Of R1SimpleRestModels.Models.AlertSourceBreakdownResult) = JsonConvert.DeserializeObject(Of List(Of R1SimpleRestModels.Models.AlertSourceBreakdownResult))(response.Content)
                     Return content
                 Case response.ResponseUri.AbsolutePath.Contains("/jobs/jobresultsreportstatus/")
                     Return response.Content
                 Case response.ResponseUri.AbsolutePath.Contains("/R1/api/projects")
-                    Dim content As R1SimpleRestClasses.ApiResponse(Of Object) = JsonConvert.DeserializeObject(Of R1SimpleRestClasses.ApiResponse(Of Object))(response.Content)
+                    Dim content As R1SimpleRestModels.Models.ApiResponse(Of Object) = JsonConvert.DeserializeObject(Of R1SimpleRestModels.Models.ApiResponse(Of Object))(response.Content)
                     Return content
                 Case response.ResponseUri.AbsolutePath.Contains("/R1/api/jobs")
-                    Dim content As R1SimpleRestClasses.ApiResponse(Of Object) = JsonConvert.DeserializeObject(Of R1SimpleRestClasses.ApiResponse(Of Object))(response.Content)
+                    Dim content As R1SimpleRestModels.Models.ApiResponse(Of Object) = JsonConvert.DeserializeObject(Of R1SimpleRestModels.Models.ApiResponse(Of Object))(response.Content)
                     Return content
       
                 Case Else

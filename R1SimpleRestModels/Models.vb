@@ -1,6 +1,7 @@
-﻿
+﻿Public Class Models
 
-Module R1SimpleRestClasses
+
+
 
     Public Class ApiResponse(Of T)
         Public Property Success As Boolean
@@ -180,4 +181,6 @@ Module R1SimpleRestClasses
         Completed
         Failed
     End Enum
-End Module
+
+
+End Class
