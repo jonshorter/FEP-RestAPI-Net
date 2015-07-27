@@ -26,19 +26,13 @@ Public Class R1SimpleRestClient
                 request.AddParameter("application/json", jsonstr, ParameterType.RequestBody)
             End If
 
-
             Dim response As RestSharp.RestResponse = client.Execute(request)
             If response.StatusCode = HttpStatusCode.NotFound Then
                 Return "Error: Not Found" & vbCrLf & response.Content
             Else
+            Return response.Content
+        End If
 
-               
-                        Return response.Content
-
-            End If
-       
-
-     
     End Function
 
 

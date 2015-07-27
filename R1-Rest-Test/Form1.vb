@@ -195,30 +195,20 @@ Public Class Form1
     End Sub
 
     Private Sub tabAlerts_Enter(sender As Object, e As EventArgs) Handles tabAlerts.Enter
+
+
         Dim R1Client As New R1SimpleRestClient.R1SimpleRestClient
-        Dim response = R1Client.R1RestRequest(Me.Auth, txtServer.Text, Method.GET, "alerts/getTotalResponses/?predicate=null")
-        lblTotalResponses.Text = "Total Responses: " & response
 
-        response = R1Client.R1RestRequest(Me.Auth, txtServer.Text, Method.GET, "alerts/getTotalAutomatedResponses/?predicate=null")
-        lblTotalAutomatedResponses.Text = "Total Automated Responses: " & response
+        lblTotalResponses.Text = "Total Responses: " & R1Client.Functions.Alert.GetTotalResponses(Me.Auth, txtServer.Text)
 
-        response = R1Client.R1RestRequest(Me.Auth, txtServer.Text, Method.GET, "alerts/getAlertSourceBreakdown/?predicate=null")
+        lblTotalAutomatedResponses.Text = "Total Automated Responses: " & R1Client.Functions.Alert.GetTotalAutomatedResponses(Me.Auth, txtServer.Text)
 
-
-        If response.GetType Is GetType(List(Of AlertSourceBreakdownResult)) Then
-            If response.count > 0 Then
-                lstAlertSourceBreakdown.Items.Clear()
-                Dim alertSrcBreakdowns As List(Of AlertSourceBreakdownResult) = response
-                For Each alertSrc As AlertSourceBreakdownResult In alertSrcBreakdowns
-                    lstAlertSourceBreakdown.Items.Add(alertSrc.Name & " " & alertSrc.Count)
-                Next
-            Else
-                MsgBox(response.error.message)
-            End If
-        Else
-            MsgBox(response)
-        End If
-
+        lstAlertSourceBreakdown.Items.Clear()
+        Dim alertSrcBreakdowns As List(Of AlertSourceBreakdownResult) = R1Client.Functions.Alert.GetAlertSourceBreakdown(Me.Auth, txtServer.Text)
+        For Each alertSrc As AlertSourceBreakdownResult In alertSrcBreakdowns
+            lstAlertSourceBreakdown.Items.Add(alertSrc.Name & " " & alertSrc.Count)
+        Next
+       
 
     End Sub
 

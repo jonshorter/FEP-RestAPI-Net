@@ -71,10 +71,11 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Functions\Authentication\Authentication.vb" />
+    <Compile Include="Functions\Alert\AlertFunctions.vb" />
+    <Compile Include="Functions\Authentication\AuthenticationFunctions.vb" />
     <Compile Include="Functions\Functions.vb" />
     <Compile Include="Functions\Job\JobFunctions.vb" />
-    <Compile Include="Functions\Project\Project.vb" />
+    <Compile Include="Functions\Project\ProjectFunctions.vb" />
     <Compile Include="Models\Alerts\AlertModels.vb" />
     <Compile Include="Models\Enum\Enums.vb" />
     <Compile Include="Models\Job\JobModels.vb" />
@@ -119,9 +120,7 @@
     </None>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Requests\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
