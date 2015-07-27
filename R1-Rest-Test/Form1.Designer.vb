@@ -22,7 +22,7 @@ Partial Class Form1
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.btnRefreshProjectList = New System.Windows.Forms.Button()
         Me.btnJobCreate = New System.Windows.Forms.Button()
         Me.dgvprojects = New System.Windows.Forms.DataGridView()
@@ -46,7 +46,6 @@ Partial Class Form1
         Me.Label1 = New System.Windows.Forms.Label()
         Me.txtServer = New System.Windows.Forms.TextBox()
         Me.tabTesting = New System.Windows.Forms.TabPage()
-        Me.btnAuth = New System.Windows.Forms.Button()
         Me.tabBottomMenu = New System.Windows.Forms.TabControl()
         Me.tabCreateProject = New System.Windows.Forms.TabPage()
         Me.txtProjectDescription = New System.Windows.Forms.TextBox()
@@ -108,6 +107,7 @@ Partial Class Form1
         Me.txtapicallpostjson = New System.Windows.Forms.TextBox()
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.txtStatusStrip = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.btnAuth = New System.Windows.Forms.Button()
         CType(Me.dgvprojects, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvprojectjobs, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabTopMenu.SuspendLayout()
@@ -173,9 +173,9 @@ Partial Class Form1
         '
         'colDelete
         '
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle2.BackColor = System.Drawing.Color.Red
-        Me.colDelete.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle3.BackColor = System.Drawing.Color.Red
+        Me.colDelete.DefaultCellStyle = DataGridViewCellStyle3
         Me.colDelete.FillWeight = 5.0!
         Me.colDelete.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.colDelete.HeaderText = "Delete"
@@ -243,6 +243,7 @@ Partial Class Form1
         '
         'tabSettings
         '
+        Me.tabSettings.Controls.Add(Me.btnAuth)
         Me.tabSettings.Controls.Add(Me.lblStatusSettings)
         Me.tabSettings.Controls.Add(Me.btnSaveSettings)
         Me.tabSettings.Controls.Add(Me.Label3)
@@ -254,7 +255,7 @@ Partial Class Form1
         Me.tabSettings.Location = New System.Drawing.Point(4, 25)
         Me.tabSettings.Name = "tabSettings"
         Me.tabSettings.Padding = New System.Windows.Forms.Padding(3)
-        Me.tabSettings.Size = New System.Drawing.Size(939, 700)
+        Me.tabSettings.Size = New System.Drawing.Size(939, 790)
         Me.tabSettings.TabIndex = 0
         Me.tabSettings.Text = "Settings"
         Me.tabSettings.UseVisualStyleBackColor = True
@@ -328,7 +329,6 @@ Partial Class Form1
         '
         'tabTesting
         '
-        Me.tabTesting.Controls.Add(Me.btnAuth)
         Me.tabTesting.Controls.Add(Me.tabBottomMenu)
         Me.tabTesting.Controls.Add(Me.GroupBox1)
         Me.tabTesting.Controls.Add(Me.StatusStrip1)
@@ -339,15 +339,6 @@ Partial Class Form1
         Me.tabTesting.TabIndex = 1
         Me.tabTesting.Text = "APITest"
         Me.tabTesting.UseVisualStyleBackColor = True
-        '
-        'btnAuth
-        '
-        Me.btnAuth.Location = New System.Drawing.Point(564, 55)
-        Me.btnAuth.Name = "btnAuth"
-        Me.btnAuth.Size = New System.Drawing.Size(75, 23)
-        Me.btnAuth.TabIndex = 25
-        Me.btnAuth.Text = "Authenticate"
-        Me.btnAuth.UseVisualStyleBackColor = True
         '
         'tabBottomMenu
         '
@@ -663,7 +654,7 @@ Partial Class Form1
         Me.tabCreateJob.Location = New System.Drawing.Point(4, 22)
         Me.tabCreateJob.Name = "tabCreateJob"
         Me.tabCreateJob.Padding = New System.Windows.Forms.Padding(3)
-        Me.tabCreateJob.Size = New System.Drawing.Size(865, 566)
+        Me.tabCreateJob.Size = New System.Drawing.Size(865, 599)
         Me.tabCreateJob.TabIndex = 1
         Me.tabCreateJob.Text = "Create Job"
         Me.tabCreateJob.UseVisualStyleBackColor = True
@@ -791,7 +782,7 @@ Partial Class Form1
         Me.tabAlerts.Location = New System.Drawing.Point(4, 22)
         Me.tabAlerts.Name = "tabAlerts"
         Me.tabAlerts.Padding = New System.Windows.Forms.Padding(3)
-        Me.tabAlerts.Size = New System.Drawing.Size(865, 566)
+        Me.tabAlerts.Size = New System.Drawing.Size(865, 599)
         Me.tabAlerts.TabIndex = 3
         Me.tabAlerts.Text = "Alerts"
         Me.tabAlerts.UseVisualStyleBackColor = True
@@ -923,6 +914,15 @@ Partial Class Form1
         Me.txtStatusStrip.Size = New System.Drawing.Size(114, 17)
         Me.txtStatusStrip.Text = "Authenticated: False"
         '
+        'btnAuth
+        '
+        Me.btnAuth.Location = New System.Drawing.Point(330, 17)
+        Me.btnAuth.Name = "btnAuth"
+        Me.btnAuth.Size = New System.Drawing.Size(75, 23)
+        Me.btnAuth.TabIndex = 26
+        Me.btnAuth.Text = "Authenticate"
+        Me.btnAuth.UseVisualStyleBackColor = True
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1042,7 +1042,7 @@ Partial Class Form1
     Friend WithEvents colLink As System.Windows.Forms.DataGridViewLinkColumn
     Friend WithEvents colrptid As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents txtProjectID As System.Windows.Forms.NumericUpDown
-    Friend WithEvents btnAuth As System.Windows.Forms.Button
     Friend WithEvents txtStatusStrip As System.Windows.Forms.ToolStripStatusLabel
+    Friend WithEvents btnAuth As System.Windows.Forms.Button
 
 End Class

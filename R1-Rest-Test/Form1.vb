@@ -45,6 +45,7 @@ Public Class Form1
         txtServer.Text = My.Settings.Server
         txtUsername.Text = My.Settings.Username
         txtPassword.Text = My.Settings.Password
+        tabTopMenu.TabPages.Remove(tabTesting)
     End Sub
     Private Sub jobload(callback As Action(Of RestSharp.RestResponse, RestSharp.RestRequestAsyncHandle))
 
@@ -266,10 +267,13 @@ Public Class Form1
 
     End Sub
 
+
+
     Private Sub btnAuth_Click(sender As Object, e As EventArgs) Handles btnAuth.Click
         Dim R1Auth As New R1SimpleRestClient.R1Authentication
         Me.Auth = R1Auth.AuthenticateWithR1(txtServer.Text, txtUsername.Text, txtPassword.Text)
         If Me.Auth.Error = False Then txtStatusStrip.Text = "Authenticated: True"
-
+        tabTopMenu.TabPages.Add(tabTesting)
+        tabTopMenu.SelectedTab = tabTesting
     End Sub
 End Class

@@ -70,7 +70,6 @@ sslerror As System.Net.Security.SslPolicyErrors) True
 
         Dim postreqstream As Stream = postReq.GetRequestStream()
         postreqstream.Write(byteData, 0, byteData.Length)
-        postreqstream.Close()
         postresponse = postReq.GetResponse()
         postreqreader = New StreamReader(postresponse.GetResponseStream())
 
