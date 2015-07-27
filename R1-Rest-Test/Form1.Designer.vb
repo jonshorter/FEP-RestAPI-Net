@@ -22,7 +22,7 @@ Partial Class Form1
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.btnRefreshProjectList = New System.Windows.Forms.Button()
         Me.btnJobCreate = New System.Windows.Forms.Button()
         Me.dgvprojects = New System.Windows.Forms.DataGridView()
@@ -79,6 +79,7 @@ Partial Class Form1
         Me.Label10 = New System.Windows.Forms.Label()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.tabCreateJob = New System.Windows.Forms.TabPage()
+        Me.txtProjectID = New System.Windows.Forms.NumericUpDown()
         Me.comboJobAction = New System.Windows.Forms.ComboBox()
         Me.Label17 = New System.Windows.Forms.Label()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
@@ -105,8 +106,6 @@ Partial Class Form1
         Me.Label4 = New System.Windows.Forms.Label()
         Me.txtapicallpostjson = New System.Windows.Forms.TextBox()
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
-        Me.txtProjectID = New System.Windows.Forms.NumericUpDown()
-        Me.Button1 = New System.Windows.Forms.Button()
         CType(Me.dgvprojects, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvprojectjobs, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabTopMenu.SuspendLayout()
@@ -118,10 +117,10 @@ Partial Class Form1
         CType(Me.dgvprojectjobreports, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvProjectReports, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabCreateJob.SuspendLayout()
+        CType(Me.txtProjectID, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox2.SuspendLayout()
         Me.tabAlerts.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
-        CType(Me.txtProjectID, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'btnRefreshProjectList
@@ -171,9 +170,9 @@ Partial Class Form1
         '
         'colDelete
         '
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle4.BackColor = System.Drawing.Color.Red
-        Me.colDelete.DefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.Red
+        Me.colDelete.DefaultCellStyle = DataGridViewCellStyle1
         Me.colDelete.FillWeight = 5.0!
         Me.colDelete.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.colDelete.HeaderText = "Delete"
@@ -326,7 +325,6 @@ Partial Class Form1
         '
         'tabTesting
         '
-        Me.tabTesting.Controls.Add(Me.Button1)
         Me.tabTesting.Controls.Add(Me.tabBottomMenu)
         Me.tabTesting.Controls.Add(Me.GroupBox1)
         Me.tabTesting.Controls.Add(Me.StatusStrip1)
@@ -657,6 +655,13 @@ Partial Class Form1
         Me.tabCreateJob.Text = "Create Job"
         Me.tabCreateJob.UseVisualStyleBackColor = True
         '
+        'txtProjectID
+        '
+        Me.txtProjectID.Location = New System.Drawing.Point(106, 7)
+        Me.txtProjectID.Name = "txtProjectID"
+        Me.txtProjectID.Size = New System.Drawing.Size(158, 20)
+        Me.txtProjectID.TabIndex = 14
+        '
         'comboJobAction
         '
         Me.comboJobAction.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
@@ -898,22 +903,6 @@ Partial Class Form1
         Me.StatusStrip1.TabIndex = 15
         Me.StatusStrip1.Text = "StatusStrip1"
         '
-        'txtProjectID
-        '
-        Me.txtProjectID.Location = New System.Drawing.Point(106, 7)
-        Me.txtProjectID.Name = "txtProjectID"
-        Me.txtProjectID.Size = New System.Drawing.Size(158, 20)
-        Me.txtProjectID.TabIndex = 14
-        '
-        'Button1
-        '
-        Me.Button1.Location = New System.Drawing.Point(740, 41)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(75, 23)
-        Me.Button1.TabIndex = 18
-        Me.Button1.Text = "Button1"
-        Me.Button1.UseVisualStyleBackColor = True
-        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -938,13 +927,13 @@ Partial Class Form1
         CType(Me.dgvProjectReports, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tabCreateJob.ResumeLayout(False)
         Me.tabCreateJob.PerformLayout()
+        CType(Me.txtProjectID, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
         Me.tabAlerts.ResumeLayout(False)
         Me.tabAlerts.PerformLayout()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
-        CType(Me.txtProjectID, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -1031,6 +1020,5 @@ Partial Class Form1
     Friend WithEvents colLink As System.Windows.Forms.DataGridViewLinkColumn
     Friend WithEvents colrptid As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents txtProjectID As System.Windows.Forms.NumericUpDown
-    Friend WithEvents Button1 As System.Windows.Forms.Button
 
 End Class

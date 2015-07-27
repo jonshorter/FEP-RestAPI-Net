@@ -71,8 +71,17 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="R1SimpleRestClient.vb" />
-    <Compile Include="RestSharpJsonNetSerializer.vb" />
+    <Compile Include="Functions\Authentication\Authentication.vb" />
+    <Compile Include="Functions\Functions.vb" />
+    <Compile Include="Functions\Project\Project.vb" />
+    <Compile Include="Models\Alerts\AlertModels.vb" />
+    <Compile Include="Models\Enum\Enums.vb" />
+    <Compile Include="Models\Job\JobModels.vb" />
+    <Compile Include="Functions\R1SimpleRestClient.vb" />
+    <Compile Include="Models\Project\ProjectModels.vb" />
+    <Compile Include="Models\Reports\ReportModels.vb" />
+    <Compile Include="Models\Responses\ResponseModels.vb" />
+    <Compile Include="RestSharp\RestSharpJsonNetSerializer.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -110,10 +119,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\R1SimpleRestModels\R1SimpleRestModels.vbproj">
-      <Project>{9c045e24-dbad-4f09-b600-3b798d109ed6}</Project>
-      <Name>R1SimpleRestModels</Name>
-    </ProjectReference>
+    <Folder Include="Requests\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

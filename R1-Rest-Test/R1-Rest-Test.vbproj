@@ -125,10 +125,6 @@
       <Project>{458007ce-d492-4d53-baa8-a5e04b4ddbc8}</Project>
       <Name>R1SimpleRestClient</Name>
     </ProjectReference>
-    <ProjectReference Include="..\R1SimpleRestModels\R1SimpleRestModels.vbproj">
-      <Project>{9c045e24-dbad-4f09-b600-3b798d109ed6}</Project>
-      <Name>R1SimpleRestModels</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
