@@ -121,7 +121,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\R1RestFunctions\R1SimpleRestClient.vbproj">
+    <ProjectReference Include="..\R1SimpleRestClient\R1SimpleRestClient.vbproj">
       <Project>{458007ce-d492-4d53-baa8-a5e04b4ddbc8}</Project>
       <Name>R1SimpleRestClient</Name>
     </ProjectReference>

@@ -14,6 +14,7 @@ Imports R1SimpleRestClient.Models.Project
 Imports R1SimpleRestClient.Models.Alert
 
 Public Class Form1
+    Public Auth As AuthToken = New R1SimpleRestClient.Models.Response.AuthToken
     Dim currproject As Integer = 0
 
     Private Sub btnRefreshProjectList_Click(sender As Object, e As EventArgs) Handles btnRefreshProjectList.Click
@@ -28,35 +29,16 @@ Public Class Form1
         nj.JobDef.JobType = comboJobType.SelectedItem
         nj.ProjectId = txtProjectID.Text
         nj.JobAction = comboJobAction.SelectedItem
-
-        '   Dim njc As New R1SimpleRestModels.Models.Target
-        '  njc.Addresses = New List(Of String)
-
         For Each item In lstTargets.Items
-            ' njc.Addresses.Add(item)
             nj.ComputerTargets.Addresses.Add(item)
         Next
-        ' nj.ComputerTargets = njc
 
-
-        'Dim stc As New R1SimpleRestModels.Models.Target
-        'nj.NetworkShareTargets = stc
-
-
-        Dim R1Client As New R1SimpleRestClient.R1SimpleRestClient
-        Dim response = R1Client.R1RestRequest(txtServer.Text, txtUsername.Text, txtPassword.Text, Method.PUT, "jobs", Json.JsonConvert.SerializeObject(nj))
-        If response.GetType Is GetType(ApiResponse(Of Object)) Then
-            If response.Success = True Then
-                Dim job = JsonConvert.DeserializeObject(Of List(Of JobInfo))(response.Data.ToString)
-
-                MsgBox("Job " & job(0).Name & " created successfully.")
-
-            Else
-                MsgBox(response.error.message)
-            End If
-        Else
-            MsgBox(response)
+        Dim rc As New R1SimpleRestClient.R1SimpleRestClient
+        Dim JobResponse As List(Of JobInfo) = rc.Functions.Job.CreateJob(Me.Auth, txtServer.Text, nj)
+        If JobResponse.Count > 0 Then
+            MsgBox("Job Created: " & JobResponse(0).Name)
         End If
+
     End Sub
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -74,16 +56,16 @@ Public Class Form1
             Select Case e.ColumnIndex
                 Case 0
                     Dim R1Client As New R1SimpleRestClient.R1SimpleRestClient
-                    Dim Jobs As List(Of JobInfo) = R1Client.Functions.Project.GetJobsForProject(txtServer.Text, txtUsername.Text, txtPassword.Text, currproject)
+                    Dim Jobs As List(Of JobInfo) = R1Client.Functions.Project.GetJobsForProject(Me.Auth, txtServer.Text, currproject)
                     dgvprojectjobs.Rows.Clear()
                     For Each job In Jobs
                         dgvprojectjobs.Rows.Add(New String() {job.Name, job.JobType.ToString, job.Status, job.JobID.ToString})
                     Next
 
-                    Dim prjinfo = R1Client.Functions.Project.GetProjectDetails(txtServer.Text, txtUsername.Text, txtPassword.Text, currproject)
+                    Dim prjinfo = R1Client.Functions.Project.GetProjectDetails(Me.Auth, txtServer.Text, currproject)
                     pgProject.SelectedObject = prjinfo
 
-                    Dim projectreports = R1Client.Functions.Project.GetProjectReports(txtServer.Text, txtUsername.Text, txtPassword.Text, currproject)
+                    Dim projectreports = R1Client.Functions.Project.GetProjectReports(Me.Auth, txtServer.Text, currproject)
                     dgvProjectReports.Rows.Clear()
                     For Each report As BasicReport In projectreports
                         dgvProjectReports.Rows.Add(New String() {report.ReportInfo.Name, report.ReportInfo.ReportType.ToString, report.ReportInfo.Status.ToString, report.ReportInfo.FilePath, report.ReportInfo.ReportId})
@@ -92,7 +74,7 @@ Public Class Form1
                     Dim x = MsgBox("Are you sure you want to delete the project?", MsgBoxStyle.YesNo, "Delete Project?")
                     If x = 6 Then
                         Dim R1Client As New R1SimpleRestClient.R1SimpleRestClient
-                        Dim deleteproject = R1Client.Functions.Project.DeleteProject(txtServer.Text, txtUsername.Text, txtPassword.Text, currproject)
+                        Dim deleteproject = R1Client.Functions.Project.DeleteProject(Me.Auth, txtServer.Text, currproject)
                         If deleteproject = True Then
                             MsgBox("Project # " & currproject & " deleted.")
                         Else
@@ -120,9 +102,13 @@ Public Class Form1
         lblStatusSettings.Text = ""
     End Sub
     Private Sub btnAPICallCustom_Click(sender As Object, e As EventArgs) Handles btnAPICallCustom.Click
-        Dim R1Client As New R1SimpleRestClient.R1SimpleRestClient
-        Dim response = R1Client.R1RestRequest(txtServer.Text, txtUsername.Text, txtPassword.Text, cmbRESTOPTION.SelectedItem, txtapicallpath.Text, txtapicallpostjson.Text)
-        MsgBox(response.ToString)
+        Try
+            Dim R1Client As New R1SimpleRestClient.R1SimpleRestClient
+            Dim response = R1Client.R1RestRequest(Me.Auth, txtServer.Text, cmbRESTOPTION.SelectedItem, txtapicallpath.Text, txtapicallpostjson.Text)
+            MsgBox(response.ToString)
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
     End Sub
     Private Sub tabTesting_Enter(sender As Object, e As EventArgs) Handles tabTesting.Enter
         cmbRESTOPTION.Items.Clear()
@@ -164,18 +150,9 @@ Public Class Form1
         newproject.ProcessingMode = cmbProjectProcessingMode.SelectedItem
         newproject.Comments = txtProjectDescription.Text
 
-        Dim R1Client As New R1SimpleRestClient.R1SimpleRestClient
-        Dim response = R1Client.R1RestRequest(txtServer.Text, txtUsername.Text, txtPassword.Text, Method.POST, "projects", Json.JsonConvert.SerializeObject(newproject))
-        If response.GetType Is GetType(ApiResponse(Of Object)) Then
-            If response.Success = True Then
-                Dim project = JsonConvert.DeserializeObject(Of NewProjectDefinition)(response.Data.ToString)
-                MsgBox("Project " & project.Name & " created successfully.")
-            Else
-                MsgBox(response.error.message)
-            End If
-        Else
-            MsgBox(response)
-        End If
+        Dim rc As New R1SimpleRestClient.R1SimpleRestClient
+        Dim NewProjectResponse As NewProjectDefinition = rc.Functions.Project.CreateProject(Me.Auth, txtServer.Text, newproject)
+        MsgBox("Project Created: " & NewProjectResponse.Name)
     End Sub
     Private Sub tabCreateProject_Paint(sender As Object, e As PaintEventArgs) Handles tabCreateProject.Paint
         cmbProjectProcessingMode.Items.Clear()
@@ -186,7 +163,7 @@ Public Class Form1
     End Sub
     Private Sub tabProjects_Enter(sender As Object, e As EventArgs) Handles tabProjects.Enter
         Dim rc As New R1SimpleRestClient.R1SimpleRestClient
-        Dim Projects As List(Of ProjectPresenter) = rc.Functions.Project.GetProjectList(txtServer.Text, txtUsername.Text, txtPassword.Text)
+        Dim Projects As List(Of ProjectPresenter) = rc.Functions.Project.GetProjectList(Me.Auth, txtServer.Text)
         dgvprojects.Rows.Clear()
 
         For Each project In Projects
@@ -219,13 +196,13 @@ Public Class Form1
 
     Private Sub tabAlerts_Enter(sender As Object, e As EventArgs) Handles tabAlerts.Enter
         Dim R1Client As New R1SimpleRestClient.R1SimpleRestClient
-        Dim response = R1Client.R1RestRequest(txtServer.Text, txtUsername.Text, txtPassword.Text, Method.GET, "alerts/getTotalResponses/?predicate=null")
+        Dim response = R1Client.R1RestRequest(Me.Auth, txtServer.Text, Method.GET, "alerts/getTotalResponses/?predicate=null")
         lblTotalResponses.Text = "Total Responses: " & response
 
-        response = R1Client.R1RestRequest(txtServer.Text, txtUsername.Text, txtPassword.Text, Method.GET, "alerts/getTotalAutomatedResponses/?predicate=null")
+        response = R1Client.R1RestRequest(Me.Auth, txtServer.Text, Method.GET, "alerts/getTotalAutomatedResponses/?predicate=null")
         lblTotalAutomatedResponses.Text = "Total Automated Responses: " & response
 
-        response = R1Client.R1RestRequest(txtServer.Text, txtUsername.Text, txtPassword.Text, Method.GET, "alerts/getAlertSourceBreakdown/?predicate=null")
+        response = R1Client.R1RestRequest(Me.Auth, txtServer.Text, Method.GET, "alerts/getAlertSourceBreakdown/?predicate=null")
 
 
         If response.GetType Is GetType(List(Of AlertSourceBreakdownResult)) Then
@@ -290,8 +267,19 @@ Public Class Form1
 
     End Sub
 
-    
+
     Private Sub tabProjects_Click(sender As Object, e As EventArgs) Handles tabProjects.Click
+
+    End Sub
+
+    Private Sub StatusStrip1_ItemClicked(sender As Object, e As ToolStripItemClickedEventArgs) Handles StatusStrip1.ItemClicked
+
+    End Sub
+
+    Private Sub btnAuth_Click(sender As Object, e As EventArgs) Handles btnAuth.Click
+        Dim R1Auth As New R1SimpleRestClient.R1Authentication
+        Me.Auth = R1Auth.AuthenticateWithR1(txtServer.Text, txtUsername.Text, txtPassword.Text)
+        If Me.Auth.Error = False Then txtStatusStrip.Text = "Authenticated: True"
 
     End Sub
 End Class
