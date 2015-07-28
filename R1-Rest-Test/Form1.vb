@@ -303,4 +303,15 @@ Public Class Form1
         txtStatusStrip.Text = "Authenticated: False"
         tabTopMenu.TabPages.Remove(tabTesting)
     End Sub
+
+    Private Sub btnUpdateProject_Click(sender As Object, e As EventArgs) Handles btnUpdateProject.Click
+
+     
+        Dim projinfo As ProjectPresenter = pgProject.SelectedObject
+        Dim R1Client As New R1SimpleRestClient.R1SimpleRestClient
+        Dim response As ProjectPresenter = R1Client.Functions.Project.UpdateProject(Me.Auth, txtServer.Text, projinfo)
+        MsgBox("Project Updated")
+        tabProjects_Enter(sender, e)
+
+    End Sub
 End Class

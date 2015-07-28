@@ -22,7 +22,7 @@ Partial Class Form1
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.btnRefreshProjectList = New System.Windows.Forms.Button()
         Me.btnJobCreate = New System.Windows.Forms.Button()
         Me.dgvprojects = New System.Windows.Forms.DataGridView()
@@ -112,6 +112,7 @@ Partial Class Form1
         Me.txtStatusStrip = New System.Windows.Forms.ToolStripStatusLabel()
         Me.GroupBox5 = New System.Windows.Forms.GroupBox()
         Me.btnLogout = New System.Windows.Forms.Button()
+        Me.btnUpdateProject = New System.Windows.Forms.Button()
         CType(Me.dgvprojects, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvprojectjobs, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabTopMenu.SuspendLayout()
@@ -168,21 +169,19 @@ Partial Class Form1
         '
         Me.projectname.HeaderText = "Project"
         Me.projectname.Name = "projectname"
-        Me.projectname.ReadOnly = True
         '
         'ftkcaseid
         '
         Me.ftkcaseid.FillWeight = 20.0!
         Me.ftkcaseid.HeaderText = "FTKCaseID"
         Me.ftkcaseid.Name = "ftkcaseid"
-        Me.ftkcaseid.ReadOnly = True
         Me.ftkcaseid.Width = 65
         '
         'colDelete
         '
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.Red
-        Me.colDelete.DefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle4.BackColor = System.Drawing.Color.Red
+        Me.colDelete.DefaultCellStyle = DataGridViewCellStyle4
         Me.colDelete.FillWeight = 5.0!
         Me.colDelete.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.colDelete.HeaderText = "Delete"
@@ -196,7 +195,6 @@ Partial Class Form1
         Me.colCreateJob.FillWeight = 20.0!
         Me.colCreateJob.HeaderText = "Create Job"
         Me.colCreateJob.Name = "colCreateJob"
-        Me.colCreateJob.ReadOnly = True
         Me.colCreateJob.Width = 75
         '
         'dgvprojectjobs
@@ -344,7 +342,7 @@ Partial Class Form1
         Me.tabTesting.Location = New System.Drawing.Point(4, 25)
         Me.tabTesting.Name = "tabTesting"
         Me.tabTesting.Padding = New System.Windows.Forms.Padding(3)
-        Me.tabTesting.Size = New System.Drawing.Size(939, 683)
+        Me.tabTesting.Size = New System.Drawing.Size(939, 765)
         Me.tabTesting.TabIndex = 1
         Me.tabTesting.Text = "APITest"
         Me.tabTesting.UseVisualStyleBackColor = True
@@ -479,6 +477,7 @@ Partial Class Form1
         '
         'tabProjects
         '
+        Me.tabProjects.Controls.Add(Me.btnUpdateProject)
         Me.tabProjects.Controls.Add(Me.Label21)
         Me.tabProjects.Controls.Add(Me.pgProject)
         Me.tabProjects.Controls.Add(Me.Label19)
@@ -969,6 +968,15 @@ Partial Class Form1
         Me.btnLogout.Text = "Logout"
         Me.btnLogout.UseVisualStyleBackColor = True
         '
+        'btnUpdateProject
+        '
+        Me.btnUpdateProject.Location = New System.Drawing.Point(629, 379)
+        Me.btnUpdateProject.Name = "btnUpdateProject"
+        Me.btnUpdateProject.Size = New System.Drawing.Size(115, 23)
+        Me.btnUpdateProject.TabIndex = 18
+        Me.btnUpdateProject.Text = "Update Project"
+        Me.btnUpdateProject.UseVisualStyleBackColor = True
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1098,5 +1106,6 @@ Partial Class Form1
     Friend WithEvents txtStatusStrip As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents GroupBox5 As System.Windows.Forms.GroupBox
     Friend WithEvents btnLogout As System.Windows.Forms.Button
+    Friend WithEvents btnUpdateProject As System.Windows.Forms.Button
 
 End Class
