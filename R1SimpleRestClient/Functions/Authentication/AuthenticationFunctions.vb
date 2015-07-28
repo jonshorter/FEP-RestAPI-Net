@@ -6,7 +6,6 @@ Imports R1SimpleRestClient.Models.Response
 Imports RestSharp
 
 Public Class R1Authentication
-    'https://10.0.1.52/r1/ClientBin/ADG-RIA-Authentication-Web-Services-AuthenticationService.svc/binary/Logout
 
     Public Sub Logout(ByVal Server As String, ByVal AuthToken As AuthToken)
         Try
