@@ -9,31 +9,34 @@ Public Class R1Authentication
     'https://10.0.1.52/r1/ClientBin/ADG-RIA-Authentication-Web-Services-AuthenticationService.svc/binary/Logout
 
     Public Sub Logout(ByVal Server As String, ByVal AuthToken As AuthToken)
-        System.Net.ServicePointManager.ServerCertificateValidationCallback = _
-Function(se As Object, _
-cert As System.Security.Cryptography.X509Certificates.X509Certificate, _
-chain As System.Security.Cryptography.X509Certificates.X509Chain, _
-sslerror As System.Net.Security.SslPolicyErrors) True
-        '----LogOut
-        Dim client As New RestSharp.RestClient("https://" & Server & "/R1/ClientBin/ADG-RIA-Authentication-Web-Services-AuthenticationService.svc/binary")
-        client.CookieContainer = AuthToken.Data
-        Dim request = New RestSharp.RestRequest("Logout", Method.POST)
-        request.RequestFormat = DataFormat.Json
-        request.JsonSerializer = New RestSharpJsonNetSerializer
-        request.AddHeader("Accept", "application/json")
-        request.Parameters.Clear()
-        request.AddParameter("application/msbin1", "@Logouthttp://tempuri.org/", ParameterType.RequestBody)
+        Try
+            System.Net.ServicePointManager.ServerCertificateValidationCallback = _
+    Function(se As Object, _
+    cert As System.Security.Cryptography.X509Certificates.X509Certificate, _
+    chain As System.Security.Cryptography.X509Certificates.X509Chain, _
+    sslerror As System.Net.Security.SslPolicyErrors) True
+            '----LogOut
+            Dim client As New RestSharp.RestClient("https://" & Server & "/R1/ClientBin/ADG-RIA-Authentication-Web-Services-AuthenticationService.svc/binary")
+            client.CookieContainer = AuthToken.Data
+            Dim request = New RestSharp.RestRequest("Logout", Method.POST)
+            request.RequestFormat = DataFormat.Json
+            request.JsonSerializer = New RestSharpJsonNetSerializer
+            request.AddHeader("Accept", "application/json")
+            request.Parameters.Clear()
+            request.AddParameter("application/msbin1", "@Logouthttp://tempuri.org/", ParameterType.RequestBody)
 
-        Dim response As RestSharp.RestResponse = client.Execute(request)
-        Select Case response.StatusCode
-            Case Is > 200 < 400
-                MsgBox("Logged out")
-            Case Is >= 400
-                MsgBox("Error: " & response.ErrorMessage)
-            Case Else
-                MsgBox("Error: " & response.ErrorMessage)
-        End Select
-
+            Dim response As RestSharp.RestResponse = client.Execute(request)
+            Select Case response.StatusCode
+                Case Is > 200 < 400
+                    MsgBox("Logged out")
+                Case Is >= 400
+                    MsgBox("Error: " & response.ErrorMessage)
+                Case Else
+                    MsgBox("Error: " & response.ErrorMessage)
+            End Select
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
     End Sub
     Public Function AuthenticateWithR1(ByVal R1Server As String, ByVal UserName As String, ByVal Password As String) As AuthToken
 
@@ -48,8 +51,9 @@ sslerror As System.Net.Security.SslPolicyErrors) True
         Dim postReq As HttpWebRequest = WebRequest.Create("https://" & R1Server & "/R1/Login.aspx")
         postReq.Method = "GET"
         Dim encoding As New UTF8Encoding
-        Dim postresponse As HttpWebResponse = postReq.GetResponse()
-
+        Try
+            Dim postresponse As HttpWebResponse = postReq.GetResponse()
+      
         Dim cookiecon As New System.Net.CookieContainer()
         Dim respcookies() = postresponse.Headers.GetValues("Set-Cookie")
         For Each item In respcookies
@@ -76,7 +80,7 @@ sslerror As System.Net.Security.SslPolicyErrors) True
         VIEWState = Uri.EscapeDataString(pghtml.GetElementById("__VIEWSTATE").GetAttribute("value"))
         CSRFToken = Uri.EscapeDataString(pghtml.GetElementById("__CSRFTOKEN").GetAttribute("value"))
         EventValidation = Uri.EscapeDataString(pghtml.GetElementById("__EVENTVALIDATION").GetAttribute("value"))
-
+  
         '-----------------------Login Method----------------------------
 
         Dim PostData As String = "__CSRFTOKEN=" & CSRFToken & "&__LASTFOCUS=&__EVENTTARGET=&__EVENTARGUMENT=&__VIEWSTATE=" & VIEWState & "&__EVENTVALIDATION=" & EventValidation & "&Login1%24UserName=" & UserName & "&Login1%24Password=" & Password & "&Login1%24LoginButton=Sign+In&hiddenHash="
@@ -133,7 +137,13 @@ sslerror As System.Net.Security.SslPolicyErrors) True
             Return authreturn
 
         End If
-
+        Catch ex As Exception
+            MsgBox(ex.Message)
+            Dim authreturn As New AuthToken
+            authreturn.Data = ex.Message
+            authreturn.Error = True
+            Return authreturn
+        End Try
 
     End Function
 End Class

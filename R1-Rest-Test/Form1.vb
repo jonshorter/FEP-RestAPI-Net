@@ -12,6 +12,7 @@ Imports R1SimpleRestClient.Models.Report
 Imports R1SimpleRestClient.Models.Enums
 Imports R1SimpleRestClient.Models.Project
 Imports R1SimpleRestClient.Models.Alert
+Imports System.Collections.ObjectModel
 
 Public Class Form1
     Public Auth As AuthToken = New R1SimpleRestClient.Models.Response.AuthToken
@@ -97,7 +98,7 @@ Public Class Form1
         My.Settings.Password = txtPassword.Text
         My.Settings.Save()
         lblStatusSettings.Text = "Settings Saved"
-       
+
 
     End Sub
 
@@ -152,17 +153,24 @@ Public Class Form1
         newproject.ResponsiveFilePath = txtProjectJobDataFolder.Text
         newproject.ProcessingMode = cmbProjectProcessingMode.SelectedItem
         newproject.Comments = txtProjectDescription.Text
-
+       
         Dim rc As New R1SimpleRestClient.R1SimpleRestClient
         Dim NewProjectResponse As NewProjectDefinition = rc.Functions.Project.CreateProject(Me.Auth, txtServer.Text, newproject)
         MsgBox("Project Created: " & NewProjectResponse.Name)
     End Sub
-    Private Sub tabCreateProject_Paint(sender As Object, e As PaintEventArgs) Handles tabCreateProject.Paint
+
+    Private Sub tabCreateProject_Enter(sender As Object, e As EventArgs) Handles tabCreateProject.Enter
         cmbProjectProcessingMode.Items.Clear()
         For Each item In GetType(ProcessModeEnum).GetEnumValues
             cmbProjectProcessingMode.Items.Add(item)
         Next
         cmbProjectProcessingMode.SelectedItem = R1SimpleRestClient.Models.Enums.ProcessModeEnum.Security
+
+      
+
+    End Sub
+    Private Sub tabCreateProject_Paint(sender As Object, e As PaintEventArgs) Handles tabCreateProject.Paint
+
     End Sub
     Private Sub tabProjects_Enter(sender As Object, e As EventArgs) Handles tabProjects.Enter
         Try
@@ -215,11 +223,18 @@ Public Class Form1
         For Each alertSrc As AlertSourceBreakdownResult In alertSrcBreakdowns
             lstAlertSourceBreakdown.Items.Add(alertSrc.Name & " " & alertSrc.Count)
         Next
-       
+
 
     End Sub
 
     Private Sub dgvprojectjobs_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvprojectjobs.CellClick
+
+        If e.ColumnIndex = 0 Then
+            '     Dim R1Client As New R1SimpleRestClient.R1SimpleRestClient
+            '     Dim x = R1Client.Functions.Project.GenerateJobDetailsReport(Me.Auth, txtServer.Text, currproject, dgvprojectjobs.Rows.Item(e.RowIndex).Cells(3).Value.ToString)
+            '     MsgBox(x)
+
+        End If
 
         'NOT IMPLEMENTED YET
 
@@ -283,18 +298,23 @@ Public Class Form1
                 tabTopMenu.TabPages.Remove(tabTesting)
                 Dim R1Auth As New R1SimpleRestClient.R1Authentication
                 Me.Auth = R1Auth.AuthenticateWithR1(txtServer.Text, txtUsername.Text, txtPassword.Text)
-                If Me.Auth.Error = False Then txtStatusStrip.Text = "Authenticated: True"
+                If Me.Auth.Error = False Then
+                    If Me.Auth.Error = False Then txtStatusStrip.Text = "Authenticated: True"
+                    tabTopMenu.TabPages.Add(tabTesting)
+                    tabTopMenu.SelectedTab = tabTesting
+                End If
+
+            End If
+        Else
+                Dim R1Auth As New R1SimpleRestClient.R1Authentication
+                Me.Auth = R1Auth.AuthenticateWithR1(txtServer.Text, txtUsername.Text, txtPassword.Text)
+            If Me.Auth.Error = False Then
+                txtStatusStrip.Text = "Authenticated: True"
                 tabTopMenu.TabPages.Add(tabTesting)
                 tabTopMenu.SelectedTab = tabTesting
             End If
-        Else
-            Dim R1Auth As New R1SimpleRestClient.R1Authentication
-            Me.Auth = R1Auth.AuthenticateWithR1(txtServer.Text, txtUsername.Text, txtPassword.Text)
-            If Me.Auth.Error = False Then txtStatusStrip.Text = "Authenticated: True"
-            tabTopMenu.TabPages.Add(tabTesting)
-            tabTopMenu.SelectedTab = tabTesting
         End If
-      
+
     End Sub
 
     Private Sub btnLogout_Click(sender As Object, e As EventArgs) Handles btnLogout.Click
@@ -306,12 +326,16 @@ Public Class Form1
 
     Private Sub btnUpdateProject_Click(sender As Object, e As EventArgs) Handles btnUpdateProject.Click
 
-     
+
         Dim projinfo As ProjectPresenter = pgProject.SelectedObject
         Dim R1Client As New R1SimpleRestClient.R1SimpleRestClient
         Dim response As ProjectPresenter = R1Client.Functions.Project.UpdateProject(Me.Auth, txtServer.Text, projinfo)
         MsgBox("Project Updated")
         tabProjects_Enter(sender, e)
+
+    End Sub
+
+    Private Sub tabCreateProject_Click(sender As Object, e As EventArgs) Handles tabCreateProject.Click
 
     End Sub
 End Class

@@ -190,6 +190,81 @@ Public Class ProjectFunctions
         Return "If You See This.... UpdateProject"
 
     End Function
+    Public Function GetJobResultReports(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String, ByVal ProjectID As Long, ByVal JobID As String)
+        Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api")
+        client.CookieContainer = AuthToken.Data
+        Dim request = New RestSharp.RestRequest("projects/" & ProjectID & "/jobs/jobresultreports/" & JobID & "/", Method.GET)
+        request.RequestFormat = DataFormat.Json
+        request.JsonSerializer = New RestSharpJsonNetSerializer
+        Dim response As RestSharp.RestResponse = client.Execute(request)
+        Select Case response.StatusCode
+            Case Is = Net.HttpStatusCode.OK
+                Dim apiresponse = JsonConvert.DeserializeObject(Of List(Of JobReportDataStatus))(response.Content)
+                Return apiresponse
+            Case Is = Net.HttpStatusCode.BadRequest
+                Dim apiresponse = JsonConvert.DeserializeObject(Of [Error])(response.Content)
+                Return "Error: " & apiresponse.Message & apiresponse.StatusCode
+            Case Else
+                Dim apiresponse = JsonConvert.DeserializeObject(Of [Error])(response.Content)
+                Return "Error: " & apiresponse.Message & apiresponse.StatusCode
+        End Select
+
+        Return "If You See This.... GetJobResultReports"
+    End Function
+    Public Function GetJobResultsReportStatus(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String, ByVal ProjectID As Long, ByVal JobID As String)
+        Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api")
+        client.CookieContainer = AuthToken.Data
+        Dim request = New RestSharp.RestRequest("projects/" & ProjectID & "/jobs/jobresultsreportstatus/" & JobID & "/", Method.GET)
+        request.RequestFormat = DataFormat.Json
+        request.JsonSerializer = New RestSharpJsonNetSerializer
+        Dim response As RestSharp.RestResponse = client.Execute(request)
+        Select Case response.StatusCode
+            Case Is = Net.HttpStatusCode.OK
+                Dim apiresponse = JsonConvert.DeserializeObject(Of Models.Response.ApiResponse(Of JobReportDataStatus))(response.Content)
+                Select Case apiresponse.Success
+                    Case True
+                        Return apiresponse.Data
+                    Case False
+                        Return "Error: " & apiresponse.Error.Message.ToString
+                End Select
+            Case Is = Net.HttpStatusCode.BadRequest
+                Dim apiresponse = JsonConvert.DeserializeObject(Of [Error])(response.Content)
+                Return "Error: " & apiresponse.Message & apiresponse.StatusCode
+            Case Else
+                Dim apiresponse = JsonConvert.DeserializeObject(Of [Error])(response.Content)
+                Return "Error: " & apiresponse.Message & apiresponse.StatusCode
+        End Select
+
+        Return "If You See This.... GetJobResultsReportStatus"
+    End Function
+    Public Function GenerateJobDetailsReport(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String, ByVal ProjectID As Long, ByVal JobID As String)
+        Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api")
+        client.CookieContainer = AuthToken.Data
+        Dim request = New RestSharp.RestRequest("projects/" & ProjectID & "/jobs/generatejobdetailsreport/" & JobID, Method.GET)
+        request.AddUrlSegment("id", JobID)
+        request.RequestFormat = DataFormat.Json
+        request.JsonSerializer = New RestSharpJsonNetSerializer
+        Dim response As RestSharp.RestResponse = client.Execute(request)
+        Select Case response.StatusCode
+            Case Is = Net.HttpStatusCode.OK
+                Dim apiresponse = JsonConvert.DeserializeObject(Of Models.Response.ApiResponse(Of JobReportDataStatus))(response.Content)
+                Select Case apiresponse.Success
+                    Case True
+                        Return apiresponse.Data
+                    Case False
+                        Return "Error: " & apiresponse.Error.Message.ToString
+                End Select
+            Case Is = Net.HttpStatusCode.BadRequest
+                Dim apiresponse = JsonConvert.DeserializeObject(Of [Error])(response.Content)
+                Return "Error: " & apiresponse.Message & apiresponse.StatusCode
+            Case Else
+                Dim apiresponse = JsonConvert.DeserializeObject(Of [Error])(response.Content)
+                Return "Error: " & apiresponse.Message & apiresponse.StatusCode
+        End Select
+
+        Return "If You See This.... GetJobResultsReportStatus"
+    End Function
+
 
 
 End Class

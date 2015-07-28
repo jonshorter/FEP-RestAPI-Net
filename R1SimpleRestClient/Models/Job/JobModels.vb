@@ -917,5 +917,19 @@ Namespace Models
             Private _Value As String
             Private _Operator As StringMatchSimpleOptions
         End Class
+        Public Class JobReportDataStatus
+
+            Public Key As Guid
+
+            Public DownloadableReportId As System.Nullable(Of Guid)
+
+            Public JobResultId As Guid
+
+            Public HasData As Boolean
+
+            Public ReportType As ReportTypeEnum
+
+            Public Status As Integer
+        End Class
     End Class
 End Namespace

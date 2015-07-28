@@ -22,7 +22,7 @@ Partial Class Form1
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.btnRefreshProjectList = New System.Windows.Forms.Button()
         Me.btnJobCreate = New System.Windows.Forms.Button()
         Me.dgvprojects = New System.Windows.Forms.DataGridView()
@@ -37,15 +37,19 @@ Partial Class Form1
         Me.colJobID = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.tabTopMenu = New System.Windows.Forms.TabControl()
         Me.tabSettings = New System.Windows.Forms.TabPage()
+        Me.GroupBox5 = New System.Windows.Forms.GroupBox()
+        Me.btnLogout = New System.Windows.Forms.Button()
+        Me.GroupBox4 = New System.Windows.Forms.GroupBox()
         Me.btnAuth = New System.Windows.Forms.Button()
+        Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.txtServer = New System.Windows.Forms.TextBox()
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.lblStatusSettings = New System.Windows.Forms.Label()
+        Me.txtUsername = New System.Windows.Forms.TextBox()
         Me.btnSaveSettings = New System.Windows.Forms.Button()
+        Me.Label2 = New System.Windows.Forms.Label()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.txtPassword = New System.Windows.Forms.TextBox()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.txtUsername = New System.Windows.Forms.TextBox()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.txtServer = New System.Windows.Forms.TextBox()
         Me.tabTesting = New System.Windows.Forms.TabPage()
         Me.tabBottomMenu = New System.Windows.Forms.TabControl()
         Me.tabCreateProject = New System.Windows.Forms.TabPage()
@@ -61,6 +65,7 @@ Partial Class Form1
         Me.btnCreateProject = New System.Windows.Forms.Button()
         Me.txtProjectName = New System.Windows.Forms.TextBox()
         Me.tabProjects = New System.Windows.Forms.TabPage()
+        Me.btnUpdateProject = New System.Windows.Forms.Button()
         Me.Label21 = New System.Windows.Forms.Label()
         Me.pgProject = New System.Windows.Forms.PropertyGrid()
         Me.Label19 = New System.Windows.Forms.Label()
@@ -106,17 +111,15 @@ Partial Class Form1
         Me.cmbRESTOPTION = New System.Windows.Forms.ComboBox()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.txtapicallpostjson = New System.Windows.Forms.TextBox()
-        Me.GroupBox3 = New System.Windows.Forms.GroupBox()
-        Me.GroupBox4 = New System.Windows.Forms.GroupBox()
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.txtStatusStrip = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.GroupBox5 = New System.Windows.Forms.GroupBox()
-        Me.btnLogout = New System.Windows.Forms.Button()
-        Me.btnUpdateProject = New System.Windows.Forms.Button()
         CType(Me.dgvprojects, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvprojectjobs, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabTopMenu.SuspendLayout()
         Me.tabSettings.SuspendLayout()
+        Me.GroupBox5.SuspendLayout()
+        Me.GroupBox4.SuspendLayout()
+        Me.GroupBox3.SuspendLayout()
         Me.tabTesting.SuspendLayout()
         Me.tabBottomMenu.SuspendLayout()
         Me.tabCreateProject.SuspendLayout()
@@ -128,10 +131,7 @@ Partial Class Form1
         Me.GroupBox2.SuspendLayout()
         Me.tabAlerts.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
-        Me.GroupBox3.SuspendLayout()
-        Me.GroupBox4.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
-        Me.GroupBox5.SuspendLayout()
         Me.SuspendLayout()
         '
         'btnRefreshProjectList
@@ -169,19 +169,21 @@ Partial Class Form1
         '
         Me.projectname.HeaderText = "Project"
         Me.projectname.Name = "projectname"
+        Me.projectname.ReadOnly = True
         '
         'ftkcaseid
         '
         Me.ftkcaseid.FillWeight = 20.0!
         Me.ftkcaseid.HeaderText = "FTKCaseID"
         Me.ftkcaseid.Name = "ftkcaseid"
+        Me.ftkcaseid.ReadOnly = True
         Me.ftkcaseid.Width = 65
         '
         'colDelete
         '
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle4.BackColor = System.Drawing.Color.Red
-        Me.colDelete.DefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle3.BackColor = System.Drawing.Color.Red
+        Me.colDelete.DefaultCellStyle = DataGridViewCellStyle3
         Me.colDelete.FillWeight = 5.0!
         Me.colDelete.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.colDelete.HeaderText = "Delete"
@@ -195,6 +197,7 @@ Partial Class Form1
         Me.colCreateJob.FillWeight = 20.0!
         Me.colCreateJob.HeaderText = "Create Job"
         Me.colCreateJob.Name = "colCreateJob"
+        Me.colCreateJob.ReadOnly = True
         Me.colCreateJob.Width = 75
         '
         'dgvprojectjobs
@@ -259,6 +262,35 @@ Partial Class Form1
         Me.tabSettings.Text = "Settings"
         Me.tabSettings.UseVisualStyleBackColor = True
         '
+        'GroupBox5
+        '
+        Me.GroupBox5.Controls.Add(Me.btnLogout)
+        Me.GroupBox5.Location = New System.Drawing.Point(328, 117)
+        Me.GroupBox5.Name = "GroupBox5"
+        Me.GroupBox5.Size = New System.Drawing.Size(213, 77)
+        Me.GroupBox5.TabIndex = 29
+        Me.GroupBox5.TabStop = False
+        Me.GroupBox5.Text = "Logout"
+        '
+        'btnLogout
+        '
+        Me.btnLogout.Location = New System.Drawing.Point(64, 39)
+        Me.btnLogout.Name = "btnLogout"
+        Me.btnLogout.Size = New System.Drawing.Size(75, 23)
+        Me.btnLogout.TabIndex = 26
+        Me.btnLogout.Text = "Logout"
+        Me.btnLogout.UseVisualStyleBackColor = True
+        '
+        'GroupBox4
+        '
+        Me.GroupBox4.Controls.Add(Me.btnAuth)
+        Me.GroupBox4.Location = New System.Drawing.Point(328, 17)
+        Me.GroupBox4.Name = "GroupBox4"
+        Me.GroupBox4.Size = New System.Drawing.Size(213, 77)
+        Me.GroupBox4.TabIndex = 28
+        Me.GroupBox4.TabStop = False
+        Me.GroupBox4.Text = "Login"
+        '
         'btnAuth
         '
         Me.btnAuth.Location = New System.Drawing.Point(64, 39)
@@ -267,6 +299,39 @@ Partial Class Form1
         Me.btnAuth.TabIndex = 26
         Me.btnAuth.Text = "Login"
         Me.btnAuth.UseVisualStyleBackColor = True
+        '
+        'GroupBox3
+        '
+        Me.GroupBox3.Controls.Add(Me.txtServer)
+        Me.GroupBox3.Controls.Add(Me.Label1)
+        Me.GroupBox3.Controls.Add(Me.lblStatusSettings)
+        Me.GroupBox3.Controls.Add(Me.txtUsername)
+        Me.GroupBox3.Controls.Add(Me.btnSaveSettings)
+        Me.GroupBox3.Controls.Add(Me.Label2)
+        Me.GroupBox3.Controls.Add(Me.Label3)
+        Me.GroupBox3.Controls.Add(Me.txtPassword)
+        Me.GroupBox3.Location = New System.Drawing.Point(8, 17)
+        Me.GroupBox3.Name = "GroupBox3"
+        Me.GroupBox3.Size = New System.Drawing.Size(288, 177)
+        Me.GroupBox3.TabIndex = 27
+        Me.GroupBox3.TabStop = False
+        Me.GroupBox3.Text = "Settings"
+        '
+        'txtServer
+        '
+        Me.txtServer.Location = New System.Drawing.Point(77, 31)
+        Me.txtServer.Name = "txtServer"
+        Me.txtServer.Size = New System.Drawing.Size(194, 20)
+        Me.txtServer.TabIndex = 0
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(13, 34)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(41, 13)
+        Me.Label1.TabIndex = 1
+        Me.Label1.Text = "Server:"
         '
         'lblStatusSettings
         '
@@ -277,6 +342,13 @@ Partial Class Form1
         Me.lblStatusSettings.TabIndex = 7
         Me.lblStatusSettings.Text = "Label4"
         '
+        'txtUsername
+        '
+        Me.txtUsername.Location = New System.Drawing.Point(77, 57)
+        Me.txtUsername.Name = "txtUsername"
+        Me.txtUsername.Size = New System.Drawing.Size(194, 20)
+        Me.txtUsername.TabIndex = 2
+        '
         'btnSaveSettings
         '
         Me.btnSaveSettings.Location = New System.Drawing.Point(196, 133)
@@ -285,6 +357,15 @@ Partial Class Form1
         Me.btnSaveSettings.TabIndex = 6
         Me.btnSaveSettings.Text = "Save"
         Me.btnSaveSettings.UseVisualStyleBackColor = True
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(13, 60)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(58, 13)
+        Me.Label2.TabIndex = 3
+        Me.Label2.Text = "Username:"
         '
         'Label3
         '
@@ -302,38 +383,6 @@ Partial Class Form1
         Me.txtPassword.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
         Me.txtPassword.Size = New System.Drawing.Size(194, 20)
         Me.txtPassword.TabIndex = 4
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(13, 60)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(58, 13)
-        Me.Label2.TabIndex = 3
-        Me.Label2.Text = "Username:"
-        '
-        'txtUsername
-        '
-        Me.txtUsername.Location = New System.Drawing.Point(77, 57)
-        Me.txtUsername.Name = "txtUsername"
-        Me.txtUsername.Size = New System.Drawing.Size(194, 20)
-        Me.txtUsername.TabIndex = 2
-        '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(13, 34)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(41, 13)
-        Me.Label1.TabIndex = 1
-        Me.Label1.Text = "Server:"
-        '
-        'txtServer
-        '
-        Me.txtServer.Location = New System.Drawing.Point(77, 31)
-        Me.txtServer.Name = "txtServer"
-        Me.txtServer.Size = New System.Drawing.Size(194, 20)
-        Me.txtServer.TabIndex = 0
         '
         'tabTesting
         '
@@ -460,7 +509,7 @@ Partial Class Form1
         '
         'btnCreateProject
         '
-        Me.btnCreateProject.Location = New System.Drawing.Point(571, 106)
+        Me.btnCreateProject.Location = New System.Drawing.Point(571, 130)
         Me.btnCreateProject.Name = "btnCreateProject"
         Me.btnCreateProject.Size = New System.Drawing.Size(139, 24)
         Me.btnCreateProject.TabIndex = 7
@@ -496,6 +545,15 @@ Partial Class Form1
         Me.tabProjects.TabIndex = 0
         Me.tabProjects.Text = "Projects"
         Me.tabProjects.UseVisualStyleBackColor = True
+        '
+        'btnUpdateProject
+        '
+        Me.btnUpdateProject.Location = New System.Drawing.Point(629, 379)
+        Me.btnUpdateProject.Name = "btnUpdateProject"
+        Me.btnUpdateProject.Size = New System.Drawing.Size(115, 23)
+        Me.btnUpdateProject.TabIndex = 18
+        Me.btnUpdateProject.Text = "Update Project"
+        Me.btnUpdateProject.UseVisualStyleBackColor = True
         '
         'Label21
         '
@@ -906,33 +964,6 @@ Partial Class Form1
         Me.txtapicallpostjson.Size = New System.Drawing.Size(137, 20)
         Me.txtapicallpostjson.TabIndex = 19
         '
-        'GroupBox3
-        '
-        Me.GroupBox3.Controls.Add(Me.txtServer)
-        Me.GroupBox3.Controls.Add(Me.Label1)
-        Me.GroupBox3.Controls.Add(Me.lblStatusSettings)
-        Me.GroupBox3.Controls.Add(Me.txtUsername)
-        Me.GroupBox3.Controls.Add(Me.btnSaveSettings)
-        Me.GroupBox3.Controls.Add(Me.Label2)
-        Me.GroupBox3.Controls.Add(Me.Label3)
-        Me.GroupBox3.Controls.Add(Me.txtPassword)
-        Me.GroupBox3.Location = New System.Drawing.Point(8, 17)
-        Me.GroupBox3.Name = "GroupBox3"
-        Me.GroupBox3.Size = New System.Drawing.Size(288, 177)
-        Me.GroupBox3.TabIndex = 27
-        Me.GroupBox3.TabStop = False
-        Me.GroupBox3.Text = "Settings"
-        '
-        'GroupBox4
-        '
-        Me.GroupBox4.Controls.Add(Me.btnAuth)
-        Me.GroupBox4.Location = New System.Drawing.Point(328, 17)
-        Me.GroupBox4.Name = "GroupBox4"
-        Me.GroupBox4.Size = New System.Drawing.Size(213, 77)
-        Me.GroupBox4.TabIndex = 28
-        Me.GroupBox4.TabStop = False
-        Me.GroupBox4.Text = "Login"
-        '
         'StatusStrip1
         '
         Me.StatusStrip1.BackColor = System.Drawing.SystemColors.Control
@@ -949,34 +980,6 @@ Partial Class Form1
         Me.txtStatusStrip.Size = New System.Drawing.Size(114, 17)
         Me.txtStatusStrip.Text = "Authenticated: False"
         '
-        'GroupBox5
-        '
-        Me.GroupBox5.Controls.Add(Me.btnLogout)
-        Me.GroupBox5.Location = New System.Drawing.Point(328, 117)
-        Me.GroupBox5.Name = "GroupBox5"
-        Me.GroupBox5.Size = New System.Drawing.Size(213, 77)
-        Me.GroupBox5.TabIndex = 29
-        Me.GroupBox5.TabStop = False
-        Me.GroupBox5.Text = "Logout"
-        '
-        'btnLogout
-        '
-        Me.btnLogout.Location = New System.Drawing.Point(64, 39)
-        Me.btnLogout.Name = "btnLogout"
-        Me.btnLogout.Size = New System.Drawing.Size(75, 23)
-        Me.btnLogout.TabIndex = 26
-        Me.btnLogout.Text = "Logout"
-        Me.btnLogout.UseVisualStyleBackColor = True
-        '
-        'btnUpdateProject
-        '
-        Me.btnUpdateProject.Location = New System.Drawing.Point(629, 379)
-        Me.btnUpdateProject.Name = "btnUpdateProject"
-        Me.btnUpdateProject.Size = New System.Drawing.Size(115, 23)
-        Me.btnUpdateProject.TabIndex = 18
-        Me.btnUpdateProject.Text = "Update Project"
-        Me.btnUpdateProject.UseVisualStyleBackColor = True
-        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -990,6 +993,10 @@ Partial Class Form1
         CType(Me.dgvprojectjobs, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tabTopMenu.ResumeLayout(False)
         Me.tabSettings.ResumeLayout(False)
+        Me.GroupBox5.ResumeLayout(False)
+        Me.GroupBox4.ResumeLayout(False)
+        Me.GroupBox3.ResumeLayout(False)
+        Me.GroupBox3.PerformLayout()
         Me.tabTesting.ResumeLayout(False)
         Me.tabBottomMenu.ResumeLayout(False)
         Me.tabCreateProject.ResumeLayout(False)
@@ -1007,12 +1014,8 @@ Partial Class Form1
         Me.tabAlerts.PerformLayout()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
-        Me.GroupBox3.ResumeLayout(False)
-        Me.GroupBox3.PerformLayout()
-        Me.GroupBox4.ResumeLayout(False)
         Me.StatusStrip1.ResumeLayout(False)
         Me.StatusStrip1.PerformLayout()
-        Me.GroupBox5.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

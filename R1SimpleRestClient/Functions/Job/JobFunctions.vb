@@ -37,4 +37,51 @@ Public Class JobFunctions
 
     End Function
 
+    Public Function GetResponsivePath(ByVal AuthToken As Response.AuthToken, ByVal Server As String, ByVal JobID As String)
+        Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api")
+        client.CookieContainer = AuthToken.Data
+        Dim request = New RestSharp.RestRequest("jobs/responsivepath/" & Guid.Parse(JobID).ToString, Method.GET)
+        request.RequestFormat = DataFormat.Json
+        request.JsonSerializer = New RestSharpJsonNetSerializer
+        request.AddHeader("Accept", "application/json")
+        request.Parameters.Clear()
+        request.AddParameter("application/json", JobID, ParameterType.RequestBody)
+        Dim response As RestSharp.RestResponse = client.Execute(request)
+        Select Case response.StatusCode
+            Case Is > 200 < 400
+                Return response.Content
+
+            Case Is >= 400
+                Return "Error: " & response.ErrorMessage
+            Case Else
+                Return "Error: " & response.ErrorMessage
+        End Select
+        Return "If You See This.... JobGetResponsivePath"
+    End Function
+
+    Public Function SetResponsivePath(ByVal AuthToken As Response.AuthToken, ByVal Server As String, ByVal JobID As String)
+        Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api")
+        client.CookieContainer = AuthToken.Data
+        Dim request = New RestSharp.RestRequest("jobs/responsivepath/" & Guid.Parse(JobID).ToString, Method.POST)
+        request.RequestFormat = DataFormat.Json
+        request.JsonSerializer = New RestSharpJsonNetSerializer
+        request.AddHeader("Accept", "application/json")
+        request.Parameters.Clear()
+        request.AddParameter("application/json", JobID, ParameterType.RequestBody)
+        Dim response As RestSharp.RestResponse = client.Execute(request)
+        Select Case response.StatusCode
+            Case Is > 200 < 400
+                Return response.Content
+
+            Case Is >= 400
+                Return "Error: " & response.ErrorMessage
+            Case Else
+                Return "Error: " & response.ErrorMessage
+        End Select
+
+        Return "If You See This.... JobSetResponsivePath"
+    End Function
+
+
+
 End Class

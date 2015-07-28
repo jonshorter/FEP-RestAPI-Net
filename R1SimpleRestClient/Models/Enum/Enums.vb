@@ -2,6 +2,66 @@
 
 Namespace Models
     Public Class Enums
+        Public Enum ReportTypeEnum
+            GeneratedReportTypes_CollectedFiles
+            GeneratedReportTypes_CollectedEmails
+            GeneratedReportTypes_ResultReport
+            GeneratedReportTypes_DataVolumeEncryptedFiles
+            GeneratedReportTypes_DataVolumeCaseBreakout
+            GeneratedReportTypes_DataVolumeCustodianBreakout
+            GeneratedReportTypes_DeduplicationFiles
+            GeneratedReportTypes_DeduplicationEmail
+            GeneratedReportTypes_ProductionSet
+            GeneratedReportTypes_ExpressExport
+            GeneratedReportTypes_ExportExclusion
+            GeneratedReportTypes_FailedFiles
+            GeneratedReportTypes_FailedEmails
+            GeneratedReportTypes_DataVolume
+            GeneratedReportTypes_ProcessingExceptions
+            GeneratedReportTypes_LegalMatterResultReport
+            GeneratedReportTypes_VolatileReport
+            GeneratedReportTypes_JobDetail
+            GeneratedReportTypes_SoftwareInventoryReport
+            GeneratedReportTypes_MemoryOperationsReport
+            GeneratedReportTypes_ThreatScanReport
+            GeneratedReportTypes_FullErrorReport
+            GeneratedReportTypes_CompletionStatus
+            GeneratedReportTypes_CustodianDataMap
+            Invalid
+            Sample
+            CollectedEmails
+            CollectedFiles
+            ComputerTotals
+            CustodianFileTotals
+            EmailStatistics
+            FailedEmails
+            FailedFiles
+            FileBreakout
+            FileStatistics
+            JobResults
+            NetworkSharesTotals
+            ProjectResults
+            RemediatedFiles
+            Deduplication
+            DataVolume
+            AuditLog
+            SystemJobAgentOperation
+            ProjectCompletionStatus
+            CustodianDataMap
+            Keyword
+            AgentOperation
+            AgentRemediation
+            MemoryAcquisition
+            SoftwareInventory
+            UnmatchedFiles
+            Generated
+            Volatile
+            MemoryOperations
+            MemoryAnalysis
+            ProcessDump
+            CompletionStatus
+            ThreatScan
+        End Enum
         Public Enum ProcessModeEnum
             eDiscoveryMode
             FieldMode
