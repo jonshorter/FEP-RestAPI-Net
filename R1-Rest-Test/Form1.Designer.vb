@@ -22,7 +22,7 @@ Partial Class Form1
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.btnRefreshProjectList = New System.Windows.Forms.Button()
         Me.btnJobCreate = New System.Windows.Forms.Button()
         Me.dgvprojects = New System.Windows.Forms.DataGridView()
@@ -37,6 +37,7 @@ Partial Class Form1
         Me.colJobID = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.tabTopMenu = New System.Windows.Forms.TabControl()
         Me.tabSettings = New System.Windows.Forms.TabPage()
+        Me.btnAuth = New System.Windows.Forms.Button()
         Me.lblStatusSettings = New System.Windows.Forms.Label()
         Me.btnSaveSettings = New System.Windows.Forms.Button()
         Me.Label3 = New System.Windows.Forms.Label()
@@ -105,9 +106,12 @@ Partial Class Form1
         Me.cmbRESTOPTION = New System.Windows.Forms.ComboBox()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.txtapicallpostjson = New System.Windows.Forms.TextBox()
+        Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.GroupBox4 = New System.Windows.Forms.GroupBox()
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.txtStatusStrip = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.btnAuth = New System.Windows.Forms.Button()
+        Me.GroupBox5 = New System.Windows.Forms.GroupBox()
+        Me.btnLogout = New System.Windows.Forms.Button()
         CType(Me.dgvprojects, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvprojectjobs, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabTopMenu.SuspendLayout()
@@ -123,7 +127,10 @@ Partial Class Form1
         Me.GroupBox2.SuspendLayout()
         Me.tabAlerts.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
+        Me.GroupBox3.SuspendLayout()
+        Me.GroupBox4.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
+        Me.GroupBox5.SuspendLayout()
         Me.SuspendLayout()
         '
         'btnRefreshProjectList
@@ -173,9 +180,9 @@ Partial Class Form1
         '
         'colDelete
         '
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle3.BackColor = System.Drawing.Color.Red
-        Me.colDelete.DefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.Red
+        Me.colDelete.DefaultCellStyle = DataGridViewCellStyle1
         Me.colDelete.FillWeight = 5.0!
         Me.colDelete.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.colDelete.HeaderText = "Delete"
@@ -234,36 +241,39 @@ Partial Class Form1
         Me.tabTopMenu.Appearance = System.Windows.Forms.TabAppearance.FlatButtons
         Me.tabTopMenu.Controls.Add(Me.tabSettings)
         Me.tabTopMenu.Controls.Add(Me.tabTesting)
-        Me.tabTopMenu.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.tabTopMenu.Dock = System.Windows.Forms.DockStyle.Top
         Me.tabTopMenu.Location = New System.Drawing.Point(0, 0)
         Me.tabTopMenu.Name = "tabTopMenu"
         Me.tabTopMenu.SelectedIndex = 0
-        Me.tabTopMenu.Size = New System.Drawing.Size(947, 819)
+        Me.tabTopMenu.Size = New System.Drawing.Size(947, 794)
         Me.tabTopMenu.TabIndex = 14
         '
         'tabSettings
         '
-        Me.tabSettings.Controls.Add(Me.btnAuth)
-        Me.tabSettings.Controls.Add(Me.lblStatusSettings)
-        Me.tabSettings.Controls.Add(Me.btnSaveSettings)
-        Me.tabSettings.Controls.Add(Me.Label3)
-        Me.tabSettings.Controls.Add(Me.txtPassword)
-        Me.tabSettings.Controls.Add(Me.Label2)
-        Me.tabSettings.Controls.Add(Me.txtUsername)
-        Me.tabSettings.Controls.Add(Me.Label1)
-        Me.tabSettings.Controls.Add(Me.txtServer)
+        Me.tabSettings.Controls.Add(Me.GroupBox5)
+        Me.tabSettings.Controls.Add(Me.GroupBox4)
+        Me.tabSettings.Controls.Add(Me.GroupBox3)
         Me.tabSettings.Location = New System.Drawing.Point(4, 25)
         Me.tabSettings.Name = "tabSettings"
         Me.tabSettings.Padding = New System.Windows.Forms.Padding(3)
-        Me.tabSettings.Size = New System.Drawing.Size(939, 790)
+        Me.tabSettings.Size = New System.Drawing.Size(939, 765)
         Me.tabSettings.TabIndex = 0
         Me.tabSettings.Text = "Settings"
         Me.tabSettings.UseVisualStyleBackColor = True
         '
+        'btnAuth
+        '
+        Me.btnAuth.Location = New System.Drawing.Point(64, 39)
+        Me.btnAuth.Name = "btnAuth"
+        Me.btnAuth.Size = New System.Drawing.Size(75, 23)
+        Me.btnAuth.TabIndex = 26
+        Me.btnAuth.Text = "Login"
+        Me.btnAuth.UseVisualStyleBackColor = True
+        '
         'lblStatusSettings
         '
         Me.lblStatusSettings.AutoSize = True
-        Me.lblStatusSettings.Location = New System.Drawing.Point(31, 157)
+        Me.lblStatusSettings.Location = New System.Drawing.Point(15, 138)
         Me.lblStatusSettings.Name = "lblStatusSettings"
         Me.lblStatusSettings.Size = New System.Drawing.Size(39, 13)
         Me.lblStatusSettings.TabIndex = 7
@@ -271,7 +281,7 @@ Partial Class Form1
         '
         'btnSaveSettings
         '
-        Me.btnSaveSettings.Location = New System.Drawing.Point(214, 121)
+        Me.btnSaveSettings.Location = New System.Drawing.Point(196, 133)
         Me.btnSaveSettings.Name = "btnSaveSettings"
         Me.btnSaveSettings.Size = New System.Drawing.Size(75, 23)
         Me.btnSaveSettings.TabIndex = 6
@@ -281,7 +291,7 @@ Partial Class Form1
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(31, 74)
+        Me.Label3.Location = New System.Drawing.Point(13, 86)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(56, 13)
         Me.Label3.TabIndex = 5
@@ -289,7 +299,7 @@ Partial Class Form1
         '
         'txtPassword
         '
-        Me.txtPassword.Location = New System.Drawing.Point(95, 71)
+        Me.txtPassword.Location = New System.Drawing.Point(77, 83)
         Me.txtPassword.Name = "txtPassword"
         Me.txtPassword.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
         Me.txtPassword.Size = New System.Drawing.Size(194, 20)
@@ -298,7 +308,7 @@ Partial Class Form1
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(31, 48)
+        Me.Label2.Location = New System.Drawing.Point(13, 60)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(58, 13)
         Me.Label2.TabIndex = 3
@@ -306,7 +316,7 @@ Partial Class Form1
         '
         'txtUsername
         '
-        Me.txtUsername.Location = New System.Drawing.Point(95, 45)
+        Me.txtUsername.Location = New System.Drawing.Point(77, 57)
         Me.txtUsername.Name = "txtUsername"
         Me.txtUsername.Size = New System.Drawing.Size(194, 20)
         Me.txtUsername.TabIndex = 2
@@ -314,7 +324,7 @@ Partial Class Form1
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(31, 22)
+        Me.Label1.Location = New System.Drawing.Point(13, 34)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(41, 13)
         Me.Label1.TabIndex = 1
@@ -322,7 +332,7 @@ Partial Class Form1
         '
         'txtServer
         '
-        Me.txtServer.Location = New System.Drawing.Point(95, 19)
+        Me.txtServer.Location = New System.Drawing.Point(77, 31)
         Me.txtServer.Name = "txtServer"
         Me.txtServer.Size = New System.Drawing.Size(194, 20)
         Me.txtServer.TabIndex = 0
@@ -331,11 +341,10 @@ Partial Class Form1
         '
         Me.tabTesting.Controls.Add(Me.tabBottomMenu)
         Me.tabTesting.Controls.Add(Me.GroupBox1)
-        Me.tabTesting.Controls.Add(Me.StatusStrip1)
         Me.tabTesting.Location = New System.Drawing.Point(4, 25)
         Me.tabTesting.Name = "tabTesting"
         Me.tabTesting.Padding = New System.Windows.Forms.Padding(3)
-        Me.tabTesting.Size = New System.Drawing.Size(939, 790)
+        Me.tabTesting.Size = New System.Drawing.Size(939, 683)
         Me.tabTesting.TabIndex = 1
         Me.tabTesting.Text = "APITest"
         Me.tabTesting.UseVisualStyleBackColor = True
@@ -898,14 +907,41 @@ Partial Class Form1
         Me.txtapicallpostjson.Size = New System.Drawing.Size(137, 20)
         Me.txtapicallpostjson.TabIndex = 19
         '
+        'GroupBox3
+        '
+        Me.GroupBox3.Controls.Add(Me.txtServer)
+        Me.GroupBox3.Controls.Add(Me.Label1)
+        Me.GroupBox3.Controls.Add(Me.lblStatusSettings)
+        Me.GroupBox3.Controls.Add(Me.txtUsername)
+        Me.GroupBox3.Controls.Add(Me.btnSaveSettings)
+        Me.GroupBox3.Controls.Add(Me.Label2)
+        Me.GroupBox3.Controls.Add(Me.Label3)
+        Me.GroupBox3.Controls.Add(Me.txtPassword)
+        Me.GroupBox3.Location = New System.Drawing.Point(8, 17)
+        Me.GroupBox3.Name = "GroupBox3"
+        Me.GroupBox3.Size = New System.Drawing.Size(288, 177)
+        Me.GroupBox3.TabIndex = 27
+        Me.GroupBox3.TabStop = False
+        Me.GroupBox3.Text = "Settings"
+        '
+        'GroupBox4
+        '
+        Me.GroupBox4.Controls.Add(Me.btnAuth)
+        Me.GroupBox4.Location = New System.Drawing.Point(328, 17)
+        Me.GroupBox4.Name = "GroupBox4"
+        Me.GroupBox4.Size = New System.Drawing.Size(213, 77)
+        Me.GroupBox4.TabIndex = 28
+        Me.GroupBox4.TabStop = False
+        Me.GroupBox4.Text = "Login"
+        '
         'StatusStrip1
         '
         Me.StatusStrip1.BackColor = System.Drawing.SystemColors.Control
         Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.txtStatusStrip})
-        Me.StatusStrip1.Location = New System.Drawing.Point(3, 765)
+        Me.StatusStrip1.Location = New System.Drawing.Point(0, 797)
         Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(933, 22)
-        Me.StatusStrip1.TabIndex = 15
+        Me.StatusStrip1.Size = New System.Drawing.Size(947, 22)
+        Me.StatusStrip1.TabIndex = 26
         Me.StatusStrip1.Text = "StatusStrip1"
         '
         'txtStatusStrip
@@ -914,20 +950,31 @@ Partial Class Form1
         Me.txtStatusStrip.Size = New System.Drawing.Size(114, 17)
         Me.txtStatusStrip.Text = "Authenticated: False"
         '
-        'btnAuth
+        'GroupBox5
         '
-        Me.btnAuth.Location = New System.Drawing.Point(330, 17)
-        Me.btnAuth.Name = "btnAuth"
-        Me.btnAuth.Size = New System.Drawing.Size(75, 23)
-        Me.btnAuth.TabIndex = 26
-        Me.btnAuth.Text = "Authenticate"
-        Me.btnAuth.UseVisualStyleBackColor = True
+        Me.GroupBox5.Controls.Add(Me.btnLogout)
+        Me.GroupBox5.Location = New System.Drawing.Point(328, 117)
+        Me.GroupBox5.Name = "GroupBox5"
+        Me.GroupBox5.Size = New System.Drawing.Size(213, 77)
+        Me.GroupBox5.TabIndex = 29
+        Me.GroupBox5.TabStop = False
+        Me.GroupBox5.Text = "Logout"
+        '
+        'btnLogout
+        '
+        Me.btnLogout.Location = New System.Drawing.Point(64, 39)
+        Me.btnLogout.Name = "btnLogout"
+        Me.btnLogout.Size = New System.Drawing.Size(75, 23)
+        Me.btnLogout.TabIndex = 26
+        Me.btnLogout.Text = "Logout"
+        Me.btnLogout.UseVisualStyleBackColor = True
         '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(947, 819)
+        Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.tabTopMenu)
         Me.Name = "Form1"
         Me.Text = "R1-Rest-Test"
@@ -935,9 +982,7 @@ Partial Class Form1
         CType(Me.dgvprojectjobs, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tabTopMenu.ResumeLayout(False)
         Me.tabSettings.ResumeLayout(False)
-        Me.tabSettings.PerformLayout()
         Me.tabTesting.ResumeLayout(False)
-        Me.tabTesting.PerformLayout()
         Me.tabBottomMenu.ResumeLayout(False)
         Me.tabCreateProject.ResumeLayout(False)
         Me.tabCreateProject.PerformLayout()
@@ -954,9 +999,14 @@ Partial Class Form1
         Me.tabAlerts.PerformLayout()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
+        Me.GroupBox3.ResumeLayout(False)
+        Me.GroupBox3.PerformLayout()
+        Me.GroupBox4.ResumeLayout(False)
         Me.StatusStrip1.ResumeLayout(False)
         Me.StatusStrip1.PerformLayout()
+        Me.GroupBox5.ResumeLayout(False)
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
     Friend WithEvents btnRefreshProjectList As System.Windows.Forms.Button
@@ -974,7 +1024,6 @@ Partial Class Form1
     Friend WithEvents txtServer As System.Windows.Forms.TextBox
     Friend WithEvents btnSaveSettings As System.Windows.Forms.Button
     Friend WithEvents lblStatusSettings As System.Windows.Forms.Label
-    Friend WithEvents StatusStrip1 As System.Windows.Forms.StatusStrip
     Friend WithEvents btnAPICallCustom As System.Windows.Forms.Button
     Friend WithEvents txtapicallpath As System.Windows.Forms.TextBox
     Friend WithEvents txtapicallpostjson As System.Windows.Forms.TextBox
@@ -1042,7 +1091,12 @@ Partial Class Form1
     Friend WithEvents colLink As System.Windows.Forms.DataGridViewLinkColumn
     Friend WithEvents colrptid As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents txtProjectID As System.Windows.Forms.NumericUpDown
-    Friend WithEvents txtStatusStrip As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents btnAuth As System.Windows.Forms.Button
+    Friend WithEvents GroupBox3 As System.Windows.Forms.GroupBox
+    Friend WithEvents GroupBox4 As System.Windows.Forms.GroupBox
+    Friend WithEvents StatusStrip1 As System.Windows.Forms.StatusStrip
+    Friend WithEvents txtStatusStrip As System.Windows.Forms.ToolStripStatusLabel
+    Friend WithEvents GroupBox5 As System.Windows.Forms.GroupBox
+    Friend WithEvents btnLogout As System.Windows.Forms.Button
 
 End Class

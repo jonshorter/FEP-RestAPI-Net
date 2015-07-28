@@ -3,9 +3,38 @@ Imports System.Text
 Imports System.IO
 Imports System.Windows.Forms
 Imports R1SimpleRestClient.Models.Response
+Imports RestSharp
 
 Public Class R1Authentication
+    'https://10.0.1.52/r1/ClientBin/ADG-RIA-Authentication-Web-Services-AuthenticationService.svc/binary/Logout
 
+    Public Sub Logout(ByVal Server As String, ByVal AuthToken As AuthToken)
+        System.Net.ServicePointManager.ServerCertificateValidationCallback = _
+Function(se As Object, _
+cert As System.Security.Cryptography.X509Certificates.X509Certificate, _
+chain As System.Security.Cryptography.X509Certificates.X509Chain, _
+sslerror As System.Net.Security.SslPolicyErrors) True
+        '----LogOut
+        Dim client As New RestSharp.RestClient("https://" & Server & "/R1/ClientBin/ADG-RIA-Authentication-Web-Services-AuthenticationService.svc/binary")
+        client.CookieContainer = AuthToken.Data
+        Dim request = New RestSharp.RestRequest("Logout", Method.POST)
+        request.RequestFormat = DataFormat.Json
+        request.JsonSerializer = New RestSharpJsonNetSerializer
+        request.AddHeader("Accept", "application/json")
+        request.Parameters.Clear()
+        request.AddParameter("application/msbin1", "@Logouthttp://tempuri.org/", ParameterType.RequestBody)
+
+        Dim response As RestSharp.RestResponse = client.Execute(request)
+        Select Case response.StatusCode
+            Case Is > 200 < 400
+                MsgBox("Logged out")
+            Case Is >= 400
+                MsgBox("Error: " & response.ErrorMessage)
+            Case Else
+                MsgBox("Error: " & response.ErrorMessage)
+        End Select
+
+    End Sub
     Public Function AuthenticateWithR1(ByVal R1Server As String, ByVal UserName As String, ByVal Password As String) As AuthToken
 
         System.Net.ServicePointManager.ServerCertificateValidationCallback = _

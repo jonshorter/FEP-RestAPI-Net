@@ -97,6 +97,8 @@ Public Class Form1
         My.Settings.Password = txtPassword.Text
         My.Settings.Save()
         lblStatusSettings.Text = "Settings Saved"
+       
+
     End Sub
 
     Private Sub tabSettings_Enter(sender As Object, e As EventArgs) Handles tabSettings.Enter
@@ -163,13 +165,17 @@ Public Class Form1
         cmbProjectProcessingMode.SelectedItem = R1SimpleRestClient.Models.Enums.ProcessModeEnum.Security
     End Sub
     Private Sub tabProjects_Enter(sender As Object, e As EventArgs) Handles tabProjects.Enter
-        Dim rc As New R1SimpleRestClient.R1SimpleRestClient
-        Dim Projects As List(Of ProjectPresenter) = rc.Functions.Project.GetProjectList(Me.Auth, txtServer.Text)
-        dgvprojects.Rows.Clear()
+        Try
+            Dim rc As New R1SimpleRestClient.R1SimpleRestClient
+            Dim Projects As List(Of ProjectPresenter) = rc.Functions.Project.GetProjectList(Me.Auth, txtServer.Text)
+            dgvprojects.Rows.Clear()
 
-        For Each project In Projects
-            dgvprojects.Rows.Add(New String() {project.Name, project.FtkCaseId, "X", "0"})
-        Next
+            For Each project In Projects
+                dgvprojects.Rows.Add(New String() {project.Name, project.FtkCaseId, "X", "0"})
+            Next
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
     End Sub
 
 
@@ -263,17 +269,38 @@ Public Class Form1
 
     End Sub
 
-    Private Sub StatusStrip1_ItemClicked(sender As Object, e As ToolStripItemClickedEventArgs) Handles StatusStrip1.ItemClicked
+    Private Sub StatusStrip1_ItemClicked(sender As Object, e As ToolStripItemClickedEventArgs)
 
     End Sub
 
 
 
     Private Sub btnAuth_Click(sender As Object, e As EventArgs) Handles btnAuth.Click
-        Dim R1Auth As New R1SimpleRestClient.R1Authentication
-        Me.Auth = R1Auth.AuthenticateWithR1(txtServer.Text, txtUsername.Text, txtPassword.Text)
-        If Me.Auth.Error = False Then txtStatusStrip.Text = "Authenticated: True"
-        tabTopMenu.TabPages.Add(tabTesting)
-        tabTopMenu.SelectedTab = tabTesting
+        If tabTopMenu.TabPages.Contains(tabTesting) Then
+            If Auth.Data.count > 0 Then
+                MsgBox("Already Logged In")
+            Else
+                tabTopMenu.TabPages.Remove(tabTesting)
+                Dim R1Auth As New R1SimpleRestClient.R1Authentication
+                Me.Auth = R1Auth.AuthenticateWithR1(txtServer.Text, txtUsername.Text, txtPassword.Text)
+                If Me.Auth.Error = False Then txtStatusStrip.Text = "Authenticated: True"
+                tabTopMenu.TabPages.Add(tabTesting)
+                tabTopMenu.SelectedTab = tabTesting
+            End If
+        Else
+            Dim R1Auth As New R1SimpleRestClient.R1Authentication
+            Me.Auth = R1Auth.AuthenticateWithR1(txtServer.Text, txtUsername.Text, txtPassword.Text)
+            If Me.Auth.Error = False Then txtStatusStrip.Text = "Authenticated: True"
+            tabTopMenu.TabPages.Add(tabTesting)
+            tabTopMenu.SelectedTab = tabTesting
+        End If
+      
+    End Sub
+
+    Private Sub btnLogout_Click(sender As Object, e As EventArgs) Handles btnLogout.Click
+        Dim r1logout As New R1SimpleRestClient.R1Authentication
+        r1logout.Logout(txtServer.Text, Me.Auth)
+        txtStatusStrip.Text = "Authenticated: False"
+        tabTopMenu.TabPages.Remove(tabTesting)
     End Sub
 End Class
