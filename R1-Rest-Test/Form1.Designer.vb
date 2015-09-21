@@ -22,7 +22,7 @@ Partial Class Form1
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.btnRefreshProjectList = New System.Windows.Forms.Button()
         Me.btnJobCreate = New System.Windows.Forms.Button()
         Me.dgvprojects = New System.Windows.Forms.DataGridView()
@@ -113,6 +113,10 @@ Partial Class Form1
         Me.txtapicallpostjson = New System.Windows.Forms.TextBox()
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.txtStatusStrip = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.tabUser = New System.Windows.Forms.TabPage()
+        Me.Label22 = New System.Windows.Forms.Label()
+        Me.txtfindUser = New System.Windows.Forms.TextBox()
+        Me.btnFindUser = New System.Windows.Forms.Button()
         CType(Me.dgvprojects, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvprojectjobs, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabTopMenu.SuspendLayout()
@@ -132,6 +136,7 @@ Partial Class Form1
         Me.tabAlerts.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
+        Me.tabUser.SuspendLayout()
         Me.SuspendLayout()
         '
         'btnRefreshProjectList
@@ -181,9 +186,9 @@ Partial Class Form1
         '
         'colDelete
         '
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle3.BackColor = System.Drawing.Color.Red
-        Me.colDelete.DefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.Red
+        Me.colDelete.DefaultCellStyle = DataGridViewCellStyle1
         Me.colDelete.FillWeight = 5.0!
         Me.colDelete.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.colDelete.HeaderText = "Delete"
@@ -402,6 +407,7 @@ Partial Class Form1
         Me.tabBottomMenu.Controls.Add(Me.tabProjects)
         Me.tabBottomMenu.Controls.Add(Me.tabCreateJob)
         Me.tabBottomMenu.Controls.Add(Me.tabAlerts)
+        Me.tabBottomMenu.Controls.Add(Me.tabUser)
         Me.tabBottomMenu.Location = New System.Drawing.Point(8, 112)
         Me.tabBottomMenu.Name = "tabBottomMenu"
         Me.tabBottomMenu.SelectedIndex = 0
@@ -980,6 +986,44 @@ Partial Class Form1
         Me.txtStatusStrip.Size = New System.Drawing.Size(114, 17)
         Me.txtStatusStrip.Text = "Authenticated: False"
         '
+        'tabUser
+        '
+        Me.tabUser.Controls.Add(Me.btnFindUser)
+        Me.tabUser.Controls.Add(Me.txtfindUser)
+        Me.tabUser.Controls.Add(Me.Label22)
+        Me.tabUser.Location = New System.Drawing.Point(4, 22)
+        Me.tabUser.Name = "tabUser"
+        Me.tabUser.Padding = New System.Windows.Forms.Padding(3)
+        Me.tabUser.Size = New System.Drawing.Size(865, 599)
+        Me.tabUser.TabIndex = 4
+        Me.tabUser.Text = "User"
+        Me.tabUser.UseVisualStyleBackColor = True
+        '
+        'Label22
+        '
+        Me.Label22.AutoSize = True
+        Me.Label22.Location = New System.Drawing.Point(11, 20)
+        Me.Label22.Name = "Label22"
+        Me.Label22.Size = New System.Drawing.Size(142, 13)
+        Me.Label22.TabIndex = 0
+        Me.Label22.Text = "Find Username or Lastname:"
+        '
+        'txtfindUser
+        '
+        Me.txtfindUser.Location = New System.Drawing.Point(159, 17)
+        Me.txtfindUser.Name = "txtfindUser"
+        Me.txtfindUser.Size = New System.Drawing.Size(144, 20)
+        Me.txtfindUser.TabIndex = 1
+        '
+        'btnFindUser
+        '
+        Me.btnFindUser.Location = New System.Drawing.Point(309, 15)
+        Me.btnFindUser.Name = "btnFindUser"
+        Me.btnFindUser.Size = New System.Drawing.Size(75, 23)
+        Me.btnFindUser.TabIndex = 2
+        Me.btnFindUser.Text = "Find"
+        Me.btnFindUser.UseVisualStyleBackColor = True
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1016,6 +1060,8 @@ Partial Class Form1
         Me.GroupBox1.PerformLayout()
         Me.StatusStrip1.ResumeLayout(False)
         Me.StatusStrip1.PerformLayout()
+        Me.tabUser.ResumeLayout(False)
+        Me.tabUser.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1110,5 +1156,9 @@ Partial Class Form1
     Friend WithEvents GroupBox5 As System.Windows.Forms.GroupBox
     Friend WithEvents btnLogout As System.Windows.Forms.Button
     Friend WithEvents btnUpdateProject As System.Windows.Forms.Button
+    Friend WithEvents tabUser As System.Windows.Forms.TabPage
+    Friend WithEvents Label22 As System.Windows.Forms.Label
+    Friend WithEvents btnFindUser As System.Windows.Forms.Button
+    Friend WithEvents txtfindUser As System.Windows.Forms.TextBox
 
 End Class

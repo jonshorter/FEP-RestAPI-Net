@@ -71,14 +71,19 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Functions\Alert\AlertFunctions.vb" />
+    <Compile Include="Functions\Alerts\AlertsFunctions.vb" />
     <Compile Include="Functions\Authentication\AuthenticationFunctions.vb" />
     <Compile Include="Functions\Functions.vb" />
     <Compile Include="Functions\Job\JobFunctions.vb" />
+    <Compile Include="Functions\Project\ProjectReportFunctions.vb" />
     <Compile Include="Functions\Project\ProjectFunctions.vb" />
+    <Compile Include="Functions\Templates\TemplateFunctions.vb" />
+    <Compile Include="Functions\ThreatFilters\ThreatFilterFunctions.vb" />
+    <Compile Include="Functions\User\UserFunctions.vb" />
     <Compile Include="Models\Alerts\AlertModels.vb" />
     <Compile Include="Models\Enum\Enums.vb" />
     <Compile Include="Models\Job\JobModels.vb" />
+    <Compile Include="Models\User\UserModels.vb" />
     <Compile Include="R1SimpleRestClient.vb" />
     <Compile Include="Models\Project\ProjectModels.vb" />
     <Compile Include="Models\Reports\ReportModels.vb" />

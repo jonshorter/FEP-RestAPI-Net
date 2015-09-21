@@ -2,7 +2,7 @@
 Imports Newtonsoft.Json
 Imports R1SimpleRestClient.Models.Response
 Imports R1SimpleRestClient.Models
-Public Class AlertFunctions
+Public Class AlertsFunctions
     Public Function GetTotalResponses(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String)
         Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api")
         client.CookieContainer = AuthToken.Data

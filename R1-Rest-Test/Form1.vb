@@ -338,4 +338,19 @@ Public Class Form1
     Private Sub tabCreateProject_Click(sender As Object, e As EventArgs) Handles tabCreateProject.Click
 
     End Sub
+
+    Private Sub Label22_Click(sender As Object, e As EventArgs) Handles Label22.Click
+
+    End Sub
+
+    Private Sub btnFindUser_Click(sender As Object, e As EventArgs) Handles btnFindUser.Click
+        Dim rc As New R1SimpleRestClient.R1SimpleRestClient
+        Dim user As List(Of R1SimpleRestClient.Models.User.UserLight) = rc.Functions.User.findUserByLastnameOrUsername(Me.Auth, txtServer.Text, txtfindUser.Text)
+        If user.Count > 0 Then
+            MsgBox("User Found: " & user(0).firstname & " " & user(0).lastname & vbCrLf & "Username: " & user(0).username)
+        Else
+            MsgBox("No Results Found")
+        End If
+
+    End Sub
 End Class

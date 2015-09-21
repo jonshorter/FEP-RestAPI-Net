@@ -134,6 +134,8 @@ Public Class ProjectFunctions
         Return "If You See This.... GetJobsForProject"
     End Function
 
+
+
     Public Function CreateProject(ByVal AuthToken As Response.AuthToken, ByVal Server As String, ByVal NewProject As NewProjectDefinition)
         Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api")
         client.CookieContainer = AuthToken.Data
