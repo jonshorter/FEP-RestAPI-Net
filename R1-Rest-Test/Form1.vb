@@ -35,7 +35,7 @@ Public Class Form1
         Next
 
         Dim rc As New R1SimpleRestClient.R1SimpleRestClient
-        Dim JobResponse As List(Of JobInfo) = rc.Functions.Job.CreateJob(Me.Auth, txtServer.Text, nj)
+        Dim JobResponse As List(Of JobInfo57) = rc.Functions.Job.CreateJob(Me.Auth, txtServer.Text, nj)
         If JobResponse.Count > 0 Then
             MsgBox("Job Created: " & JobResponse(0).Name)
         End If
@@ -58,7 +58,7 @@ Public Class Form1
             Select Case e.ColumnIndex
                 Case 0
                     Dim R1Client As New R1SimpleRestClient.R1SimpleRestClient
-                    Dim Jobs As List(Of JobInfo) = R1Client.Functions.Project.GetJobsForProject(Me.Auth, txtServer.Text, currproject)
+                    Dim Jobs As List(Of JobInfo57) = R1Client.Functions.Project.GetJobsForProject(Me.Auth, txtServer.Text, currproject)
                     dgvprojectjobs.Rows.Clear()
                     For Each job In Jobs
                         dgvprojectjobs.Rows.Add(New String() {job.Name, job.JobType.ToString, job.Status, job.JobID.ToString})
@@ -180,6 +180,19 @@ Public Class Form1
 
             For Each project In Projects
                 dgvprojects.Rows.Add(New String() {project.Name, project.FtkCaseId, "X", "0"})
+            Next
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+
+        Try
+            Dim rc As New R1SimpleRestClient.R1SimpleRestClient
+            Dim Jobs As ApiResponse(Of JobData) = rc.Functions.Job.GetAllJobs(Me.Auth, txtServer.Text)
+            dgvJobs.Rows.Clear()
+
+            For Each job As JobInfo In Jobs.Data.jobs
+                dgvJobs.Rows.Add(New String() {job.Name, job.Status, job.JobID.ToString})
+
             Next
         Catch ex As Exception
             MsgBox(ex.Message)
@@ -345,9 +358,13 @@ Public Class Form1
 
     Private Sub btnFindUser_Click(sender As Object, e As EventArgs) Handles btnFindUser.Click
         Dim rc As New R1SimpleRestClient.R1SimpleRestClient
-        Dim user As List(Of R1SimpleRestClient.Models.User.UserLight) = rc.Functions.User.findUserByLastnameOrUsername(Me.Auth, txtServer.Text, txtfindUser.Text)
-        If user.Count > 0 Then
-            MsgBox("User Found: " & user(0).firstname & " " & user(0).lastname & vbCrLf & "Username: " & user(0).username)
+        Dim users As List(Of R1SimpleRestClient.Models.User.UserLight) = rc.Functions.User.findUserByLastnameOrUsername(Me.Auth, txtServer.Text, txtfindUser.Text)
+        If users.Count > 0 Then
+            Dim UsersMessage As String = ""
+            For Each user In users
+                UsersMessage = UsersMessage & vbCrLf & "User Found: " & user.firstname & " " & user.lastname & vbCrLf & "Username: " & user.username
+            Next
+            MsgBox(UsersMessage)
         Else
             MsgBox("No Results Found")
         End If

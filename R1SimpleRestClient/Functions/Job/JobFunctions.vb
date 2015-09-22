@@ -20,7 +20,7 @@ Public Class JobFunctions
         Dim response As RestSharp.RestResponse = client.Execute(request)
         Select Case response.StatusCode
             Case Is > 200 < 400
-                Dim apiresponse = JsonConvert.DeserializeObject(Of Models.Response.ApiResponse(Of List(Of JobInfo)))(response.Content)
+                Dim apiresponse = JsonConvert.DeserializeObject(Of Models.Response.ApiResponse(Of List(Of JobInfo57)))(response.Content)
                 Select Case apiresponse.Success
                     Case True
                         Return apiresponse.Data
@@ -50,10 +50,10 @@ Public Class JobFunctions
         Dim response As RestSharp.RestResponse = client.Execute(request)
         Select Case response.StatusCode
             Case Is > 200 < 400
-                Dim apiresponse = JsonConvert.DeserializeObject(Of Models.Response.ApiResponse(Of List(Of JobInfo)))(response.Content)
+                Dim apiresponse = JsonConvert.DeserializeObject(Of Models.Response.ApiResponse(Of JobData))(response.Content)
                 Select Case apiresponse.Success
                     Case True
-                        Return apiresponse.Data
+                        Return apiresponse
                     Case False
                         Return "Error: " & apiresponse.Error.Message.ToString
                 End Select

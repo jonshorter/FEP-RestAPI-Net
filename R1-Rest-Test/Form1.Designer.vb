@@ -103,6 +103,10 @@ Partial Class Form1
         Me.lstAlertSourceBreakdown = New System.Windows.Forms.ListBox()
         Me.lblTotalAutomatedResponses = New System.Windows.Forms.Label()
         Me.lblTotalResponses = New System.Windows.Forms.Label()
+        Me.tabUser = New System.Windows.Forms.TabPage()
+        Me.btnFindUser = New System.Windows.Forms.Button()
+        Me.txtfindUser = New System.Windows.Forms.TextBox()
+        Me.Label22 = New System.Windows.Forms.Label()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.btnAPICallCustom = New System.Windows.Forms.Button()
         Me.Label6 = New System.Windows.Forms.Label()
@@ -113,10 +117,12 @@ Partial Class Form1
         Me.txtapicallpostjson = New System.Windows.Forms.TextBox()
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.txtStatusStrip = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.tabUser = New System.Windows.Forms.TabPage()
-        Me.Label22 = New System.Windows.Forms.Label()
-        Me.txtfindUser = New System.Windows.Forms.TextBox()
-        Me.btnFindUser = New System.Windows.Forms.Button()
+        Me.Label23 = New System.Windows.Forms.Label()
+        Me.dgvJobs = New System.Windows.Forms.DataGridView()
+        Me.DataGridViewTextBoxColumn7 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn8 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn9 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn10 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         CType(Me.dgvprojects, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvprojectjobs, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabTopMenu.SuspendLayout()
@@ -134,9 +140,10 @@ Partial Class Form1
         CType(Me.txtProjectID, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox2.SuspendLayout()
         Me.tabAlerts.SuspendLayout()
+        Me.tabUser.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
-        Me.tabUser.SuspendLayout()
+        CType(Me.dgvJobs, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'btnRefreshProjectList
@@ -532,6 +539,8 @@ Partial Class Form1
         '
         'tabProjects
         '
+        Me.tabProjects.Controls.Add(Me.Label23)
+        Me.tabProjects.Controls.Add(Me.dgvJobs)
         Me.tabProjects.Controls.Add(Me.btnUpdateProject)
         Me.tabProjects.Controls.Add(Me.Label21)
         Me.tabProjects.Controls.Add(Me.pgProject)
@@ -554,7 +563,7 @@ Partial Class Form1
         '
         'btnUpdateProject
         '
-        Me.btnUpdateProject.Location = New System.Drawing.Point(629, 379)
+        Me.btnUpdateProject.Location = New System.Drawing.Point(750, 350)
         Me.btnUpdateProject.Name = "btnUpdateProject"
         Me.btnUpdateProject.Size = New System.Drawing.Size(115, 23)
         Me.btnUpdateProject.TabIndex = 18
@@ -894,6 +903,44 @@ Partial Class Form1
         Me.lblTotalResponses.TabIndex = 0
         Me.lblTotalResponses.Text = "Total Responses"
         '
+        'tabUser
+        '
+        Me.tabUser.Controls.Add(Me.btnFindUser)
+        Me.tabUser.Controls.Add(Me.txtfindUser)
+        Me.tabUser.Controls.Add(Me.Label22)
+        Me.tabUser.Location = New System.Drawing.Point(4, 22)
+        Me.tabUser.Name = "tabUser"
+        Me.tabUser.Padding = New System.Windows.Forms.Padding(3)
+        Me.tabUser.Size = New System.Drawing.Size(865, 599)
+        Me.tabUser.TabIndex = 4
+        Me.tabUser.Text = "User"
+        Me.tabUser.UseVisualStyleBackColor = True
+        '
+        'btnFindUser
+        '
+        Me.btnFindUser.Location = New System.Drawing.Point(309, 15)
+        Me.btnFindUser.Name = "btnFindUser"
+        Me.btnFindUser.Size = New System.Drawing.Size(75, 23)
+        Me.btnFindUser.TabIndex = 2
+        Me.btnFindUser.Text = "Find"
+        Me.btnFindUser.UseVisualStyleBackColor = True
+        '
+        'txtfindUser
+        '
+        Me.txtfindUser.Location = New System.Drawing.Point(159, 17)
+        Me.txtfindUser.Name = "txtfindUser"
+        Me.txtfindUser.Size = New System.Drawing.Size(144, 20)
+        Me.txtfindUser.TabIndex = 1
+        '
+        'Label22
+        '
+        Me.Label22.AutoSize = True
+        Me.Label22.Location = New System.Drawing.Point(11, 20)
+        Me.Label22.Name = "Label22"
+        Me.Label22.Size = New System.Drawing.Size(142, 13)
+        Me.Label22.TabIndex = 0
+        Me.Label22.Text = "Find Username or Lastname:"
+        '
         'GroupBox1
         '
         Me.GroupBox1.Controls.Add(Me.btnAPICallCustom)
@@ -986,43 +1033,51 @@ Partial Class Form1
         Me.txtStatusStrip.Size = New System.Drawing.Size(114, 17)
         Me.txtStatusStrip.Text = "Authenticated: False"
         '
-        'tabUser
+        'Label23
         '
-        Me.tabUser.Controls.Add(Me.btnFindUser)
-        Me.tabUser.Controls.Add(Me.txtfindUser)
-        Me.tabUser.Controls.Add(Me.Label22)
-        Me.tabUser.Location = New System.Drawing.Point(4, 22)
-        Me.tabUser.Name = "tabUser"
-        Me.tabUser.Padding = New System.Windows.Forms.Padding(3)
-        Me.tabUser.Size = New System.Drawing.Size(865, 599)
-        Me.tabUser.TabIndex = 4
-        Me.tabUser.Text = "User"
-        Me.tabUser.UseVisualStyleBackColor = True
+        Me.Label23.AutoSize = True
+        Me.Label23.Location = New System.Drawing.Point(342, 373)
+        Me.Label23.Name = "Label23"
+        Me.Label23.Size = New System.Drawing.Size(29, 13)
+        Me.Label23.TabIndex = 20
+        Me.Label23.Text = "Jobs"
         '
-        'Label22
+        'dgvJobs
         '
-        Me.Label22.AutoSize = True
-        Me.Label22.Location = New System.Drawing.Point(11, 20)
-        Me.Label22.Name = "Label22"
-        Me.Label22.Size = New System.Drawing.Size(142, 13)
-        Me.Label22.TabIndex = 0
-        Me.Label22.Text = "Find Username or Lastname:"
+        Me.dgvJobs.AllowUserToAddRows = False
+        Me.dgvJobs.AllowUserToDeleteRows = False
+        Me.dgvJobs.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvJobs.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn7, Me.DataGridViewTextBoxColumn8, Me.DataGridViewTextBoxColumn9, Me.DataGridViewTextBoxColumn10})
+        Me.dgvJobs.Location = New System.Drawing.Point(339, 389)
+        Me.dgvJobs.Name = "dgvJobs"
+        Me.dgvJobs.ReadOnly = True
+        Me.dgvJobs.RowHeadersVisible = False
+        Me.dgvJobs.Size = New System.Drawing.Size(324, 151)
+        Me.dgvJobs.TabIndex = 19
         '
-        'txtfindUser
+        'DataGridViewTextBoxColumn7
         '
-        Me.txtfindUser.Location = New System.Drawing.Point(159, 17)
-        Me.txtfindUser.Name = "txtfindUser"
-        Me.txtfindUser.Size = New System.Drawing.Size(144, 20)
-        Me.txtfindUser.TabIndex = 1
+        Me.DataGridViewTextBoxColumn7.HeaderText = "Job Name"
+        Me.DataGridViewTextBoxColumn7.Name = "DataGridViewTextBoxColumn7"
+        Me.DataGridViewTextBoxColumn7.ReadOnly = True
         '
-        'btnFindUser
+        'DataGridViewTextBoxColumn8
         '
-        Me.btnFindUser.Location = New System.Drawing.Point(309, 15)
-        Me.btnFindUser.Name = "btnFindUser"
-        Me.btnFindUser.Size = New System.Drawing.Size(75, 23)
-        Me.btnFindUser.TabIndex = 2
-        Me.btnFindUser.Text = "Find"
-        Me.btnFindUser.UseVisualStyleBackColor = True
+        Me.DataGridViewTextBoxColumn8.HeaderText = "Job Type"
+        Me.DataGridViewTextBoxColumn8.Name = "DataGridViewTextBoxColumn8"
+        Me.DataGridViewTextBoxColumn8.ReadOnly = True
+        '
+        'DataGridViewTextBoxColumn9
+        '
+        Me.DataGridViewTextBoxColumn9.HeaderText = "Job Status"
+        Me.DataGridViewTextBoxColumn9.Name = "DataGridViewTextBoxColumn9"
+        Me.DataGridViewTextBoxColumn9.ReadOnly = True
+        '
+        'DataGridViewTextBoxColumn10
+        '
+        Me.DataGridViewTextBoxColumn10.HeaderText = "JobID"
+        Me.DataGridViewTextBoxColumn10.Name = "DataGridViewTextBoxColumn10"
+        Me.DataGridViewTextBoxColumn10.ReadOnly = True
         '
         'Form1
         '
@@ -1056,12 +1111,13 @@ Partial Class Form1
         Me.GroupBox2.PerformLayout()
         Me.tabAlerts.ResumeLayout(False)
         Me.tabAlerts.PerformLayout()
+        Me.tabUser.ResumeLayout(False)
+        Me.tabUser.PerformLayout()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         Me.StatusStrip1.ResumeLayout(False)
         Me.StatusStrip1.PerformLayout()
-        Me.tabUser.ResumeLayout(False)
-        Me.tabUser.PerformLayout()
+        CType(Me.dgvJobs, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1160,5 +1216,11 @@ Partial Class Form1
     Friend WithEvents Label22 As System.Windows.Forms.Label
     Friend WithEvents btnFindUser As System.Windows.Forms.Button
     Friend WithEvents txtfindUser As System.Windows.Forms.TextBox
+    Friend WithEvents Label23 As System.Windows.Forms.Label
+    Friend WithEvents dgvJobs As System.Windows.Forms.DataGridView
+    Friend WithEvents DataGridViewTextBoxColumn7 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn8 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn9 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents DataGridViewTextBoxColumn10 As System.Windows.Forms.DataGridViewTextBoxColumn
 
 End Class

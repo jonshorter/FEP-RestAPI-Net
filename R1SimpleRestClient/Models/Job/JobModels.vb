@@ -14,12 +14,31 @@ Namespace Models
             Public Property Addresses As New List(Of String)
             Public Property SearchString As String = vbNullString
         End Class
-        Public Class JobInfo
+        Public Class JobInfo57
             Public Property JobID As Guid
             Public Property Name As String
             Public Property JobType As String
             Public Property Status As String
             Public Property Targets As String()
+        End Class
+        Public Class JobInfo
+            Public Property JobID As Guid
+            Public Property ResultID As Guid?
+            Public Property Name As String
+            Public Property Targets As String()
+            Public Property StartDate As DateTime?
+            Public Property EndDate As DateTime?
+            Public Property CreatedDate As DateTime
+            Public Property HasSchedule As Boolean
+            Public Property JobType As String
+            Public Property JobTypeCode As Integer
+            Public Property Status As String
+            Public Property StatusCode As Integer
+        End Class
+        Public Class JobData
+            Public Property jobs As List(Of JobInfo)
+            Public Property total As Long
+     
         End Class
         Public NotInheritable Class JobDefinition
             Inherits JobDefinitionBase
