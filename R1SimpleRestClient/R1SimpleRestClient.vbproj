@@ -79,6 +79,7 @@
     <Compile Include="Models\Alerts\AlertModels.vb" />
     <Compile Include="Models\Enum\Enums.vb" />
     <Compile Include="Models\Job\JobModels.vb" />
+    <Compile Include="Models\Templates\TemplateModels.vb" />
     <Compile Include="Models\User\UserModels.vb" />
     <Compile Include="R1SimpleRestClient.vb" />
     <Compile Include="Models\Project\ProjectModels.vb" />

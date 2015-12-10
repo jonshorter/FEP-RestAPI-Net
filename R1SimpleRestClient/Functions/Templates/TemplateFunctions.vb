@@ -14,6 +14,31 @@ Public Class TemplateFunctions
     'Route ("api/templates"
     'Options, Options
 
+    Public Function GetTemplates(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String)
+        Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api")
+        client.CookieContainer = AuthToken.Data
+        Dim request = New RestSharp.RestRequest("templates", Method.GET)
+        request.RequestFormat = DataFormat.Json
+        request.JsonSerializer = New RestSharpJsonNetSerializer
+        Dim response As RestSharp.RestResponse = client.Execute(request)
+        Select Case response.StatusCode
+            Case Is > 200 < 400
+                Dim apiresponse = JsonConvert.DeserializeObject(Of ApiResponse(Of List(Of Templates)))(response.Content)
+                Select Case apiresponse.Success
+                    Case True
+                        Return apiresponse.Data
+                    Case False
+                        Return "Error: " & apiresponse.Error.Message.ToString
+                End Select
+            Case Is >= 400
+                Return "Error: " & response.ErrorMessage
+            Case Else
+                Return "Error: " & response.ErrorMessage
+        End Select
+
+        Return "If You See This.... GetTemplates"
+    End Function
+
     'Route ("api/templates/{templateId: guid}
     'Get, Get Template
 
