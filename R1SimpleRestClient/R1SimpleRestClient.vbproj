@@ -70,6 +70,7 @@
     <Compile Include="Functions\Alerts\AlertsFunctions.vb" />
     <Compile Include="Functions\Authentication\AuthenticationFunctions.vb" />
     <Compile Include="Functions\Functions.vb" />
+    <Compile Include="Functions\Groups\GroupFunctions.vb" />
     <Compile Include="Functions\Job\JobFunctions.vb" />
     <Compile Include="Functions\Project\ProjectReportFunctions.vb" />
     <Compile Include="Functions\Project\ProjectFunctions.vb" />
@@ -78,6 +79,7 @@
     <Compile Include="Functions\User\UserFunctions.vb" />
     <Compile Include="Models\Alerts\AlertModels.vb" />
     <Compile Include="Models\Enum\Enums.vb" />
+    <Compile Include="Models\Groups\GroupModels.vb" />
     <Compile Include="Models\Job\JobModels.vb" />
     <Compile Include="Models\Templates\TemplateModels.vb" />
     <Compile Include="Models\User\UserModels.vb" />

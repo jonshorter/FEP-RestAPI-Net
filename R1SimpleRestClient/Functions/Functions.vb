@@ -4,4 +4,5 @@
     Public Alert As New AlertsFunctions
     Public User As New UserFunctions
     Public Templates As New TemplateFunctions
+    Public Groups As New GroupFunctions
 End Class

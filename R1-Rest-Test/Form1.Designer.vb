@@ -65,6 +65,12 @@ Partial Class Form1
         Me.btnCreateProject = New System.Windows.Forms.Button()
         Me.txtProjectName = New System.Windows.Forms.TextBox()
         Me.tabProjects = New System.Windows.Forms.TabPage()
+        Me.Label23 = New System.Windows.Forms.Label()
+        Me.dgvJobs = New System.Windows.Forms.DataGridView()
+        Me.DataGridViewTextBoxColumn7 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn8 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn9 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn10 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.btnUpdateProject = New System.Windows.Forms.Button()
         Me.Label21 = New System.Windows.Forms.Label()
         Me.pgProject = New System.Windows.Forms.PropertyGrid()
@@ -117,12 +123,11 @@ Partial Class Form1
         Me.txtapicallpostjson = New System.Windows.Forms.TextBox()
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.txtStatusStrip = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.Label23 = New System.Windows.Forms.Label()
-        Me.dgvJobs = New System.Windows.Forms.DataGridView()
-        Me.DataGridViewTextBoxColumn7 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn8 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn9 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn10 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.tabGroups = New System.Windows.Forms.TabPage()
+        Me.tabTemplates = New System.Windows.Forms.TabPage()
+        Me.treeGroups = New System.Windows.Forms.TreeView()
+        Me.btnLoadGroupsTree = New System.Windows.Forms.Button()
+        Me.listTemplates = New System.Windows.Forms.ListBox()
         CType(Me.dgvprojects, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvprojectjobs, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabTopMenu.SuspendLayout()
@@ -134,6 +139,7 @@ Partial Class Form1
         Me.tabBottomMenu.SuspendLayout()
         Me.tabCreateProject.SuspendLayout()
         Me.tabProjects.SuspendLayout()
+        CType(Me.dgvJobs, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvprojectjobreports, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvProjectReports, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabCreateJob.SuspendLayout()
@@ -143,23 +149,26 @@ Partial Class Form1
         Me.tabUser.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
-        CType(Me.dgvJobs, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.tabGroups.SuspendLayout()
+        Me.tabTemplates.SuspendLayout()
         Me.SuspendLayout()
         '
         'btnRefreshProjectList
         '
-        Me.btnRefreshProjectList.Location = New System.Drawing.Point(6, 6)
+        Me.btnRefreshProjectList.Location = New System.Drawing.Point(8, 7)
+        Me.btnRefreshProjectList.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnRefreshProjectList.Name = "btnRefreshProjectList"
-        Me.btnRefreshProjectList.Size = New System.Drawing.Size(139, 24)
+        Me.btnRefreshProjectList.Size = New System.Drawing.Size(185, 30)
         Me.btnRefreshProjectList.TabIndex = 1
         Me.btnRefreshProjectList.Text = "Refresh Project List"
         Me.btnRefreshProjectList.UseVisualStyleBackColor = True
         '
         'btnJobCreate
         '
-        Me.btnJobCreate.Location = New System.Drawing.Point(250, 327)
+        Me.btnJobCreate.Location = New System.Drawing.Point(333, 402)
+        Me.btnJobCreate.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnJobCreate.Name = "btnJobCreate"
-        Me.btnJobCreate.Size = New System.Drawing.Size(96, 28)
+        Me.btnJobCreate.Size = New System.Drawing.Size(128, 34)
         Me.btnJobCreate.TabIndex = 4
         Me.btnJobCreate.Text = "Create Job"
         Me.btnJobCreate.UseVisualStyleBackColor = True
@@ -170,11 +179,12 @@ Partial Class Form1
         Me.dgvprojects.AllowUserToDeleteRows = False
         Me.dgvprojects.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvprojects.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.projectname, Me.ftkcaseid, Me.colDelete, Me.colCreateJob})
-        Me.dgvprojects.Location = New System.Drawing.Point(9, 50)
+        Me.dgvprojects.Location = New System.Drawing.Point(12, 62)
+        Me.dgvprojects.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.dgvprojects.Name = "dgvprojects"
         Me.dgvprojects.ReadOnly = True
         Me.dgvprojects.RowHeadersVisible = False
-        Me.dgvprojects.Size = New System.Drawing.Size(324, 151)
+        Me.dgvprojects.Size = New System.Drawing.Size(432, 186)
         Me.dgvprojects.TabIndex = 8
         '
         'projectname
@@ -218,11 +228,12 @@ Partial Class Form1
         Me.dgvprojectjobs.AllowUserToDeleteRows = False
         Me.dgvprojectjobs.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvprojectjobs.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.jobname, Me.colJobType, Me.status, Me.colJobID})
-        Me.dgvprojectjobs.Location = New System.Drawing.Point(9, 219)
+        Me.dgvprojectjobs.Location = New System.Drawing.Point(12, 270)
+        Me.dgvprojectjobs.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.dgvprojectjobs.Name = "dgvprojectjobs"
         Me.dgvprojectjobs.ReadOnly = True
         Me.dgvprojectjobs.RowHeadersVisible = False
-        Me.dgvprojectjobs.Size = New System.Drawing.Size(324, 151)
+        Me.dgvprojectjobs.Size = New System.Drawing.Size(432, 186)
         Me.dgvprojectjobs.TabIndex = 9
         '
         'jobname
@@ -256,9 +267,10 @@ Partial Class Form1
         Me.tabTopMenu.Controls.Add(Me.tabTesting)
         Me.tabTopMenu.Dock = System.Windows.Forms.DockStyle.Top
         Me.tabTopMenu.Location = New System.Drawing.Point(0, 0)
+        Me.tabTopMenu.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.tabTopMenu.Name = "tabTopMenu"
         Me.tabTopMenu.SelectedIndex = 0
-        Me.tabTopMenu.Size = New System.Drawing.Size(947, 794)
+        Me.tabTopMenu.Size = New System.Drawing.Size(1263, 977)
         Me.tabTopMenu.TabIndex = 14
         '
         'tabSettings
@@ -266,10 +278,11 @@ Partial Class Form1
         Me.tabSettings.Controls.Add(Me.GroupBox5)
         Me.tabSettings.Controls.Add(Me.GroupBox4)
         Me.tabSettings.Controls.Add(Me.GroupBox3)
-        Me.tabSettings.Location = New System.Drawing.Point(4, 25)
+        Me.tabSettings.Location = New System.Drawing.Point(4, 28)
+        Me.tabSettings.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.tabSettings.Name = "tabSettings"
-        Me.tabSettings.Padding = New System.Windows.Forms.Padding(3)
-        Me.tabSettings.Size = New System.Drawing.Size(939, 765)
+        Me.tabSettings.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tabSettings.Size = New System.Drawing.Size(1255, 945)
         Me.tabSettings.TabIndex = 0
         Me.tabSettings.Text = "Settings"
         Me.tabSettings.UseVisualStyleBackColor = True
@@ -277,18 +290,21 @@ Partial Class Form1
         'GroupBox5
         '
         Me.GroupBox5.Controls.Add(Me.btnLogout)
-        Me.GroupBox5.Location = New System.Drawing.Point(328, 117)
+        Me.GroupBox5.Location = New System.Drawing.Point(437, 144)
+        Me.GroupBox5.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.GroupBox5.Name = "GroupBox5"
-        Me.GroupBox5.Size = New System.Drawing.Size(213, 77)
+        Me.GroupBox5.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GroupBox5.Size = New System.Drawing.Size(284, 95)
         Me.GroupBox5.TabIndex = 29
         Me.GroupBox5.TabStop = False
         Me.GroupBox5.Text = "Logout"
         '
         'btnLogout
         '
-        Me.btnLogout.Location = New System.Drawing.Point(64, 39)
+        Me.btnLogout.Location = New System.Drawing.Point(85, 48)
+        Me.btnLogout.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnLogout.Name = "btnLogout"
-        Me.btnLogout.Size = New System.Drawing.Size(75, 23)
+        Me.btnLogout.Size = New System.Drawing.Size(100, 28)
         Me.btnLogout.TabIndex = 26
         Me.btnLogout.Text = "Logout"
         Me.btnLogout.UseVisualStyleBackColor = True
@@ -296,18 +312,21 @@ Partial Class Form1
         'GroupBox4
         '
         Me.GroupBox4.Controls.Add(Me.btnAuth)
-        Me.GroupBox4.Location = New System.Drawing.Point(328, 17)
+        Me.GroupBox4.Location = New System.Drawing.Point(437, 21)
+        Me.GroupBox4.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.GroupBox4.Name = "GroupBox4"
-        Me.GroupBox4.Size = New System.Drawing.Size(213, 77)
+        Me.GroupBox4.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GroupBox4.Size = New System.Drawing.Size(284, 95)
         Me.GroupBox4.TabIndex = 28
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "Login"
         '
         'btnAuth
         '
-        Me.btnAuth.Location = New System.Drawing.Point(64, 39)
+        Me.btnAuth.Location = New System.Drawing.Point(85, 48)
+        Me.btnAuth.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnAuth.Name = "btnAuth"
-        Me.btnAuth.Size = New System.Drawing.Size(75, 23)
+        Me.btnAuth.Size = New System.Drawing.Size(100, 28)
         Me.btnAuth.TabIndex = 26
         Me.btnAuth.Text = "Login"
         Me.btnAuth.UseVisualStyleBackColor = True
@@ -322,50 +341,57 @@ Partial Class Form1
         Me.GroupBox3.Controls.Add(Me.Label2)
         Me.GroupBox3.Controls.Add(Me.Label3)
         Me.GroupBox3.Controls.Add(Me.txtPassword)
-        Me.GroupBox3.Location = New System.Drawing.Point(8, 17)
+        Me.GroupBox3.Location = New System.Drawing.Point(11, 21)
+        Me.GroupBox3.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.GroupBox3.Name = "GroupBox3"
-        Me.GroupBox3.Size = New System.Drawing.Size(288, 177)
+        Me.GroupBox3.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GroupBox3.Size = New System.Drawing.Size(384, 218)
         Me.GroupBox3.TabIndex = 27
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "Settings"
         '
         'txtServer
         '
-        Me.txtServer.Location = New System.Drawing.Point(77, 31)
+        Me.txtServer.Location = New System.Drawing.Point(103, 38)
+        Me.txtServer.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtServer.Name = "txtServer"
-        Me.txtServer.Size = New System.Drawing.Size(194, 20)
+        Me.txtServer.Size = New System.Drawing.Size(257, 22)
         Me.txtServer.TabIndex = 0
         '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(13, 34)
+        Me.Label1.Location = New System.Drawing.Point(17, 42)
+        Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(41, 13)
+        Me.Label1.Size = New System.Drawing.Size(54, 17)
         Me.Label1.TabIndex = 1
         Me.Label1.Text = "Server:"
         '
         'lblStatusSettings
         '
         Me.lblStatusSettings.AutoSize = True
-        Me.lblStatusSettings.Location = New System.Drawing.Point(15, 138)
+        Me.lblStatusSettings.Location = New System.Drawing.Point(20, 170)
+        Me.lblStatusSettings.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblStatusSettings.Name = "lblStatusSettings"
-        Me.lblStatusSettings.Size = New System.Drawing.Size(39, 13)
+        Me.lblStatusSettings.Size = New System.Drawing.Size(51, 17)
         Me.lblStatusSettings.TabIndex = 7
         Me.lblStatusSettings.Text = "Label4"
         '
         'txtUsername
         '
-        Me.txtUsername.Location = New System.Drawing.Point(77, 57)
+        Me.txtUsername.Location = New System.Drawing.Point(103, 70)
+        Me.txtUsername.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtUsername.Name = "txtUsername"
-        Me.txtUsername.Size = New System.Drawing.Size(194, 20)
+        Me.txtUsername.Size = New System.Drawing.Size(257, 22)
         Me.txtUsername.TabIndex = 2
         '
         'btnSaveSettings
         '
-        Me.btnSaveSettings.Location = New System.Drawing.Point(196, 133)
+        Me.btnSaveSettings.Location = New System.Drawing.Point(261, 164)
+        Me.btnSaveSettings.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnSaveSettings.Name = "btnSaveSettings"
-        Me.btnSaveSettings.Size = New System.Drawing.Size(75, 23)
+        Me.btnSaveSettings.Size = New System.Drawing.Size(100, 28)
         Me.btnSaveSettings.TabIndex = 6
         Me.btnSaveSettings.Text = "Save"
         Me.btnSaveSettings.UseVisualStyleBackColor = True
@@ -373,37 +399,41 @@ Partial Class Form1
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(13, 60)
+        Me.Label2.Location = New System.Drawing.Point(17, 74)
+        Me.Label2.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(58, 13)
+        Me.Label2.Size = New System.Drawing.Size(77, 17)
         Me.Label2.TabIndex = 3
         Me.Label2.Text = "Username:"
         '
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(13, 86)
+        Me.Label3.Location = New System.Drawing.Point(17, 106)
+        Me.Label3.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(56, 13)
+        Me.Label3.Size = New System.Drawing.Size(73, 17)
         Me.Label3.TabIndex = 5
         Me.Label3.Text = "Password:"
         '
         'txtPassword
         '
-        Me.txtPassword.Location = New System.Drawing.Point(77, 83)
+        Me.txtPassword.Location = New System.Drawing.Point(103, 102)
+        Me.txtPassword.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtPassword.Name = "txtPassword"
         Me.txtPassword.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
-        Me.txtPassword.Size = New System.Drawing.Size(194, 20)
+        Me.txtPassword.Size = New System.Drawing.Size(257, 22)
         Me.txtPassword.TabIndex = 4
         '
         'tabTesting
         '
         Me.tabTesting.Controls.Add(Me.tabBottomMenu)
         Me.tabTesting.Controls.Add(Me.GroupBox1)
-        Me.tabTesting.Location = New System.Drawing.Point(4, 25)
+        Me.tabTesting.Location = New System.Drawing.Point(4, 28)
+        Me.tabTesting.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.tabTesting.Name = "tabTesting"
-        Me.tabTesting.Padding = New System.Windows.Forms.Padding(3)
-        Me.tabTesting.Size = New System.Drawing.Size(939, 765)
+        Me.tabTesting.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tabTesting.Size = New System.Drawing.Size(1255, 945)
         Me.tabTesting.TabIndex = 1
         Me.tabTesting.Text = "APITest"
         Me.tabTesting.UseVisualStyleBackColor = True
@@ -415,10 +445,13 @@ Partial Class Form1
         Me.tabBottomMenu.Controls.Add(Me.tabCreateJob)
         Me.tabBottomMenu.Controls.Add(Me.tabAlerts)
         Me.tabBottomMenu.Controls.Add(Me.tabUser)
-        Me.tabBottomMenu.Location = New System.Drawing.Point(8, 112)
+        Me.tabBottomMenu.Controls.Add(Me.tabGroups)
+        Me.tabBottomMenu.Controls.Add(Me.tabTemplates)
+        Me.tabBottomMenu.Location = New System.Drawing.Point(11, 138)
+        Me.tabBottomMenu.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.tabBottomMenu.Name = "tabBottomMenu"
         Me.tabBottomMenu.SelectedIndex = 0
-        Me.tabBottomMenu.Size = New System.Drawing.Size(873, 625)
+        Me.tabBottomMenu.Size = New System.Drawing.Size(1164, 769)
         Me.tabBottomMenu.TabIndex = 24
         '
         'tabCreateProject
@@ -434,37 +467,41 @@ Partial Class Form1
         Me.tabCreateProject.Controls.Add(Me.Label12)
         Me.tabCreateProject.Controls.Add(Me.btnCreateProject)
         Me.tabCreateProject.Controls.Add(Me.txtProjectName)
-        Me.tabCreateProject.Location = New System.Drawing.Point(4, 22)
+        Me.tabCreateProject.Location = New System.Drawing.Point(4, 25)
+        Me.tabCreateProject.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.tabCreateProject.Name = "tabCreateProject"
-        Me.tabCreateProject.Padding = New System.Windows.Forms.Padding(3)
-        Me.tabCreateProject.Size = New System.Drawing.Size(865, 599)
+        Me.tabCreateProject.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tabCreateProject.Size = New System.Drawing.Size(1156, 740)
         Me.tabCreateProject.TabIndex = 2
         Me.tabCreateProject.Text = "Create Project"
         Me.tabCreateProject.UseVisualStyleBackColor = True
         '
         'txtProjectDescription
         '
-        Me.txtProjectDescription.Location = New System.Drawing.Point(127, 29)
+        Me.txtProjectDescription.Location = New System.Drawing.Point(169, 36)
+        Me.txtProjectDescription.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtProjectDescription.Multiline = True
         Me.txtProjectDescription.Name = "txtProjectDescription"
-        Me.txtProjectDescription.Size = New System.Drawing.Size(228, 49)
+        Me.txtProjectDescription.Size = New System.Drawing.Size(303, 59)
         Me.txtProjectDescription.TabIndex = 17
         '
         'Label20
         '
         Me.Label20.AutoSize = True
-        Me.Label20.Location = New System.Drawing.Point(6, 32)
+        Me.Label20.Location = New System.Drawing.Point(8, 39)
+        Me.Label20.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label20.Name = "Label20"
-        Me.Label20.Size = New System.Drawing.Size(99, 13)
+        Me.Label20.Size = New System.Drawing.Size(131, 17)
         Me.Label20.TabIndex = 16
         Me.Label20.Text = "Project Description:"
         '
         'Label15
         '
         Me.Label15.AutoSize = True
-        Me.Label15.Location = New System.Drawing.Point(361, 61)
+        Me.Label15.Location = New System.Drawing.Point(481, 75)
+        Me.Label15.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(92, 13)
+        Me.Label15.Size = New System.Drawing.Size(121, 17)
         Me.Label15.TabIndex = 15
         Me.Label15.Text = "Processing Mode:"
         '
@@ -472,68 +509,76 @@ Partial Class Form1
         '
         Me.cmbProjectProcessingMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbProjectProcessingMode.FormattingEnabled = True
-        Me.cmbProjectProcessingMode.Location = New System.Drawing.Point(482, 58)
+        Me.cmbProjectProcessingMode.Location = New System.Drawing.Point(643, 71)
+        Me.cmbProjectProcessingMode.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbProjectProcessingMode.Name = "cmbProjectProcessingMode"
-        Me.cmbProjectProcessingMode.Size = New System.Drawing.Size(228, 21)
+        Me.cmbProjectProcessingMode.Size = New System.Drawing.Size(303, 24)
         Me.cmbProjectProcessingMode.TabIndex = 14
         '
         'Label14
         '
         Me.Label14.AutoSize = True
-        Me.Label14.Location = New System.Drawing.Point(361, 35)
+        Me.Label14.Location = New System.Drawing.Point(481, 43)
+        Me.Label14.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(117, 13)
+        Me.Label14.Size = New System.Drawing.Size(156, 17)
         Me.Label14.TabIndex = 13
         Me.Label14.Text = "Job Data Folder (UNC):"
         '
         'txtProjectJobDataFolder
         '
-        Me.txtProjectJobDataFolder.Location = New System.Drawing.Point(482, 32)
+        Me.txtProjectJobDataFolder.Location = New System.Drawing.Point(643, 39)
+        Me.txtProjectJobDataFolder.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtProjectJobDataFolder.Name = "txtProjectJobDataFolder"
-        Me.txtProjectJobDataFolder.Size = New System.Drawing.Size(228, 20)
+        Me.txtProjectJobDataFolder.Size = New System.Drawing.Size(303, 22)
         Me.txtProjectJobDataFolder.TabIndex = 12
         Me.txtProjectJobDataFolder.Text = "\\10.0.1.52\Share\JobData"
         '
         'Label13
         '
         Me.Label13.AutoSize = True
-        Me.Label13.Location = New System.Drawing.Point(361, 9)
+        Me.Label13.Location = New System.Drawing.Point(481, 11)
+        Me.Label13.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(107, 13)
+        Me.Label13.Size = New System.Drawing.Size(143, 17)
         Me.Label13.TabIndex = 11
         Me.Label13.Text = "Project Folder (UNC):"
         '
         'txtProjectCaseFolder
         '
-        Me.txtProjectCaseFolder.Location = New System.Drawing.Point(482, 6)
+        Me.txtProjectCaseFolder.Location = New System.Drawing.Point(643, 7)
+        Me.txtProjectCaseFolder.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtProjectCaseFolder.Name = "txtProjectCaseFolder"
-        Me.txtProjectCaseFolder.Size = New System.Drawing.Size(228, 20)
+        Me.txtProjectCaseFolder.Size = New System.Drawing.Size(303, 22)
         Me.txtProjectCaseFolder.TabIndex = 10
         Me.txtProjectCaseFolder.Text = "\\10.0.1.52\Share\Projects"
         '
         'Label12
         '
         Me.Label12.AutoSize = True
-        Me.Label12.Location = New System.Drawing.Point(6, 9)
+        Me.Label12.Location = New System.Drawing.Point(8, 11)
+        Me.Label12.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(74, 13)
+        Me.Label12.Size = New System.Drawing.Size(97, 17)
         Me.Label12.TabIndex = 9
         Me.Label12.Text = "Project Name:"
         '
         'btnCreateProject
         '
-        Me.btnCreateProject.Location = New System.Drawing.Point(571, 130)
+        Me.btnCreateProject.Location = New System.Drawing.Point(761, 160)
+        Me.btnCreateProject.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnCreateProject.Name = "btnCreateProject"
-        Me.btnCreateProject.Size = New System.Drawing.Size(139, 24)
+        Me.btnCreateProject.Size = New System.Drawing.Size(185, 30)
         Me.btnCreateProject.TabIndex = 7
         Me.btnCreateProject.Text = "Create Project"
         Me.btnCreateProject.UseVisualStyleBackColor = True
         '
         'txtProjectName
         '
-        Me.txtProjectName.Location = New System.Drawing.Point(127, 6)
+        Me.txtProjectName.Location = New System.Drawing.Point(169, 7)
+        Me.txtProjectName.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtProjectName.Name = "txtProjectName"
-        Me.txtProjectName.Size = New System.Drawing.Size(228, 20)
+        Me.txtProjectName.Size = New System.Drawing.Size(303, 22)
         Me.txtProjectName.TabIndex = 8
         Me.txtProjectName.Text = "APIProject"
         '
@@ -553,19 +598,69 @@ Partial Class Form1
         Me.tabProjects.Controls.Add(Me.btnRefreshProjectList)
         Me.tabProjects.Controls.Add(Me.dgvprojects)
         Me.tabProjects.Controls.Add(Me.dgvprojectjobs)
-        Me.tabProjects.Location = New System.Drawing.Point(4, 22)
+        Me.tabProjects.Location = New System.Drawing.Point(4, 25)
+        Me.tabProjects.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.tabProjects.Name = "tabProjects"
-        Me.tabProjects.Padding = New System.Windows.Forms.Padding(3)
-        Me.tabProjects.Size = New System.Drawing.Size(865, 599)
+        Me.tabProjects.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tabProjects.Size = New System.Drawing.Size(1156, 740)
         Me.tabProjects.TabIndex = 0
         Me.tabProjects.Text = "Projects"
         Me.tabProjects.UseVisualStyleBackColor = True
         '
+        'Label23
+        '
+        Me.Label23.AutoSize = True
+        Me.Label23.Location = New System.Drawing.Point(456, 459)
+        Me.Label23.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label23.Name = "Label23"
+        Me.Label23.Size = New System.Drawing.Size(38, 17)
+        Me.Label23.TabIndex = 20
+        Me.Label23.Text = "Jobs"
+        '
+        'dgvJobs
+        '
+        Me.dgvJobs.AllowUserToAddRows = False
+        Me.dgvJobs.AllowUserToDeleteRows = False
+        Me.dgvJobs.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvJobs.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn7, Me.DataGridViewTextBoxColumn8, Me.DataGridViewTextBoxColumn9, Me.DataGridViewTextBoxColumn10})
+        Me.dgvJobs.Location = New System.Drawing.Point(452, 479)
+        Me.dgvJobs.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.dgvJobs.Name = "dgvJobs"
+        Me.dgvJobs.ReadOnly = True
+        Me.dgvJobs.RowHeadersVisible = False
+        Me.dgvJobs.Size = New System.Drawing.Size(432, 186)
+        Me.dgvJobs.TabIndex = 19
+        '
+        'DataGridViewTextBoxColumn7
+        '
+        Me.DataGridViewTextBoxColumn7.HeaderText = "Job Name"
+        Me.DataGridViewTextBoxColumn7.Name = "DataGridViewTextBoxColumn7"
+        Me.DataGridViewTextBoxColumn7.ReadOnly = True
+        '
+        'DataGridViewTextBoxColumn8
+        '
+        Me.DataGridViewTextBoxColumn8.HeaderText = "Job Type"
+        Me.DataGridViewTextBoxColumn8.Name = "DataGridViewTextBoxColumn8"
+        Me.DataGridViewTextBoxColumn8.ReadOnly = True
+        '
+        'DataGridViewTextBoxColumn9
+        '
+        Me.DataGridViewTextBoxColumn9.HeaderText = "Job Status"
+        Me.DataGridViewTextBoxColumn9.Name = "DataGridViewTextBoxColumn9"
+        Me.DataGridViewTextBoxColumn9.ReadOnly = True
+        '
+        'DataGridViewTextBoxColumn10
+        '
+        Me.DataGridViewTextBoxColumn10.HeaderText = "JobID"
+        Me.DataGridViewTextBoxColumn10.Name = "DataGridViewTextBoxColumn10"
+        Me.DataGridViewTextBoxColumn10.ReadOnly = True
+        '
         'btnUpdateProject
         '
-        Me.btnUpdateProject.Location = New System.Drawing.Point(750, 350)
+        Me.btnUpdateProject.Location = New System.Drawing.Point(1000, 431)
+        Me.btnUpdateProject.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnUpdateProject.Name = "btnUpdateProject"
-        Me.btnUpdateProject.Size = New System.Drawing.Size(115, 23)
+        Me.btnUpdateProject.Size = New System.Drawing.Size(153, 28)
         Me.btnUpdateProject.TabIndex = 18
         Me.btnUpdateProject.Text = "Update Project"
         Me.btnUpdateProject.UseVisualStyleBackColor = True
@@ -573,28 +668,31 @@ Partial Class Form1
         'Label21
         '
         Me.Label21.AutoSize = True
-        Me.Label21.Location = New System.Drawing.Point(336, 34)
+        Me.Label21.Location = New System.Drawing.Point(448, 42)
+        Me.Label21.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label21.Name = "Label21"
-        Me.Label21.Size = New System.Drawing.Size(75, 13)
+        Me.Label21.Size = New System.Drawing.Size(99, 17)
         Me.Label21.TabIndex = 17
         Me.Label21.Text = "Project Details"
         '
         'pgProject
         '
         Me.pgProject.HelpVisible = False
-        Me.pgProject.Location = New System.Drawing.Point(339, 50)
+        Me.pgProject.Location = New System.Drawing.Point(452, 62)
+        Me.pgProject.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.pgProject.Name = "pgProject"
         Me.pgProject.PropertySort = System.Windows.Forms.PropertySort.Alphabetical
-        Me.pgProject.Size = New System.Drawing.Size(405, 323)
+        Me.pgProject.Size = New System.Drawing.Size(540, 398)
         Me.pgProject.TabIndex = 16
         Me.pgProject.ToolbarVisible = False
         '
         'Label19
         '
         Me.Label19.AutoSize = True
-        Me.Label19.Location = New System.Drawing.Point(801, 495)
+        Me.Label19.Location = New System.Drawing.Point(1068, 609)
+        Me.Label19.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label19.Name = "Label19"
-        Me.Label19.Size = New System.Drawing.Size(64, 13)
+        Me.Label19.Size = New System.Drawing.Size(85, 17)
         Me.Label19.TabIndex = 15
         Me.Label19.Text = "Job Reports"
         Me.Label19.Visible = False
@@ -605,11 +703,12 @@ Partial Class Form1
         Me.dgvprojectjobreports.AllowUserToDeleteRows = False
         Me.dgvprojectjobreports.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvprojectjobreports.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn3, Me.DataGridViewTextBoxColumn4, Me.DataGridViewTextBoxColumn5, Me.DataGridViewLinkColumn1, Me.DataGridViewTextBoxColumn6})
-        Me.dgvprojectjobreports.Location = New System.Drawing.Point(804, 511)
+        Me.dgvprojectjobreports.Location = New System.Drawing.Point(1072, 629)
+        Me.dgvprojectjobreports.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.dgvprojectjobreports.Name = "dgvprojectjobreports"
         Me.dgvprojectjobreports.ReadOnly = True
         Me.dgvprojectjobreports.RowHeadersVisible = False
-        Me.dgvprojectjobreports.Size = New System.Drawing.Size(48, 47)
+        Me.dgvprojectjobreports.Size = New System.Drawing.Size(64, 58)
         Me.dgvprojectjobreports.TabIndex = 14
         Me.dgvprojectjobreports.Visible = False
         '
@@ -647,9 +746,10 @@ Partial Class Form1
         'Label11
         '
         Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(6, 373)
+        Me.Label11.Location = New System.Drawing.Point(8, 459)
+        Me.Label11.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(80, 13)
+        Me.Label11.Size = New System.Drawing.Size(106, 17)
         Me.Label11.TabIndex = 13
         Me.Label11.Text = "Project Reports"
         '
@@ -659,11 +759,12 @@ Partial Class Form1
         Me.dgvProjectReports.AllowUserToDeleteRows = False
         Me.dgvProjectReports.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvProjectReports.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn1, Me.DataGridViewTextBoxColumn2, Me.colStatus, Me.colLink, Me.colrptid})
-        Me.dgvProjectReports.Location = New System.Drawing.Point(9, 389)
+        Me.dgvProjectReports.Location = New System.Drawing.Point(12, 479)
+        Me.dgvProjectReports.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.dgvProjectReports.Name = "dgvProjectReports"
         Me.dgvProjectReports.ReadOnly = True
         Me.dgvProjectReports.RowHeadersVisible = False
-        Me.dgvProjectReports.Size = New System.Drawing.Size(324, 151)
+        Me.dgvProjectReports.Size = New System.Drawing.Size(432, 186)
         Me.dgvProjectReports.TabIndex = 12
         '
         'DataGridViewTextBoxColumn1
@@ -705,18 +806,20 @@ Partial Class Form1
         'Label10
         '
         Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(12, 203)
+        Me.Label10.Location = New System.Drawing.Point(16, 250)
+        Me.Label10.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(65, 13)
+        Me.Label10.Size = New System.Drawing.Size(86, 17)
         Me.Label10.TabIndex = 11
         Me.Label10.Text = "Project Jobs"
         '
         'Label9
         '
         Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(6, 34)
+        Me.Label9.Location = New System.Drawing.Point(8, 42)
+        Me.Label9.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(45, 13)
+        Me.Label9.Size = New System.Drawing.Size(59, 17)
         Me.Label9.TabIndex = 10
         Me.Label9.Text = "Projects"
         '
@@ -732,36 +835,40 @@ Partial Class Form1
         Me.tabCreateJob.Controls.Add(Me.Label7)
         Me.tabCreateJob.Controls.Add(Me.txtJobName)
         Me.tabCreateJob.Controls.Add(Me.btnJobCreate)
-        Me.tabCreateJob.Location = New System.Drawing.Point(4, 22)
+        Me.tabCreateJob.Location = New System.Drawing.Point(4, 25)
+        Me.tabCreateJob.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.tabCreateJob.Name = "tabCreateJob"
-        Me.tabCreateJob.Padding = New System.Windows.Forms.Padding(3)
-        Me.tabCreateJob.Size = New System.Drawing.Size(865, 599)
+        Me.tabCreateJob.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tabCreateJob.Size = New System.Drawing.Size(1156, 740)
         Me.tabCreateJob.TabIndex = 1
         Me.tabCreateJob.Text = "Create Job"
         Me.tabCreateJob.UseVisualStyleBackColor = True
         '
         'txtProjectID
         '
-        Me.txtProjectID.Location = New System.Drawing.Point(106, 7)
+        Me.txtProjectID.Location = New System.Drawing.Point(141, 9)
+        Me.txtProjectID.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtProjectID.Name = "txtProjectID"
-        Me.txtProjectID.Size = New System.Drawing.Size(158, 20)
+        Me.txtProjectID.Size = New System.Drawing.Size(211, 22)
         Me.txtProjectID.TabIndex = 14
         '
         'comboJobAction
         '
         Me.comboJobAction.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.comboJobAction.FormattingEnabled = True
-        Me.comboJobAction.Location = New System.Drawing.Point(106, 102)
+        Me.comboJobAction.Location = New System.Drawing.Point(141, 126)
+        Me.comboJobAction.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.comboJobAction.Name = "comboJobAction"
-        Me.comboJobAction.Size = New System.Drawing.Size(158, 21)
+        Me.comboJobAction.Size = New System.Drawing.Size(209, 24)
         Me.comboJobAction.TabIndex = 13
         '
         'Label17
         '
         Me.Label17.AutoSize = True
-        Me.Label17.Location = New System.Drawing.Point(24, 105)
+        Me.Label17.Location = New System.Drawing.Point(32, 129)
+        Me.Label17.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label17.Name = "Label17"
-        Me.Label17.Size = New System.Drawing.Size(60, 13)
+        Me.Label17.Size = New System.Drawing.Size(78, 17)
         Me.Label17.TabIndex = 12
         Me.Label17.Text = "Job Action:"
         '
@@ -771,9 +878,11 @@ Partial Class Form1
         Me.GroupBox2.Controls.Add(Me.btnRemoveSelectedTargets)
         Me.GroupBox2.Controls.Add(Me.btnAddNewTarget)
         Me.GroupBox2.Controls.Add(Me.txtNewTarget)
-        Me.GroupBox2.Location = New System.Drawing.Point(26, 155)
+        Me.GroupBox2.Location = New System.Drawing.Point(35, 191)
+        Me.GroupBox2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(320, 154)
+        Me.GroupBox2.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GroupBox2.Size = New System.Drawing.Size(427, 190)
         Me.GroupBox2.TabIndex = 11
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Targets"
@@ -781,42 +890,47 @@ Partial Class Form1
         'lstTargets
         '
         Me.lstTargets.FormattingEnabled = True
-        Me.lstTargets.Location = New System.Drawing.Point(6, 53)
+        Me.lstTargets.Location = New System.Drawing.Point(8, 65)
+        Me.lstTargets.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.lstTargets.Name = "lstTargets"
-        Me.lstTargets.Size = New System.Drawing.Size(120, 94)
+        Me.lstTargets.Size = New System.Drawing.Size(159, 106)
         Me.lstTargets.TabIndex = 4
         '
         'btnRemoveSelectedTargets
         '
-        Me.btnRemoveSelectedTargets.Location = New System.Drawing.Point(142, 125)
+        Me.btnRemoveSelectedTargets.Location = New System.Drawing.Point(189, 154)
+        Me.btnRemoveSelectedTargets.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnRemoveSelectedTargets.Name = "btnRemoveSelectedTargets"
-        Me.btnRemoveSelectedTargets.Size = New System.Drawing.Size(131, 23)
+        Me.btnRemoveSelectedTargets.Size = New System.Drawing.Size(175, 28)
         Me.btnRemoveSelectedTargets.TabIndex = 3
         Me.btnRemoveSelectedTargets.Text = "Remove Checked"
         Me.btnRemoveSelectedTargets.UseVisualStyleBackColor = True
         '
         'btnAddNewTarget
         '
-        Me.btnAddNewTarget.Location = New System.Drawing.Point(142, 25)
+        Me.btnAddNewTarget.Location = New System.Drawing.Point(189, 31)
+        Me.btnAddNewTarget.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnAddNewTarget.Name = "btnAddNewTarget"
-        Me.btnAddNewTarget.Size = New System.Drawing.Size(75, 23)
+        Me.btnAddNewTarget.Size = New System.Drawing.Size(100, 28)
         Me.btnAddNewTarget.TabIndex = 2
         Me.btnAddNewTarget.Text = "Add"
         Me.btnAddNewTarget.UseVisualStyleBackColor = True
         '
         'txtNewTarget
         '
-        Me.txtNewTarget.Location = New System.Drawing.Point(6, 27)
+        Me.txtNewTarget.Location = New System.Drawing.Point(8, 33)
+        Me.txtNewTarget.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtNewTarget.Name = "txtNewTarget"
-        Me.txtNewTarget.Size = New System.Drawing.Size(120, 20)
+        Me.txtNewTarget.Size = New System.Drawing.Size(159, 22)
         Me.txtNewTarget.TabIndex = 1
         '
         'Label16
         '
         Me.Label16.AutoSize = True
-        Me.Label16.Location = New System.Drawing.Point(24, 9)
+        Me.Label16.Location = New System.Drawing.Point(32, 11)
+        Me.Label16.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(57, 13)
+        Me.Label16.Size = New System.Drawing.Size(73, 17)
         Me.Label16.TabIndex = 10
         Me.Label16.Text = "Project ID:"
         '
@@ -824,34 +938,38 @@ Partial Class Form1
         '
         Me.comboJobType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.comboJobType.FormattingEnabled = True
-        Me.comboJobType.Location = New System.Drawing.Point(106, 70)
+        Me.comboJobType.Location = New System.Drawing.Point(141, 86)
+        Me.comboJobType.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.comboJobType.Name = "comboJobType"
-        Me.comboJobType.Size = New System.Drawing.Size(158, 21)
+        Me.comboJobType.Size = New System.Drawing.Size(209, 24)
         Me.comboJobType.TabIndex = 8
         '
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(24, 73)
+        Me.Label8.Location = New System.Drawing.Point(32, 90)
+        Me.Label8.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(54, 13)
+        Me.Label8.Size = New System.Drawing.Size(71, 17)
         Me.Label8.TabIndex = 7
         Me.Label8.Text = "Job Type:"
         '
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(24, 42)
+        Me.Label7.Location = New System.Drawing.Point(32, 52)
+        Me.Label7.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(58, 13)
+        Me.Label7.Size = New System.Drawing.Size(76, 17)
         Me.Label7.TabIndex = 6
         Me.Label7.Text = "Job Name:"
         '
         'txtJobName
         '
-        Me.txtJobName.Location = New System.Drawing.Point(106, 39)
+        Me.txtJobName.Location = New System.Drawing.Point(141, 48)
+        Me.txtJobName.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtJobName.Name = "txtJobName"
-        Me.txtJobName.Size = New System.Drawing.Size(158, 20)
+        Me.txtJobName.Size = New System.Drawing.Size(209, 22)
         Me.txtJobName.TabIndex = 5
         '
         'tabAlerts
@@ -860,10 +978,11 @@ Partial Class Form1
         Me.tabAlerts.Controls.Add(Me.lstAlertSourceBreakdown)
         Me.tabAlerts.Controls.Add(Me.lblTotalAutomatedResponses)
         Me.tabAlerts.Controls.Add(Me.lblTotalResponses)
-        Me.tabAlerts.Location = New System.Drawing.Point(4, 22)
+        Me.tabAlerts.Location = New System.Drawing.Point(4, 25)
+        Me.tabAlerts.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.tabAlerts.Name = "tabAlerts"
-        Me.tabAlerts.Padding = New System.Windows.Forms.Padding(3)
-        Me.tabAlerts.Size = New System.Drawing.Size(865, 599)
+        Me.tabAlerts.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tabAlerts.Size = New System.Drawing.Size(1156, 740)
         Me.tabAlerts.TabIndex = 3
         Me.tabAlerts.Text = "Alerts"
         Me.tabAlerts.UseVisualStyleBackColor = True
@@ -871,35 +990,40 @@ Partial Class Form1
         'Label18
         '
         Me.Label18.AutoSize = True
-        Me.Label18.Location = New System.Drawing.Point(12, 60)
+        Me.Label18.Location = New System.Drawing.Point(16, 74)
+        Me.Label18.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label18.Name = "Label18"
-        Me.Label18.Size = New System.Drawing.Size(122, 13)
+        Me.Label18.Size = New System.Drawing.Size(160, 17)
         Me.Label18.TabIndex = 3
         Me.Label18.Text = "Alert Source Breakdown"
         '
         'lstAlertSourceBreakdown
         '
         Me.lstAlertSourceBreakdown.FormattingEnabled = True
-        Me.lstAlertSourceBreakdown.Location = New System.Drawing.Point(15, 76)
+        Me.lstAlertSourceBreakdown.ItemHeight = 16
+        Me.lstAlertSourceBreakdown.Location = New System.Drawing.Point(20, 94)
+        Me.lstAlertSourceBreakdown.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.lstAlertSourceBreakdown.Name = "lstAlertSourceBreakdown"
-        Me.lstAlertSourceBreakdown.Size = New System.Drawing.Size(120, 95)
+        Me.lstAlertSourceBreakdown.Size = New System.Drawing.Size(159, 116)
         Me.lstAlertSourceBreakdown.TabIndex = 2
         '
         'lblTotalAutomatedResponses
         '
         Me.lblTotalAutomatedResponses.AutoSize = True
-        Me.lblTotalAutomatedResponses.Location = New System.Drawing.Point(12, 39)
+        Me.lblTotalAutomatedResponses.Location = New System.Drawing.Point(16, 48)
+        Me.lblTotalAutomatedResponses.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblTotalAutomatedResponses.Name = "lblTotalAutomatedResponses"
-        Me.lblTotalAutomatedResponses.Size = New System.Drawing.Size(141, 13)
+        Me.lblTotalAutomatedResponses.Size = New System.Drawing.Size(187, 17)
         Me.lblTotalAutomatedResponses.TabIndex = 1
         Me.lblTotalAutomatedResponses.Text = "Total Automated Responses"
         '
         'lblTotalResponses
         '
         Me.lblTotalResponses.AutoSize = True
-        Me.lblTotalResponses.Location = New System.Drawing.Point(12, 14)
+        Me.lblTotalResponses.Location = New System.Drawing.Point(16, 17)
+        Me.lblTotalResponses.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.lblTotalResponses.Name = "lblTotalResponses"
-        Me.lblTotalResponses.Size = New System.Drawing.Size(87, 13)
+        Me.lblTotalResponses.Size = New System.Drawing.Size(115, 17)
         Me.lblTotalResponses.TabIndex = 0
         Me.lblTotalResponses.Text = "Total Responses"
         '
@@ -908,36 +1032,40 @@ Partial Class Form1
         Me.tabUser.Controls.Add(Me.btnFindUser)
         Me.tabUser.Controls.Add(Me.txtfindUser)
         Me.tabUser.Controls.Add(Me.Label22)
-        Me.tabUser.Location = New System.Drawing.Point(4, 22)
+        Me.tabUser.Location = New System.Drawing.Point(4, 25)
+        Me.tabUser.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.tabUser.Name = "tabUser"
-        Me.tabUser.Padding = New System.Windows.Forms.Padding(3)
-        Me.tabUser.Size = New System.Drawing.Size(865, 599)
+        Me.tabUser.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tabUser.Size = New System.Drawing.Size(1156, 740)
         Me.tabUser.TabIndex = 4
         Me.tabUser.Text = "User"
         Me.tabUser.UseVisualStyleBackColor = True
         '
         'btnFindUser
         '
-        Me.btnFindUser.Location = New System.Drawing.Point(309, 15)
+        Me.btnFindUser.Location = New System.Drawing.Point(412, 18)
+        Me.btnFindUser.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnFindUser.Name = "btnFindUser"
-        Me.btnFindUser.Size = New System.Drawing.Size(75, 23)
+        Me.btnFindUser.Size = New System.Drawing.Size(100, 28)
         Me.btnFindUser.TabIndex = 2
         Me.btnFindUser.Text = "Find"
         Me.btnFindUser.UseVisualStyleBackColor = True
         '
         'txtfindUser
         '
-        Me.txtfindUser.Location = New System.Drawing.Point(159, 17)
+        Me.txtfindUser.Location = New System.Drawing.Point(212, 21)
+        Me.txtfindUser.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtfindUser.Name = "txtfindUser"
-        Me.txtfindUser.Size = New System.Drawing.Size(144, 20)
+        Me.txtfindUser.Size = New System.Drawing.Size(191, 22)
         Me.txtfindUser.TabIndex = 1
         '
         'Label22
         '
         Me.Label22.AutoSize = True
-        Me.Label22.Location = New System.Drawing.Point(11, 20)
+        Me.Label22.Location = New System.Drawing.Point(15, 25)
+        Me.Label22.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label22.Name = "Label22"
-        Me.Label22.Size = New System.Drawing.Size(142, 13)
+        Me.Label22.Size = New System.Drawing.Size(191, 17)
         Me.Label22.TabIndex = 0
         Me.Label22.Text = "Find Username or Lastname:"
         '
@@ -950,18 +1078,21 @@ Partial Class Form1
         Me.GroupBox1.Controls.Add(Me.cmbRESTOPTION)
         Me.GroupBox1.Controls.Add(Me.Label4)
         Me.GroupBox1.Controls.Add(Me.txtapicallpostjson)
-        Me.GroupBox1.Location = New System.Drawing.Point(8, 6)
+        Me.GroupBox1.Location = New System.Drawing.Point(11, 7)
+        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(522, 100)
+        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GroupBox1.Size = New System.Drawing.Size(696, 123)
         Me.GroupBox1.TabIndex = 23
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Custom API Call"
         '
         'btnAPICallCustom
         '
-        Me.btnAPICallCustom.Location = New System.Drawing.Point(431, 53)
+        Me.btnAPICallCustom.Location = New System.Drawing.Point(575, 65)
+        Me.btnAPICallCustom.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.btnAPICallCustom.Name = "btnAPICallCustom"
-        Me.btnAPICallCustom.Size = New System.Drawing.Size(75, 23)
+        Me.btnAPICallCustom.Size = New System.Drawing.Size(100, 28)
         Me.btnAPICallCustom.TabIndex = 16
         Me.btnAPICallCustom.Text = "Run"
         Me.btnAPICallCustom.UseVisualStyleBackColor = True
@@ -969,26 +1100,29 @@ Partial Class Form1
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(285, 35)
+        Me.Label6.Location = New System.Drawing.Point(380, 43)
+        Me.Label6.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(49, 13)
+        Me.Label6.Size = New System.Drawing.Size(65, 17)
         Me.Label6.TabIndex = 22
         Me.Label6.Text = "post json"
         '
         'txtapicallpath
         '
-        Me.txtapicallpath.Location = New System.Drawing.Point(145, 52)
+        Me.txtapicallpath.Location = New System.Drawing.Point(193, 64)
+        Me.txtapicallpath.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtapicallpath.Name = "txtapicallpath"
-        Me.txtapicallpath.Size = New System.Drawing.Size(137, 20)
+        Me.txtapicallpath.Size = New System.Drawing.Size(181, 22)
         Me.txtapicallpath.TabIndex = 17
         Me.txtapicallpath.Text = "projects"
         '
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(142, 35)
+        Me.Label5.Location = New System.Drawing.Point(189, 43)
+        Me.Label5.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(82, 13)
+        Me.Label5.Size = New System.Drawing.Size(109, 17)
         Me.Label5.TabIndex = 21
         Me.Label5.Text = "path. ie projects"
         '
@@ -996,96 +1130,103 @@ Partial Class Form1
         '
         Me.cmbRESTOPTION.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbRESTOPTION.FormattingEnabled = True
-        Me.cmbRESTOPTION.Location = New System.Drawing.Point(18, 51)
+        Me.cmbRESTOPTION.Location = New System.Drawing.Point(24, 63)
+        Me.cmbRESTOPTION.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.cmbRESTOPTION.Name = "cmbRESTOPTION"
-        Me.cmbRESTOPTION.Size = New System.Drawing.Size(121, 21)
+        Me.cmbRESTOPTION.Size = New System.Drawing.Size(160, 24)
         Me.cmbRESTOPTION.TabIndex = 18
         '
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(15, 35)
+        Me.Label4.Location = New System.Drawing.Point(20, 43)
+        Me.Label4.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(46, 13)
+        Me.Label4.Size = New System.Drawing.Size(59, 17)
         Me.Label4.TabIndex = 20
         Me.Label4.Text = "Method:"
         '
         'txtapicallpostjson
         '
-        Me.txtapicallpostjson.Location = New System.Drawing.Point(288, 53)
+        Me.txtapicallpostjson.Location = New System.Drawing.Point(384, 65)
+        Me.txtapicallpostjson.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.txtapicallpostjson.Name = "txtapicallpostjson"
-        Me.txtapicallpostjson.Size = New System.Drawing.Size(137, 20)
+        Me.txtapicallpostjson.Size = New System.Drawing.Size(181, 22)
         Me.txtapicallpostjson.TabIndex = 19
         '
         'StatusStrip1
         '
         Me.StatusStrip1.BackColor = System.Drawing.SystemColors.Control
+        Me.StatusStrip1.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.txtStatusStrip})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 797)
+        Me.StatusStrip1.Location = New System.Drawing.Point(0, 983)
         Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(947, 22)
+        Me.StatusStrip1.Padding = New System.Windows.Forms.Padding(1, 0, 19, 0)
+        Me.StatusStrip1.Size = New System.Drawing.Size(1263, 25)
         Me.StatusStrip1.TabIndex = 26
         Me.StatusStrip1.Text = "StatusStrip1"
         '
         'txtStatusStrip
         '
         Me.txtStatusStrip.Name = "txtStatusStrip"
-        Me.txtStatusStrip.Size = New System.Drawing.Size(114, 17)
+        Me.txtStatusStrip.Size = New System.Drawing.Size(142, 20)
         Me.txtStatusStrip.Text = "Authenticated: False"
         '
-        'Label23
+        'tabGroups
         '
-        Me.Label23.AutoSize = True
-        Me.Label23.Location = New System.Drawing.Point(342, 373)
-        Me.Label23.Name = "Label23"
-        Me.Label23.Size = New System.Drawing.Size(29, 13)
-        Me.Label23.TabIndex = 20
-        Me.Label23.Text = "Jobs"
+        Me.tabGroups.Controls.Add(Me.btnLoadGroupsTree)
+        Me.tabGroups.Controls.Add(Me.treeGroups)
+        Me.tabGroups.Location = New System.Drawing.Point(4, 25)
+        Me.tabGroups.Name = "tabGroups"
+        Me.tabGroups.Padding = New System.Windows.Forms.Padding(3)
+        Me.tabGroups.Size = New System.Drawing.Size(1156, 740)
+        Me.tabGroups.TabIndex = 5
+        Me.tabGroups.Text = "Groups"
+        Me.tabGroups.UseVisualStyleBackColor = True
         '
-        'dgvJobs
+        'tabTemplates
         '
-        Me.dgvJobs.AllowUserToAddRows = False
-        Me.dgvJobs.AllowUserToDeleteRows = False
-        Me.dgvJobs.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvJobs.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn7, Me.DataGridViewTextBoxColumn8, Me.DataGridViewTextBoxColumn9, Me.DataGridViewTextBoxColumn10})
-        Me.dgvJobs.Location = New System.Drawing.Point(339, 389)
-        Me.dgvJobs.Name = "dgvJobs"
-        Me.dgvJobs.ReadOnly = True
-        Me.dgvJobs.RowHeadersVisible = False
-        Me.dgvJobs.Size = New System.Drawing.Size(324, 151)
-        Me.dgvJobs.TabIndex = 19
+        Me.tabTemplates.Controls.Add(Me.listTemplates)
+        Me.tabTemplates.Location = New System.Drawing.Point(4, 25)
+        Me.tabTemplates.Name = "tabTemplates"
+        Me.tabTemplates.Size = New System.Drawing.Size(1156, 740)
+        Me.tabTemplates.TabIndex = 6
+        Me.tabTemplates.Text = "Templates"
+        Me.tabTemplates.UseVisualStyleBackColor = True
         '
-        'DataGridViewTextBoxColumn7
+        'treeGroups
         '
-        Me.DataGridViewTextBoxColumn7.HeaderText = "Job Name"
-        Me.DataGridViewTextBoxColumn7.Name = "DataGridViewTextBoxColumn7"
-        Me.DataGridViewTextBoxColumn7.ReadOnly = True
+        Me.treeGroups.Location = New System.Drawing.Point(20, 18)
+        Me.treeGroups.Name = "treeGroups"
+        Me.treeGroups.Size = New System.Drawing.Size(309, 171)
+        Me.treeGroups.TabIndex = 0
         '
-        'DataGridViewTextBoxColumn8
+        'btnLoadGroupsTree
         '
-        Me.DataGridViewTextBoxColumn8.HeaderText = "Job Type"
-        Me.DataGridViewTextBoxColumn8.Name = "DataGridViewTextBoxColumn8"
-        Me.DataGridViewTextBoxColumn8.ReadOnly = True
+        Me.btnLoadGroupsTree.Location = New System.Drawing.Point(348, 18)
+        Me.btnLoadGroupsTree.Name = "btnLoadGroupsTree"
+        Me.btnLoadGroupsTree.Size = New System.Drawing.Size(75, 23)
+        Me.btnLoadGroupsTree.TabIndex = 1
+        Me.btnLoadGroupsTree.Text = "Load"
+        Me.btnLoadGroupsTree.UseVisualStyleBackColor = True
         '
-        'DataGridViewTextBoxColumn9
+        'listTemplates
         '
-        Me.DataGridViewTextBoxColumn9.HeaderText = "Job Status"
-        Me.DataGridViewTextBoxColumn9.Name = "DataGridViewTextBoxColumn9"
-        Me.DataGridViewTextBoxColumn9.ReadOnly = True
-        '
-        'DataGridViewTextBoxColumn10
-        '
-        Me.DataGridViewTextBoxColumn10.HeaderText = "JobID"
-        Me.DataGridViewTextBoxColumn10.Name = "DataGridViewTextBoxColumn10"
-        Me.DataGridViewTextBoxColumn10.ReadOnly = True
+        Me.listTemplates.FormattingEnabled = True
+        Me.listTemplates.ItemHeight = 16
+        Me.listTemplates.Location = New System.Drawing.Point(17, 22)
+        Me.listTemplates.Name = "listTemplates"
+        Me.listTemplates.Size = New System.Drawing.Size(408, 228)
+        Me.listTemplates.TabIndex = 0
         '
         'Form1
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(947, 819)
+        Me.ClientSize = New System.Drawing.Size(1263, 1008)
         Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.tabTopMenu)
+        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
         Me.Name = "Form1"
         Me.Text = "R1-Rest-Test"
         CType(Me.dgvprojects, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1102,6 +1243,7 @@ Partial Class Form1
         Me.tabCreateProject.PerformLayout()
         Me.tabProjects.ResumeLayout(False)
         Me.tabProjects.PerformLayout()
+        CType(Me.dgvJobs, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dgvprojectjobreports, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dgvProjectReports, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tabCreateJob.ResumeLayout(False)
@@ -1117,7 +1259,8 @@ Partial Class Form1
         Me.GroupBox1.PerformLayout()
         Me.StatusStrip1.ResumeLayout(False)
         Me.StatusStrip1.PerformLayout()
-        CType(Me.dgvJobs, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.tabGroups.ResumeLayout(False)
+        Me.tabTemplates.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1222,5 +1365,10 @@ Partial Class Form1
     Friend WithEvents DataGridViewTextBoxColumn8 As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents DataGridViewTextBoxColumn9 As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents DataGridViewTextBoxColumn10 As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents tabGroups As System.Windows.Forms.TabPage
+    Friend WithEvents btnLoadGroupsTree As System.Windows.Forms.Button
+    Friend WithEvents treeGroups As System.Windows.Forms.TreeView
+    Friend WithEvents tabTemplates As System.Windows.Forms.TabPage
+    Friend WithEvents listTemplates As System.Windows.Forms.ListBox
 
 End Class

@@ -370,4 +370,36 @@ Public Class Form1
         End If
 
     End Sub
+
+    Private Sub btnLoadGroupsTree_Click(sender As Object, e As EventArgs) Handles btnLoadGroupsTree.Click
+        Dim rc As New R1SimpleRestClient.R1SimpleRestClient
+        Dim groups As R1SimpleRestClient.Models.Groups = rc.Functions.Groups.GetGroups(Me.Auth, txtServer.Text)
+        Dim topnode As TreeNode = Me.treeGroups.Nodes.Add(groups.name)
+        topnode.Name = groups.name
+        For Each group In groups.children
+            Dim x As TreeNode = topnode.Nodes.Add(group.name)
+            x.Name = group.name
+            GetAllChildren(x.Name, group)
+          
+        Next
+    End Sub
+
+    Private Sub GetAllChildren(parent As String, children As R1SimpleRestClient.Models.Groups)
+        Dim subnode() As TreeNode = treeGroups.Nodes.Find(parent, True)
+        If subnode.Count > 0 Then
+            For Each subgroup In children.children
+                Dim y As TreeNode = subnode(0).Nodes.Add(subgroup.name)
+                y.Name = subgroup.name
+                GetAllChildren(y.Name, subgroup)
+            Next
+        End If
+    End Sub
+
+    Private Sub tabTemplates_Click(sender As Object, e As EventArgs) Handles tabTemplates.Click
+        Dim rc As New R1SimpleRestClient.R1SimpleRestClient
+        Dim templates As List(Of R1SimpleRestClient.Models.Templates) = rc.Functions.Templates.GetTemplates(Me.Auth, txtServer.Text)
+        For Each template In templates
+            listTemplates.Items.Add(template.name)
+        Next
+    End Sub
 End Class
