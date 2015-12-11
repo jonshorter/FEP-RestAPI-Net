@@ -9,10 +9,13 @@ Imports R1SimpleRestClient.Models
 
 Public Class ProjectFunctions
 
-    Public Function GetProjectList(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String)
+    Public Function GetProjectList(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String, Optional Search As String = "")
         Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api")
         client.CookieContainer = AuthToken.Data
-        Dim request = New RestSharp.RestRequest("projects", Method.GET)
+        If Not Search = "" Then
+            Search = "?where=" & Search
+        End If
+        Dim request = New RestSharp.RestRequest("projects" & Search, Method.GET)
         request.RequestFormat = DataFormat.Json
         request.JsonSerializer = New RestSharpJsonNetSerializer
         Dim response As RestSharp.RestResponse = client.Execute(request)

@@ -69,6 +69,7 @@
   <ItemGroup>
     <Compile Include="Functions\Alerts\AlertsFunctions.vb" />
     <Compile Include="Functions\Authentication\AuthenticationFunctions.vb" />
+    <Compile Include="Functions\Computers\ComputerFunctions.vb" />
     <Compile Include="Functions\Configuration\ConfigurationFunctions.vb" />
     <Compile Include="Functions\Functions.vb" />
     <Compile Include="Functions\Groups\GroupFunctions.vb" />
@@ -79,6 +80,7 @@
     <Compile Include="Functions\ThreatFilters\ThreatFilterFunctions.vb" />
     <Compile Include="Functions\User\UserFunctions.vb" />
     <Compile Include="Models\Alerts\AlertModels.vb" />
+    <Compile Include="Models\Computers\ComputerModels.vb" />
     <Compile Include="Models\Enum\Enums.vb" />
     <Compile Include="Models\Groups\GroupModels.vb" />
     <Compile Include="Models\Job\JobModels.vb" />

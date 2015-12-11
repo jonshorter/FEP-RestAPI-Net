@@ -65,13 +65,13 @@ Partial Class Form1
         Me.pgProject = New System.Windows.Forms.PropertyGrid()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.tabJobs = New System.Windows.Forms.TabPage()
+        Me.btnJobFromTemplate = New System.Windows.Forms.Button()
         Me.Label23 = New System.Windows.Forms.Label()
         Me.dgvJobs = New System.Windows.Forms.DataGridView()
         Me.DataGridViewTextBoxColumn7 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn8 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn9 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn10 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.txtProjectID = New System.Windows.Forms.NumericUpDown()
         Me.comboJobAction = New System.Windows.Forms.ComboBox()
         Me.Label17 = New System.Windows.Forms.Label()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
@@ -117,7 +117,8 @@ Partial Class Form1
         Me.txtapicallpostjson = New System.Windows.Forms.TextBox()
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.txtStatusStrip = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.btnJobFromTemplate = New System.Windows.Forms.Button()
+        Me.txtProjectID = New System.Windows.Forms.TextBox()
+        Me.txtFTKID = New System.Windows.Forms.TextBox()
         CType(Me.dgvprojects, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabTopMenu.SuspendLayout()
         Me.tabSettings.SuspendLayout()
@@ -130,7 +131,6 @@ Partial Class Form1
         Me.tabProjects.SuspendLayout()
         Me.tabJobs.SuspendLayout()
         CType(Me.dgvJobs, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.txtProjectID, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox2.SuspendLayout()
         Me.tabAlerts.SuspendLayout()
         CType(Me.dgvAlertsWithCounts, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -594,10 +594,11 @@ Partial Class Form1
         '
         'tabJobs
         '
+        Me.tabJobs.Controls.Add(Me.txtFTKID)
+        Me.tabJobs.Controls.Add(Me.txtProjectID)
         Me.tabJobs.Controls.Add(Me.btnJobFromTemplate)
         Me.tabJobs.Controls.Add(Me.Label23)
         Me.tabJobs.Controls.Add(Me.dgvJobs)
-        Me.tabJobs.Controls.Add(Me.txtProjectID)
         Me.tabJobs.Controls.Add(Me.comboJobAction)
         Me.tabJobs.Controls.Add(Me.Label17)
         Me.tabJobs.Controls.Add(Me.GroupBox2)
@@ -615,6 +616,15 @@ Partial Class Form1
         Me.tabJobs.TabIndex = 1
         Me.tabJobs.Text = "Jobs"
         Me.tabJobs.UseVisualStyleBackColor = True
+        '
+        'btnJobFromTemplate
+        '
+        Me.btnJobFromTemplate.Location = New System.Drawing.Point(380, 129)
+        Me.btnJobFromTemplate.Name = "btnJobFromTemplate"
+        Me.btnJobFromTemplate.Size = New System.Drawing.Size(146, 23)
+        Me.btnJobFromTemplate.TabIndex = 23
+        Me.btnJobFromTemplate.Text = "JobFromTemplate"
+        Me.btnJobFromTemplate.UseVisualStyleBackColor = True
         '
         'Label23
         '
@@ -663,14 +673,6 @@ Partial Class Form1
         Me.DataGridViewTextBoxColumn10.HeaderText = "JobID"
         Me.DataGridViewTextBoxColumn10.Name = "DataGridViewTextBoxColumn10"
         Me.DataGridViewTextBoxColumn10.ReadOnly = True
-        '
-        'txtProjectID
-        '
-        Me.txtProjectID.Location = New System.Drawing.Point(141, 9)
-        Me.txtProjectID.Margin = New System.Windows.Forms.Padding(4)
-        Me.txtProjectID.Name = "txtProjectID"
-        Me.txtProjectID.Size = New System.Drawing.Size(211, 22)
-        Me.txtProjectID.TabIndex = 14
         '
         'comboJobAction
         '
@@ -1121,14 +1123,20 @@ Partial Class Form1
         Me.txtStatusStrip.Size = New System.Drawing.Size(142, 20)
         Me.txtStatusStrip.Text = "Authenticated: False"
         '
-        'btnJobFromTemplate
+        'txtProjectID
         '
-        Me.btnJobFromTemplate.Location = New System.Drawing.Point(405, 129)
-        Me.btnJobFromTemplate.Name = "btnJobFromTemplate"
-        Me.btnJobFromTemplate.Size = New System.Drawing.Size(75, 23)
-        Me.btnJobFromTemplate.TabIndex = 23
-        Me.btnJobFromTemplate.Text = "JobFromTemplate"
-        Me.btnJobFromTemplate.UseVisualStyleBackColor = True
+        Me.txtProjectID.Location = New System.Drawing.Point(141, 11)
+        Me.txtProjectID.Name = "txtProjectID"
+        Me.txtProjectID.Size = New System.Drawing.Size(209, 22)
+        Me.txtProjectID.TabIndex = 24
+        '
+        'txtFTKID
+        '
+        Me.txtFTKID.Location = New System.Drawing.Point(379, 11)
+        Me.txtFTKID.Name = "txtFTKID"
+        Me.txtFTKID.Size = New System.Drawing.Size(100, 22)
+        Me.txtFTKID.TabIndex = 25
+        Me.txtFTKID.Text = "42"
         '
         'Form1
         '
@@ -1156,7 +1164,6 @@ Partial Class Form1
         Me.tabJobs.ResumeLayout(False)
         Me.tabJobs.PerformLayout()
         CType(Me.dgvJobs, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.txtProjectID, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
         Me.tabAlerts.ResumeLayout(False)
@@ -1237,7 +1244,6 @@ Partial Class Form1
     Friend WithEvents Label20 As System.Windows.Forms.Label
     Friend WithEvents pgProject As System.Windows.Forms.PropertyGrid
     Friend WithEvents Label21 As System.Windows.Forms.Label
-    Friend WithEvents txtProjectID As System.Windows.Forms.NumericUpDown
     Friend WithEvents btnAuth As System.Windows.Forms.Button
     Friend WithEvents GroupBox3 As System.Windows.Forms.GroupBox
     Friend WithEvents GroupBox4 As System.Windows.Forms.GroupBox
@@ -1271,5 +1277,7 @@ Partial Class Form1
     Friend WithEvents DataGridViewTextBoxColumn9 As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents DataGridViewTextBoxColumn10 As System.Windows.Forms.DataGridViewTextBoxColumn
     Friend WithEvents btnJobFromTemplate As System.Windows.Forms.Button
+    Friend WithEvents txtProjectID As System.Windows.Forms.TextBox
+    Friend WithEvents txtFTKID As System.Windows.Forms.TextBox
 
 End Class

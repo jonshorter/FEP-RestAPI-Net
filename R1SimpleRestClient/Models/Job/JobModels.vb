@@ -28,10 +28,11 @@ Namespace Models
 
         Public Class JobDefinitionModel
             Public Property JobDef As JobDefinition
-            Public Property ProjectId As Long
+            Public Property ProjectId As String
             Public Property JobAction As JobAction
             Public Property ComputerTargets As New Target
             Public Property NetworkShareTargets As New Target
+
         End Class
 
         Public Class Target
@@ -81,12 +82,12 @@ Namespace Models
             Public Property AutoProcessJob As Boolean
             Public Property DestinationRoot As String
             Public Property ProjectResponsiveFilePath As String
-            Public Property JobApprovers As ObservableCollection(Of Long)
+            Public Property JobApprovers As ObservableCollection(Of String)
             Public Property ShareFilters As IncludeExcludeFilterContainer
             Public Property ComputerFilters As IncludeExcludeFilterContainer
             Public Property JobArchiveAndRemediateInfo As JobArchiveAndRemediateInfo
             Public Property JobType As System.Nullable(Of JobTypes)
-            Public Property ProjectId As Guid
+            Public Property ProjectId As String
             Public Property rmPolicyDefinition As RMPolicyDefinition
             Public Property rmPolicyDefinition2 As RMPolicyDefinition2
             Public Property jobSchedule As JobSchedule

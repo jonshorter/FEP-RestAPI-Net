@@ -147,26 +147,60 @@ Namespace Models
             Daily
             Hourly
         End Enum
+        'Public Enum JobTypes
+        '    SearchAndReview
+        '    MetadataOnly
+        '    ReportOnly
+        '    Archive
+        '    Remediate
+        '    RemediateAndReview
+        '    RMM
+        '    Volatile
+        '    MemoryAnalysis
+        '    MemoryAcquisition
+        '    SoftwareInventory
+        '    AgentRemediation
+        '    MemoryOperations
+        '    NetworkAcquisition
+        '    CombinationJob
+        '    ProcessDump
+        '    ThreatScan
+        '    EventEndpointQuery
+        'End Enum
+
         Public Enum JobTypes
-            SearchAndReview
-            MetadataOnly
-            ReportOnly
-            Archive
-            Remediate
-            RemediateAndReview
-            RMM
-            Volatile
-            MemoryAnalysis
-            MemoryAcquisition
-            SoftwareInventory
-            AgentRemediation
-            MemoryOperations
-            NetworkAcquisition
-            CombinationJob
-            ProcessDump
-            ThreatScan
-            EventEndpointQuery
+            DeployAgents = 3
+            VerifyAgentConnectivity = 4
+            MapNodesToPeople = 5
+            Volatile = 6
+            RMM = 7
+            MemoryAnalysis = 8
+            SoftwareInventory = 9
+            MemoryAcquisition = 10
+            AgentRemediation = 11
+            ProcessDump = 12
+            NetworkAcquisition = 13
+            CombinationJob = 14
+            ThreatScan = 16
+            EventEndpointQuery = 18
+            MemoryOperations = 40
+            ReportOnly = 41
+            Archive = 42
+            SearchAndReview = 43
+            MetadataOnly = 44
+            Remediate = 45
+            RemediateAndReview = 46
         End Enum
+
+        '=======================================================
+        'Service provided by Telerik (www.telerik.com)
+        'Conversion powered by NRefactory.
+        'Twitter: @telerik
+        'Facebook: facebook.com/telerik
+        '=======================================================
+
+
+
         Public Enum CaseReportType
             ProductionSet
             ProcessingExceptions

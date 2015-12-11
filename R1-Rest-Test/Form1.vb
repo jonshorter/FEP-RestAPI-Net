@@ -28,18 +28,26 @@ Public Class Form1
         Dim njdef As New R1SimpleRestClient.Models.Job.JobDefinition
         nj.JobDef = njdef
         nj.JobDef.Name = txtJobName.Text
-        nj.JobDef.JobType = comboJobType.SelectedItem
-        nj.ProjectId = txtProjectID.Text
+        '   nj.JobDef.JobType = comboJobType.SelectedItem
+        nj.JobDef.JobType = JobTypes.SoftwareInventory
+        nj.ProjectId = txtFTKID.Text
+        nj.JobDef.ProjectId = txtProjectID.Text
         nj.JobAction = comboJobAction.SelectedItem
+
         For Each item In lstTargets.Items
             nj.ComputerTargets.Addresses.Add(item)
         Next
 
         Dim rc As New R1SimpleRestClient.R1SimpleRestClient
-        Dim JobResponse As List(Of JobInfo57) = rc.Functions.Job.CreateJob(Me.Auth, txtServer.Text, nj)
-        If JobResponse.Count > 0 Then
-            MsgBox("Job Created: " & JobResponse(0).Name)
+        Dim JobResponse As ApiResponse(Of List(Of JobInfo57)) = rc.Functions.Job.CreateJob(Me.Auth, txtServer.Text, nj)
+        If JobResponse.Success = True Then
+            MsgBox("Job Created: " & JobResponse.Data(0).Name)
+        Else
+            MsgBox(JobResponse.Error.Message)
         End If
+    
+
+      
 
     End Sub
 
@@ -75,7 +83,11 @@ Public Class Form1
                         End If
                     End If
                 Case 3
-                    txtProjectID.Text = dgvprojects.Rows.Item(e.RowIndex).Cells(1).Value.ToString
+                    Dim R1Client As New R1SimpleRestClient.R1SimpleRestClient
+                    Dim prjinfo As ProjectPresenter = R1Client.Functions.Project.GetProjectDetails(Me.Auth, txtServer.Text, dgvprojects.Rows.Item(e.RowIndex).Cells(1).Value.ToString)
+
+                    txtProjectID.Text = prjinfo.ProjectId
+                    txtFTKID.Text = prjinfo.FtkCaseId
                     tabBottomMenu.SelectedTab = tabJobs
             End Select
 
@@ -122,7 +134,7 @@ Public Class Form1
             dgvJobs.Rows.Clear()
 
             For Each job As JobInfo In Jobs.Data.jobs
-                dgvJobs.Rows.Add(New String() {job.Name, job.Status, job.JobID.ToString})
+                dgvJobs.Rows.Add(New String() {job.Name, job.JobType, job.Status, job.JobID.ToString})
 
             Next
         Catch ex As Exception
