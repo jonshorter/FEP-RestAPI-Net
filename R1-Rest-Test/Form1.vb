@@ -68,7 +68,7 @@ Public Class Form1
                 Case 0
                     Dim R1Client As New R1SimpleRestClient.R1SimpleRestClient
 
-                    Dim prjinfo = R1Client.Functions.Project.GetProjectDetails(Me.Auth, txtServer.Text, currproject)
+                    Dim prjinfo = R1Client.Functions.Project.GetProjectDetails(Me.Auth, txtServer.Text, currproject).Data
                     pgProject.SelectedObject = prjinfo
 
                 Case 2
@@ -76,7 +76,7 @@ Public Class Form1
                     If x = 6 Then
                         Dim R1Client As New R1SimpleRestClient.R1SimpleRestClient
                         Dim deleteproject = R1Client.Functions.Project.DeleteProject(Me.Auth, txtServer.Text, currproject)
-                        If deleteproject = True Then
+                        If deleteproject.Data = True Then
                             MsgBox("Project # " & currproject & " deleted.")
                         Else
                             MsgBox("Failed To Delete Project # " & dgvprojects.Rows.Item(e.RowIndex).Cells(1).Value.ToString)
@@ -84,7 +84,7 @@ Public Class Form1
                     End If
                 Case 3
                     Dim R1Client As New R1SimpleRestClient.R1SimpleRestClient
-                    Dim prjinfo As ProjectPresenter = R1Client.Functions.Project.GetProjectDetails(Me.Auth, txtServer.Text, dgvprojects.Rows.Item(e.RowIndex).Cells(1).Value.ToString)
+                    Dim prjinfo As ProjectPresenter = R1Client.Functions.Project.GetProjectDetails(Me.Auth, txtServer.Text, dgvprojects.Rows.Item(e.RowIndex).Cells(1).Value.ToString).Data
 
                     txtProjectID.Text = prjinfo.ProjectId
                     txtFTKID.Text = prjinfo.FtkCaseId
@@ -164,14 +164,14 @@ Public Class Form1
         newproject.Comments = txtProjectDescription.Text
 
         Dim rc As New R1SimpleRestClient.R1SimpleRestClient
-        Dim NewProjectResponse As NewProjectDefinition = rc.Functions.Project.CreateProject(Me.Auth, txtServer.Text, newproject)
+        Dim NewProjectResponse As NewProjectDefinition = rc.Functions.Project.CreateProject(Me.Auth, txtServer.Text, newproject).Data
         MsgBox("Project Created: " & NewProjectResponse.Name)
     End Sub
 
     Private Sub tabCreateProject_Enter(sender As Object, e As EventArgs) Handles tabCreateProject.Enter
         Dim rc As New R1SimpleRestClient.R1SimpleRestClient
-        txtProjectCaseFolder.Text = rc.Functions.Configuration.GetDefaultProjectsPath(Me.Auth, txtServer.Text)
-        txtProjectJobDataFolder.Text = rc.Functions.Configuration.GetDefaultJobDataPath(Me.Auth, txtServer.Text)
+        txtProjectCaseFolder.Text = rc.Functions.Configuration.GetDefaultProjectsPath(Me.Auth, txtServer.Text).Data
+        txtProjectJobDataFolder.Text = rc.Functions.Configuration.GetDefaultJobDataPath(Me.Auth, txtServer.Text).Data
 
 
         cmbProjectProcessingMode.Items.Clear()
@@ -189,7 +189,7 @@ Public Class Form1
     Private Sub tabProjects_Enter(sender As Object, e As EventArgs) Handles tabProjects.Enter
         Try
             Dim rc As New R1SimpleRestClient.R1SimpleRestClient
-            Dim Projects As List(Of ProjectPresenter) = rc.Functions.Project.GetProjectList(Me.Auth, txtServer.Text)
+            Dim Projects As List(Of ProjectPresenter) = rc.Functions.Project.GetProjectList(Me.Auth, txtServer.Text).Data
             dgvprojects.Rows.Clear()
 
             For Each project In Projects
@@ -358,7 +358,7 @@ Public Class Form1
 
         Dim projinfo As ProjectPresenter = pgProject.SelectedObject
         Dim R1Client As New R1SimpleRestClient.R1SimpleRestClient
-        Dim response As ProjectPresenter = R1Client.Functions.Project.UpdateProject(Me.Auth, txtServer.Text, projinfo)
+        Dim response As ProjectPresenter = R1Client.Functions.Project.UpdateProject(Me.Auth, txtServer.Text, projinfo).Data
         MsgBox("Project Updated")
         tabProjects_Enter(sender, e)
 
@@ -408,14 +408,14 @@ Public Class Form1
 
     Private Sub btnIsIWAMode_Click(sender As Object, e As EventArgs) Handles btnIsIWAMode.Click
         Dim rc As New R1SimpleRestClient.R1SimpleRestClient
-        Dim IsIWAMode As Boolean = rc.Functions.Configuration.IsIWAMode(Me.Auth, txtServer.Text)
+        Dim IsIWAMode = rc.Functions.Configuration.IsIWAMode(Me.Auth, txtServer.Text).Data
         MsgBox(IsIWAMode)
     End Sub
 
     Private Sub btnGetTemplateID_Click(sender As Object, e As EventArgs) Handles btnGetTemplateID.Click
         Dim rc As New R1SimpleRestClient.R1SimpleRestClient
-        Dim template As R1SimpleRestClient.Models.Templates.TemplateInformation = rc.Functions.Templates.GetTemplate(Me.Auth, txtServer.Text, txtTemplateID.Text)
-        MsgBox(template.name)
+        Dim template = rc.Functions.Templates.GetTemplate(Me.Auth, txtServer.Text, txtTemplateID.Text)
+        MsgBox(template.Data.name)
     End Sub
 
     Private Sub tabGroups_Click(sender As Object, e As EventArgs) Handles tabGroups.Click
@@ -425,7 +425,7 @@ Public Class Form1
     Private Sub tabGroups_Enter(sender As Object, e As EventArgs) Handles tabGroups.Enter
         treeGroups.Nodes.Clear()
         Dim rc As New R1SimpleRestClient.R1SimpleRestClient
-        Dim groups As R1SimpleRestClient.Models.Groups = rc.Functions.Groups.GetGroups(Me.Auth, txtServer.Text)
+        Dim groups As R1SimpleRestClient.Models.Groups = rc.Functions.Groups.GetGroups(Me.Auth, txtServer.Text).Data
         Dim topnode As TreeNode = Me.treeGroups.Nodes.Add(groups.name)
         topnode.Name = groups.name
         For Each group In groups.children
@@ -442,13 +442,13 @@ Public Class Form1
         listTemplates.Items.Clear()
         listCategories.Items.Clear()
 
-        Dim templates As List(Of R1SimpleRestClient.Models.Templates.Templates) = rc.Functions.Templates.GetTemplates(Me.Auth, txtServer.Text)
-        For Each template In templates
+        Dim templates = rc.Functions.Templates.GetTemplates(Me.Auth, txtServer.Text)
+        For Each template In templates.Data
             listTemplates.Items.Add(template.name)
         Next
 
-        Dim categories As List(Of R1SimpleRestClient.Models.Templates.Categories) = rc.Functions.Templates.GetCategories(Me.Auth, txtServer.Text)
-        For Each category In categories
+        Dim categories = rc.Functions.Templates.GetCategories(Me.Auth, txtServer.Text)
+        For Each category In categories.Data
             listCategories.Items.Add(category.name)
         Next
     End Sub
@@ -466,7 +466,23 @@ Public Class Form1
         Dim rc As New R1SimpleRestClient.R1SimpleRestClient
         Dim JobID = rc.Functions.Job.CreateJobFromTemplate(Me.Auth, txtServer.Text, nj, True)
 
-        MsgBox("Job Created: " & JobID)
+        MsgBox("Job Created: " & JobID.Data)
+
+    End Sub
+
+    Private Sub tabThreatFilters_Click(sender As Object, e As EventArgs) Handles tabThreatFilters.Click
+
+    End Sub
+
+    Private Sub tabThreatFilters_Enter(sender As Object, e As EventArgs) Handles tabThreatFilters.Enter
+        Dim rc As New R1SimpleRestClient.R1SimpleRestClient
+
+        listThreatFilters.Items.Clear()
+  
+        Dim apiresponse = rc.Functions.ThreatFilters.GetThreatFilters(Me.Auth, txtServer.Text)
+        For Each tf In apiresponse.Data
+            listThreatFilters.Items.Add(tf.name)
+        Next
 
     End Sub
 End Class

@@ -9,81 +9,45 @@ Imports R1SimpleRestClient.Models
 
 Public Class TemplateFunctions
 
-    Public Function GetTemplates(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String)
+    Public Function GetTemplates(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String) _
+        As ApiResponse(Of List(Of Templates.Templates))
         Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api")
         client.CookieContainer = AuthToken.Data
         Dim request = New RestSharp.RestRequest("templates", Method.GET)
         request.RequestFormat = DataFormat.Json
         request.JsonSerializer = New RestSharpJsonNetSerializer
         Dim response As RestSharp.RestResponse = client.Execute(request)
-        Select Case response.StatusCode
-            Case Is > 200 < 400
-                Dim apiresponse = JsonConvert.DeserializeObject(Of ApiResponse(Of List(Of Templates.Templates)))(response.Content)
-                Select Case apiresponse.Success
-                    Case True
-                        Return apiresponse.Data
-                    Case False
-                        Return "Error: " & apiresponse.Error.Message.ToString
-                End Select
-            Case Is >= 400
-                Return "Error: " & response.ErrorMessage
-            Case Else
-                Return "Error: " & response.ErrorMessage
-        End Select
-
-        Return "If You See This.... GetTemplates"
+        Dim apiresponse = JsonConvert.DeserializeObject(Of ApiResponse(Of List(Of Templates.Templates)))(response.Content)
+        Return apiresponse
+     
     End Function
 
-    Public Function GetCategories(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String)
+    Public Function GetCategories(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String) _
+        As ApiResponse(Of List(Of Templates.Categories))
         Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api")
         client.CookieContainer = AuthToken.Data
         Dim request = New RestSharp.RestRequest("templates/categories", Method.GET)
         request.RequestFormat = DataFormat.Json
         request.JsonSerializer = New RestSharpJsonNetSerializer
         Dim response As RestSharp.RestResponse = client.Execute(request)
-        Select Case response.StatusCode
-            Case Is > 200 < 400
-                Dim apiresponse = JsonConvert.DeserializeObject(Of ApiResponse(Of List(Of Templates.Categories)))(response.Content)
-                Select Case apiresponse.Success
-                    Case True
-                        Return apiresponse.Data
-                    Case False
-                        Return "Error: " & apiresponse.Error.Message.ToString
-                End Select
-            Case Is >= 400
-                Return "Error: " & response.ErrorMessage
-            Case Else
-                Return "Error: " & response.ErrorMessage
-        End Select
-
-        Return "If You See This.... GetCategories"
+        Dim apiresponse = JsonConvert.DeserializeObject(Of ApiResponse(Of List(Of Templates.Categories)))(response.Content)
+        Return apiresponse
+       
     End Function
 
 
 
-    Public Function GetTemplate(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String, ByVal templateid As String)
+    Public Function GetTemplate(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String, ByVal templateid As String) _
+        As ApiResponse(Of Templates.TemplateInformation)
+
         Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api")
         client.CookieContainer = AuthToken.Data
         Dim request = New RestSharp.RestRequest("templates/" & templateid, Method.GET)
         request.RequestFormat = DataFormat.Json
         request.JsonSerializer = New RestSharpJsonNetSerializer
         Dim response As RestSharp.RestResponse = client.Execute(request)
-        Select Case response.StatusCode
-            Case Is > 200 < 400
-                Dim apiresponse = JsonConvert.DeserializeObject(Of ApiResponse(Of Templates.TemplateInformation))(response.Content)
-                Select Case apiresponse.Success
-                    Case True
-                        Return apiresponse.Data
-                    Case False
-                        Return "Error: " & apiresponse.Error.Message.ToString
-                End Select
-            Case Is >= 400
-                Return "Error: " & response.ErrorMessage
-            Case Else
-                Return "Error: " & response.ErrorMessage
-        End Select
-
-        Return "If You See This.... GetTemplate"
+        Dim apiresponse = JsonConvert.DeserializeObject(Of ApiResponse(Of Templates.TemplateInformation))(response.Content)
+        Return apiresponse
     End Function
 
 

@@ -9,7 +9,8 @@ Imports R1SimpleRestClient.Models
 
 Public Class ComputerFunctions
 
-    Public Function GetGroupComputers(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String, Optional GroupID As String = "")
+    Public Function GetGroupComputers(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String, _
+                                      Optional GroupID As String = "") As ApiResponse(Of ComputersInGroup)
         Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api")
         client.CookieContainer = AuthToken.Data
 
@@ -21,24 +22,11 @@ Public Class ComputerFunctions
         request.RequestFormat = DataFormat.Json
         request.JsonSerializer = New RestSharpJsonNetSerializer
         Dim response As RestSharp.RestResponse = client.Execute(request)
-        Select Case response.StatusCode
-            Case Is > 200 < 400
-                Dim apiresponse = JsonConvert.DeserializeObject(Of ApiResponse(Of ComputersInGroup))(response.Content)
-                Select Case apiresponse.Success
-                    Case True
-                        Return apiresponse.Data
-                    Case False
-                        Return "Error: " & apiresponse.Error.Message.ToString
-                End Select
-            Case Is >= 400
-                Return "Error: " & response.ErrorMessage
-            Case Else
-                Return "Error: " & response.ErrorMessage
-        End Select
-
-        Return "If You See This.... GetGroupComputers"
+        Return JsonConvert.DeserializeObject(Of ApiResponse(Of ComputersInGroup))(response.Content)
+      
     End Function
-    Public Function GetGroupComputerIds(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String, Optional GroupId As String = "")
+    Public Function GetGroupComputerIds(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String, _
+                                        Optional GroupId As String = "") As ApiResponse(Of List(Of String))
         Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api")
         client.CookieContainer = AuthToken.Data
         If Not GroupId = "" Then
@@ -48,22 +36,8 @@ Public Class ComputerFunctions
         request.RequestFormat = DataFormat.Json
         request.JsonSerializer = New RestSharpJsonNetSerializer
         Dim response As RestSharp.RestResponse = client.Execute(request)
-        Select Case response.StatusCode
-            Case Is > 200 < 400
-                Dim apiresponse = JsonConvert.DeserializeObject(Of ApiResponse(Of List(Of String)))(response.Content)
-                Select Case apiresponse.Success
-                    Case True
-                        Return apiresponse.Data
-                    Case False
-                        Return "Error: " & apiresponse.Error.Message.ToString
-                End Select
-            Case Is >= 400
-                Return "Error: " & response.ErrorMessage
-            Case Else
-                Return "Error: " & response.ErrorMessage
-        End Select
+        Return JsonConvert.DeserializeObject(Of ApiResponse(Of List(Of String)))(response.Content)
 
-        Return "If You See This.... GetGroupComputerIds"
     End Function
 
 

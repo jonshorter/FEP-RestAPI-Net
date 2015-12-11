@@ -1,7 +1,7 @@
 ﻿Namespace Models.ThreatFilters
     Public Class ThreatFilters
-        Public type As String
-        Public values As New List(Of ThreatFilterInfo)
+        Public [type] As String
+        Public [values] As New List(Of ThreatFilterInfo)
     End Class
     Public Class ThreatFilterInfo
         Public filterId As Integer

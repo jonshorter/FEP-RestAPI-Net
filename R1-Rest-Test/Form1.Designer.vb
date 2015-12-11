@@ -65,6 +65,8 @@ Partial Class Form1
         Me.pgProject = New System.Windows.Forms.PropertyGrid()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.tabJobs = New System.Windows.Forms.TabPage()
+        Me.txtFTKID = New System.Windows.Forms.TextBox()
+        Me.txtProjectID = New System.Windows.Forms.TextBox()
         Me.btnJobFromTemplate = New System.Windows.Forms.Button()
         Me.Label23 = New System.Windows.Forms.Label()
         Me.dgvJobs = New System.Windows.Forms.DataGridView()
@@ -105,6 +107,8 @@ Partial Class Form1
         Me.txtTemplateID = New System.Windows.Forms.TextBox()
         Me.listCategories = New System.Windows.Forms.ListBox()
         Me.listTemplates = New System.Windows.Forms.ListBox()
+        Me.tabThreatFilters = New System.Windows.Forms.TabPage()
+        Me.listThreatFilters = New System.Windows.Forms.ListBox()
         Me.tabConfiguration = New System.Windows.Forms.TabPage()
         Me.btnIsIWAMode = New System.Windows.Forms.Button()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
@@ -117,8 +121,6 @@ Partial Class Form1
         Me.txtapicallpostjson = New System.Windows.Forms.TextBox()
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.txtStatusStrip = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.txtProjectID = New System.Windows.Forms.TextBox()
-        Me.txtFTKID = New System.Windows.Forms.TextBox()
         CType(Me.dgvprojects, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabTopMenu.SuspendLayout()
         Me.tabSettings.SuspendLayout()
@@ -137,6 +139,7 @@ Partial Class Form1
         Me.tabUser.SuspendLayout()
         Me.tabGroups.SuspendLayout()
         Me.tabTemplates.SuspendLayout()
+        Me.tabThreatFilters.SuspendLayout()
         Me.tabConfiguration.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -398,6 +401,7 @@ Partial Class Form1
         Me.tabBottomMenu.Controls.Add(Me.tabUser)
         Me.tabBottomMenu.Controls.Add(Me.tabGroups)
         Me.tabBottomMenu.Controls.Add(Me.tabTemplates)
+        Me.tabBottomMenu.Controls.Add(Me.tabThreatFilters)
         Me.tabBottomMenu.Controls.Add(Me.tabConfiguration)
         Me.tabBottomMenu.Location = New System.Drawing.Point(11, 138)
         Me.tabBottomMenu.Margin = New System.Windows.Forms.Padding(4)
@@ -616,6 +620,21 @@ Partial Class Form1
         Me.tabJobs.TabIndex = 1
         Me.tabJobs.Text = "Jobs"
         Me.tabJobs.UseVisualStyleBackColor = True
+        '
+        'txtFTKID
+        '
+        Me.txtFTKID.Location = New System.Drawing.Point(379, 11)
+        Me.txtFTKID.Name = "txtFTKID"
+        Me.txtFTKID.Size = New System.Drawing.Size(100, 22)
+        Me.txtFTKID.TabIndex = 25
+        Me.txtFTKID.Text = "42"
+        '
+        'txtProjectID
+        '
+        Me.txtProjectID.Location = New System.Drawing.Point(141, 11)
+        Me.txtProjectID.Name = "txtProjectID"
+        Me.txtProjectID.Size = New System.Drawing.Size(209, 22)
+        Me.txtProjectID.TabIndex = 24
         '
         'btnJobFromTemplate
         '
@@ -1000,6 +1019,26 @@ Partial Class Form1
         Me.listTemplates.Size = New System.Drawing.Size(408, 228)
         Me.listTemplates.TabIndex = 0
         '
+        'tabThreatFilters
+        '
+        Me.tabThreatFilters.Controls.Add(Me.listThreatFilters)
+        Me.tabThreatFilters.Location = New System.Drawing.Point(4, 25)
+        Me.tabThreatFilters.Name = "tabThreatFilters"
+        Me.tabThreatFilters.Padding = New System.Windows.Forms.Padding(3)
+        Me.tabThreatFilters.Size = New System.Drawing.Size(1156, 740)
+        Me.tabThreatFilters.TabIndex = 8
+        Me.tabThreatFilters.Text = "ThreatFilters"
+        Me.tabThreatFilters.UseVisualStyleBackColor = True
+        '
+        'listThreatFilters
+        '
+        Me.listThreatFilters.FormattingEnabled = True
+        Me.listThreatFilters.ItemHeight = 16
+        Me.listThreatFilters.Location = New System.Drawing.Point(11, 13)
+        Me.listThreatFilters.Name = "listThreatFilters"
+        Me.listThreatFilters.Size = New System.Drawing.Size(468, 292)
+        Me.listThreatFilters.TabIndex = 0
+        '
         'tabConfiguration
         '
         Me.tabConfiguration.Controls.Add(Me.btnIsIWAMode)
@@ -1123,21 +1162,6 @@ Partial Class Form1
         Me.txtStatusStrip.Size = New System.Drawing.Size(142, 20)
         Me.txtStatusStrip.Text = "Authenticated: False"
         '
-        'txtProjectID
-        '
-        Me.txtProjectID.Location = New System.Drawing.Point(141, 11)
-        Me.txtProjectID.Name = "txtProjectID"
-        Me.txtProjectID.Size = New System.Drawing.Size(209, 22)
-        Me.txtProjectID.TabIndex = 24
-        '
-        'txtFTKID
-        '
-        Me.txtFTKID.Location = New System.Drawing.Point(379, 11)
-        Me.txtFTKID.Name = "txtFTKID"
-        Me.txtFTKID.Size = New System.Drawing.Size(100, 22)
-        Me.txtFTKID.TabIndex = 25
-        Me.txtFTKID.Text = "42"
-        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -1174,6 +1198,7 @@ Partial Class Form1
         Me.tabGroups.ResumeLayout(False)
         Me.tabTemplates.ResumeLayout(False)
         Me.tabTemplates.PerformLayout()
+        Me.tabThreatFilters.ResumeLayout(False)
         Me.tabConfiguration.ResumeLayout(False)
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
@@ -1279,5 +1304,7 @@ Partial Class Form1
     Friend WithEvents btnJobFromTemplate As System.Windows.Forms.Button
     Friend WithEvents txtProjectID As System.Windows.Forms.TextBox
     Friend WithEvents txtFTKID As System.Windows.Forms.TextBox
+    Friend WithEvents tabThreatFilters As System.Windows.Forms.TabPage
+    Friend WithEvents listThreatFilters As System.Windows.Forms.ListBox
 
 End Class

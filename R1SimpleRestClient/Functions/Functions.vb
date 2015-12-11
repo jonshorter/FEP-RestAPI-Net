@@ -6,4 +6,5 @@
     Public Templates As New TemplateFunctions
     Public Groups As New GroupFunctions
     Public Configuration As New ConfigurationFunctions
+    Public ThreatFilters As New ThreatFilterFunctions
 End Class

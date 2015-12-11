@@ -9,7 +9,7 @@ Imports R1SimpleRestClient.Models
 
 Public Class ThreatFilterFunctions
     Public Function GetThreatFilters(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String, _
-                                        Optional page As Integer = 1)
+                                        Optional page As Integer = 1) As ApiResponse(Of List(Of ThreatFilters.ThreatFilterInfo))
 
         Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api")
         client.CookieContainer = AuthToken.Data
@@ -18,21 +18,13 @@ Public Class ThreatFilterFunctions
         request.RequestFormat = DataFormat.Json
         request.JsonSerializer = New RestSharpJsonNetSerializer
         Dim response As RestSharp.RestResponse = client.Execute(request)
-        Select Case response.StatusCode
-            Case Is > 200 < 400
-                Dim apiresponse = JsonConvert.DeserializeObject(Of ThreatFilters.ThreatFilters)(response.Content)
-                Return apiresponse
-            Case Is >= 400
-                Return "Error: " & response.ErrorMessage
-            Case Else
-                Return "Error: " & response.ErrorMessage
-        End Select
-
-        Return "If You See This.... ThreatFilters-GetThreatFilters"
+        Dim apiresponse = JsonConvert.DeserializeObject(Of ApiResponse(Of List(Of ThreatFilters.ThreatFilterInfo)))(response.Content)
+        Return apiresponse
+     
     End Function
 
     Public Function GetThreatFilterIDs(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String _
-                                   )
+                                   ) As ApiResponse(Of List(Of Integer))
 
         Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api")
         client.CookieContainer = AuthToken.Data
@@ -41,17 +33,9 @@ Public Class ThreatFilterFunctions
         request.RequestFormat = DataFormat.Json
         request.JsonSerializer = New RestSharpJsonNetSerializer
         Dim response As RestSharp.RestResponse = client.Execute(request)
-        Select Case response.StatusCode
-            Case Is > 200 < 400
-                Dim apiresponse = JsonConvert.DeserializeObject(Of ApiResponse(Of List(Of Integer)))(response.Content)
-                Return apiresponse
-            Case Is >= 400
-                Return "Error: " & response.ErrorMessage
-            Case Else
-                Return "Error: " & response.ErrorMessage
-        End Select
-
-        Return "If You See This.... ThreatFilters-GetThreatFilterIDs"
+        Dim apiresponse = JsonConvert.DeserializeObject(Of ApiResponse(Of List(Of Integer)))(response.Content)
+        Return apiresponse
+        
     End Function
 
 End Class
