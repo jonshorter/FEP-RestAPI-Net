@@ -1,20 +1,20 @@
 ﻿Namespace Models.ThreatFilters
     Public Class ThreatFilters
-        Public [type] As String
-        Public [values] As New List(Of ThreatFilterInfo)
+        Public Property [type] As String
+        Public Property [values] As New List(Of ThreatFilterInfo)
     End Class
     Public Class ThreatFilterInfo
-        Public filterId As Integer
-        Public totalItemCount As Integer
-        Public xmlData As String
-        Public name As String
-        Public description As String
-        Public source As String
-        Public authoredDate As Date
-        Public authoredBy As String
-        Public category As String
-        Public filterType As Integer
-        Public groups As String
-        Public tags As String
+        Public Property filterId As Integer
+        Public Property totalItemCount As Integer
+        Public Property xmlData As String
+        Public Property name As String
+        Public Property description As String
+        Public Property source As String
+        Public Property authoredDate As Date
+        Public Property authoredBy As String
+        Public Property category As String
+        Public Property filterType As Integer
+        Public Property groups As String
+        Public Property tags As String
     End Class
 End Namespace

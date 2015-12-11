@@ -1,8 +1,8 @@
 ﻿Namespace Models.Job2
     Public Class JobFromTemplate
-        Public ComputerTargets As New List(Of String)
-        Public ProjectId As String
-        Public TemplateId As String
+        Public Property ComputerTargets As New List(Of String)
+        Public Property ProjectId As String
+        Public Property TemplateId As String
     End Class
 
     Public Class ShareFilters
@@ -685,21 +685,21 @@
     End Class
 
     Public Class VolatileSchedule
-        Public ImmediateExecution As Boolean
-        Public RunIntervalInMinutes As Integer
-        Public RunAtASpecificTime As Boolean
-        Public RunTime As DateTime
-        Public EndTime As DateTime
-        Public RunUntilEndTime As Boolean
-        Public RunCount As Integer
+        Public Property ImmediateExecution As Boolean
+        Public Property RunIntervalInMinutes As Integer
+        Public Property RunAtASpecificTime As Boolean
+        Public Property RunTime As DateTime
+        Public Property EndTime As DateTime
+        Public Property RunUntilEndTime As Boolean
+        Public Property RunCount As Integer
     End Class
 
     Public Class ResubmitJobOptions
-        Public Incremental As Boolean
-        Public JobID As String
-        Public NewJobName As String
-        Public ResubmissionType As ResubmitType
-        Public SelectedItemIds As New List(Of String)
+        Public Property Incremental As Boolean
+        Public Property JobID As String
+        Public Property NewJobName As String
+        Public Property ResubmissionType As ResubmitType
+        Public Property SelectedItemIds As New List(Of String)
     End Class
     Public Enum ResubmitType
         FailedOnly = 0
