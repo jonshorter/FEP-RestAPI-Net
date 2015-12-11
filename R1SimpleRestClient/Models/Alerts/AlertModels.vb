@@ -8,18 +8,18 @@
         End Class
 
         Public Class MeanTimeStatistics
-            Public meanTime As String
-            Public responseTimeType As Integer
+            Public Property meanTime As String
+            Public Property responseTimeType As Integer
         End Class
 
         Public Class AlertsWithCounts
-            Public entities As New List(Of AlertDataDetails)
-            Public totalCount As Integer
+            Public Property entities As New List(Of AlertDataDetails)
+            Public Property totalCount As Integer
         End Class
 
         Public Class AlertDetails
-            Public alertDataDetails As New AlertDataDetails
-            Public threatLookupDescription As String
+            Public Property alertDataDetails As New AlertDataDetails
+            Public Property threatLookupDescription As String
         End Class
         Public Class AlertDataDetails
             Public Property objectCount As Integer

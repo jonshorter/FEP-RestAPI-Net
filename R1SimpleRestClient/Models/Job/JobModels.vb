@@ -3,27 +3,27 @@
 Namespace Models
     Public Class Job
         Public Class JobInfoStatusCounts
-            Public totalCount As Integer
-            Public runningCount As Integer
-            Public completedCount As Integer
-            Public failedCount As Integer
+            Public Property totalCount As Integer
+            Public Property runningCount As Integer
+            Public Property completedCount As Integer
+            Public Property failedCount As Integer
         End Class
 
         Public Class JobTargets
-            Public targets As New List(Of JobTargetsInfo)
-            Public total As Integer
-            Public jobName As String
+            Public Property targets As New List(Of JobTargetsInfo)
+            Public Property total As Integer
+            Public Property jobName As String
         End Class
         Public Class JobTargetsInfo
-            Public jobResultId As String
-            Public jobTargetResultId As String
-            Public itemId As String
-            Public name As String
-            Public jobStatusCode As Integer
-            Public status As String
-            Public startDate As Date
-            Public endDate As Date
-            Public hits As Integer
+            Public Property jobResultId As String
+            Public Property jobTargetResultId As String
+            Public Property itemId As String
+            Public Property name As String
+            Public Property jobStatusCode As Integer
+            Public Property status As String
+            Public Property startDate As Date
+            Public Property endDate As Date
+            Public Property hits As Integer
         End Class
 
         Public Class JobDefinitionModel
@@ -963,17 +963,17 @@ Namespace Models
         End Class
         Public Class JobReportDataStatus
 
-            Public Key As Guid
+            Public Property Key As Guid
 
-            Public DownloadableReportId As System.Nullable(Of Guid)
+            Public Property DownloadableReportId As System.Nullable(Of Guid)
 
-            Public JobResultId As Guid
+            Public Property JobResultId As Guid
 
-            Public HasData As Boolean
+            Public Property HasData As Boolean
 
-            Public ReportType As ReportTypeEnum
+            Public Property ReportType As ReportTypeEnum
 
-            Public Status As Integer
+            Public Property Status As Integer
         End Class
     End Class
 End Namespace

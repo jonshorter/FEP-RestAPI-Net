@@ -1,16 +1,16 @@
 ﻿Namespace Models
     Public Class ComputersInGroup
-        Public groupId As String
-        Public computers As New List(Of Computers)
-        Public rootComputerCount As Integer
+        Public Property groupId As String
+        Public Property computers As New List(Of Computers)
+        Public Property rootComputerCount As Integer
     End Class
 
     Public Class Computers
-        Public computerId As String
-        Public agentOS As String
-        Public computerName As String
-        Public ipAddressLastContacted As String
-        Public agentLastContacted As Date
-        Public createdDate As Date
+        Public Property computerId As String
+        Public Property agentOS As String
+        Public Property computerName As String
+        Public Property ipAddressLastContacted As String
+        Public Property agentLastContacted As Date
+        Public Property createdDate As Date
     End Class
 End Namespace

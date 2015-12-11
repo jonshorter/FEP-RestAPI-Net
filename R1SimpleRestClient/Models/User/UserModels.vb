@@ -7,7 +7,5 @@
             Public Property firstname As String
             Public Property lastname As String
         End Class
-
-
     End Class
 End Namespace
