@@ -683,4 +683,28 @@
     Public Class TemplatejobDefinition
         Public Property jobDefinition As JobDefinition
     End Class
+
+    Public Class VolatileSchedule
+        Public ImmediateExecution As Boolean
+        Public RunIntervalInMinutes As Integer
+        Public RunAtASpecificTime As Boolean
+        Public RunTime As DateTime
+        Public EndTime As DateTime
+        Public RunUntilEndTime As Boolean
+        Public RunCount As Integer
+    End Class
+
+    Public Class ResubmitJobOptions
+        Public Incremental As Boolean
+        Public JobID As String
+        Public NewJobName As String
+        Public ResubmissionType As ResubmitType
+        Public SelectedItemIds As New List(Of String)
+    End Class
+    Public Enum ResubmitType
+        FailedOnly = 0
+        NonCompleted = 1
+        All = 2
+        SelectedItems = 5
+    End Enum
 End Namespace

@@ -9,11 +9,6 @@ Imports R1SimpleRestClient.Models
 
 Public Class TemplateFunctions
 
-    'Templates
-
-    'Route ("api/templates"
-    'Options, Options
-
     Public Function GetTemplates(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String)
         Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api")
         client.CookieContainer = AuthToken.Data
@@ -91,14 +86,6 @@ Public Class TemplateFunctions
         Return "If You See This.... GetTemplate"
     End Function
 
-    'Route ("api/templates/{templateId: guid}
-    'Get, Get Template
-
-    'Route ("api/templates"
-    'Get, Get All Templates
-
-    'Route ("api/templates/categories"
-    'Get, Get Categories
 
 
 End Class

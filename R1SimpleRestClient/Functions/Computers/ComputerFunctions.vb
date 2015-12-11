@@ -9,7 +9,7 @@ Imports R1SimpleRestClient.Models
 
 Public Class ComputerFunctions
 
-    Public Function GetGroupComputers(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String, Optional GroupID As String)
+    Public Function GetGroupComputers(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String, Optional GroupID As String = "")
         Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api")
         client.CookieContainer = AuthToken.Data
 
@@ -38,7 +38,7 @@ Public Class ComputerFunctions
 
         Return "If You See This.... GetGroupComputers"
     End Function
-    Public Function GetGroupComputerIds(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String, Optional GroupId As String)
+    Public Function GetGroupComputerIds(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String, Optional GroupId As String = "")
         Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api")
         client.CookieContainer = AuthToken.Data
         If Not GroupId = "" Then
