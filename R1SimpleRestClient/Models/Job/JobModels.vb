@@ -21,8 +21,8 @@ Namespace Models
             Public Property name As String
             Public Property jobStatusCode As Integer
             Public Property status As String
-            Public Property startDate As Date
-            Public Property endDate As Date
+            Public Property startDate As String
+            Public Property endDate As String
             Public Property hits As Integer
         End Class
 

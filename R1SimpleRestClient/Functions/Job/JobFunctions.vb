@@ -100,7 +100,7 @@ Public Class JobFunctions
 
     End Function
 
-
+ 
     Public Function GetTargetStatus(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String, ByVal JobID As String, ByVal ItemID As String) As ApiResponse(Of JobTargetsInfo)
 
         Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api/jobs")
@@ -136,16 +136,19 @@ Public Class JobFunctions
         Return "If You See This.... JobGetResponsivePath"
     End Function
 
-    Public Function GetJobTargets(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String, ByVal JobID As String) As ApiResponse(Of JobTargets)
+    Public Function GetJobTargets(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String, ByVal JobID As String _
+                                 , Optional ByVal skip As Integer = 0, _
+                               Optional ByVal take As Integer = 75, Optional ByVal sort As String = "Name Ascending", _
+                               Optional ByVal search As String = "") As ApiResponse(Of JobTargets)
 
         Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api/jobs")
         client.CookieContainer = AuthToken.Data.Cookies
-        Dim request = New RestSharp.RestRequest("getjobtargets/" & JobID, Method.GET)
+        Dim request = New RestSharp.RestRequest("getjobtargets/" & JobID & "/" & skip & "/" & take & "/" & sort & "/" & search, Method.GET)
         request.RequestFormat = DataFormat.Json
         request.JsonSerializer = New RestSharpJsonNetSerializer
         Dim response As RestSharp.RestResponse = client.Execute(request)
         Return JsonConvert.DeserializeObject(Of Models.Response.ApiResponse(Of JobTargets))(response.Content)
-     
+
     End Function
 
     Public Function SetResponsivePath(ByVal AuthToken As Response.AuthToken, ByVal Server As String, ByVal JobID As String)
