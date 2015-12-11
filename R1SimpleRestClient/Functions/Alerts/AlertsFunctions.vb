@@ -21,6 +21,26 @@ Public Class AlertsFunctions
 
         Return "If You See This.... Alerts-GetTotalResponses"
     End Function
+
+    Public Function GetMeanTimeStatistics(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String)
+        Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api")
+        client.CookieContainer = AuthToken.Data
+        Dim request = New RestSharp.RestRequest("alerts/getMeanTimeStatistics/?predicate=null", Method.GET)
+        request.RequestFormat = DataFormat.Json
+        request.JsonSerializer = New RestSharpJsonNetSerializer
+        Dim response As RestSharp.RestResponse = client.Execute(request)
+        Select Case response.StatusCode
+            Case Is > 200 < 400
+                Return JsonConvert.DeserializeObject(Of List(Of Models.Alert.MeanTimeStatistics))(response.Content)
+            Case Is >= 400
+                Return "Error: " & response.ErrorMessage
+            Case Else
+                Return "Error: " & response.ErrorMessage
+        End Select
+
+        Return "If You See This.... Alerts-GetMeanTimeStatistics"
+    End Function
+
     Public Function GetTotalAutomatedResponses(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String)
         Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api")
         client.CookieContainer = AuthToken.Data
@@ -60,5 +80,46 @@ Public Class AlertsFunctions
         Return "If You See This.... Alerts-GetAlertSourceBreakdown"
     End Function
 
+
+    Public Function GetAlertDetails(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String, ByVal AlertID As String)
+        Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api")
+        client.CookieContainer = AuthToken.Data
+        Dim request = New RestSharp.RestRequest("alerts/getAlertDetails/" & AlertID, Method.GET)
+        request.RequestFormat = DataFormat.Json
+        request.JsonSerializer = New RestSharpJsonNetSerializer
+        Dim response As RestSharp.RestResponse = client.Execute(request)
+        Select Case response.StatusCode
+            Case Is > 200 < 400
+                Dim apiresponse = JsonConvert.DeserializeObject(Of Alert.AlertDetails)(response.Content)
+                Return apiresponse
+            Case Is >= 400
+                Return "Error: " & response.ErrorMessage
+            Case Else
+                Return "Error: " & response.ErrorMessage
+        End Select
+
+        Return "If You See This.... Alerts-GetAlertDetails"
+    End Function
+
+
+    Public Function GetAlertsWithCounts(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String, ByVal AlertID As String)
+        Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api")
+        client.CookieContainer = AuthToken.Data
+        Dim request = New RestSharp.RestRequest("alerts/getalertswithcounts/" & AlertID, Method.GET)
+        request.RequestFormat = DataFormat.Json
+        request.JsonSerializer = New RestSharpJsonNetSerializer
+        Dim response As RestSharp.RestResponse = client.Execute(request)
+        Select Case response.StatusCode
+            Case Is > 200 < 400
+                Dim apiresponse = JsonConvert.DeserializeObject(Of Alert.AlertDetails)(response.Content)
+                Return apiresponse
+            Case Is >= 400
+                Return "Error: " & response.ErrorMessage
+            Case Else
+                Return "Error: " & response.ErrorMessage
+        End Select
+
+        Return "If You See This.... Alerts-GetAlertDetails"
+    End Function
 
 End Class

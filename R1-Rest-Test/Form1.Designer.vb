@@ -113,6 +113,11 @@ Partial Class Form1
         Me.btnFindUser = New System.Windows.Forms.Button()
         Me.txtfindUser = New System.Windows.Forms.TextBox()
         Me.Label22 = New System.Windows.Forms.Label()
+        Me.tabGroups = New System.Windows.Forms.TabPage()
+        Me.btnLoadGroupsTree = New System.Windows.Forms.Button()
+        Me.treeGroups = New System.Windows.Forms.TreeView()
+        Me.tabTemplates = New System.Windows.Forms.TabPage()
+        Me.listTemplates = New System.Windows.Forms.ListBox()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.btnAPICallCustom = New System.Windows.Forms.Button()
         Me.Label6 = New System.Windows.Forms.Label()
@@ -123,11 +128,12 @@ Partial Class Form1
         Me.txtapicallpostjson = New System.Windows.Forms.TextBox()
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.txtStatusStrip = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.tabGroups = New System.Windows.Forms.TabPage()
-        Me.tabTemplates = New System.Windows.Forms.TabPage()
-        Me.treeGroups = New System.Windows.Forms.TreeView()
-        Me.btnLoadGroupsTree = New System.Windows.Forms.Button()
-        Me.listTemplates = New System.Windows.Forms.ListBox()
+        Me.tabConfiguration = New System.Windows.Forms.TabPage()
+        Me.btnIsIWAMode = New System.Windows.Forms.Button()
+        Me.listCategories = New System.Windows.Forms.ListBox()
+        Me.txtTemplateID = New System.Windows.Forms.TextBox()
+        Me.btnGetTemplateID = New System.Windows.Forms.Button()
+        Me.lblMeanTimeStat = New System.Windows.Forms.Label()
         CType(Me.dgvprojects, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvprojectjobs, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabTopMenu.SuspendLayout()
@@ -147,16 +153,17 @@ Partial Class Form1
         Me.GroupBox2.SuspendLayout()
         Me.tabAlerts.SuspendLayout()
         Me.tabUser.SuspendLayout()
-        Me.GroupBox1.SuspendLayout()
-        Me.StatusStrip1.SuspendLayout()
         Me.tabGroups.SuspendLayout()
         Me.tabTemplates.SuspendLayout()
+        Me.GroupBox1.SuspendLayout()
+        Me.StatusStrip1.SuspendLayout()
+        Me.tabConfiguration.SuspendLayout()
         Me.SuspendLayout()
         '
         'btnRefreshProjectList
         '
         Me.btnRefreshProjectList.Location = New System.Drawing.Point(8, 7)
-        Me.btnRefreshProjectList.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnRefreshProjectList.Margin = New System.Windows.Forms.Padding(4)
         Me.btnRefreshProjectList.Name = "btnRefreshProjectList"
         Me.btnRefreshProjectList.Size = New System.Drawing.Size(185, 30)
         Me.btnRefreshProjectList.TabIndex = 1
@@ -166,7 +173,7 @@ Partial Class Form1
         'btnJobCreate
         '
         Me.btnJobCreate.Location = New System.Drawing.Point(333, 402)
-        Me.btnJobCreate.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnJobCreate.Margin = New System.Windows.Forms.Padding(4)
         Me.btnJobCreate.Name = "btnJobCreate"
         Me.btnJobCreate.Size = New System.Drawing.Size(128, 34)
         Me.btnJobCreate.TabIndex = 4
@@ -180,7 +187,7 @@ Partial Class Form1
         Me.dgvprojects.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvprojects.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.projectname, Me.ftkcaseid, Me.colDelete, Me.colCreateJob})
         Me.dgvprojects.Location = New System.Drawing.Point(12, 62)
-        Me.dgvprojects.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.dgvprojects.Margin = New System.Windows.Forms.Padding(4)
         Me.dgvprojects.Name = "dgvprojects"
         Me.dgvprojects.ReadOnly = True
         Me.dgvprojects.RowHeadersVisible = False
@@ -229,7 +236,7 @@ Partial Class Form1
         Me.dgvprojectjobs.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvprojectjobs.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.jobname, Me.colJobType, Me.status, Me.colJobID})
         Me.dgvprojectjobs.Location = New System.Drawing.Point(12, 270)
-        Me.dgvprojectjobs.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.dgvprojectjobs.Margin = New System.Windows.Forms.Padding(4)
         Me.dgvprojectjobs.Name = "dgvprojectjobs"
         Me.dgvprojectjobs.ReadOnly = True
         Me.dgvprojectjobs.RowHeadersVisible = False
@@ -267,7 +274,7 @@ Partial Class Form1
         Me.tabTopMenu.Controls.Add(Me.tabTesting)
         Me.tabTopMenu.Dock = System.Windows.Forms.DockStyle.Top
         Me.tabTopMenu.Location = New System.Drawing.Point(0, 0)
-        Me.tabTopMenu.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tabTopMenu.Margin = New System.Windows.Forms.Padding(4)
         Me.tabTopMenu.Name = "tabTopMenu"
         Me.tabTopMenu.SelectedIndex = 0
         Me.tabTopMenu.Size = New System.Drawing.Size(1263, 977)
@@ -279,9 +286,9 @@ Partial Class Form1
         Me.tabSettings.Controls.Add(Me.GroupBox4)
         Me.tabSettings.Controls.Add(Me.GroupBox3)
         Me.tabSettings.Location = New System.Drawing.Point(4, 28)
-        Me.tabSettings.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tabSettings.Margin = New System.Windows.Forms.Padding(4)
         Me.tabSettings.Name = "tabSettings"
-        Me.tabSettings.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tabSettings.Padding = New System.Windows.Forms.Padding(4)
         Me.tabSettings.Size = New System.Drawing.Size(1255, 945)
         Me.tabSettings.TabIndex = 0
         Me.tabSettings.Text = "Settings"
@@ -291,9 +298,9 @@ Partial Class Form1
         '
         Me.GroupBox5.Controls.Add(Me.btnLogout)
         Me.GroupBox5.Location = New System.Drawing.Point(437, 144)
-        Me.GroupBox5.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GroupBox5.Margin = New System.Windows.Forms.Padding(4)
         Me.GroupBox5.Name = "GroupBox5"
-        Me.GroupBox5.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GroupBox5.Padding = New System.Windows.Forms.Padding(4)
         Me.GroupBox5.Size = New System.Drawing.Size(284, 95)
         Me.GroupBox5.TabIndex = 29
         Me.GroupBox5.TabStop = False
@@ -302,7 +309,7 @@ Partial Class Form1
         'btnLogout
         '
         Me.btnLogout.Location = New System.Drawing.Point(85, 48)
-        Me.btnLogout.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnLogout.Margin = New System.Windows.Forms.Padding(4)
         Me.btnLogout.Name = "btnLogout"
         Me.btnLogout.Size = New System.Drawing.Size(100, 28)
         Me.btnLogout.TabIndex = 26
@@ -313,9 +320,9 @@ Partial Class Form1
         '
         Me.GroupBox4.Controls.Add(Me.btnAuth)
         Me.GroupBox4.Location = New System.Drawing.Point(437, 21)
-        Me.GroupBox4.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GroupBox4.Margin = New System.Windows.Forms.Padding(4)
         Me.GroupBox4.Name = "GroupBox4"
-        Me.GroupBox4.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GroupBox4.Padding = New System.Windows.Forms.Padding(4)
         Me.GroupBox4.Size = New System.Drawing.Size(284, 95)
         Me.GroupBox4.TabIndex = 28
         Me.GroupBox4.TabStop = False
@@ -324,7 +331,7 @@ Partial Class Form1
         'btnAuth
         '
         Me.btnAuth.Location = New System.Drawing.Point(85, 48)
-        Me.btnAuth.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnAuth.Margin = New System.Windows.Forms.Padding(4)
         Me.btnAuth.Name = "btnAuth"
         Me.btnAuth.Size = New System.Drawing.Size(100, 28)
         Me.btnAuth.TabIndex = 26
@@ -342,9 +349,9 @@ Partial Class Form1
         Me.GroupBox3.Controls.Add(Me.Label3)
         Me.GroupBox3.Controls.Add(Me.txtPassword)
         Me.GroupBox3.Location = New System.Drawing.Point(11, 21)
-        Me.GroupBox3.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GroupBox3.Margin = New System.Windows.Forms.Padding(4)
         Me.GroupBox3.Name = "GroupBox3"
-        Me.GroupBox3.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GroupBox3.Padding = New System.Windows.Forms.Padding(4)
         Me.GroupBox3.Size = New System.Drawing.Size(384, 218)
         Me.GroupBox3.TabIndex = 27
         Me.GroupBox3.TabStop = False
@@ -353,7 +360,7 @@ Partial Class Form1
         'txtServer
         '
         Me.txtServer.Location = New System.Drawing.Point(103, 38)
-        Me.txtServer.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtServer.Margin = New System.Windows.Forms.Padding(4)
         Me.txtServer.Name = "txtServer"
         Me.txtServer.Size = New System.Drawing.Size(257, 22)
         Me.txtServer.TabIndex = 0
@@ -381,7 +388,7 @@ Partial Class Form1
         'txtUsername
         '
         Me.txtUsername.Location = New System.Drawing.Point(103, 70)
-        Me.txtUsername.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtUsername.Margin = New System.Windows.Forms.Padding(4)
         Me.txtUsername.Name = "txtUsername"
         Me.txtUsername.Size = New System.Drawing.Size(257, 22)
         Me.txtUsername.TabIndex = 2
@@ -389,7 +396,7 @@ Partial Class Form1
         'btnSaveSettings
         '
         Me.btnSaveSettings.Location = New System.Drawing.Point(261, 164)
-        Me.btnSaveSettings.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnSaveSettings.Margin = New System.Windows.Forms.Padding(4)
         Me.btnSaveSettings.Name = "btnSaveSettings"
         Me.btnSaveSettings.Size = New System.Drawing.Size(100, 28)
         Me.btnSaveSettings.TabIndex = 6
@@ -419,7 +426,7 @@ Partial Class Form1
         'txtPassword
         '
         Me.txtPassword.Location = New System.Drawing.Point(103, 102)
-        Me.txtPassword.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtPassword.Margin = New System.Windows.Forms.Padding(4)
         Me.txtPassword.Name = "txtPassword"
         Me.txtPassword.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
         Me.txtPassword.Size = New System.Drawing.Size(257, 22)
@@ -430,9 +437,9 @@ Partial Class Form1
         Me.tabTesting.Controls.Add(Me.tabBottomMenu)
         Me.tabTesting.Controls.Add(Me.GroupBox1)
         Me.tabTesting.Location = New System.Drawing.Point(4, 28)
-        Me.tabTesting.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tabTesting.Margin = New System.Windows.Forms.Padding(4)
         Me.tabTesting.Name = "tabTesting"
-        Me.tabTesting.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tabTesting.Padding = New System.Windows.Forms.Padding(4)
         Me.tabTesting.Size = New System.Drawing.Size(1255, 945)
         Me.tabTesting.TabIndex = 1
         Me.tabTesting.Text = "APITest"
@@ -447,8 +454,9 @@ Partial Class Form1
         Me.tabBottomMenu.Controls.Add(Me.tabUser)
         Me.tabBottomMenu.Controls.Add(Me.tabGroups)
         Me.tabBottomMenu.Controls.Add(Me.tabTemplates)
+        Me.tabBottomMenu.Controls.Add(Me.tabConfiguration)
         Me.tabBottomMenu.Location = New System.Drawing.Point(11, 138)
-        Me.tabBottomMenu.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tabBottomMenu.Margin = New System.Windows.Forms.Padding(4)
         Me.tabBottomMenu.Name = "tabBottomMenu"
         Me.tabBottomMenu.SelectedIndex = 0
         Me.tabBottomMenu.Size = New System.Drawing.Size(1164, 769)
@@ -468,9 +476,9 @@ Partial Class Form1
         Me.tabCreateProject.Controls.Add(Me.btnCreateProject)
         Me.tabCreateProject.Controls.Add(Me.txtProjectName)
         Me.tabCreateProject.Location = New System.Drawing.Point(4, 25)
-        Me.tabCreateProject.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tabCreateProject.Margin = New System.Windows.Forms.Padding(4)
         Me.tabCreateProject.Name = "tabCreateProject"
-        Me.tabCreateProject.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tabCreateProject.Padding = New System.Windows.Forms.Padding(4)
         Me.tabCreateProject.Size = New System.Drawing.Size(1156, 740)
         Me.tabCreateProject.TabIndex = 2
         Me.tabCreateProject.Text = "Create Project"
@@ -479,7 +487,7 @@ Partial Class Form1
         'txtProjectDescription
         '
         Me.txtProjectDescription.Location = New System.Drawing.Point(169, 36)
-        Me.txtProjectDescription.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtProjectDescription.Margin = New System.Windows.Forms.Padding(4)
         Me.txtProjectDescription.Multiline = True
         Me.txtProjectDescription.Name = "txtProjectDescription"
         Me.txtProjectDescription.Size = New System.Drawing.Size(303, 59)
@@ -510,7 +518,7 @@ Partial Class Form1
         Me.cmbProjectProcessingMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbProjectProcessingMode.FormattingEnabled = True
         Me.cmbProjectProcessingMode.Location = New System.Drawing.Point(643, 71)
-        Me.cmbProjectProcessingMode.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.cmbProjectProcessingMode.Margin = New System.Windows.Forms.Padding(4)
         Me.cmbProjectProcessingMode.Name = "cmbProjectProcessingMode"
         Me.cmbProjectProcessingMode.Size = New System.Drawing.Size(303, 24)
         Me.cmbProjectProcessingMode.TabIndex = 14
@@ -528,7 +536,7 @@ Partial Class Form1
         'txtProjectJobDataFolder
         '
         Me.txtProjectJobDataFolder.Location = New System.Drawing.Point(643, 39)
-        Me.txtProjectJobDataFolder.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtProjectJobDataFolder.Margin = New System.Windows.Forms.Padding(4)
         Me.txtProjectJobDataFolder.Name = "txtProjectJobDataFolder"
         Me.txtProjectJobDataFolder.Size = New System.Drawing.Size(303, 22)
         Me.txtProjectJobDataFolder.TabIndex = 12
@@ -547,7 +555,7 @@ Partial Class Form1
         'txtProjectCaseFolder
         '
         Me.txtProjectCaseFolder.Location = New System.Drawing.Point(643, 7)
-        Me.txtProjectCaseFolder.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtProjectCaseFolder.Margin = New System.Windows.Forms.Padding(4)
         Me.txtProjectCaseFolder.Name = "txtProjectCaseFolder"
         Me.txtProjectCaseFolder.Size = New System.Drawing.Size(303, 22)
         Me.txtProjectCaseFolder.TabIndex = 10
@@ -566,7 +574,7 @@ Partial Class Form1
         'btnCreateProject
         '
         Me.btnCreateProject.Location = New System.Drawing.Point(761, 160)
-        Me.btnCreateProject.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnCreateProject.Margin = New System.Windows.Forms.Padding(4)
         Me.btnCreateProject.Name = "btnCreateProject"
         Me.btnCreateProject.Size = New System.Drawing.Size(185, 30)
         Me.btnCreateProject.TabIndex = 7
@@ -576,7 +584,7 @@ Partial Class Form1
         'txtProjectName
         '
         Me.txtProjectName.Location = New System.Drawing.Point(169, 7)
-        Me.txtProjectName.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtProjectName.Margin = New System.Windows.Forms.Padding(4)
         Me.txtProjectName.Name = "txtProjectName"
         Me.txtProjectName.Size = New System.Drawing.Size(303, 22)
         Me.txtProjectName.TabIndex = 8
@@ -599,9 +607,9 @@ Partial Class Form1
         Me.tabProjects.Controls.Add(Me.dgvprojects)
         Me.tabProjects.Controls.Add(Me.dgvprojectjobs)
         Me.tabProjects.Location = New System.Drawing.Point(4, 25)
-        Me.tabProjects.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tabProjects.Margin = New System.Windows.Forms.Padding(4)
         Me.tabProjects.Name = "tabProjects"
-        Me.tabProjects.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tabProjects.Padding = New System.Windows.Forms.Padding(4)
         Me.tabProjects.Size = New System.Drawing.Size(1156, 740)
         Me.tabProjects.TabIndex = 0
         Me.tabProjects.Text = "Projects"
@@ -624,7 +632,7 @@ Partial Class Form1
         Me.dgvJobs.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvJobs.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn7, Me.DataGridViewTextBoxColumn8, Me.DataGridViewTextBoxColumn9, Me.DataGridViewTextBoxColumn10})
         Me.dgvJobs.Location = New System.Drawing.Point(452, 479)
-        Me.dgvJobs.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.dgvJobs.Margin = New System.Windows.Forms.Padding(4)
         Me.dgvJobs.Name = "dgvJobs"
         Me.dgvJobs.ReadOnly = True
         Me.dgvJobs.RowHeadersVisible = False
@@ -658,7 +666,7 @@ Partial Class Form1
         'btnUpdateProject
         '
         Me.btnUpdateProject.Location = New System.Drawing.Point(1000, 431)
-        Me.btnUpdateProject.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnUpdateProject.Margin = New System.Windows.Forms.Padding(4)
         Me.btnUpdateProject.Name = "btnUpdateProject"
         Me.btnUpdateProject.Size = New System.Drawing.Size(153, 28)
         Me.btnUpdateProject.TabIndex = 18
@@ -679,7 +687,7 @@ Partial Class Form1
         '
         Me.pgProject.HelpVisible = False
         Me.pgProject.Location = New System.Drawing.Point(452, 62)
-        Me.pgProject.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.pgProject.Margin = New System.Windows.Forms.Padding(4)
         Me.pgProject.Name = "pgProject"
         Me.pgProject.PropertySort = System.Windows.Forms.PropertySort.Alphabetical
         Me.pgProject.Size = New System.Drawing.Size(540, 398)
@@ -704,7 +712,7 @@ Partial Class Form1
         Me.dgvprojectjobreports.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvprojectjobreports.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn3, Me.DataGridViewTextBoxColumn4, Me.DataGridViewTextBoxColumn5, Me.DataGridViewLinkColumn1, Me.DataGridViewTextBoxColumn6})
         Me.dgvprojectjobreports.Location = New System.Drawing.Point(1072, 629)
-        Me.dgvprojectjobreports.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.dgvprojectjobreports.Margin = New System.Windows.Forms.Padding(4)
         Me.dgvprojectjobreports.Name = "dgvprojectjobreports"
         Me.dgvprojectjobreports.ReadOnly = True
         Me.dgvprojectjobreports.RowHeadersVisible = False
@@ -760,7 +768,7 @@ Partial Class Form1
         Me.dgvProjectReports.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvProjectReports.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn1, Me.DataGridViewTextBoxColumn2, Me.colStatus, Me.colLink, Me.colrptid})
         Me.dgvProjectReports.Location = New System.Drawing.Point(12, 479)
-        Me.dgvProjectReports.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.dgvProjectReports.Margin = New System.Windows.Forms.Padding(4)
         Me.dgvProjectReports.Name = "dgvProjectReports"
         Me.dgvProjectReports.ReadOnly = True
         Me.dgvProjectReports.RowHeadersVisible = False
@@ -836,9 +844,9 @@ Partial Class Form1
         Me.tabCreateJob.Controls.Add(Me.txtJobName)
         Me.tabCreateJob.Controls.Add(Me.btnJobCreate)
         Me.tabCreateJob.Location = New System.Drawing.Point(4, 25)
-        Me.tabCreateJob.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tabCreateJob.Margin = New System.Windows.Forms.Padding(4)
         Me.tabCreateJob.Name = "tabCreateJob"
-        Me.tabCreateJob.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tabCreateJob.Padding = New System.Windows.Forms.Padding(4)
         Me.tabCreateJob.Size = New System.Drawing.Size(1156, 740)
         Me.tabCreateJob.TabIndex = 1
         Me.tabCreateJob.Text = "Create Job"
@@ -847,7 +855,7 @@ Partial Class Form1
         'txtProjectID
         '
         Me.txtProjectID.Location = New System.Drawing.Point(141, 9)
-        Me.txtProjectID.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtProjectID.Margin = New System.Windows.Forms.Padding(4)
         Me.txtProjectID.Name = "txtProjectID"
         Me.txtProjectID.Size = New System.Drawing.Size(211, 22)
         Me.txtProjectID.TabIndex = 14
@@ -857,7 +865,7 @@ Partial Class Form1
         Me.comboJobAction.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.comboJobAction.FormattingEnabled = True
         Me.comboJobAction.Location = New System.Drawing.Point(141, 126)
-        Me.comboJobAction.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.comboJobAction.Margin = New System.Windows.Forms.Padding(4)
         Me.comboJobAction.Name = "comboJobAction"
         Me.comboJobAction.Size = New System.Drawing.Size(209, 24)
         Me.comboJobAction.TabIndex = 13
@@ -879,9 +887,9 @@ Partial Class Form1
         Me.GroupBox2.Controls.Add(Me.btnAddNewTarget)
         Me.GroupBox2.Controls.Add(Me.txtNewTarget)
         Me.GroupBox2.Location = New System.Drawing.Point(35, 191)
-        Me.GroupBox2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GroupBox2.Margin = New System.Windows.Forms.Padding(4)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GroupBox2.Padding = New System.Windows.Forms.Padding(4)
         Me.GroupBox2.Size = New System.Drawing.Size(427, 190)
         Me.GroupBox2.TabIndex = 11
         Me.GroupBox2.TabStop = False
@@ -891,7 +899,7 @@ Partial Class Form1
         '
         Me.lstTargets.FormattingEnabled = True
         Me.lstTargets.Location = New System.Drawing.Point(8, 65)
-        Me.lstTargets.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.lstTargets.Margin = New System.Windows.Forms.Padding(4)
         Me.lstTargets.Name = "lstTargets"
         Me.lstTargets.Size = New System.Drawing.Size(159, 106)
         Me.lstTargets.TabIndex = 4
@@ -899,7 +907,7 @@ Partial Class Form1
         'btnRemoveSelectedTargets
         '
         Me.btnRemoveSelectedTargets.Location = New System.Drawing.Point(189, 154)
-        Me.btnRemoveSelectedTargets.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnRemoveSelectedTargets.Margin = New System.Windows.Forms.Padding(4)
         Me.btnRemoveSelectedTargets.Name = "btnRemoveSelectedTargets"
         Me.btnRemoveSelectedTargets.Size = New System.Drawing.Size(175, 28)
         Me.btnRemoveSelectedTargets.TabIndex = 3
@@ -909,7 +917,7 @@ Partial Class Form1
         'btnAddNewTarget
         '
         Me.btnAddNewTarget.Location = New System.Drawing.Point(189, 31)
-        Me.btnAddNewTarget.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnAddNewTarget.Margin = New System.Windows.Forms.Padding(4)
         Me.btnAddNewTarget.Name = "btnAddNewTarget"
         Me.btnAddNewTarget.Size = New System.Drawing.Size(100, 28)
         Me.btnAddNewTarget.TabIndex = 2
@@ -919,7 +927,7 @@ Partial Class Form1
         'txtNewTarget
         '
         Me.txtNewTarget.Location = New System.Drawing.Point(8, 33)
-        Me.txtNewTarget.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtNewTarget.Margin = New System.Windows.Forms.Padding(4)
         Me.txtNewTarget.Name = "txtNewTarget"
         Me.txtNewTarget.Size = New System.Drawing.Size(159, 22)
         Me.txtNewTarget.TabIndex = 1
@@ -939,7 +947,7 @@ Partial Class Form1
         Me.comboJobType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.comboJobType.FormattingEnabled = True
         Me.comboJobType.Location = New System.Drawing.Point(141, 86)
-        Me.comboJobType.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.comboJobType.Margin = New System.Windows.Forms.Padding(4)
         Me.comboJobType.Name = "comboJobType"
         Me.comboJobType.Size = New System.Drawing.Size(209, 24)
         Me.comboJobType.TabIndex = 8
@@ -967,21 +975,22 @@ Partial Class Form1
         'txtJobName
         '
         Me.txtJobName.Location = New System.Drawing.Point(141, 48)
-        Me.txtJobName.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtJobName.Margin = New System.Windows.Forms.Padding(4)
         Me.txtJobName.Name = "txtJobName"
         Me.txtJobName.Size = New System.Drawing.Size(209, 22)
         Me.txtJobName.TabIndex = 5
         '
         'tabAlerts
         '
+        Me.tabAlerts.Controls.Add(Me.lblMeanTimeStat)
         Me.tabAlerts.Controls.Add(Me.Label18)
         Me.tabAlerts.Controls.Add(Me.lstAlertSourceBreakdown)
         Me.tabAlerts.Controls.Add(Me.lblTotalAutomatedResponses)
         Me.tabAlerts.Controls.Add(Me.lblTotalResponses)
         Me.tabAlerts.Location = New System.Drawing.Point(4, 25)
-        Me.tabAlerts.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tabAlerts.Margin = New System.Windows.Forms.Padding(4)
         Me.tabAlerts.Name = "tabAlerts"
-        Me.tabAlerts.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tabAlerts.Padding = New System.Windows.Forms.Padding(4)
         Me.tabAlerts.Size = New System.Drawing.Size(1156, 740)
         Me.tabAlerts.TabIndex = 3
         Me.tabAlerts.Text = "Alerts"
@@ -1002,7 +1011,7 @@ Partial Class Form1
         Me.lstAlertSourceBreakdown.FormattingEnabled = True
         Me.lstAlertSourceBreakdown.ItemHeight = 16
         Me.lstAlertSourceBreakdown.Location = New System.Drawing.Point(20, 94)
-        Me.lstAlertSourceBreakdown.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.lstAlertSourceBreakdown.Margin = New System.Windows.Forms.Padding(4)
         Me.lstAlertSourceBreakdown.Name = "lstAlertSourceBreakdown"
         Me.lstAlertSourceBreakdown.Size = New System.Drawing.Size(159, 116)
         Me.lstAlertSourceBreakdown.TabIndex = 2
@@ -1033,9 +1042,9 @@ Partial Class Form1
         Me.tabUser.Controls.Add(Me.txtfindUser)
         Me.tabUser.Controls.Add(Me.Label22)
         Me.tabUser.Location = New System.Drawing.Point(4, 25)
-        Me.tabUser.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tabUser.Margin = New System.Windows.Forms.Padding(4)
         Me.tabUser.Name = "tabUser"
-        Me.tabUser.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tabUser.Padding = New System.Windows.Forms.Padding(4)
         Me.tabUser.Size = New System.Drawing.Size(1156, 740)
         Me.tabUser.TabIndex = 4
         Me.tabUser.Text = "User"
@@ -1044,7 +1053,7 @@ Partial Class Form1
         'btnFindUser
         '
         Me.btnFindUser.Location = New System.Drawing.Point(412, 18)
-        Me.btnFindUser.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnFindUser.Margin = New System.Windows.Forms.Padding(4)
         Me.btnFindUser.Name = "btnFindUser"
         Me.btnFindUser.Size = New System.Drawing.Size(100, 28)
         Me.btnFindUser.TabIndex = 2
@@ -1054,7 +1063,7 @@ Partial Class Form1
         'txtfindUser
         '
         Me.txtfindUser.Location = New System.Drawing.Point(212, 21)
-        Me.txtfindUser.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtfindUser.Margin = New System.Windows.Forms.Padding(4)
         Me.txtfindUser.Name = "txtfindUser"
         Me.txtfindUser.Size = New System.Drawing.Size(191, 22)
         Me.txtfindUser.TabIndex = 1
@@ -1069,6 +1078,56 @@ Partial Class Form1
         Me.Label22.TabIndex = 0
         Me.Label22.Text = "Find Username or Lastname:"
         '
+        'tabGroups
+        '
+        Me.tabGroups.Controls.Add(Me.btnLoadGroupsTree)
+        Me.tabGroups.Controls.Add(Me.treeGroups)
+        Me.tabGroups.Location = New System.Drawing.Point(4, 25)
+        Me.tabGroups.Name = "tabGroups"
+        Me.tabGroups.Padding = New System.Windows.Forms.Padding(3)
+        Me.tabGroups.Size = New System.Drawing.Size(1156, 740)
+        Me.tabGroups.TabIndex = 5
+        Me.tabGroups.Text = "Groups"
+        Me.tabGroups.UseVisualStyleBackColor = True
+        '
+        'btnLoadGroupsTree
+        '
+        Me.btnLoadGroupsTree.Location = New System.Drawing.Point(348, 18)
+        Me.btnLoadGroupsTree.Name = "btnLoadGroupsTree"
+        Me.btnLoadGroupsTree.Size = New System.Drawing.Size(75, 23)
+        Me.btnLoadGroupsTree.TabIndex = 1
+        Me.btnLoadGroupsTree.Text = "Load"
+        Me.btnLoadGroupsTree.UseVisualStyleBackColor = True
+        '
+        'treeGroups
+        '
+        Me.treeGroups.Location = New System.Drawing.Point(20, 18)
+        Me.treeGroups.Name = "treeGroups"
+        Me.treeGroups.Size = New System.Drawing.Size(309, 171)
+        Me.treeGroups.TabIndex = 0
+        '
+        'tabTemplates
+        '
+        Me.tabTemplates.Controls.Add(Me.btnGetTemplateID)
+        Me.tabTemplates.Controls.Add(Me.txtTemplateID)
+        Me.tabTemplates.Controls.Add(Me.listCategories)
+        Me.tabTemplates.Controls.Add(Me.listTemplates)
+        Me.tabTemplates.Location = New System.Drawing.Point(4, 25)
+        Me.tabTemplates.Name = "tabTemplates"
+        Me.tabTemplates.Size = New System.Drawing.Size(1156, 740)
+        Me.tabTemplates.TabIndex = 6
+        Me.tabTemplates.Text = "Templates"
+        Me.tabTemplates.UseVisualStyleBackColor = True
+        '
+        'listTemplates
+        '
+        Me.listTemplates.FormattingEnabled = True
+        Me.listTemplates.ItemHeight = 16
+        Me.listTemplates.Location = New System.Drawing.Point(17, 22)
+        Me.listTemplates.Name = "listTemplates"
+        Me.listTemplates.Size = New System.Drawing.Size(408, 228)
+        Me.listTemplates.TabIndex = 0
+        '
         'GroupBox1
         '
         Me.GroupBox1.Controls.Add(Me.btnAPICallCustom)
@@ -1079,9 +1138,9 @@ Partial Class Form1
         Me.GroupBox1.Controls.Add(Me.Label4)
         Me.GroupBox1.Controls.Add(Me.txtapicallpostjson)
         Me.GroupBox1.Location = New System.Drawing.Point(11, 7)
-        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(4)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(4)
         Me.GroupBox1.Size = New System.Drawing.Size(696, 123)
         Me.GroupBox1.TabIndex = 23
         Me.GroupBox1.TabStop = False
@@ -1090,7 +1149,7 @@ Partial Class Form1
         'btnAPICallCustom
         '
         Me.btnAPICallCustom.Location = New System.Drawing.Point(575, 65)
-        Me.btnAPICallCustom.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.btnAPICallCustom.Margin = New System.Windows.Forms.Padding(4)
         Me.btnAPICallCustom.Name = "btnAPICallCustom"
         Me.btnAPICallCustom.Size = New System.Drawing.Size(100, 28)
         Me.btnAPICallCustom.TabIndex = 16
@@ -1110,7 +1169,7 @@ Partial Class Form1
         'txtapicallpath
         '
         Me.txtapicallpath.Location = New System.Drawing.Point(193, 64)
-        Me.txtapicallpath.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtapicallpath.Margin = New System.Windows.Forms.Padding(4)
         Me.txtapicallpath.Name = "txtapicallpath"
         Me.txtapicallpath.Size = New System.Drawing.Size(181, 22)
         Me.txtapicallpath.TabIndex = 17
@@ -1131,7 +1190,7 @@ Partial Class Form1
         Me.cmbRESTOPTION.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cmbRESTOPTION.FormattingEnabled = True
         Me.cmbRESTOPTION.Location = New System.Drawing.Point(24, 63)
-        Me.cmbRESTOPTION.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.cmbRESTOPTION.Margin = New System.Windows.Forms.Padding(4)
         Me.cmbRESTOPTION.Name = "cmbRESTOPTION"
         Me.cmbRESTOPTION.Size = New System.Drawing.Size(160, 24)
         Me.cmbRESTOPTION.TabIndex = 18
@@ -1149,7 +1208,7 @@ Partial Class Form1
         'txtapicallpostjson
         '
         Me.txtapicallpostjson.Location = New System.Drawing.Point(384, 65)
-        Me.txtapicallpostjson.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtapicallpostjson.Margin = New System.Windows.Forms.Padding(4)
         Me.txtapicallpostjson.Name = "txtapicallpostjson"
         Me.txtapicallpostjson.Size = New System.Drawing.Size(181, 22)
         Me.txtapicallpostjson.TabIndex = 19
@@ -1172,52 +1231,60 @@ Partial Class Form1
         Me.txtStatusStrip.Size = New System.Drawing.Size(142, 20)
         Me.txtStatusStrip.Text = "Authenticated: False"
         '
-        'tabGroups
+        'tabConfiguration
         '
-        Me.tabGroups.Controls.Add(Me.btnLoadGroupsTree)
-        Me.tabGroups.Controls.Add(Me.treeGroups)
-        Me.tabGroups.Location = New System.Drawing.Point(4, 25)
-        Me.tabGroups.Name = "tabGroups"
-        Me.tabGroups.Padding = New System.Windows.Forms.Padding(3)
-        Me.tabGroups.Size = New System.Drawing.Size(1156, 740)
-        Me.tabGroups.TabIndex = 5
-        Me.tabGroups.Text = "Groups"
-        Me.tabGroups.UseVisualStyleBackColor = True
+        Me.tabConfiguration.Controls.Add(Me.btnIsIWAMode)
+        Me.tabConfiguration.Location = New System.Drawing.Point(4, 25)
+        Me.tabConfiguration.Name = "tabConfiguration"
+        Me.tabConfiguration.Padding = New System.Windows.Forms.Padding(3)
+        Me.tabConfiguration.Size = New System.Drawing.Size(1156, 740)
+        Me.tabConfiguration.TabIndex = 7
+        Me.tabConfiguration.Text = "Configuration"
+        Me.tabConfiguration.UseVisualStyleBackColor = True
         '
-        'tabTemplates
+        'btnIsIWAMode
         '
-        Me.tabTemplates.Controls.Add(Me.listTemplates)
-        Me.tabTemplates.Location = New System.Drawing.Point(4, 25)
-        Me.tabTemplates.Name = "tabTemplates"
-        Me.tabTemplates.Size = New System.Drawing.Size(1156, 740)
-        Me.tabTemplates.TabIndex = 6
-        Me.tabTemplates.Text = "Templates"
-        Me.tabTemplates.UseVisualStyleBackColor = True
+        Me.btnIsIWAMode.Location = New System.Drawing.Point(22, 26)
+        Me.btnIsIWAMode.Name = "btnIsIWAMode"
+        Me.btnIsIWAMode.Size = New System.Drawing.Size(103, 27)
+        Me.btnIsIWAMode.TabIndex = 0
+        Me.btnIsIWAMode.Text = "IsIWAMode?"
+        Me.btnIsIWAMode.UseVisualStyleBackColor = True
         '
-        'treeGroups
+        'listCategories
         '
-        Me.treeGroups.Location = New System.Drawing.Point(20, 18)
-        Me.treeGroups.Name = "treeGroups"
-        Me.treeGroups.Size = New System.Drawing.Size(309, 171)
-        Me.treeGroups.TabIndex = 0
+        Me.listCategories.FormattingEnabled = True
+        Me.listCategories.ItemHeight = 16
+        Me.listCategories.Location = New System.Drawing.Point(464, 22)
+        Me.listCategories.Name = "listCategories"
+        Me.listCategories.Size = New System.Drawing.Size(408, 228)
+        Me.listCategories.TabIndex = 1
         '
-        'btnLoadGroupsTree
+        'txtTemplateID
         '
-        Me.btnLoadGroupsTree.Location = New System.Drawing.Point(348, 18)
-        Me.btnLoadGroupsTree.Name = "btnLoadGroupsTree"
-        Me.btnLoadGroupsTree.Size = New System.Drawing.Size(75, 23)
-        Me.btnLoadGroupsTree.TabIndex = 1
-        Me.btnLoadGroupsTree.Text = "Load"
-        Me.btnLoadGroupsTree.UseVisualStyleBackColor = True
+        Me.txtTemplateID.Location = New System.Drawing.Point(20, 311)
+        Me.txtTemplateID.Name = "txtTemplateID"
+        Me.txtTemplateID.Size = New System.Drawing.Size(274, 22)
+        Me.txtTemplateID.TabIndex = 2
         '
-        'listTemplates
+        'btnGetTemplateID
         '
-        Me.listTemplates.FormattingEnabled = True
-        Me.listTemplates.ItemHeight = 16
-        Me.listTemplates.Location = New System.Drawing.Point(17, 22)
-        Me.listTemplates.Name = "listTemplates"
-        Me.listTemplates.Size = New System.Drawing.Size(408, 228)
-        Me.listTemplates.TabIndex = 0
+        Me.btnGetTemplateID.Location = New System.Drawing.Point(314, 305)
+        Me.btnGetTemplateID.Name = "btnGetTemplateID"
+        Me.btnGetTemplateID.Size = New System.Drawing.Size(127, 35)
+        Me.btnGetTemplateID.TabIndex = 3
+        Me.btnGetTemplateID.Text = "Get Template ID"
+        Me.btnGetTemplateID.UseVisualStyleBackColor = True
+        '
+        'lblMeanTimeStat
+        '
+        Me.lblMeanTimeStat.AutoSize = True
+        Me.lblMeanTimeStat.Location = New System.Drawing.Point(275, 17)
+        Me.lblMeanTimeStat.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.lblMeanTimeStat.Name = "lblMeanTimeStat"
+        Me.lblMeanTimeStat.Size = New System.Drawing.Size(107, 17)
+        Me.lblMeanTimeStat.TabIndex = 4
+        Me.lblMeanTimeStat.Text = "Mean Time Stat"
         '
         'Form1
         '
@@ -1226,7 +1293,7 @@ Partial Class Form1
         Me.ClientSize = New System.Drawing.Size(1263, 1008)
         Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.tabTopMenu)
-        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "Form1"
         Me.Text = "R1-Rest-Test"
         CType(Me.dgvprojects, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1255,12 +1322,14 @@ Partial Class Form1
         Me.tabAlerts.PerformLayout()
         Me.tabUser.ResumeLayout(False)
         Me.tabUser.PerformLayout()
+        Me.tabGroups.ResumeLayout(False)
+        Me.tabTemplates.ResumeLayout(False)
+        Me.tabTemplates.PerformLayout()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         Me.StatusStrip1.ResumeLayout(False)
         Me.StatusStrip1.PerformLayout()
-        Me.tabGroups.ResumeLayout(False)
-        Me.tabTemplates.ResumeLayout(False)
+        Me.tabConfiguration.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1370,5 +1439,11 @@ Partial Class Form1
     Friend WithEvents treeGroups As System.Windows.Forms.TreeView
     Friend WithEvents tabTemplates As System.Windows.Forms.TabPage
     Friend WithEvents listTemplates As System.Windows.Forms.ListBox
+    Friend WithEvents tabConfiguration As System.Windows.Forms.TabPage
+    Friend WithEvents btnIsIWAMode As System.Windows.Forms.Button
+    Friend WithEvents listCategories As System.Windows.Forms.ListBox
+    Friend WithEvents btnGetTemplateID As System.Windows.Forms.Button
+    Friend WithEvents txtTemplateID As System.Windows.Forms.TextBox
+    Friend WithEvents lblMeanTimeStat As System.Windows.Forms.Label
 
 End Class

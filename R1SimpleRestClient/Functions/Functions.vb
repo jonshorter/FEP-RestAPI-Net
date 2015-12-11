@@ -5,4 +5,5 @@
     Public User As New UserFunctions
     Public Templates As New TemplateFunctions
     Public Groups As New GroupFunctions
+    Public Configuration As New ConfigurationFunctions
 End Class

@@ -24,6 +24,7 @@ Public Class Form1
     Private Sub btnJobCreate_Click(sender As Object, e As EventArgs) Handles btnJobCreate.Click
 
         Dim nj As New R1SimpleRestClient.Models.Job.JobDefinitionModel
+
         Dim njdef As New R1SimpleRestClient.Models.Job.JobDefinition
         nj.JobDef = njdef
         nj.JobDef.Name = txtJobName.Text
@@ -237,6 +238,8 @@ Public Class Form1
             lstAlertSourceBreakdown.Items.Add(alertSrc.Name & " " & alertSrc.Count)
         Next
 
+        Dim meantime As List(Of MeanTimeStatistics) = R1Client.Functions.Alert.GetMeanTimeStatistics(Me.Auth, txtServer.Text)
+        lblMeanTimeStat.Text = "Mean Time Stat: " & meantime(0).meanTime
 
     End Sub
 
@@ -397,9 +400,27 @@ Public Class Form1
 
     Private Sub tabTemplates_Click(sender As Object, e As EventArgs) Handles tabTemplates.Click
         Dim rc As New R1SimpleRestClient.R1SimpleRestClient
-        Dim templates As List(Of R1SimpleRestClient.Models.Templates) = rc.Functions.Templates.GetTemplates(Me.Auth, txtServer.Text)
+        Dim templates As List(Of R1SimpleRestClient.Models.Templates.Templates) = rc.Functions.Templates.GetTemplates(Me.Auth, txtServer.Text)
         For Each template In templates
             listTemplates.Items.Add(template.name)
         Next
+
+
+        Dim categories As List(Of R1SimpleRestClient.Models.Templates.Categories) = rc.Functions.Templates.GetCategories(Me.Auth, txtServer.Text)
+        For Each category In categories
+            listCategories.Items.Add(category.name)
+        Next
+    End Sub
+
+    Private Sub btnIsIWAMode_Click(sender As Object, e As EventArgs) Handles btnIsIWAMode.Click
+        Dim rc As New R1SimpleRestClient.R1SimpleRestClient
+        Dim IsIWAMode As Boolean = rc.Functions.Configuration.IsIWAMode(Me.Auth, txtServer.Text)
+        MsgBox(IsIWAMode)
+    End Sub
+
+    Private Sub btnGetTemplateID_Click(sender As Object, e As EventArgs) Handles btnGetTemplateID.Click
+        Dim rc As New R1SimpleRestClient.R1SimpleRestClient
+        Dim template As R1SimpleRestClient.Models.Templates.TemplateInformation = rc.Functions.Templates.GetTemplate(Me.Auth, txtServer.Text, txtTemplateID.Text)
+        MsgBox(template.name)
     End Sub
 End Class

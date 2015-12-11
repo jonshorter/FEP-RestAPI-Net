@@ -2,6 +2,30 @@
 
 Namespace Models
     Public Class Job
+        Public Class JobInfoStatusCounts
+            Public totalCount As Integer
+            Public runningCount As Integer
+            Public completedCount As Integer
+            Public failedCount As Integer
+        End Class
+
+        Public Class JobTargets
+            Public targets As New List(Of JobTargetsInfo)
+            Public total As Integer
+            Public jobName As String
+        End Class
+        Public Class JobTargetsInfo
+            Public jobResultId As String
+            Public jobTargetResultId As String
+            Public itemId As String
+            Public name As String
+            Public jobStatusCode As Integer
+            Public status As String
+            Public startDate As Date
+            Public endDate As Date
+            Public hits As Integer
+        End Class
+
         Public Class JobDefinitionModel
             Public Property JobDef As JobDefinition
             Public Property ProjectId As Long
@@ -38,7 +62,7 @@ Namespace Models
         Public Class JobData
             Public Property jobs As List(Of JobInfo)
             Public Property total As Long
-     
+
         End Class
         Public NotInheritable Class JobDefinition
             Inherits JobDefinitionBase

@@ -66,6 +66,58 @@ Public Class JobFunctions
         Return "If You See This.... GetAllJobs"
     End Function
 
+    Public Function GetJobStatus(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String, ByVal JobID As String)
+
+        Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api/jobs")
+        client.CookieContainer = AuthToken.Data
+        Dim request = New RestSharp.RestRequest("getjobstatus/" & JobID, Method.GET)
+        request.RequestFormat = DataFormat.Json
+        request.JsonSerializer = New RestSharpJsonNetSerializer
+        Dim response As RestSharp.RestResponse = client.Execute(request)
+        Select Case response.StatusCode
+            Case Is > 200 < 400
+                Dim apiresponse = JsonConvert.DeserializeObject(Of Models.Response.ApiResponse(Of JobInfo))(response.Content)
+                Select Case apiresponse.Success
+                    Case True
+                        Return apiresponse
+                    Case False
+                        Return "Error: " & apiresponse.Error.Message.ToString
+                End Select
+            Case Is >= 400
+                Return "Error: " & response.ErrorMessage
+            Case Else
+                Return "Error: " & response.ErrorMessage
+        End Select
+
+        Return "If You See This.... GetJobStatus"
+    End Function
+
+    Public Function GetJobStatusCounts(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String, ByVal JobID As String)
+
+        Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api/jobs")
+        client.CookieContainer = AuthToken.Data
+        Dim request = New RestSharp.RestRequest("getjobendpointstatuscounts/" & JobID, Method.GET)
+        request.RequestFormat = DataFormat.Json
+        request.JsonSerializer = New RestSharpJsonNetSerializer
+        Dim response As RestSharp.RestResponse = client.Execute(request)
+        Select Case response.StatusCode
+            Case Is > 200 < 400
+                Dim apiresponse = JsonConvert.DeserializeObject(Of Models.Response.ApiResponse(Of JobInfoStatusCounts))(response.Content)
+                Select Case apiresponse.Success
+                    Case True
+                        Return apiresponse
+                    Case False
+                        Return "Error: " & apiresponse.Error.Message.ToString
+                End Select
+            Case Is >= 400
+                Return "Error: " & response.ErrorMessage
+            Case Else
+                Return "Error: " & response.ErrorMessage
+        End Select
+
+        Return "If You See This.... GetJobStatusCounts"
+    End Function
+
     Public Function GetResponsivePath(ByVal AuthToken As Response.AuthToken, ByVal Server As String, ByVal JobID As String)
         Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api")
         client.CookieContainer = AuthToken.Data
@@ -86,6 +138,32 @@ Public Class JobFunctions
                 Return "Error: " & response.ErrorMessage
         End Select
         Return "If You See This.... JobGetResponsivePath"
+    End Function
+
+    Public Function GetJobTargets(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String, ByVal JobID As String)
+
+        Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api/jobs")
+        client.CookieContainer = AuthToken.Data
+        Dim request = New RestSharp.RestRequest("getjobtargets/" & JobID, Method.GET)
+        request.RequestFormat = DataFormat.Json
+        request.JsonSerializer = New RestSharpJsonNetSerializer
+        Dim response As RestSharp.RestResponse = client.Execute(request)
+        Select Case response.StatusCode
+            Case Is > 200 < 400
+                Dim apiresponse = JsonConvert.DeserializeObject(Of Models.Response.ApiResponse(Of JobTargets))(response.Content)
+                Select Case apiresponse.Success
+                    Case True
+                        Return apiresponse
+                    Case False
+                        Return "Error: " & apiresponse.Error.Message.ToString
+                End Select
+            Case Is >= 400
+                Return "Error: " & response.ErrorMessage
+            Case Else
+                Return "Error: " & response.ErrorMessage
+        End Select
+
+        Return "If You See This.... GetJobTargets"
     End Function
 
     Public Function SetResponsivePath(ByVal AuthToken As Response.AuthToken, ByVal Server As String, ByVal JobID As String)
