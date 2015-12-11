@@ -76,6 +76,18 @@ Public Class JobFunctions
     
     End Function
 
+    Public Function CancelJobResult(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String, ByVal JobResultID As String, ByVal CancelSchedule As Boolean) As ApiResponse(Of JobInfo)
+
+        Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api/jobs")
+        client.CookieContainer = AuthToken.Data.Cookies
+        Dim request = New RestSharp.RestRequest("cancelJobResult/" & JobResultID & "/" & CancelSchedule, Method.GET)
+        request.RequestFormat = DataFormat.Json
+        request.JsonSerializer = New RestSharpJsonNetSerializer
+        Dim response As RestSharp.RestResponse = client.Execute(request)
+        Return JsonConvert.DeserializeObject(Of Models.Response.ApiResponse(Of JobInfo))(response.Content)
+
+    End Function
+
     Public Function GetJobStatusCounts(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String, ByVal JobID As String) As ApiResponse(Of JobInfoStatusCounts)
 
         Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api/jobs")
@@ -87,6 +99,8 @@ Public Class JobFunctions
         Return JsonConvert.DeserializeObject(Of Models.Response.ApiResponse(Of JobInfoStatusCounts))(response.Content)
 
     End Function
+
+
     Public Function GetTargetStatus(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String, ByVal JobID As String, ByVal ItemID As String) As ApiResponse(Of JobTargetsInfo)
 
         Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api/jobs")
