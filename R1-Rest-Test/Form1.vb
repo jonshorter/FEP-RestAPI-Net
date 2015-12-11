@@ -440,4 +440,21 @@ Public Class Form1
             listCategories.Items.Add(category.name)
         Next
     End Sub
+
+    Private Sub btnJobFromTemplate_Click(sender As Object, e As EventArgs) Handles btnJobFromTemplate.Click
+        Dim nj As New R1SimpleRestClient.Models.Job2.JobFromTemplate
+        nj.ProjectId = "648354e3-e55b-4f5e-9576-5ca4a9507a9c"
+        nj.TemplateId = "8b8f0411-4743-4914-959d-2f48194c1cc4"
+        nj.ComputerTargets.Add("ee045e18-306b-409a-aa28-8c8e4726051c")
+
+        '  For Each item In lstTargets.Items
+        ' nj.ComputerTargets.Addresses.Add(item)
+        ' Next
+
+        Dim rc As New R1SimpleRestClient.R1SimpleRestClient
+        Dim JobID = rc.Functions.Job.CreateJobFromTemplate(Me.Auth, txtServer.Text, nj, True)
+
+        MsgBox("Job Created: " & JobID)
+
+    End Sub
 End Class

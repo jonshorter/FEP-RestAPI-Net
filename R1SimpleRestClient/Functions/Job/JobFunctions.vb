@@ -5,6 +5,7 @@ Imports R1SimpleRestClient.Models.Project
 Imports R1SimpleRestClient.Models.Report
 Imports R1SimpleRestClient.Models.Job
 Imports R1SimpleRestClient.Models
+Imports R1SimpleRestClient.Models.Job2
 
 
 Public Class JobFunctions
@@ -34,6 +35,35 @@ Public Class JobFunctions
         End Select
 
         Return "If You See This.... CreateJob"
+
+    End Function
+
+    Public Function CreateJobFromTemplate(ByVal AuthToken As Response.AuthToken, ByVal Server As String, ByVal Job As JobFromTemplate, ByVal Execute As Boolean)
+        Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api")
+        client.CookieContainer = AuthToken.Data
+        Dim request = New RestSharp.RestRequest("jobs/createFromTemplate/" & Execute, Method.POST)
+        request.RequestFormat = DataFormat.Json
+        request.JsonSerializer = New RestSharpJsonNetSerializer
+        request.AddHeader("Accept", "application/json")
+        request.Parameters.Clear()
+        request.AddParameter("application/json", Newtonsoft.Json.JsonConvert.SerializeObject(Job), ParameterType.RequestBody)
+        Dim response As RestSharp.RestResponse = client.Execute(request)
+        Select Case response.StatusCode
+            Case Is > 200 < 400
+                Dim apiresponse = JsonConvert.DeserializeObject(Of Models.Response.ApiResponse(Of String))(response.Content)
+                Select Case apiresponse.Success
+                    Case True
+                        Return apiresponse.Data
+                    Case False
+                        Return "Error: " & apiresponse.Error.Message.ToString
+                End Select
+            Case Is >= 400
+                Return "Error: " & response.ErrorMessage
+            Case Else
+                Return "Error: " & response.ErrorMessage
+        End Select
+
+        Return "If You See This.... CreateJobFromTemplate"
 
     End Function
 

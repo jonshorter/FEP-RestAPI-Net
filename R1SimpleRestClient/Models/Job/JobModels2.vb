@@ -1,4 +1,10 @@
 ﻿Namespace Models.Job2
+    Public Class JobFromTemplate
+        Public ComputerTargets As New List(Of String)
+        Public ProjectId As String
+        Public TemplateId As String
+    End Class
+
     Public Class ShareFilters
         Public Property inclusionFilters As Object()
         Public Property exclusionFilters As Object()
