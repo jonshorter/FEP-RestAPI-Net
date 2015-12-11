@@ -16,7 +16,7 @@ Imports System.Collections.ObjectModel
 
 Public Class Form1
     Public Auth As AuthToken = New R1SimpleRestClient.Models.Response.AuthToken
-    Dim currproject As Integer = 0
+    Dim currproject As String = 0
 
     Private Sub btnRefreshProjectList_Click(sender As Object, e As EventArgs) Handles btnRefreshProjectList.Click
         tabProjects_Enter(sender, e)
@@ -59,20 +59,10 @@ Public Class Form1
             Select Case e.ColumnIndex
                 Case 0
                     Dim R1Client As New R1SimpleRestClient.R1SimpleRestClient
-                    Dim Jobs As List(Of JobInfo57) = R1Client.Functions.Project.GetJobsForProject(Me.Auth, txtServer.Text, currproject)
-                    dgvprojectjobs.Rows.Clear()
-                    For Each job In Jobs
-                        dgvprojectjobs.Rows.Add(New String() {job.Name, job.JobType.ToString, job.Status, job.JobID.ToString})
-                    Next
 
                     Dim prjinfo = R1Client.Functions.Project.GetProjectDetails(Me.Auth, txtServer.Text, currproject)
                     pgProject.SelectedObject = prjinfo
 
-                    Dim projectreports = R1Client.Functions.Project.GetProjectReports(Me.Auth, txtServer.Text, currproject)
-                    dgvProjectReports.Rows.Clear()
-                    For Each report As BasicReport In projectreports
-                        dgvProjectReports.Rows.Add(New String() {report.ReportInfo.Name, report.ReportInfo.ReportType.ToString, report.ReportInfo.Status.ToString, report.ReportInfo.FilePath, report.ReportInfo.ReportId})
-                    Next
                 Case 2
                     Dim x = MsgBox("Are you sure you want to delete the project?", MsgBoxStyle.YesNo, "Delete Project?")
                     If x = 6 Then
@@ -86,7 +76,7 @@ Public Class Form1
                     End If
                 Case 3
                     txtProjectID.Text = dgvprojects.Rows.Item(e.RowIndex).Cells(1).Value.ToString
-                    tabBottomMenu.SelectedTab = tabCreateJob
+                    tabBottomMenu.SelectedTab = tabJobs
             End Select
 
         Catch ex As Exception
@@ -124,67 +114,7 @@ Public Class Form1
     End Sub
 
 
-    Private Sub tabJobs_Enter(sender As Object, e As EventArgs) Handles tabCreateJob.Enter
-        comboJobType.Items.Clear()
-        For Each item In GetType(JobTypes).GetEnumValues
-            comboJobType.Items.Add(item)
-        Next
-        comboJobType.SelectedItem = R1SimpleRestClient.Models.Enums.JobTypes.SoftwareInventory
-
-        comboJobAction.Items.Clear()
-        For Each item In GetType(R1SimpleRestClient.Models.Enums.JobAction).GetEnumValues
-            comboJobAction.Items.Add(item)
-        Next
-        comboJobAction.SelectedItem = R1SimpleRestClient.Models.Enums.JobAction.Create
-    End Sub
-
-    Private Sub dgvProjectReports_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvProjectReports.CellClick
-        Try
-            If e.ColumnIndex = 3 And dgvProjectReports.Rows.Item(e.RowIndex).Cells(2).Value.ToString = "Completed" Then
-                System.Diagnostics.Process.Start(dgvProjectReports.Rows.Item(e.RowIndex).Cells(3).Value.ToString)
-            End If
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        End Try
-    End Sub
-    Private Sub btnCreateProject_Click(sender As Object, e As EventArgs) Handles btnCreateProject.Click
-        Dim newproject As New NewProjectDefinition
-        newproject.Name = txtProjectName.Text
-        newproject.FTKCaseFolderPath = txtProjectCaseFolder.Text
-        newproject.ResponsiveFilePath = txtProjectJobDataFolder.Text
-        newproject.ProcessingMode = cmbProjectProcessingMode.SelectedItem
-        newproject.Comments = txtProjectDescription.Text
-       
-        Dim rc As New R1SimpleRestClient.R1SimpleRestClient
-        Dim NewProjectResponse As NewProjectDefinition = rc.Functions.Project.CreateProject(Me.Auth, txtServer.Text, newproject)
-        MsgBox("Project Created: " & NewProjectResponse.Name)
-    End Sub
-
-    Private Sub tabCreateProject_Enter(sender As Object, e As EventArgs) Handles tabCreateProject.Enter
-        cmbProjectProcessingMode.Items.Clear()
-        For Each item In GetType(ProcessModeEnum).GetEnumValues
-            cmbProjectProcessingMode.Items.Add(item)
-        Next
-        cmbProjectProcessingMode.SelectedItem = R1SimpleRestClient.Models.Enums.ProcessModeEnum.Security
-
-      
-
-    End Sub
-    Private Sub tabCreateProject_Paint(sender As Object, e As PaintEventArgs) Handles tabCreateProject.Paint
-
-    End Sub
-    Private Sub tabProjects_Enter(sender As Object, e As EventArgs) Handles tabProjects.Enter
-        Try
-            Dim rc As New R1SimpleRestClient.R1SimpleRestClient
-            Dim Projects As List(Of ProjectPresenter) = rc.Functions.Project.GetProjectList(Me.Auth, txtServer.Text)
-            dgvprojects.Rows.Clear()
-
-            For Each project In Projects
-                dgvprojects.Rows.Add(New String() {project.Name, project.FtkCaseId, "X", "0"})
-            Next
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        End Try
+    Private Sub tabJobs_Enter(sender As Object, e As EventArgs) Handles tabJobs.Enter
 
         Try
             Dim rc As New R1SimpleRestClient.R1SimpleRestClient
@@ -198,6 +128,65 @@ Public Class Form1
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
+
+        comboJobType.Items.Clear()
+        For Each item In GetType(JobTypes).GetEnumValues
+            comboJobType.Items.Add(item)
+        Next
+        comboJobType.SelectedItem = R1SimpleRestClient.Models.Enums.JobTypes.SoftwareInventory
+
+        comboJobAction.Items.Clear()
+        For Each item In GetType(R1SimpleRestClient.Models.Enums.JobAction).GetEnumValues
+            comboJobAction.Items.Add(item)
+        Next
+        comboJobAction.SelectedItem = R1SimpleRestClient.Models.Enums.JobAction.Create
+    End Sub
+
+  
+    Private Sub btnCreateProject_Click(sender As Object, e As EventArgs) Handles btnCreateProject.Click
+        Dim newproject As New NewProjectDefinition
+        newproject.Name = txtProjectName.Text
+        newproject.FTKCaseFolderPath = txtProjectCaseFolder.Text
+        newproject.ResponsiveFilePath = txtProjectJobDataFolder.Text
+        newproject.ProcessingMode = cmbProjectProcessingMode.SelectedItem
+        newproject.Comments = txtProjectDescription.Text
+
+        Dim rc As New R1SimpleRestClient.R1SimpleRestClient
+        Dim NewProjectResponse As NewProjectDefinition = rc.Functions.Project.CreateProject(Me.Auth, txtServer.Text, newproject)
+        MsgBox("Project Created: " & NewProjectResponse.Name)
+    End Sub
+
+    Private Sub tabCreateProject_Enter(sender As Object, e As EventArgs) Handles tabCreateProject.Enter
+        Dim rc As New R1SimpleRestClient.R1SimpleRestClient
+        txtProjectCaseFolder.Text = rc.Functions.Configuration.GetDefaultProjectsPath(Me.Auth, txtServer.Text)
+        txtProjectJobDataFolder.Text = rc.Functions.Configuration.GetDefaultJobDataPath(Me.Auth, txtServer.Text)
+
+
+        cmbProjectProcessingMode.Items.Clear()
+        For Each item In GetType(ProcessModeEnum).GetEnumValues
+            cmbProjectProcessingMode.Items.Add(item)
+        Next
+        cmbProjectProcessingMode.SelectedItem = R1SimpleRestClient.Models.Enums.ProcessModeEnum.Security
+
+
+
+    End Sub
+    Private Sub tabCreateProject_Paint(sender As Object, e As PaintEventArgs) Handles tabCreateProject.Paint
+
+    End Sub
+    Private Sub tabProjects_Enter(sender As Object, e As EventArgs) Handles tabProjects.Enter
+        Try
+            Dim rc As New R1SimpleRestClient.R1SimpleRestClient
+            Dim Projects As List(Of ProjectPresenter) = rc.Functions.Project.GetProjectList(Me.Auth, txtServer.Text)
+            dgvprojects.Rows.Clear()
+
+            For Each project In Projects
+                dgvprojects.Rows.Add(New String() {project.Name, project.ProjectId.ToString, "X", "0"})
+            Next
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+
     End Sub
 
 
@@ -215,7 +204,7 @@ Public Class Form1
         End With
     End Sub
 
-    Private Sub tabCreateJob_Click(sender As Object, e As EventArgs) Handles tabCreateJob.Click
+    Private Sub tabCreateJob_Click(sender As Object, e As EventArgs) Handles tabJobs.Click
 
     End Sub
 
@@ -255,7 +244,7 @@ Public Class Form1
         End Try
     End Sub
 
-    Private Sub dgvprojectjobs_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvprojectjobs.CellClick
+    Private Sub dgvprojectjobs_CellClick(sender As Object, e As DataGridViewCellEventArgs)
 
         If e.ColumnIndex = 0 Then
             '     Dim R1Client As New R1SimpleRestClient.R1SimpleRestClient
@@ -291,7 +280,7 @@ Public Class Form1
         'End Try
     End Sub
 
-    Private Sub dgvProjectReports_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvProjectReports.CellContentClick
+    Private Sub dgvProjectReports_CellContentClick(sender As Object, e As DataGridViewCellEventArgs)
 
     End Sub
 
@@ -299,11 +288,11 @@ Public Class Form1
 
     End Sub
 
-    Private Sub dgvprojectjobs_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvprojectjobs.CellContentClick
+    Private Sub dgvprojectjobs_CellContentClick(sender As Object, e As DataGridViewCellEventArgs)
 
     End Sub
 
-    Private Sub dgvprojectjobs_Click(sender As Object, e As EventArgs) Handles dgvprojectjobs.Click
+    Private Sub dgvprojectjobs_Click(sender As Object, e As EventArgs)
 
     End Sub
 
@@ -386,17 +375,8 @@ Public Class Form1
 
     End Sub
 
-    Private Sub btnLoadGroupsTree_Click(sender As Object, e As EventArgs) Handles btnLoadGroupsTree.Click
-        Dim rc As New R1SimpleRestClient.R1SimpleRestClient
-        Dim groups As R1SimpleRestClient.Models.Groups = rc.Functions.Groups.GetGroups(Me.Auth, txtServer.Text)
-        Dim topnode As TreeNode = Me.treeGroups.Nodes.Add(groups.name)
-        topnode.Name = groups.name
-        For Each group In groups.children
-            Dim x As TreeNode = topnode.Nodes.Add(group.name)
-            x.Name = group.name
-            GetAllChildren(x.Name, group)
-          
-        Next
+    Private Sub btnLoadGroupsTree_Click(sender As Object, e As EventArgs)
+
     End Sub
 
     Private Sub GetAllChildren(parent As String, children As R1SimpleRestClient.Models.Groups)
@@ -411,17 +391,7 @@ Public Class Form1
     End Sub
 
     Private Sub tabTemplates_Click(sender As Object, e As EventArgs) Handles tabTemplates.Click
-        Dim rc As New R1SimpleRestClient.R1SimpleRestClient
-        Dim templates As List(Of R1SimpleRestClient.Models.Templates.Templates) = rc.Functions.Templates.GetTemplates(Me.Auth, txtServer.Text)
-        For Each template In templates
-            listTemplates.Items.Add(template.name)
-        Next
-
-
-        Dim categories As List(Of R1SimpleRestClient.Models.Templates.Categories) = rc.Functions.Templates.GetCategories(Me.Auth, txtServer.Text)
-        For Each category In categories
-            listCategories.Items.Add(category.name)
-        Next
+     
     End Sub
 
     Private Sub btnIsIWAMode_Click(sender As Object, e As EventArgs) Handles btnIsIWAMode.Click
@@ -434,5 +404,40 @@ Public Class Form1
         Dim rc As New R1SimpleRestClient.R1SimpleRestClient
         Dim template As R1SimpleRestClient.Models.Templates.TemplateInformation = rc.Functions.Templates.GetTemplate(Me.Auth, txtServer.Text, txtTemplateID.Text)
         MsgBox(template.name)
+    End Sub
+
+    Private Sub tabGroups_Click(sender As Object, e As EventArgs) Handles tabGroups.Click
+
+    End Sub
+
+    Private Sub tabGroups_Enter(sender As Object, e As EventArgs) Handles tabGroups.Enter
+        treeGroups.Nodes.Clear()
+        Dim rc As New R1SimpleRestClient.R1SimpleRestClient
+        Dim groups As R1SimpleRestClient.Models.Groups = rc.Functions.Groups.GetGroups(Me.Auth, txtServer.Text)
+        Dim topnode As TreeNode = Me.treeGroups.Nodes.Add(groups.name)
+        topnode.Name = groups.name
+        For Each group In groups.children
+            Dim x As TreeNode = topnode.Nodes.Add(group.name)
+            x.Name = group.name
+            GetAllChildren(x.Name, group)
+
+        Next
+    End Sub
+
+    Private Sub tabTemplates_Enter(sender As Object, e As EventArgs) Handles tabTemplates.Enter
+        Dim rc As New R1SimpleRestClient.R1SimpleRestClient
+
+        listTemplates.Items.Clear()
+        listCategories.Items.Clear()
+
+        Dim templates As List(Of R1SimpleRestClient.Models.Templates.Templates) = rc.Functions.Templates.GetTemplates(Me.Auth, txtServer.Text)
+        For Each template In templates
+            listTemplates.Items.Add(template.name)
+        Next
+
+        Dim categories As List(Of R1SimpleRestClient.Models.Templates.Categories) = rc.Functions.Templates.GetCategories(Me.Auth, txtServer.Text)
+        For Each category In categories
+            listCategories.Items.Add(category.name)
+        Next
     End Sub
 End Class

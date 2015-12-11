@@ -34,7 +34,7 @@ Public Class ProjectFunctions
         Return "If You See This.... GetProjectList"
     End Function
 
-    Public Function GetProjectDetails(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String, ByVal ProjectID As Long)
+    Public Function GetProjectDetails(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String, ByVal ProjectID As String)
         Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api")
         client.CookieContainer = AuthToken.Data
         Dim request = New RestSharp.RestRequest("projects/" & ProjectID, Method.GET)
@@ -59,10 +59,10 @@ Public Class ProjectFunctions
         Return "If You See This.... GetProjectDetails"
     End Function
 
-    Public Function GetProjectReports(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String, ByVal ProjectID As Long)
+    Public Function GetProjectReports(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String, ByVal ProjectID As String)
         Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api")
         client.CookieContainer = AuthToken.Data
-        Dim request = New RestSharp.RestRequest("projects/" & ProjectID & "/reports", Method.GET)
+        Dim request = New RestSharp.RestRequest("projects/" & ProjectID & "/reports/GetProjectReports", Method.GET)
         request.RequestFormat = DataFormat.Json
         request.JsonSerializer = New RestSharpJsonNetSerializer
         Dim response As RestSharp.RestResponse = client.Execute(request)
@@ -84,7 +84,7 @@ Public Class ProjectFunctions
         Return "If You See This.... GetProjectReports"
     End Function
 
-    Public Function DeleteProject(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String, ByVal ProjectID As Long)
+    Public Function DeleteProject(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String, ByVal ProjectID As String)
         Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api")
         client.CookieContainer = AuthToken.Data
         Dim request = New RestSharp.RestRequest("projects/" & ProjectID, Method.DELETE)

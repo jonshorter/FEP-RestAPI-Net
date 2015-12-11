@@ -3,7 +3,7 @@
 Namespace Models
     Public Class Project
         Public Class NewProjectDefinition
-            Public ProjectId As Guid
+            Public ProjectId As String
             Public Name As String
             Public Description As String
             Public FTKCaseFolderPath As String
@@ -122,12 +122,12 @@ Namespace Models
         End Class
         Public Class ProjectCustomPropertyValue
             Private _PropertyId As Guid
-            Private _ProjectId As Guid
+            Private _ProjectId As String
             Private _Value As String
         End Class
         Public Class ProjectPresenter
             Public Property ForceHasChanges As Integer
-            Public Property ProjectId As Guid
+            Public Property ProjectId As String
             Public Property ProjectType As String
             Public Property Name As String
             Public Property Description As String
