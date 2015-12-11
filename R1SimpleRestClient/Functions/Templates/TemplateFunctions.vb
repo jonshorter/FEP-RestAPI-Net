@@ -12,7 +12,7 @@ Public Class TemplateFunctions
     Public Function GetTemplates(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String) _
         As ApiResponse(Of List(Of Templates.Templates))
         Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api")
-        client.CookieContainer = AuthToken.Data
+        client.CookieContainer = AuthToken.Data.Cookies
         Dim request = New RestSharp.RestRequest("templates", Method.GET)
         request.RequestFormat = DataFormat.Json
         request.JsonSerializer = New RestSharpJsonNetSerializer
@@ -25,7 +25,7 @@ Public Class TemplateFunctions
     Public Function GetCategories(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String) _
         As ApiResponse(Of List(Of Templates.Categories))
         Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api")
-        client.CookieContainer = AuthToken.Data
+        client.CookieContainer = AuthToken.Data.Cookies
         Dim request = New RestSharp.RestRequest("templates/categories", Method.GET)
         request.RequestFormat = DataFormat.Json
         request.JsonSerializer = New RestSharpJsonNetSerializer
@@ -41,7 +41,7 @@ Public Class TemplateFunctions
         As ApiResponse(Of Templates.TemplateInformation)
 
         Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api")
-        client.CookieContainer = AuthToken.Data
+        client.CookieContainer = AuthToken.Data.Cookies
         Dim request = New RestSharp.RestRequest("templates/" & templateid, Method.GET)
         request.RequestFormat = DataFormat.Json
         request.JsonSerializer = New RestSharpJsonNetSerializer

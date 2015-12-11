@@ -17,7 +17,7 @@ Public Class R1Authentication
     sslerror As System.Net.Security.SslPolicyErrors) True
             '----LogOut
             Dim client As New RestSharp.RestClient("https://" & Server & "/R1/ClientBin/ADG-RIA-Authentication-Web-Services-AuthenticationService.svc/binary")
-            client.CookieContainer = AuthToken.Data
+            client.CookieContainer = AuthToken.Data.Cookies
             Dim request = New RestSharp.RestRequest("Logout", Method.POST)
             request.RequestFormat = DataFormat.Json
             request.JsonSerializer = New RestSharpJsonNetSerializer
@@ -42,7 +42,7 @@ Public Class R1Authentication
 
     Public Sub Logout(ByVal Server As String, ByVal AuthToken As AuthToken)
         Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api/")
-        client.CookieContainer = AuthToken.Data
+        client.CookieContainer = AuthToken.Data.Cookies
 
 
 
@@ -156,12 +156,13 @@ sslerror As System.Net.Security.SslPolicyErrors) True
 
                 'Return Cookie COntainer
                 Dim authreturn As New AuthToken
-                authreturn.Data = cookiecon
+                authreturn.Data.Cookies = cookiecon
+                authreturn.Data.Message = "Authenticated"
                 authreturn.Error = False
                 Return authreturn
             Else
                 Dim authreturn As New AuthToken
-                authreturn.Data = "Bad Username or Password"
+                authreturn.Data.Message = "Bad Username or Password"
                 authreturn.Error = True
                 Return authreturn
 
@@ -169,7 +170,7 @@ sslerror As System.Net.Security.SslPolicyErrors) True
         Catch ex As Exception
             MsgBox(ex.Message)
             Dim authreturn As New AuthToken
-            authreturn.Data = ex.Message
+            authreturn.Data.Message = ex.Message
             authreturn.Error = True
             Return authreturn
         End Try

@@ -14,7 +14,7 @@ Public Class R1SimpleRestClient
     Public Function R1RestRequest(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String, ByVal Method As RestSharp.Method, ByVal apicall As String, Optional ByVal jsonstr As String = Nothing)
 
         Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api")
-        client.CookieContainer = AuthToken.Data
+        client.CookieContainer = AuthToken.Data.Cookies
 
             Dim request = New RestSharp.RestRequest(apicall, Method)
             If Not jsonstr Is Nothing Then

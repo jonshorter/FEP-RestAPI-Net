@@ -321,7 +321,7 @@ Public Class Form1
 
     Private Sub btnAuth_Click(sender As Object, e As EventArgs) Handles btnAuth.Click
         If tabTopMenu.TabPages.Contains(tabTesting) Then
-            If Auth.Data.count > 0 Then
+            If Auth.Data.Cookies.Count > 0 Then
                 MsgBox("Already Logged In")
             Else
                 tabTopMenu.TabPages.Remove(tabTesting)

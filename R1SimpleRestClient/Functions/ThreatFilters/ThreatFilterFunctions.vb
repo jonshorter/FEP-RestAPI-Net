@@ -12,7 +12,7 @@ Public Class ThreatFilterFunctions
                                         Optional page As Integer = 1) As ApiResponse(Of List(Of ThreatFilters.ThreatFilterInfo))
 
         Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api")
-        client.CookieContainer = AuthToken.Data
+        client.CookieContainer = AuthToken.Data.Cookies
 
         Dim request = New RestSharp.RestRequest("threatfilters/" & page, Method.GET)
         request.RequestFormat = DataFormat.Json
@@ -27,7 +27,7 @@ Public Class ThreatFilterFunctions
                                    ) As ApiResponse(Of List(Of Integer))
 
         Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api")
-        client.CookieContainer = AuthToken.Data
+        client.CookieContainer = AuthToken.Data.Cookies
 
         Dim request = New RestSharp.RestRequest("threatfilters/ids", Method.GET)
         request.RequestFormat = DataFormat.Json

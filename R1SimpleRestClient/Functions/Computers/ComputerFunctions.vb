@@ -12,7 +12,7 @@ Public Class ComputerFunctions
     Public Function GetGroupComputers(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String, _
                                       Optional GroupID As String = "") As ApiResponse(Of ComputersInGroup)
         Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api")
-        client.CookieContainer = AuthToken.Data
+        client.CookieContainer = AuthToken.Data.Cookies
 
         If Not GroupID = "" Then
             GroupID = "?groupid=" & GroupID
@@ -28,7 +28,7 @@ Public Class ComputerFunctions
     Public Function GetGroupComputerIds(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String, _
                                         Optional GroupId As String = "") As ApiResponse(Of List(Of String))
         Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api")
-        client.CookieContainer = AuthToken.Data
+        client.CookieContainer = AuthToken.Data.Cookies
         If Not GroupId = "" Then
             GroupId = "?groupid=" & GroupId
         End If

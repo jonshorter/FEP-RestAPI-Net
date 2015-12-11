@@ -12,7 +12,7 @@ Public Class UserFunctions
     Public Function findUserByLastnameOrUsername(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String, ByVal user As String)
 
         Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api/user")
-        client.CookieContainer = AuthToken.Data
+        client.CookieContainer = AuthToken.Data.Cookies
 
 
 

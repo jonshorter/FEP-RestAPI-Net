@@ -1,4 +1,6 @@
-﻿Namespace Models
+﻿Imports System.Net
+
+Namespace Models
     Public Class Response
         Public Class ApiResponse(Of T)
             Public Property Success As Boolean
@@ -11,7 +13,11 @@
         End Class
         Public Class AuthToken
             Public Property [Error] As Boolean
-            Public Property Data As Object
+            Public Property Data As New AuthTokenData
+        End Class
+        Public Class AuthTokenData
+            Public Property Message As String
+            Public Property Cookies As CookieContainer
         End Class
         Public Class ReturnData
             Public Property [Error] As Boolean

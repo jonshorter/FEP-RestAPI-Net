@@ -11,7 +11,7 @@ Public Class GroupFunctions
 
     Public Function GetGroups(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String) As ApiResponse(Of Groups)
         Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api")
-        client.CookieContainer = AuthToken.Data
+        client.CookieContainer = AuthToken.Data.Cookies
         Dim request = New RestSharp.RestRequest("groups", Method.GET)
         request.RequestFormat = DataFormat.Json
         request.JsonSerializer = New RestSharpJsonNetSerializer

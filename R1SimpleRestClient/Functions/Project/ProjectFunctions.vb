@@ -12,7 +12,7 @@ Public Class ProjectFunctions
     Public Function GetProjectList(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String, _
                                    Optional Search As String = "") As ApiResponse(Of List(Of ProjectPresenter))
         Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api")
-        client.CookieContainer = AuthToken.Data
+        client.CookieContainer = AuthToken.Data.Cookies
         If Not Search = "" Then
             Search = "?where=" & Search
         End If
@@ -26,7 +26,7 @@ Public Class ProjectFunctions
 
     Public Function GetProjectDetails(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String, ByVal ProjectID As String) As ApiResponse(Of ProjectPresenter)
         Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api")
-        client.CookieContainer = AuthToken.Data
+        client.CookieContainer = AuthToken.Data.Cookies
         Dim request = New RestSharp.RestRequest("projects/" & ProjectID, Method.GET)
         request.RequestFormat = DataFormat.Json
         request.JsonSerializer = New RestSharpJsonNetSerializer
@@ -37,7 +37,7 @@ Public Class ProjectFunctions
 
     Public Function GetProjectReports(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String, ByVal ProjectID As String) As ApiResponse(Of List(Of Models.Report.BasicReport))
         Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api")
-        client.CookieContainer = AuthToken.Data
+        client.CookieContainer = AuthToken.Data.Cookies
         Dim request = New RestSharp.RestRequest("projects/" & ProjectID & "/reports/GetProjectReports", Method.GET)
         request.RequestFormat = DataFormat.Json
         request.JsonSerializer = New RestSharpJsonNetSerializer
@@ -48,7 +48,7 @@ Public Class ProjectFunctions
 
     Public Function DeleteProject(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String, ByVal ProjectID As String) As ApiResponse(Of Boolean)
         Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api")
-        client.CookieContainer = AuthToken.Data
+        client.CookieContainer = AuthToken.Data.Cookies
         Dim request = New RestSharp.RestRequest("projects/" & ProjectID, Method.DELETE)
         request.RequestFormat = DataFormat.Json
         request.JsonSerializer = New RestSharpJsonNetSerializer
@@ -59,7 +59,7 @@ Public Class ProjectFunctions
 
     Public Function GetJobsForProject(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String, ByVal ProjectID As Long) As ApiResponse(Of List(Of JobInfo57))
         Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api")
-        client.CookieContainer = AuthToken.Data
+        client.CookieContainer = AuthToken.Data.Cookies
         Dim request = New RestSharp.RestRequest("jobs/" & ProjectID, Method.GET)
         request.RequestFormat = DataFormat.Json
         request.JsonSerializer = New RestSharpJsonNetSerializer
@@ -72,7 +72,7 @@ Public Class ProjectFunctions
 
     Public Function CreateProject(ByVal AuthToken As Response.AuthToken, ByVal Server As String, ByVal NewProject As NewProjectDefinition) As ApiResponse(Of NewProjectDefinition)
         Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api")
-        client.CookieContainer = AuthToken.Data
+        client.CookieContainer = AuthToken.Data.Cookies
         Dim request = New RestSharp.RestRequest("projects", Method.POST)
         request.RequestFormat = DataFormat.Json
         request.JsonSerializer = New RestSharpJsonNetSerializer
@@ -85,7 +85,7 @@ Public Class ProjectFunctions
     End Function
     Public Function UpdateProject(ByVal AuthToken As Response.AuthToken, ByVal Server As String, ByVal UpdatedProject As ProjectPresenter) As ApiResponse(Of ProjectPresenter)
         Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api")
-        client.CookieContainer = AuthToken.Data
+        client.CookieContainer = AuthToken.Data.Cookies
         Dim request = New RestSharp.RestRequest("projects", Method.PUT)
         request.RequestFormat = DataFormat.Json
         request.JsonSerializer = New RestSharpJsonNetSerializer
@@ -98,7 +98,7 @@ Public Class ProjectFunctions
     End Function
     Public Function GetJobResultReports(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String, ByVal ProjectID As Long, ByVal JobID As String)
         Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api")
-        client.CookieContainer = AuthToken.Data
+        client.CookieContainer = AuthToken.Data.Cookies
         Dim request = New RestSharp.RestRequest("projects/" & ProjectID & "/jobs/jobresultreports/" & JobID & "/", Method.GET)
         request.RequestFormat = DataFormat.Json
         request.JsonSerializer = New RestSharpJsonNetSerializer
@@ -119,7 +119,7 @@ Public Class ProjectFunctions
     End Function
     Public Function GetJobResultsReportStatus(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String, ByVal ProjectID As Long, ByVal JobID As String) As ApiResponse(Of JobReportDataStatus)
         Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api")
-        client.CookieContainer = AuthToken.Data
+        client.CookieContainer = AuthToken.Data.Cookies
         Dim request = New RestSharp.RestRequest("projects/" & ProjectID & "/jobs/jobresultsreportstatus/" & JobID & "/", Method.GET)
         request.RequestFormat = DataFormat.Json
         request.JsonSerializer = New RestSharpJsonNetSerializer
@@ -129,7 +129,7 @@ Public Class ProjectFunctions
     End Function
     Public Function GenerateJobDetailsReport(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String, ByVal ProjectID As Long, ByVal JobID As String) As ApiResponse(Of JobReportDataStatus)
         Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api")
-        client.CookieContainer = AuthToken.Data
+        client.CookieContainer = AuthToken.Data.Cookies
         Dim request = New RestSharp.RestRequest("projects/" & ProjectID & "/jobs/generatejobdetailsreport/" & JobID, Method.GET)
         request.AddUrlSegment("id", JobID)
         request.RequestFormat = DataFormat.Json

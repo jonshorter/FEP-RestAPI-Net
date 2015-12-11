@@ -5,7 +5,7 @@ Imports R1SimpleRestClient.Models
 Public Class AlertsFunctions
     Public Function GetTotalResponses(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String)
         Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api")
-        client.CookieContainer = AuthToken.Data
+        client.CookieContainer = AuthToken.Data.Cookies
         Dim request = New RestSharp.RestRequest("alerts/getTotalResponses/?predicate=null", Method.GET)
         request.RequestFormat = DataFormat.Json
         request.JsonSerializer = New RestSharpJsonNetSerializer
@@ -25,7 +25,7 @@ Public Class AlertsFunctions
     Public Function GetMeanTimeStatistics(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String) _
         As List(Of Models.Alert.MeanTimeStatistics)
         Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api")
-        client.CookieContainer = AuthToken.Data
+        client.CookieContainer = AuthToken.Data.Cookies
         Dim request = New RestSharp.RestRequest("alerts/getMeanTimeStatistics/?predicate=null", Method.GET)
         request.RequestFormat = DataFormat.Json
         request.JsonSerializer = New RestSharpJsonNetSerializer
@@ -36,7 +36,7 @@ Public Class AlertsFunctions
 
     Public Function GetTotalAutomatedResponses(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String)
         Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api")
-        client.CookieContainer = AuthToken.Data
+        client.CookieContainer = AuthToken.Data.Cookies
         Dim request = New RestSharp.RestRequest("alerts/getTotalAutomatedResponses/?predicate=null", Method.GET)
         request.RequestFormat = DataFormat.Json
         request.JsonSerializer = New RestSharpJsonNetSerializer
@@ -56,7 +56,7 @@ Public Class AlertsFunctions
     Public Function GetAlertSourceBreakdown(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String) _
         As List(Of Models.Alert.AlertSourceBreakdownResult)
         Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api")
-        client.CookieContainer = AuthToken.Data
+        client.CookieContainer = AuthToken.Data.Cookies
         Dim request = New RestSharp.RestRequest("alerts/getAlertSourceBreakdown/?predicate=null", Method.GET)
         request.RequestFormat = DataFormat.Json
         request.JsonSerializer = New RestSharpJsonNetSerializer
@@ -71,7 +71,7 @@ Public Class AlertsFunctions
     Public Function GetAlertDetails(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String, ByVal AlertID As String) _
         As Alert.AlertDetails
         Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api")
-        client.CookieContainer = AuthToken.Data
+        client.CookieContainer = AuthToken.Data.Cookies
         Dim request = New RestSharp.RestRequest("alerts/getAlertDetails/" & AlertID, Method.GET)
         request.RequestFormat = DataFormat.Json
         request.JsonSerializer = New RestSharpJsonNetSerializer
@@ -89,7 +89,7 @@ Public Class AlertsFunctions
                                          Optional predicate As String = "null") As Alert.AlertsWithCounts
 
         Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api")
-        client.CookieContainer = AuthToken.Data
+        client.CookieContainer = AuthToken.Data.Cookies
 
         If Not predicate = "null" Then
             predicate = "(" & predicate & ")"
