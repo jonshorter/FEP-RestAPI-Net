@@ -22,7 +22,7 @@ Partial Class Form1
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.btnRefreshProjectList = New System.Windows.Forms.Button()
         Me.btnJobCreate = New System.Windows.Forms.Button()
         Me.dgvprojects = New System.Windows.Forms.DataGridView()
@@ -134,6 +134,10 @@ Partial Class Form1
         Me.txtTemplateID = New System.Windows.Forms.TextBox()
         Me.btnGetTemplateID = New System.Windows.Forms.Button()
         Me.lblMeanTimeStat = New System.Windows.Forms.Label()
+        Me.dgvAlertsWithCounts = New System.Windows.Forms.DataGridView()
+        Me.AlertID = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ArtifactName = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Description = New System.Windows.Forms.DataGridViewTextBoxColumn()
         CType(Me.dgvprojects, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvprojectjobs, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabTopMenu.SuspendLayout()
@@ -158,6 +162,7 @@ Partial Class Form1
         Me.GroupBox1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
         Me.tabConfiguration.SuspendLayout()
+        CType(Me.dgvAlertsWithCounts, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'btnRefreshProjectList
@@ -210,9 +215,9 @@ Partial Class Form1
         '
         'colDelete
         '
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.Red
-        Me.colDelete.DefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle2.BackColor = System.Drawing.Color.Red
+        Me.colDelete.DefaultCellStyle = DataGridViewCellStyle2
         Me.colDelete.FillWeight = 5.0!
         Me.colDelete.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.colDelete.HeaderText = "Delete"
@@ -982,6 +987,7 @@ Partial Class Form1
         '
         'tabAlerts
         '
+        Me.tabAlerts.Controls.Add(Me.dgvAlertsWithCounts)
         Me.tabAlerts.Controls.Add(Me.lblMeanTimeStat)
         Me.tabAlerts.Controls.Add(Me.Label18)
         Me.tabAlerts.Controls.Add(Me.lstAlertSourceBreakdown)
@@ -1286,6 +1292,38 @@ Partial Class Form1
         Me.lblMeanTimeStat.TabIndex = 4
         Me.lblMeanTimeStat.Text = "Mean Time Stat"
         '
+        'dgvAlertsWithCounts
+        '
+        Me.dgvAlertsWithCounts.AllowUserToAddRows = False
+        Me.dgvAlertsWithCounts.AllowUserToDeleteRows = False
+        Me.dgvAlertsWithCounts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvAlertsWithCounts.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.AlertID, Me.ArtifactName, Me.Description})
+        Me.dgvAlertsWithCounts.Location = New System.Drawing.Point(260, 94)
+        Me.dgvAlertsWithCounts.Margin = New System.Windows.Forms.Padding(4)
+        Me.dgvAlertsWithCounts.Name = "dgvAlertsWithCounts"
+        Me.dgvAlertsWithCounts.ReadOnly = True
+        Me.dgvAlertsWithCounts.RowHeadersVisible = False
+        Me.dgvAlertsWithCounts.Size = New System.Drawing.Size(599, 251)
+        Me.dgvAlertsWithCounts.TabIndex = 20
+        '
+        'AlertID
+        '
+        Me.AlertID.HeaderText = "AlertID"
+        Me.AlertID.Name = "AlertID"
+        Me.AlertID.ReadOnly = True
+        '
+        'ArtifactName
+        '
+        Me.ArtifactName.HeaderText = "ArtifactName"
+        Me.ArtifactName.Name = "ArtifactName"
+        Me.ArtifactName.ReadOnly = True
+        '
+        'Description
+        '
+        Me.Description.HeaderText = "Description"
+        Me.Description.Name = "Description"
+        Me.Description.ReadOnly = True
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -1330,6 +1368,7 @@ Partial Class Form1
         Me.StatusStrip1.ResumeLayout(False)
         Me.StatusStrip1.PerformLayout()
         Me.tabConfiguration.ResumeLayout(False)
+        CType(Me.dgvAlertsWithCounts, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1445,5 +1484,9 @@ Partial Class Form1
     Friend WithEvents btnGetTemplateID As System.Windows.Forms.Button
     Friend WithEvents txtTemplateID As System.Windows.Forms.TextBox
     Friend WithEvents lblMeanTimeStat As System.Windows.Forms.Label
+    Friend WithEvents dgvAlertsWithCounts As System.Windows.Forms.DataGridView
+    Friend WithEvents AlertID As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents ArtifactName As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents Description As System.Windows.Forms.DataGridViewTextBoxColumn
 
 End Class

@@ -102,16 +102,27 @@ Public Class AlertsFunctions
     End Function
 
 
-    Public Function GetAlertsWithCounts(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String, ByVal AlertID As String)
+    Public Function GetAlertsWithCounts(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String, _
+                                         Optional startIndex As Integer = 0, Optional pageSize As Integer = 500, _
+                                         Optional orderByColumnName As String = "AlertID", Optional orderByDirection As String = "Descending", _
+                                         Optional predicate As String = "null")
+
         Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api")
         client.CookieContainer = AuthToken.Data
-        Dim request = New RestSharp.RestRequest("alerts/getalertswithcounts/" & AlertID, Method.GET)
+
+        If Not predicate = "null" Then
+            predicate = "(" & predicate & ")"
+        End If
+
+        Dim request = New RestSharp.RestRequest("alerts/getalertswithcounts/" & startIndex & "/" & pageSize _
+                                                & "/" & orderByColumnName & "/" & orderByDirection _
+                                                & "/?predicate=" & predicate, Method.GET)
         request.RequestFormat = DataFormat.Json
         request.JsonSerializer = New RestSharpJsonNetSerializer
         Dim response As RestSharp.RestResponse = client.Execute(request)
         Select Case response.StatusCode
             Case Is > 200 < 400
-                Dim apiresponse = JsonConvert.DeserializeObject(Of Alert.AlertDetails)(response.Content)
+                Dim apiresponse = JsonConvert.DeserializeObject(Of Alert.AlertsWithCounts)(response.Content)
                 Return apiresponse
             Case Is >= 400
                 Return "Error: " & response.ErrorMessage
@@ -119,7 +130,7 @@ Public Class AlertsFunctions
                 Return "Error: " & response.ErrorMessage
         End Select
 
-        Return "If You See This.... Alerts-GetAlertDetails"
+        Return "If You See This.... Alerts-AlertsWithCounts"
     End Function
 
 End Class

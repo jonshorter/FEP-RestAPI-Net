@@ -241,6 +241,18 @@ Public Class Form1
         Dim meantime As List(Of MeanTimeStatistics) = R1Client.Functions.Alert.GetMeanTimeStatistics(Me.Auth, txtServer.Text)
         lblMeanTimeStat.Text = "Mean Time Stat: " & meantime(0).meanTime
 
+
+        Try
+            Dim rc As New R1SimpleRestClient.R1SimpleRestClient
+            Dim Alerts As AlertsWithCounts = rc.Functions.Alert.GetAlertsWithCounts(Me.Auth, txtServer.Text)
+            dgvAlertsWithCounts.Rows.Clear()
+
+            For Each alert As AlertDataDetails In Alerts.entities
+                dgvAlertsWithCounts.Rows.Add(New String() {alert.alertId, alert.artifactName, alert.description})
+            Next
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
     End Sub
 
     Private Sub dgvprojectjobs_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvprojectjobs.CellClick

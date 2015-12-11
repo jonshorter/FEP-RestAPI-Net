@@ -12,6 +12,11 @@
             Public responseTimeType As Integer
         End Class
 
+        Public Class AlertsWithCounts
+            Public entities As New List(Of AlertDataDetails)
+            Public totalCount As Integer
+        End Class
+
         Public Class AlertDetails
             Public alertDataDetails As New AlertDataDetails
             Public threatLookupDescription As String
