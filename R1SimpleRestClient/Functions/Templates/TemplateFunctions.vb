@@ -22,6 +22,25 @@ Public Class TemplateFunctions
      
     End Function
 
+    Public Function GetTemplateIdByName(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String, ByVal TemplateName As String) _
+    As String
+        Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api")
+        client.CookieContainer = AuthToken.Data.Cookies
+        Dim request = New RestSharp.RestRequest("templates", Method.GET)
+        request.RequestFormat = DataFormat.Json
+        request.JsonSerializer = New RestSharpJsonNetSerializer
+        Dim response As RestSharp.RestResponse = client.Execute(request)
+        Dim apiresponse = JsonConvert.DeserializeObject(Of ApiResponse(Of List(Of Templates.Templates)))(response.Content)
+        Dim fndtemplate As String = ""
+        For Each template In apiresponse.Data
+            If template.name = TemplateName Then
+                fndtemplate = template.templateID
+            End If
+        Next
+        Return fndtemplate
+
+    End Function
+
     Public Function GetCategories(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String) _
         As ApiResponse(Of List(Of Templates.Categories))
         Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api")
