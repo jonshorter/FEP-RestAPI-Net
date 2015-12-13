@@ -83,6 +83,20 @@ Public Class ProjectFunctions
         Return JsonConvert.DeserializeObject(Of Models.Response.ApiResponse(Of NewProjectDefinition))(response.Content)
 
     End Function
+
+    Public Function CreateProjectSimple(ByVal AuthToken As Response.AuthToken, ByVal Server As String, ByVal NewProject As SimpleNewProject) As ApiResponse(Of NewProjectDefinition)
+        Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api")
+        client.CookieContainer = AuthToken.Data.Cookies
+        Dim request = New RestSharp.RestRequest("projects", Method.POST)
+        request.RequestFormat = DataFormat.Json
+        request.JsonSerializer = New RestSharpJsonNetSerializer
+        request.AddHeader("Accept", "application/json")
+        request.Parameters.Clear()
+        request.AddParameter("application/json", Newtonsoft.Json.JsonConvert.SerializeObject(NewProject), ParameterType.RequestBody)
+        Dim response As RestSharp.RestResponse = client.Execute(request)
+        Return JsonConvert.DeserializeObject(Of Models.Response.ApiResponse(Of NewProjectDefinition))(response.Content)
+
+    End Function
     Public Function UpdateProject(ByVal AuthToken As Response.AuthToken, ByVal Server As String, ByVal UpdatedProject As ProjectPresenter) As ApiResponse(Of ProjectPresenter)
         Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api")
         client.CookieContainer = AuthToken.Data.Cookies

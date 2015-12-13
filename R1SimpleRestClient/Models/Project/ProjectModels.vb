@@ -2,6 +2,16 @@
 
 Namespace Models
     Public Class Project
+        Public Class SimpleNewProject
+            Public Property description As String
+            Public Property feedCheckingEnabled As Boolean
+            Public Property ftkCaseFolderPath As String
+            Public Property name As String
+            Public Property processingMode As ProcessModeEnum
+            Public Property responsiveFilePath As String
+        End Class
+
+
         Public Class NewProjectDefinition
             Public Property ProjectId As String
             Public Property Name As String
