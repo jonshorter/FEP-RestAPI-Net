@@ -22,7 +22,7 @@ Partial Class Form1
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.btnRefreshProjectList = New System.Windows.Forms.Button()
         Me.btnJobCreate = New System.Windows.Forms.Button()
         Me.dgvprojects = New System.Windows.Forms.DataGridView()
@@ -121,6 +121,7 @@ Partial Class Form1
         Me.txtapicallpostjson = New System.Windows.Forms.TextBox()
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.txtStatusStrip = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.Button1 = New System.Windows.Forms.Button()
         CType(Me.dgvprojects, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabTopMenu.SuspendLayout()
         Me.tabSettings.SuspendLayout()
@@ -195,9 +196,9 @@ Partial Class Form1
         '
         'colDelete
         '
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle2.BackColor = System.Drawing.Color.Red
-        Me.colDelete.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.Red
+        Me.colDelete.DefaultCellStyle = DataGridViewCellStyle1
         Me.colDelete.FillWeight = 5.0!
         Me.colDelete.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.colDelete.HeaderText = "Delete"
@@ -229,6 +230,7 @@ Partial Class Form1
         '
         'tabSettings
         '
+        Me.tabSettings.Controls.Add(Me.Button1)
         Me.tabSettings.Controls.Add(Me.GroupBox5)
         Me.tabSettings.Controls.Add(Me.GroupBox4)
         Me.tabSettings.Controls.Add(Me.GroupBox3)
@@ -1162,6 +1164,15 @@ Partial Class Form1
         Me.txtStatusStrip.Size = New System.Drawing.Size(142, 20)
         Me.txtStatusStrip.Text = "Authenticated: False"
         '
+        'Button1
+        '
+        Me.Button1.Location = New System.Drawing.Point(801, 71)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(75, 23)
+        Me.Button1.TabIndex = 30
+        Me.Button1.Text = "Button1"
+        Me.Button1.UseVisualStyleBackColor = True
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -1306,5 +1317,6 @@ Partial Class Form1
     Friend WithEvents txtFTKID As System.Windows.Forms.TextBox
     Friend WithEvents tabThreatFilters As System.Windows.Forms.TabPage
     Friend WithEvents listThreatFilters As System.Windows.Forms.ListBox
+    Friend WithEvents Button1 As System.Windows.Forms.Button
 
 End Class

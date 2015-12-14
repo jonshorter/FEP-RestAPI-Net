@@ -88,6 +88,21 @@ Public Class JobFunctions
 
     End Function
 
+    Public Function CancelJobTargetResults(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String, ByVal JobTargetResultID As List(Of String)) As ApiResponse(Of Boolean)
+
+        Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api/jobs")
+        client.CookieContainer = AuthToken.Data.Cookies
+        Dim request = New RestSharp.RestRequest("cancelJobTargetResults/", Method.POST)
+        request.RequestFormat = DataFormat.Json
+        request.JsonSerializer = New RestSharpJsonNetSerializer
+        request.AddHeader("Accept", "application/json")
+        request.Parameters.Clear()
+        request.AddParameter("application/json", Newtonsoft.Json.JsonConvert.SerializeObject(JobTargetResultID), ParameterType.RequestBody)
+        Dim response As RestSharp.RestResponse = client.Execute(request)
+        Return JsonConvert.DeserializeObject(Of Models.Response.ApiResponse(Of Boolean))(response.Content)
+
+    End Function
+
     Public Function GetJobStatusCounts(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String, ByVal JobID As String) As ApiResponse(Of JobInfoStatusCounts)
 
         Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api/jobs")

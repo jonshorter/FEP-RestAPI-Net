@@ -38,7 +38,17 @@ Public Class R1Authentication
             MsgBox(ex.Message)
         End Try
     End Sub
+    Public Sub Login(ByVal Server As String, ByVal Username As String, ByVal Password As String)
+        Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api/")
+    
+        Dim request = New RestSharp.RestRequest("authenticate", Method.GET)
+        request.RequestFormat = DataFormat.Json
+        request.JsonSerializer = New RestSharpJsonNetSerializer
+        Dim response As RestSharp.RestResponse = client.Execute(request)
 
+
+        '        Return "If You See This.... Logout"
+    End Sub
 
     Public Sub Logout(ByVal Server As String, ByVal AuthToken As AuthToken)
         Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api/")
