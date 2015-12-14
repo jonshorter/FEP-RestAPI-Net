@@ -10,7 +10,7 @@
         Public Property agentOS As String
         Public Property computerName As String
         Public Property ipAddressLastContacted As String
-        Public Property agentLastContacted As Date
-        Public Property createdDate As Date
+        Public Property agentLastContacted As String
+        Public Property createdDate As String
     End Class
 End Namespace

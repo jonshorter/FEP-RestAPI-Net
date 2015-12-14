@@ -7,4 +7,5 @@
     Public Groups As New GroupFunctions
     Public Configuration As New ConfigurationFunctions
     Public ThreatFilters As New ThreatFilterFunctions
+    Public Computers As New ComputerFunctions
 End Class
