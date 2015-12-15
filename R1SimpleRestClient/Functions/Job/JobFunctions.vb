@@ -117,6 +117,21 @@ Public Class JobFunctions
 
     End Function
 
+    Public Function SetJobSchedule(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String, ByVal JobID As String, ByVal IsIncremental As Boolean, ByVal Schedule As SchedulerEventCore) As ApiResponse(Of SchedulerEventCore)
+
+        Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api/jobs")
+        client.CookieContainer = AuthToken.Data.Cookies
+        Dim request = New RestSharp.RestRequest("jobSchedule/" & JobID & "/" & IsIncremental, Method.POST)
+        request.RequestFormat = DataFormat.Json
+        request.JsonSerializer = New RestSharpJsonNetSerializer
+        request.AddHeader("Accept", "application/json")
+        request.Parameters.Clear()
+        request.AddParameter("application/json", Newtonsoft.Json.JsonConvert.SerializeObject(Schedule), ParameterType.RequestBody)
+        Dim response As RestSharp.RestResponse = client.Execute(request)
+        Return JsonConvert.DeserializeObject(Of Models.Response.ApiResponse(Of SchedulerEventCore))(response.Content)
+
+    End Function
+
     Public Function ThreatScanOptioms(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String, ByVal JobResultID As String, ByVal TSOptions As Job2.ThreatScanJobOptions) As ApiResponse(Of Boolean)
 
         Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api/jobs")

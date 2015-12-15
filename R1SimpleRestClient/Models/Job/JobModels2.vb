@@ -1,4 +1,5 @@
 ﻿Imports System.ComponentModel
+Imports System.Xml.Serialization
 
 Namespace Models.Job2
     Public Class JobFromTemplate
@@ -551,7 +552,50 @@ Namespace Models.Job2
         Public Property disableHashing As Boolean
         Public Property disableStringContentSearch As Boolean
     End Class
-
+    Public Class SchedulerEventCore
+        Public InitialDateTime As DateTime
+        Public RecurrenceRange As RecurrenceRangeEnum
+        Public MaxRecurrenceCount As Integer
+        Public EndDateTime As System.Nullable(Of DateTime)
+        Public TimeUnit As TimeUnitEnum
+        Public Period As Integer
+        Public OrdinalUnit As OrdinalUnitEnum
+        Public Ordinal As Integer
+        Public OrdinalDayOfWeek As DayOfWeek
+        Public OrdinalMonth As Integer
+        <XmlArray(ElementName:="Weekday")> _
+        <XmlArrayItem(ElementName:="WeekdayItem")> _
+        Public Weekday As HashSet(Of DayOfWeek)
+        Public TimeZoneName As String
+        Public ClientData As String
+        Public RelativeStartTime As Boolean
+    End Class
+    Public Enum OrdinalUnitEnum
+        DayOfMonth
+        Day
+        DayOfWeek
+        Weekday
+        WeekendDay
+    End Enum
+    Public Enum EventState
+        Pending
+        Active
+        Canceled
+    End Enum
+    Public Enum RecurrenceRangeEnum
+        InitialOnly
+        NoEndDate
+        EndOnDate
+        EndAfterInstances
+    End Enum
+    Public Enum TimeUnitEnum
+        Minute
+        Hour
+        Day
+        Week
+        Month
+        Year
+    End Enum
     Public Class JobCustomTargetInfo
         Public Property computerGroupsFilter As Object
         Public Property computerAndOpdGroups As Object
