@@ -1,4 +1,6 @@
-﻿Namespace Models.Job2
+﻿Imports System.ComponentModel
+
+Namespace Models.Job2
     Public Class JobFromTemplate
         Public Property ComputerTargets As New List(Of String)
         Public Property ProjectId As String
@@ -161,6 +163,49 @@
         Public Property includeJamScoreTasks As Boolean
         Public Property includeJamScoreDrivers As Boolean
     End Class
+    Public Enum ThreatScanArchives
+        <Description("ACE")>
+        ACE
+        <Description("BZ")>
+        BZ
+        <Description("BZ2")>
+        BZ2
+        <Description("BZIP2")>
+        BZIP2
+        <Description("CAB")>
+        CAB
+        <Description("GZ")>
+        GZ
+        <Description("GZIP")>
+        GZIP
+        <Description("JAR")>
+        JAR
+        <Description("MSG")>
+        MSG
+        <Description("PDF")>
+        PDF
+        <Description("PST")>
+        PST
+        <Description("RAR")>
+        RAR
+        <Description("SEA")>
+        SEA
+        <Description("SIT")>
+        SIT
+        <Description("SITX")>
+        SITX
+        <Description("TAR")>
+        TAR
+        <Description("TGZ")>
+        TGZ
+        <Description("Z")>
+        Z
+        <Description("ZIP")>
+        ZIP
+        <Description("7Z")>
+        SevenZip
+    End Enum
+
 
     Public Class VolatileScheduleDefinition
         Public Property isScheduledJob As Boolean
