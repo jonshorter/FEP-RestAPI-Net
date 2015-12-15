@@ -6,6 +6,7 @@ Imports R1SimpleRestClient.Models.Report
 Imports R1SimpleRestClient.Models.Job
 Imports R1SimpleRestClient.Models
 Imports R1SimpleRestClient.Models.Job2
+Imports R1SimpleRestClient.Models.Enums
 
 
 Public Class JobFunctions
@@ -20,7 +21,20 @@ Public Class JobFunctions
         request.AddParameter("application/json", Newtonsoft.Json.JsonConvert.SerializeObject(Job), ParameterType.RequestBody)
         Dim response As RestSharp.RestResponse = client.Execute(request)
         Return JsonConvert.DeserializeObject(Of Models.Response.ApiResponse(Of List(Of JobInfo57)))(response.Content)
-    
+
+    End Function
+
+    Public Function GetSetJobStatus(ByVal AuthToken As Response.AuthToken, ByVal Server As String, ByVal JobID As String, Optional Status As JobAction = JobAction.Status) As ApiResponse(Of List(Of JobStatus))
+        Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api")
+        client.CookieContainer = AuthToken.Data.Cookies
+        Dim request = New RestSharp.RestRequest("jobs/" & JobID & "/" & Status, Method.GET)
+        request.RequestFormat = DataFormat.Json
+        request.JsonSerializer = New RestSharpJsonNetSerializer
+        request.AddHeader("Accept", "application/json")
+        request.Parameters.Clear()
+        Dim response As RestSharp.RestResponse = client.Execute(request)
+        Return JsonConvert.DeserializeObject(Of Models.Response.ApiResponse(Of List(Of JobStatus)))(response.Content)
+
     End Function
 
     Public Function CreateJobFromTemplate(ByVal AuthToken As Response.AuthToken, ByVal Server As String, ByVal Job As JobFromTemplate, ByVal Execute As Boolean) As ApiResponse(Of String)
@@ -73,7 +87,7 @@ Public Class JobFunctions
         request.JsonSerializer = New RestSharpJsonNetSerializer
         Dim response As RestSharp.RestResponse = client.Execute(request)
         Return JsonConvert.DeserializeObject(Of Models.Response.ApiResponse(Of JobInfo))(response.Content)
-    
+
     End Function
 
     Public Function CancelJobResult(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String, ByVal JobResultID As String, ByVal CancelSchedule As Boolean) As ApiResponse(Of JobInfo)
@@ -103,6 +117,21 @@ Public Class JobFunctions
 
     End Function
 
+    Public Function ThreatScanOptioms(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String, ByVal JobResultID As String, ByVal TSOptions As Job2.ThreatScanJobOptions) As ApiResponse(Of Boolean)
+
+        Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api/jobs")
+        client.CookieContainer = AuthToken.Data.Cookies
+        Dim request = New RestSharp.RestRequest("threatScanOptions/" & JobResultID, Method.POST)
+        request.RequestFormat = DataFormat.Json
+        request.JsonSerializer = New RestSharpJsonNetSerializer
+        request.AddHeader("Accept", "application/json")
+        request.Parameters.Clear()
+        request.AddParameter("application/json", Newtonsoft.Json.JsonConvert.SerializeObject(TSOptions), ParameterType.RequestBody)
+        Dim response As RestSharp.RestResponse = client.Execute(request)
+        Return JsonConvert.DeserializeObject(Of Models.Response.ApiResponse(Of Boolean))(response.Content)
+
+    End Function
+
     Public Function GetJobStatusCounts(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String, ByVal JobID As String) As ApiResponse(Of JobInfoStatusCounts)
 
         Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api/jobs")
@@ -115,7 +144,7 @@ Public Class JobFunctions
 
     End Function
 
- 
+
     Public Function GetTargetStatus(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String, ByVal JobID As String, ByVal ItemID As String) As ApiResponse(Of JobTargetsInfo)
 
         Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api/jobs")

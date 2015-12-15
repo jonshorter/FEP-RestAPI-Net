@@ -490,15 +490,15 @@
     End Class
 
     Public Class ThreatScanJobOptions
-        Public Property threatFilters As Object()
-        Public Property threatScanSelection As Integer
+        Public Property threatFilters As Integer()
+        Public Property threatScanSelection As String
         Public Property authoredByFilter As Object
         Public Property categoryFilter As Object
         Public Property groupFilter As Object
         Public Property sourceFilter As Object
         Public Property initialCreationDateFilter As Object
         Public Property enableArchiveDrillDown As Boolean
-        Public Property archiveDrillDownExtensions As Object
+        Public Property archiveDrillDownExtensions As String
         Public Property enableIgnoreIOCFileSize As Boolean
         Public Property enableIgnoreYARAFileSize As Boolean
         Public Property ignoreIOCFileSizeBytes As Integer
@@ -700,6 +700,28 @@
         Public Property NewJobName As String
         Public Property ResubmissionType As ResubmitType
         Public Property SelectedItemIds As New List(Of String)
+    End Class
+
+    Public Class JobStatus
+        Public Property JobId As String
+        Public Property Status As Integer
+        Public Property StartDate As String
+        Public Property EndDate As String
+        Public Property ProcessingStatus As Integer
+        Public Property StartProcessingDate As String
+        Public Property EndProcessingDate As String
+        Public Property PercentComplete As Integer
+        Public Property Targets As Integer
+        Public Property Hits As Integer
+        Public Property Errors As Integer
+        Public Property PercentProcessingComplete As Integer
+        Public Property TotalCollectedSize As Long
+        Public Property ElapsedTime As String
+        Public Property TotalJobResultCount As Integer
+        Public Property Completed As Integer
+        Public Property Failed As Integer
+
+
     End Class
     Public Enum ResubmitType
         FailedOnly = 0
