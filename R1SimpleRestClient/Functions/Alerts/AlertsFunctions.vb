@@ -105,4 +105,44 @@ Public Class AlertsFunctions
         Return apiresponse
     End Function
 
+    Public Function GetAlertGroupByStats(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String, _
+                                     ByVal GroupByProperty As Alert.AlertGroupProperty, Optional startIndex As Integer = 0, Optional pageSize As Integer = 500, _
+                                     Optional orderByColumnName As String = "AlertID", Optional orderByDirection As String = "Descending", _
+                                     Optional predicate As String = "null") As Alert.AlertStats
+
+        Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api")
+        client.CookieContainer = AuthToken.Data.Cookies
+
+        If Not predicate = "null" Then
+            predicate = "(" & predicate & ")"
+        End If
+
+        Dim request = New RestSharp.RestRequest("alerts/getalertgroupbystats/" & GroupByProperty & "/" & startIndex & "/" & pageSize _
+                                                & "/" & orderByColumnName & "/" & orderByDirection _
+                                                & "/?predicate=" & predicate, Method.GET)
+        request.RequestFormat = DataFormat.Json
+        request.JsonSerializer = New RestSharpJsonNetSerializer
+        Dim response As RestSharp.RestResponse = client.Execute(request)
+        Dim apiresponse = JsonConvert.DeserializeObject(Of Alert.AlertStats)(response.Content)
+        Return apiresponse
+    End Function
+
+    Public Function GetAlertsOverTime(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String, _
+                                   ByVal timeSpan As Alert.TimeSpanGrouping, Optional predicate As String = "null") As Alert.AlertsOverTime
+
+        Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api")
+        client.CookieContainer = AuthToken.Data.Cookies
+
+        If Not predicate = "null" Then
+            predicate = "(" & predicate & ")"
+        End If
+
+        Dim request = New RestSharp.RestRequest("alerts/getAlertsOverTime/" & timeSpan & "/" & "/?predicate=" & predicate, Method.GET)
+        request.RequestFormat = DataFormat.Json
+        request.JsonSerializer = New RestSharpJsonNetSerializer
+        Dim response As RestSharp.RestResponse = client.Execute(request)
+        Dim apiresponse = JsonConvert.DeserializeObject(Of Alert.AlertsOverTime)(response.Content)
+        Return apiresponse
+    End Function
+
 End Class

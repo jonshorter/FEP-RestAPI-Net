@@ -9,11 +9,25 @@
 
         Public Class MeanTimeStatistics
             Public Property meanTime As String
-            Public Property responseTimeType As Integer
+            Public Property responseTimeType As MeanResponseTimeType
         End Class
 
         Public Class AlertsWithCounts
             Public Property entities As New List(Of AlertDataDetails)
+            Public Property totalCount As Integer
+        End Class
+
+        Public Class AlertStatEntity
+            Public Property description As String
+            Public Property label As String
+            Public Property labelEnumId As Integer
+            Public Property percentage As Double
+            Public Property value As Double
+        End Class
+
+
+        Public Class AlertStats
+            Public Property entities As AlertStatEntity()
             Public Property totalCount As Integer
         End Class
 
@@ -49,6 +63,41 @@
             Public Property datasourceAppDbId As String
             Public Property virusTotalMax As String
         End Class
+
+        Public Enum AlertGroupProperty
+            Severity
+            Source
+            ArtifactName
+            Target
+            alertStatus
+            AlertSourceType
+
+        End Enum
+
+        Public Enum TimeSpanGrouping
+            Hourly
+            Daily
+            Weekly
+        End Enum
+
+        Public Enum MeanResponseTimeType
+            MeanTimeToValidate
+            MeanTimeToResponse
+            MeanTimeToResolve
+            MeanTimeToRemediate
+        End Enum
+ 
+
+        Public Class AlertOverTimeData
+            Public Property x As String
+            Public Property y As Integer()
+        End Class
+
+        Public Class AlertsOverTime
+            Public Property series As String()
+            Public Property data As AlertOverTimeData()
+        End Class
+
 
     End Class
 End Namespace
