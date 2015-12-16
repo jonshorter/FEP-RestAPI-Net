@@ -553,23 +553,24 @@ Namespace Models.Job2
         Public Property disableStringContentSearch As Boolean
     End Class
     Public Class SchedulerEventCore
-        Public InitialDateTime As DateTime
-        Public RecurrenceRange As RecurrenceRangeEnum
-        Public MaxRecurrenceCount As Integer
-        Public EndDateTime As System.Nullable(Of DateTime)
-        Public TimeUnit As TimeUnitEnum
-        Public Period As Integer
-        Public OrdinalUnit As OrdinalUnitEnum
-        Public Ordinal As Integer
-        Public OrdinalDayOfWeek As DayOfWeek
-        Public OrdinalMonth As Integer
+        Public Property InitialDateTime As DateTime
+        Public Property RecurrenceRange As RecurrenceRangeEnum
+        Public Property MaxRecurrenceCount As Integer
+        Public Property EndDateTime As System.Nullable(Of DateTime)
+        Public Property TimeUnit As TimeUnitEnum
+        Public Property Period As Integer
+        Public Property OrdinalUnit As OrdinalUnitEnum
+        Public Property Ordinal As Integer
+        Public Property OrdinalDayOfWeek As DayOfWeek
+        Public Property OrdinalMonth As Integer
         <XmlArray(ElementName:="Weekday")> _
         <XmlArrayItem(ElementName:="WeekdayItem")> _
-        Public Weekday As HashSet(Of DayOfWeek)
-        Public TimeZoneName As String
-        Public ClientData As String
-        Public RelativeStartTime As Boolean
+        Public Property Weekday As HashSet(Of DayOfWeek)
+        Public Property TimeZoneName As String
+        Public Property ClientData As String
+        Public Property RelativeStartTime As Boolean
     End Class
+ 
     Public Enum OrdinalUnitEnum
         DayOfMonth
         Day
