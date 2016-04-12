@@ -13,6 +13,7 @@ Imports R1SimpleRestClient.Models.Enums
 Imports R1SimpleRestClient.Models.Project
 Imports R1SimpleRestClient.Models.Alert
 Imports System.Collections.ObjectModel
+Imports R1SimpleRestClient
 
 Public Class Form1
     Public Auth As AuthToken = New R1SimpleRestClient.Models.Response.AuthToken
@@ -45,9 +46,9 @@ Public Class Form1
         Else
             MsgBox(JobResponse.Error.Message)
         End If
-    
 
-      
+
+
 
     End Sub
 
@@ -55,7 +56,7 @@ Public Class Form1
         txtServer.Text = My.Settings.Server
         txtUsername.Text = My.Settings.Username
         txtPassword.Text = My.Settings.Password
-        tabTopMenu.TabPages.Remove(tabTesting)
+        ' tabTopMenu.TabPages.Remove(tabTesting)
     End Sub
     Private Sub jobload(callback As Action(Of RestSharp.RestResponse, RestSharp.RestRequestAsyncHandle))
 
@@ -154,7 +155,7 @@ Public Class Form1
         comboJobAction.SelectedItem = R1SimpleRestClient.Models.Enums.JobAction.Create
     End Sub
 
-  
+
     Private Sub btnCreateProject_Click(sender As Object, e As EventArgs) Handles btnCreateProject.Click
         Dim newproject As New NewProjectDefinition
         newproject.Name = txtProjectName.Text
@@ -335,8 +336,8 @@ Public Class Form1
 
             End If
         Else
-                Dim R1Auth As New R1SimpleRestClient.R1Authentication
-                Me.Auth = R1Auth.AuthenticateWithR1(txtServer.Text, txtUsername.Text, txtPassword.Text)
+            Dim R1Auth As New R1SimpleRestClient.R1Authentication
+            Me.Auth = R1Auth.AuthenticateWithR1(txtServer.Text, txtUsername.Text, txtPassword.Text)
             If Me.Auth.Error = False Then
                 txtStatusStrip.Text = "Authenticated: True"
                 tabTopMenu.TabPages.Add(tabTesting)
@@ -403,7 +404,7 @@ Public Class Form1
     End Sub
 
     Private Sub tabTemplates_Click(sender As Object, e As EventArgs) Handles tabTemplates.Click
-     
+
     End Sub
 
     Private Sub btnIsIWAMode_Click(sender As Object, e As EventArgs) Handles btnIsIWAMode.Click
@@ -478,11 +479,21 @@ Public Class Form1
         Dim rc As New R1SimpleRestClient.R1SimpleRestClient
 
         listThreatFilters.Items.Clear()
-  
+
         Dim apiresponse = rc.Functions.ThreatFilters.GetThreatFilters(Me.Auth, txtServer.Text)
         For Each tf In apiresponse.Data
-            listThreatFilters.Items.Add(tf.name)
+            listThreatFilters.Items.Add(tf.Name)
         Next
 
+    End Sub
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        Dim X As New R1SimpleRestClient.R1SimpleRestClient
+        X.Authenticate(txtServer.Text, txtUsername.Text, txtPassword.Text)
+        If X.Token <> "" Then
+            txtStatusStrip.Text = "Authenticated: True"
+            tabTopMenu.TabPages.Add(tabTesting)
+            tabTopMenu.SelectedTab = tabTesting
+        End If
     End Sub
 End Class

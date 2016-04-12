@@ -32,6 +32,7 @@ Partial Class Form1
         Me.colCreateJob = New System.Windows.Forms.DataGridViewButtonColumn()
         Me.tabTopMenu = New System.Windows.Forms.TabControl()
         Me.tabSettings = New System.Windows.Forms.TabPage()
+        Me.Button1 = New System.Windows.Forms.Button()
         Me.GroupBox5 = New System.Windows.Forms.GroupBox()
         Me.btnLogout = New System.Windows.Forms.Button()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
@@ -121,7 +122,6 @@ Partial Class Form1
         Me.txtapicallpostjson = New System.Windows.Forms.TextBox()
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.txtStatusStrip = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.Button1 = New System.Windows.Forms.Button()
         CType(Me.dgvprojects, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tabTopMenu.SuspendLayout()
         Me.tabSettings.SuspendLayout()
@@ -242,6 +242,15 @@ Partial Class Form1
         Me.tabSettings.TabIndex = 0
         Me.tabSettings.Text = "Settings"
         Me.tabSettings.UseVisualStyleBackColor = True
+        '
+        'Button1
+        '
+        Me.Button1.Location = New System.Drawing.Point(801, 71)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(75, 23)
+        Me.Button1.TabIndex = 30
+        Me.Button1.Text = "Button1"
+        Me.Button1.UseVisualStyleBackColor = True
         '
         'GroupBox5
         '
@@ -1163,15 +1172,6 @@ Partial Class Form1
         Me.txtStatusStrip.Name = "txtStatusStrip"
         Me.txtStatusStrip.Size = New System.Drawing.Size(142, 20)
         Me.txtStatusStrip.Text = "Authenticated: False"
-        '
-        'Button1
-        '
-        Me.Button1.Location = New System.Drawing.Point(801, 71)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(75, 23)
-        Me.Button1.TabIndex = 30
-        Me.Button1.Text = "Button1"
-        Me.Button1.UseVisualStyleBackColor = True
         '
         'Form1
         '
