@@ -16,6 +16,7 @@ Imports System.Collections.ObjectModel
 Imports R1SimpleRestClient
 
 Public Class Form1
+    Public RestClient As New R1SimpleRestClient.R1SimpleRestClient
     Public Auth As AuthToken = New R1SimpleRestClient.Models.Response.AuthToken
     Dim currproject As String = 0
 
@@ -56,7 +57,7 @@ Public Class Form1
         txtServer.Text = My.Settings.Server
         txtUsername.Text = My.Settings.Username
         txtPassword.Text = My.Settings.Password
-        ' tabTopMenu.TabPages.Remove(tabTesting)
+        tabTopMenu.TabPages.Remove(tabTesting)
     End Sub
     Private Sub jobload(callback As Action(Of RestSharp.RestResponse, RestSharp.RestRequestAsyncHandle))
 
@@ -111,8 +112,8 @@ Public Class Form1
     End Sub
     Private Sub btnAPICallCustom_Click(sender As Object, e As EventArgs) Handles btnAPICallCustom.Click
         Try
-            Dim R1Client As New R1SimpleRestClient.R1SimpleRestClient
-            Dim response = R1Client.R1RestRequest(Me.Auth, txtServer.Text, cmbRESTOPTION.SelectedItem, txtapicallpath.Text, txtapicallpostjson.Text)
+
+            Dim response = RestClient.CustomRequest(cmbRESTOPTION.SelectedItem, txtapicallpath.Text, txtapicallpostjson.Text)
             MsgBox(response.ToString)
         Catch ex As Exception
             MsgBox(ex.Message)
@@ -129,30 +130,30 @@ Public Class Form1
 
     Private Sub tabJobs_Enter(sender As Object, e As EventArgs) Handles tabJobs.Enter
 
-        Try
-            Dim rc As New R1SimpleRestClient.R1SimpleRestClient
-            Dim Jobs As ApiResponse(Of JobData) = rc.Functions.Job.GetAllJobs(Me.Auth, txtServer.Text)
-            dgvJobs.Rows.Clear()
+        'Try
+        '    Dim rc As New R1SimpleRestClient.R1SimpleRestClient
+        '    Dim Jobs As ApiResponse(Of JobData) = rc.Functions.Job.GetAllJobs(Me.Auth, txtServer.Text)
+        '    dgvJobs.Rows.Clear()
 
-            For Each job As JobInfo In Jobs.Data.jobs
-                dgvJobs.Rows.Add(New String() {job.Name, job.JobType, job.Status, job.JobID.ToString})
+        '    For Each job As JobInfo In Jobs.Data.jobs
+        '        dgvJobs.Rows.Add(New String() {job.Name, job.JobType, job.Status, job.JobID.ToString})
 
-            Next
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        End Try
+        '    Next
+        'Catch ex As Exception
+        '    MsgBox(ex.Message)
+        'End Try
 
-        comboJobType.Items.Clear()
-        For Each item In GetType(JobTypes).GetEnumValues
-            comboJobType.Items.Add(item)
-        Next
-        comboJobType.SelectedItem = R1SimpleRestClient.Models.Enums.JobTypes.SoftwareInventory
+        'comboJobType.Items.Clear()
+        'For Each item In GetType(JobTypes).GetEnumValues
+        '    comboJobType.Items.Add(item)
+        'Next
+        'comboJobType.SelectedItem = R1SimpleRestClient.Models.Enums.JobTypes.SoftwareInventory
 
-        comboJobAction.Items.Clear()
-        For Each item In GetType(R1SimpleRestClient.Models.Enums.JobAction).GetEnumValues
-            comboJobAction.Items.Add(item)
-        Next
-        comboJobAction.SelectedItem = R1SimpleRestClient.Models.Enums.JobAction.Create
+        'comboJobAction.Items.Clear()
+        'For Each item In GetType(R1SimpleRestClient.Models.Enums.JobAction).GetEnumValues
+        '    comboJobAction.Items.Add(item)
+        'Next
+        'comboJobAction.SelectedItem = R1SimpleRestClient.Models.Enums.JobAction.Create
     End Sub
 
 
@@ -170,16 +171,16 @@ Public Class Form1
     End Sub
 
     Private Sub tabCreateProject_Enter(sender As Object, e As EventArgs) Handles tabCreateProject.Enter
-        Dim rc As New R1SimpleRestClient.R1SimpleRestClient
-        txtProjectCaseFolder.Text = rc.Functions.Configuration.GetDefaultProjectsPath(Me.Auth, txtServer.Text).Data
-        txtProjectJobDataFolder.Text = rc.Functions.Configuration.GetDefaultJobDataPath(Me.Auth, txtServer.Text).Data
+        'Dim rc As New R1SimpleRestClient.R1SimpleRestClient
+        'txtProjectCaseFolder.Text = rc.Functions.Configuration.GetDefaultProjectsPath(Me.Auth, txtServer.Text).Data
+        'txtProjectJobDataFolder.Text = rc.Functions.Configuration.GetDefaultJobDataPath(Me.Auth, txtServer.Text).Data
 
 
-        cmbProjectProcessingMode.Items.Clear()
-        For Each item In GetType(ProcessModeEnum).GetEnumValues
-            cmbProjectProcessingMode.Items.Add(item)
-        Next
-        cmbProjectProcessingMode.SelectedItem = R1SimpleRestClient.Models.Enums.ProcessModeEnum.Security
+        'cmbProjectProcessingMode.Items.Clear()
+        'For Each item In GetType(ProcessModeEnum).GetEnumValues
+        '    cmbProjectProcessingMode.Items.Add(item)
+        'Next
+        'cmbProjectProcessingMode.SelectedItem = R1SimpleRestClient.Models.Enums.ProcessModeEnum.Security
 
 
 
@@ -189,15 +190,16 @@ Public Class Form1
     End Sub
     Private Sub tabProjects_Enter(sender As Object, e As EventArgs) Handles tabProjects.Enter
         Try
-            Dim rc As New R1SimpleRestClient.R1SimpleRestClient
-            Dim Projects As List(Of ProjectPresenter) = rc.Functions.Project.GetProjectList(Me.Auth, txtServer.Text).Data
-            dgvprojects.Rows.Clear()
 
-            For Each project In Projects
-                dgvprojects.Rows.Add(New String() {project.Name, project.ProjectId.ToString, "X", "0"})
-            Next
+            '    Dim rc As New R1SimpleRestClient.R1SimpleRestClient
+            Dim Projects As List(Of ProjectPresenter) = RestClient.Functions.Project.GetProjectList(Me.Auth, txtServer.Text).Data
+            '    dgvprojects.Rows.Clear()
+
+            '    For Each project In Projects
+            '        dgvprojects.Rows.Add(New String() {project.Name, project.ProjectId.ToString, "X", "0"})
+            '    Next
         Catch ex As Exception
-            MsgBox(ex.Message)
+            '    MsgBox(ex.Message)
         End Try
 
     End Sub
@@ -228,33 +230,33 @@ Public Class Form1
     Private Sub tabAlerts_Enter(sender As Object, e As EventArgs) Handles tabAlerts.Enter
 
 
-        Dim R1Client As New R1SimpleRestClient.R1SimpleRestClient
+        'Dim R1Client As New R1SimpleRestClient.R1SimpleRestClient
 
-        lblTotalResponses.Text = "Total Responses: " & R1Client.Functions.Alert.GetTotalResponses(Me.Auth, txtServer.Text)
+        'lblTotalResponses.Text = "Total Responses: " & R1Client.Functions.Alert.GetTotalResponses(Me.Auth, txtServer.Text)
 
-        lblTotalAutomatedResponses.Text = "Total Automated Responses: " & R1Client.Functions.Alert.GetTotalAutomatedResponses(Me.Auth, txtServer.Text)
+        'lblTotalAutomatedResponses.Text = "Total Automated Responses: " & R1Client.Functions.Alert.GetTotalAutomatedResponses(Me.Auth, txtServer.Text)
 
-        lstAlertSourceBreakdown.Items.Clear()
-        Dim alertSrcBreakdowns As List(Of AlertSourceBreakdownResult) = R1Client.Functions.Alert.GetAlertSourceBreakdown(Me.Auth, txtServer.Text)
-        For Each alertSrc As AlertSourceBreakdownResult In alertSrcBreakdowns
-            lstAlertSourceBreakdown.Items.Add(alertSrc.Name & " " & alertSrc.Count)
-        Next
+        'lstAlertSourceBreakdown.Items.Clear()
+        'Dim alertSrcBreakdowns As List(Of AlertSourceBreakdownResult) = R1Client.Functions.Alert.GetAlertSourceBreakdown(Me.Auth, txtServer.Text)
+        'For Each alertSrc As AlertSourceBreakdownResult In alertSrcBreakdowns
+        '    lstAlertSourceBreakdown.Items.Add(alertSrc.Name & " " & alertSrc.Count)
+        'Next
 
-        Dim meantime As List(Of MeanTimeStatistics) = R1Client.Functions.Alert.GetMeanTimeStatistics(Me.Auth, txtServer.Text)
-        lblMeanTimeStat.Text = "Mean Time Stat: " & meantime(0).meanTime
+        'Dim meantime As List(Of MeanTimeStatistics) = R1Client.Functions.Alert.GetMeanTimeStatistics(Me.Auth, txtServer.Text)
+        'lblMeanTimeStat.Text = "Mean Time Stat: " & meantime(0).meanTime
 
 
-        Try
-            Dim rc As New R1SimpleRestClient.R1SimpleRestClient
-            Dim Alerts As AlertsWithCounts = rc.Functions.Alert.GetAlertsWithCounts(Me.Auth, txtServer.Text)
-            dgvAlertsWithCounts.Rows.Clear()
+        'Try
+        '    Dim rc As New R1SimpleRestClient.R1SimpleRestClient
+        '    Dim Alerts As AlertsWithCounts = rc.Functions.Alert.GetAlertsWithCounts(Me.Auth, txtServer.Text)
+        '    dgvAlertsWithCounts.Rows.Clear()
 
-            For Each alert As AlertDataDetails In Alerts.entities
-                dgvAlertsWithCounts.Rows.Add(New String() {alert.alertId, alert.artifactName, alert.description})
-            Next
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        End Try
+        '    For Each alert As AlertDataDetails In Alerts.entities
+        '        dgvAlertsWithCounts.Rows.Add(New String() {alert.alertId, alert.artifactName, alert.description})
+        '    Next
+        'Catch ex As Exception
+        '    MsgBox(ex.Message)
+        'End Try
     End Sub
 
     Private Sub dgvprojectjobs_CellClick(sender As Object, e As DataGridViewCellEventArgs)
@@ -320,7 +322,7 @@ Public Class Form1
 
 
 
-    Private Sub btnAuth_Click(sender As Object, e As EventArgs) Handles btnAuth.Click
+    Private Sub btnAuth_Click(sender As Object, e As EventArgs)
         If tabTopMenu.TabPages.Contains(tabTesting) Then
             If Auth.Data.Cookies.Count > 0 Then
                 MsgBox("Already Logged In")
@@ -487,13 +489,17 @@ Public Class Form1
 
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        Dim X As New R1SimpleRestClient.R1SimpleRestClient
-        X.Authenticate(txtServer.Text, txtUsername.Text, txtPassword.Text)
-        If X.Token <> "" Then
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles btnAuth6.Click
+        RestClient.Username = txtUsername.Text
+        RestClient.Password = txtPassword.Text
+        RestClient.Server = txtServer.Text
+        RestClient.Authenticate()
+        If RestClient.Authenticated = True Then
             txtStatusStrip.Text = "Authenticated: True"
             tabTopMenu.TabPages.Add(tabTesting)
             tabTopMenu.SelectedTab = tabTesting
         End If
     End Sub
+
+
 End Class

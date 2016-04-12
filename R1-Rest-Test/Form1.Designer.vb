@@ -32,11 +32,10 @@ Partial Class Form1
         Me.colCreateJob = New System.Windows.Forms.DataGridViewButtonColumn()
         Me.tabTopMenu = New System.Windows.Forms.TabControl()
         Me.tabSettings = New System.Windows.Forms.TabPage()
-        Me.Button1 = New System.Windows.Forms.Button()
         Me.GroupBox5 = New System.Windows.Forms.GroupBox()
         Me.btnLogout = New System.Windows.Forms.Button()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
-        Me.btnAuth = New System.Windows.Forms.Button()
+        Me.btnAuth6 = New System.Windows.Forms.Button()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.txtServer = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
@@ -230,7 +229,6 @@ Partial Class Form1
         '
         'tabSettings
         '
-        Me.tabSettings.Controls.Add(Me.Button1)
         Me.tabSettings.Controls.Add(Me.GroupBox5)
         Me.tabSettings.Controls.Add(Me.GroupBox4)
         Me.tabSettings.Controls.Add(Me.GroupBox3)
@@ -242,15 +240,6 @@ Partial Class Form1
         Me.tabSettings.TabIndex = 0
         Me.tabSettings.Text = "Settings"
         Me.tabSettings.UseVisualStyleBackColor = True
-        '
-        'Button1
-        '
-        Me.Button1.Location = New System.Drawing.Point(801, 71)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(75, 23)
-        Me.Button1.TabIndex = 30
-        Me.Button1.Text = "Button1"
-        Me.Button1.UseVisualStyleBackColor = True
         '
         'GroupBox5
         '
@@ -276,7 +265,7 @@ Partial Class Form1
         '
         'GroupBox4
         '
-        Me.GroupBox4.Controls.Add(Me.btnAuth)
+        Me.GroupBox4.Controls.Add(Me.btnAuth6)
         Me.GroupBox4.Location = New System.Drawing.Point(437, 21)
         Me.GroupBox4.Margin = New System.Windows.Forms.Padding(4)
         Me.GroupBox4.Name = "GroupBox4"
@@ -286,15 +275,14 @@ Partial Class Form1
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "Login"
         '
-        'btnAuth
+        'btnAuth6
         '
-        Me.btnAuth.Location = New System.Drawing.Point(85, 48)
-        Me.btnAuth.Margin = New System.Windows.Forms.Padding(4)
-        Me.btnAuth.Name = "btnAuth"
-        Me.btnAuth.Size = New System.Drawing.Size(100, 28)
-        Me.btnAuth.TabIndex = 26
-        Me.btnAuth.Text = "Login"
-        Me.btnAuth.UseVisualStyleBackColor = True
+        Me.btnAuth6.Location = New System.Drawing.Point(85, 35)
+        Me.btnAuth6.Name = "btnAuth6"
+        Me.btnAuth6.Size = New System.Drawing.Size(100, 28)
+        Me.btnAuth6.TabIndex = 30
+        Me.btnAuth6.Text = "Login "
+        Me.btnAuth6.UseVisualStyleBackColor = True
         '
         'GroupBox3
         '
@@ -1280,7 +1268,6 @@ Partial Class Form1
     Friend WithEvents Label20 As System.Windows.Forms.Label
     Friend WithEvents pgProject As System.Windows.Forms.PropertyGrid
     Friend WithEvents Label21 As System.Windows.Forms.Label
-    Friend WithEvents btnAuth As System.Windows.Forms.Button
     Friend WithEvents GroupBox3 As System.Windows.Forms.GroupBox
     Friend WithEvents GroupBox4 As System.Windows.Forms.GroupBox
     Friend WithEvents StatusStrip1 As System.Windows.Forms.StatusStrip
@@ -1317,6 +1304,6 @@ Partial Class Form1
     Friend WithEvents txtFTKID As System.Windows.Forms.TextBox
     Friend WithEvents tabThreatFilters As System.Windows.Forms.TabPage
     Friend WithEvents listThreatFilters As System.Windows.Forms.ListBox
-    Friend WithEvents Button1 As System.Windows.Forms.Button
+    Friend WithEvents btnAuth6 As System.Windows.Forms.Button
 
 End Class
