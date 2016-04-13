@@ -68,7 +68,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Functions\Alerts\AlertsFunctions.vb" />
-    <Compile Include="Functions\Authentication\AuthenticationFunctions.vb" />
     <Compile Include="Functions\Computers\ComputerFunctions.vb" />
     <Compile Include="Functions\Configuration\ConfigurationFunctions.vb" />
     <Compile Include="Functions\ClientFunctions.vb" />

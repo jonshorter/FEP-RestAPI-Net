@@ -9,12 +9,9 @@ Imports FEPRestClient.Models
 
 Public Class ComputerFunctions
 
-    Public Function GetGroupComputers(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String, _
-                                      Optional GroupID As String = "", Optional Count As Integer = 100, _
+    Public Function GetGroupComputers(Optional GroupID As String = "", Optional Count As Integer = 100, _
                                       Optional Start As Integer = 0, Optional SearchText As String = "") As ApiResponse(Of ComputersInGroup)
-        Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api")
-        client.CookieContainer = AuthToken.Data.Cookies
-
+     
         If Not GroupID = "" Then
             GroupID = "?groupid=" & GroupID & "&count=" & Count & "&start=" & Start
         End If
@@ -27,21 +24,23 @@ Public Class ComputerFunctions
         Dim request = New RestSharp.RestRequest("computers/GetGroupComputers" & GroupID, Method.GET)
         request.RequestFormat = DataFormat.Json
         request.JsonSerializer = New RestSharpJsonNetSerializer
-        Dim response As RestSharp.RestResponse = client.Execute(request)
+        request.AddHeader("Authorization", "bearer " & Client.Token)
+        Dim response As RestSharp.RestResponse = Client.RestClient.Execute(request)
+        Client.UpdateToken(response.Headers)
+
         Return JsonConvert.DeserializeObject(Of ApiResponse(Of ComputersInGroup))(response.Content)
 
     End Function
-    Public Function GetGroupComputerIds(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String, _
-                                        Optional GroupId As String = "") As ApiResponse(Of List(Of String))
-        Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api")
-        client.CookieContainer = AuthToken.Data.Cookies
+    Public Function GetGroupComputerIds(Optional GroupId As String = "") As ApiResponse(Of List(Of String))
         If Not GroupId = "" Then
             GroupId = "?groupid=" & GroupId
         End If
         Dim request = New RestSharp.RestRequest("computers/GetGroupComputerIds" & GroupId, Method.GET)
         request.RequestFormat = DataFormat.Json
         request.JsonSerializer = New RestSharpJsonNetSerializer
-        Dim response As RestSharp.RestResponse = client.Execute(request)
+        request.AddHeader("Authorization", "bearer " & Client.Token)
+        Dim response As RestSharp.RestResponse = Client.RestClient.Execute(request)
+        Client.UpdateToken(response.Headers)
         Return JsonConvert.DeserializeObject(Of ApiResponse(Of List(Of String)))(response.Content)
 
     End Function

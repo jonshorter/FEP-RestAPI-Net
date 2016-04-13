@@ -9,17 +9,15 @@ Imports FEPRestClient.Models
 
 Public Class UserFunctions
 
-    Public Function findUserByLastnameOrUsername(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String, ByVal user As String)
-
-        Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api/user")
-        client.CookieContainer = AuthToken.Data.Cookies
+    Public Function findUserByLastnameOrUsername(ByVal user As String)
 
 
-
-        Dim request = New RestSharp.RestRequest("findUserByLastnameOrUsername/100/" & user, Method.GET)
+        Dim request = New RestSharp.RestRequest("user/findUserByLastnameOrUsername/100/" & user, Method.GET)
         request.RequestFormat = DataFormat.Json
         request.JsonSerializer = New RestSharpJsonNetSerializer
-        Dim response As RestSharp.RestResponse = client.Execute(request)
+        request.AddHeader("Authorization", "bearer " & Client.Token)
+        Dim response As RestSharp.RestResponse = Client.RestClient.Execute(request)
+        Client.UpdateToken(response.Headers)
         Dim apiresponse = JsonConvert.DeserializeObject(Of List(Of Models.User.UserLight))(response.Content)
         Select Case apiresponse.Count
             Case Is > 0

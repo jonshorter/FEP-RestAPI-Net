@@ -22,7 +22,7 @@ Partial Class Form1
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.btnRefreshProjectList = New System.Windows.Forms.Button()
         Me.btnJobCreate = New System.Windows.Forms.Button()
         Me.dgvprojects = New System.Windows.Forms.DataGridView()
@@ -195,9 +195,9 @@ Partial Class Form1
         '
         'colDelete
         '
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.Red
-        Me.colDelete.DefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle2.BackColor = System.Drawing.Color.Red
+        Me.colDelete.DefaultCellStyle = DataGridViewCellStyle2
         Me.colDelete.FillWeight = 5.0!
         Me.colDelete.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.colDelete.HeaderText = "Delete"
@@ -487,7 +487,7 @@ Partial Class Form1
         Me.txtProjectJobDataFolder.Name = "txtProjectJobDataFolder"
         Me.txtProjectJobDataFolder.Size = New System.Drawing.Size(303, 22)
         Me.txtProjectJobDataFolder.TabIndex = 12
-        Me.txtProjectJobDataFolder.Text = "\\10.0.1.52\Share\JobData"
+        Me.txtProjectJobDataFolder.Text = "\\10.0.1.50\Share\JobData"
         '
         'Label13
         '
@@ -506,7 +506,7 @@ Partial Class Form1
         Me.txtProjectCaseFolder.Name = "txtProjectCaseFolder"
         Me.txtProjectCaseFolder.Size = New System.Drawing.Size(303, 22)
         Me.txtProjectCaseFolder.TabIndex = 10
-        Me.txtProjectCaseFolder.Text = "\\10.0.1.52\Share\Projects"
+        Me.txtProjectCaseFolder.Text = "\\10.0.1.50\Share\Projects"
         '
         'Label12
         '
@@ -1170,7 +1170,7 @@ Partial Class Form1
         Me.Controls.Add(Me.tabTopMenu)
         Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "Form1"
-        Me.Text = "R1-Rest-Test"
+        Me.Text = "FEP-Rest-Test"
         CType(Me.dgvprojects, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tabTopMenu.ResumeLayout(False)
         Me.tabSettings.ResumeLayout(False)

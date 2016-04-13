@@ -40,8 +40,8 @@ Public Class Form1
             nj.ComputerTargets.Addresses.Add(item)
         Next
 
-        Dim rc As New FEPRestClient.Client
-        Dim JobResponse As ApiResponse(Of List(Of JobInfo57)) = rc.Functions.Job.CreateJob(Me.Auth, txtServer.Text, nj)
+
+        Dim JobResponse As ApiResponse(Of List(Of JobInfo57)) = RestClient.Functions.Job.CreateJob(nj)
         If JobResponse.Success = True Then
             MsgBox("Job Created: " & JobResponse.Data(0).Name)
         Else
@@ -70,14 +70,14 @@ Public Class Form1
                 Case 0
                     Dim R1Client As New FEPRestClient.Client
 
-                    Dim prjinfo = R1Client.Functions.Project.GetProjectDetails(Me.Auth, txtServer.Text, currproject).Data
+                    Dim prjinfo = R1Client.Functions.Project.GetProjectDetails(currproject).Data
                     pgProject.SelectedObject = prjinfo
 
                 Case 2
                     Dim x = MsgBox("Are you sure you want to delete the project?", MsgBoxStyle.YesNo, "Delete Project?")
                     If x = 6 Then
                         Dim R1Client As New FEPRestClient.Client
-                        Dim deleteproject = R1Client.Functions.Project.DeleteProject(Me.Auth, txtServer.Text, currproject)
+                        Dim deleteproject = R1Client.Functions.Project.DeleteProject(currproject)
                         If deleteproject.Data = True Then
                             MsgBox("Project # " & currproject & " deleted.")
                         Else
@@ -86,7 +86,7 @@ Public Class Form1
                     End If
                 Case 3
                     Dim R1Client As New FEPRestClient.Client
-                    Dim prjinfo As ProjectPresenter = R1Client.Functions.Project.GetProjectDetails(Me.Auth, txtServer.Text, dgvprojects.Rows.Item(e.RowIndex).Cells(1).Value.ToString).Data
+                    Dim prjinfo As ProjectPresenter = R1Client.Functions.Project.GetProjectDetails(dgvprojects.Rows.Item(e.RowIndex).Cells(1).Value.ToString).Data
 
                     txtProjectID.Text = prjinfo.ProjectId
                     txtFTKID.Text = prjinfo.FtkCaseId
@@ -130,30 +130,30 @@ Public Class Form1
 
     Private Sub tabJobs_Enter(sender As Object, e As EventArgs) Handles tabJobs.Enter
 
-        'Try
-        '    Dim rc As New R1SimpleRestClient.R1SimpleRestClient
-        '    Dim Jobs As ApiResponse(Of JobData) = rc.Functions.Job.GetAllJobs(Me.Auth, txtServer.Text)
-        '    dgvJobs.Rows.Clear()
+        Try
 
-        '    For Each job As JobInfo In Jobs.Data.jobs
-        '        dgvJobs.Rows.Add(New String() {job.Name, job.JobType, job.Status, job.JobID.ToString})
+            Dim Jobs As ApiResponse(Of JobData) = RestClient.Functions.Job.GetAllJobs()
+            dgvJobs.Rows.Clear()
 
-        '    Next
-        'Catch ex As Exception
-        '    MsgBox(ex.Message)
-        'End Try
+            For Each job As JobInfo In Jobs.Data.jobs
+                dgvJobs.Rows.Add(New String() {job.Name, job.JobType, job.Status, job.JobID.ToString})
 
-        'comboJobType.Items.Clear()
-        'For Each item In GetType(JobTypes).GetEnumValues
-        '    comboJobType.Items.Add(item)
-        'Next
-        'comboJobType.SelectedItem = R1SimpleRestClient.Models.Enums.JobTypes.SoftwareInventory
+            Next
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
 
-        'comboJobAction.Items.Clear()
-        'For Each item In GetType(R1SimpleRestClient.Models.Enums.JobAction).GetEnumValues
-        '    comboJobAction.Items.Add(item)
-        'Next
-        'comboJobAction.SelectedItem = R1SimpleRestClient.Models.Enums.JobAction.Create
+        comboJobType.Items.Clear()
+        For Each item In GetType(JobTypes).GetEnumValues
+            comboJobType.Items.Add(item)
+        Next
+        comboJobType.SelectedItem = FEPRestClient.Models.Enums.JobTypes.SoftwareInventory
+
+        comboJobAction.Items.Clear()
+        For Each item In GetType(FEPRestClient.Models.Enums.JobAction).GetEnumValues
+            comboJobAction.Items.Add(item)
+        Next
+        comboJobAction.SelectedItem = FEPRestClient.Models.Enums.JobAction.Create
     End Sub
 
 
@@ -165,22 +165,22 @@ Public Class Form1
         newproject.ProcessingMode = cmbProjectProcessingMode.SelectedItem
         newproject.Comments = txtProjectDescription.Text
 
-        Dim rc As New FEPRestClient.Client
-        Dim NewProjectResponse As NewProjectDefinition = rc.Functions.Project.CreateProject(Me.Auth, txtServer.Text, newproject).Data
+
+        Dim NewProjectResponse As NewProjectDefinition = RestClient.Functions.Project.CreateProject(newproject).Data
         MsgBox("Project Created: " & NewProjectResponse.Name)
     End Sub
 
     Private Sub tabCreateProject_Enter(sender As Object, e As EventArgs) Handles tabCreateProject.Enter
         'Dim rc As New R1SimpleRestClient.R1SimpleRestClient
-        'txtProjectCaseFolder.Text = rc.Functions.Configuration.GetDefaultProjectsPath(Me.Auth, txtServer.Text).Data
-        'txtProjectJobDataFolder.Text = rc.Functions.Configuration.GetDefaultJobDataPath(Me.Auth, txtServer.Text).Data
+        txtProjectCaseFolder.Text = RestClient.Functions.Configuration.GetDefaultProjectsPath().Data
+        txtProjectJobDataFolder.Text = RestClient.Functions.Configuration.GetDefaultJobDataPath().Data
 
 
-        'cmbProjectProcessingMode.Items.Clear()
-        'For Each item In GetType(ProcessModeEnum).GetEnumValues
-        '    cmbProjectProcessingMode.Items.Add(item)
-        'Next
-        'cmbProjectProcessingMode.SelectedItem = R1SimpleRestClient.Models.Enums.ProcessModeEnum.Security
+        cmbProjectProcessingMode.Items.Clear()
+        For Each item In GetType(ProcessModeEnum).GetEnumValues
+            cmbProjectProcessingMode.Items.Add(item)
+        Next
+        cmbProjectProcessingMode.SelectedItem = FEPRestClient.Models.Enums.ProcessModeEnum.Security
 
 
 
@@ -190,16 +190,15 @@ Public Class Form1
     End Sub
     Private Sub tabProjects_Enter(sender As Object, e As EventArgs) Handles tabProjects.Enter
         Try
-            'RestClient.Functions()
-            '    Dim rc As New R1SimpleRestClient.R1SimpleRestClient
-            ' Dim Projects As List(Of ProjectPresenter) = RestClient.Functions.Project.GetProjectList(Me.Auth, txtServer.Text).Data
-            '    dgvprojects.Rows.Clear()
+          
+            Dim Projects As List(Of ProjectPresenter) = RestClient.Functions.Project.GetProjectList.Data
+            dgvprojects.Rows.Clear()
 
-            '    For Each project In Projects
-            '        dgvprojects.Rows.Add(New String() {project.Name, project.ProjectId.ToString, "X", "0"})
-            '    Next
+            For Each project In Projects
+                dgvprojects.Rows.Add(New String() {project.Name, project.ProjectId.ToString, "X", "0"})
+            Next
         Catch ex As Exception
-            '    MsgBox(ex.Message)
+            MsgBox(ex.Message)
         End Try
 
     End Sub
@@ -230,40 +229,41 @@ Public Class Form1
     Private Sub tabAlerts_Enter(sender As Object, e As EventArgs) Handles tabAlerts.Enter
 
 
-        'Dim R1Client As New R1SimpleRestClient.R1SimpleRestClient
+        lblTotalResponses.Text = "Total Responses: " & RestClient.Functions.Alert.GetTotalResponses()
 
-        'lblTotalResponses.Text = "Total Responses: " & R1Client.Functions.Alert.GetTotalResponses(Me.Auth, txtServer.Text)
+        lblTotalAutomatedResponses.Text = "Total Automated Responses: " & RestClient.Functions.Alert.GetTotalAutomatedResponses()
 
-        'lblTotalAutomatedResponses.Text = "Total Automated Responses: " & R1Client.Functions.Alert.GetTotalAutomatedResponses(Me.Auth, txtServer.Text)
+        lstAlertSourceBreakdown.Items.Clear()
+        Dim alertSrcBreakdowns As List(Of AlertSourceBreakdownResult) = RestClient.Functions.Alert.GetAlertSourceBreakdown()
+        For Each alertSrc As AlertSourceBreakdownResult In alertSrcBreakdowns
+            lstAlertSourceBreakdown.Items.Add(alertSrc.Name & " " & alertSrc.Count)
+        Next
 
-        'lstAlertSourceBreakdown.Items.Clear()
-        'Dim alertSrcBreakdowns As List(Of AlertSourceBreakdownResult) = R1Client.Functions.Alert.GetAlertSourceBreakdown(Me.Auth, txtServer.Text)
-        'For Each alertSrc As AlertSourceBreakdownResult In alertSrcBreakdowns
-        '    lstAlertSourceBreakdown.Items.Add(alertSrc.Name & " " & alertSrc.Count)
-        'Next
-
-        'Dim meantime As List(Of MeanTimeStatistics) = R1Client.Functions.Alert.GetMeanTimeStatistics(Me.Auth, txtServer.Text)
-        'lblMeanTimeStat.Text = "Mean Time Stat: " & meantime(0).meanTime
+        Dim meantime As List(Of MeanTimeStatistics) = RestClient.Functions.Alert.GetMeanTimeStatistics()
+        If meantime.Count > 0 Then
+            lblMeanTimeStat.Text = "Mean Time Stat: " & meantime(0).meanTime
+        End If
 
 
-        'Try
-        '    Dim rc As New R1SimpleRestClient.R1SimpleRestClient
-        '    Dim Alerts As AlertsWithCounts = rc.Functions.Alert.GetAlertsWithCounts(Me.Auth, txtServer.Text)
-        '    dgvAlertsWithCounts.Rows.Clear()
 
-        '    For Each alert As AlertDataDetails In Alerts.entities
-        '        dgvAlertsWithCounts.Rows.Add(New String() {alert.alertId, alert.artifactName, alert.description})
-        '    Next
-        'Catch ex As Exception
-        '    MsgBox(ex.Message)
-        'End Try
+        Try
+
+            Dim Alerts As AlertsWithCounts = RestClient.Functions.Alert.GetAlertsWithCounts()
+            dgvAlertsWithCounts.Rows.Clear()
+
+            For Each alert As AlertDataDetails In Alerts.entities
+                dgvAlertsWithCounts.Rows.Add(New String() {alert.alertId, alert.artifactName, alert.description})
+            Next
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
     End Sub
 
     Private Sub dgvprojectjobs_CellClick(sender As Object, e As DataGridViewCellEventArgs)
 
         If e.ColumnIndex = 0 Then
-            '     Dim R1Client As New R1SimpleRestClient.R1SimpleRestClient
-            '     Dim x = R1Client.Functions.Project.GenerateJobDetailsReport(Me.Auth, txtServer.Text, currproject, dgvprojectjobs.Rows.Item(e.RowIndex).Cells(3).Value.ToString)
+
+            ' Dim x = RestClient.Functions.Project.GenerateJobDetailsReport(currproject, dgvprojectjobs.Rows.Item(e.RowIndex).Cells(3).Value.ToString)
             '     MsgBox(x)
 
         End If
@@ -322,36 +322,9 @@ Public Class Form1
 
 
 
-    Private Sub btnAuth_Click(sender As Object, e As EventArgs)
-        If tabTopMenu.TabPages.Contains(tabTesting) Then
-            If Auth.Data.Cookies.Count > 0 Then
-                MsgBox("Already Logged In")
-            Else
-                tabTopMenu.TabPages.Remove(tabTesting)
-                Dim R1Auth As New FEPRestClient.R1Authentication
-                Me.Auth = R1Auth.AuthenticateWithR1(txtServer.Text, txtUsername.Text, txtPassword.Text)
-                If Me.Auth.Error = False Then
-                    If Me.Auth.Error = False Then txtStatusStrip.Text = "Authenticated: True"
-                    tabTopMenu.TabPages.Add(tabTesting)
-                    tabTopMenu.SelectedTab = tabTesting
-                End If
-
-            End If
-        Else
-            Dim R1Auth As New FEPRestClient.R1Authentication
-            Me.Auth = R1Auth.AuthenticateWithR1(txtServer.Text, txtUsername.Text, txtPassword.Text)
-            If Me.Auth.Error = False Then
-                txtStatusStrip.Text = "Authenticated: True"
-                tabTopMenu.TabPages.Add(tabTesting)
-                tabTopMenu.SelectedTab = tabTesting
-            End If
-        End If
-
-    End Sub
 
     Private Sub btnLogout_Click(sender As Object, e As EventArgs) Handles btnLogout.Click
-        Dim r1logout As New FEPRestClient.R1Authentication
-        r1logout.Logout(txtServer.Text, Me.Auth)
+        RestClient.Logout()
         txtStatusStrip.Text = "Authenticated: False"
         tabTopMenu.TabPages.Remove(tabTesting)
     End Sub
@@ -361,7 +334,7 @@ Public Class Form1
 
         Dim projinfo As ProjectPresenter = pgProject.SelectedObject
         Dim R1Client As New FEPRestClient.Client
-        Dim response As ProjectPresenter = R1Client.Functions.Project.UpdateProject(Me.Auth, txtServer.Text, projinfo).Data
+        Dim response As ProjectPresenter = R1Client.Functions.Project.UpdateProject(projinfo).Data
         MsgBox("Project Updated")
         tabProjects_Enter(sender, e)
 
@@ -376,8 +349,8 @@ Public Class Form1
     End Sub
 
     Private Sub btnFindUser_Click(sender As Object, e As EventArgs) Handles btnFindUser.Click
-        Dim rc As New FEPRestClient.Client
-        Dim users As List(Of FEPRestClient.Models.User.UserLight) = rc.Functions.User.findUserByLastnameOrUsername(Me.Auth, txtServer.Text, txtfindUser.Text)
+
+        Dim users As List(Of FEPRestClient.Models.User.UserLight) = RestClient.Functions.User.findUserByLastnameOrUsername(txtfindUser.Text)
         If users.Count > 0 Then
             Dim UsersMessage As String = ""
             For Each user In users
@@ -410,14 +383,14 @@ Public Class Form1
     End Sub
 
     Private Sub btnIsIWAMode_Click(sender As Object, e As EventArgs) Handles btnIsIWAMode.Click
-        Dim rc As New FEPRestClient.Client
-        Dim IsIWAMode = rc.Functions.Configuration.IsIWAMode(Me.Auth, txtServer.Text).Data
+
+        Dim IsIWAMode = RestClient.Functions.Configuration.IsIWAMode().Data
         MsgBox(IsIWAMode)
     End Sub
 
     Private Sub btnGetTemplateID_Click(sender As Object, e As EventArgs) Handles btnGetTemplateID.Click
-        Dim rc As New FEPRestClient.Client
-        Dim template = rc.Functions.Templates.GetTemplate(Me.Auth, txtServer.Text, txtTemplateID.Text)
+
+        Dim template = RestClient.Functions.Templates.GetTemplate(txtTemplateID.Text)
         MsgBox(template.Data.name)
     End Sub
 
@@ -427,8 +400,8 @@ Public Class Form1
 
     Private Sub tabGroups_Enter(sender As Object, e As EventArgs) Handles tabGroups.Enter
         treeGroups.Nodes.Clear()
-        Dim rc As New FEPRestClient.Client
-        Dim groups As FEPRestClient.Models.Groups = rc.Functions.Groups.GetGroups(Me.Auth, txtServer.Text).Data
+
+        Dim groups As FEPRestClient.Models.Groups = RestClient.Functions.Groups.GetGroups().Data
         Dim topnode As TreeNode = Me.treeGroups.Nodes.Add(groups.name)
         topnode.Name = groups.name
         For Each group In groups.children
@@ -440,17 +413,16 @@ Public Class Form1
     End Sub
 
     Private Sub tabTemplates_Enter(sender As Object, e As EventArgs) Handles tabTemplates.Enter
-        Dim rc As New FEPRestClient.Client
-
+    
         listTemplates.Items.Clear()
         listCategories.Items.Clear()
 
-        Dim templates = rc.Functions.Templates.GetTemplates(Me.Auth, txtServer.Text)
+        Dim templates = RestClient.Functions.Templates.GetTemplates()
         For Each template In templates.Data
             listTemplates.Items.Add(template.name)
         Next
 
-        Dim categories = rc.Functions.Templates.GetCategories(Me.Auth, txtServer.Text)
+        Dim categories = RestClient.Functions.Templates.GetCategories()
         For Each category In categories.Data
             listCategories.Items.Add(category.name)
         Next
@@ -466,8 +438,7 @@ Public Class Form1
         ' nj.ComputerTargets.Addresses.Add(item)
         ' Next
 
-        Dim rc As New FEPRestClient.Client
-        Dim JobID = rc.Functions.Job.CreateJobFromTemplate(Me.Auth, txtServer.Text, nj, True)
+        Dim JobID = RestClient.Functions.Job.CreateJobFromTemplate(nj, True)
 
         MsgBox("Job Created: " & JobID.Data)
 
@@ -478,11 +449,10 @@ Public Class Form1
     End Sub
 
     Private Sub tabThreatFilters_Enter(sender As Object, e As EventArgs) Handles tabThreatFilters.Enter
-        Dim rc As New FEPRestClient.Client
-
+      
         listThreatFilters.Items.Clear()
 
-        Dim apiresponse = rc.Functions.ThreatFilters.GetThreatFilters(Me.Auth, txtServer.Text)
+        Dim apiresponse = RestClient.Functions.ThreatFilters.GetThreatFilters()
         For Each tf In apiresponse.Data
             listThreatFilters.Items.Add(tf.Name)
         Next

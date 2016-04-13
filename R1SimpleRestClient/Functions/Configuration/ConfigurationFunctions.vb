@@ -8,32 +8,35 @@ Imports FEPRestClient.Models
 
 
 Public Class ConfigurationFunctions
-    Public Function IsIWAMode(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String) As ApiResponse(Of Boolean)
-        Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api")
-        client.CookieContainer = AuthToken.Data.Cookies
+    Public Function IsIWAMode() As ApiResponse(Of Boolean)
+      
         Dim request = New RestSharp.RestRequest("configuration/IsIWAMode", Method.GET)
         request.RequestFormat = DataFormat.Json
         request.JsonSerializer = New RestSharpJsonNetSerializer
-        Dim response As RestSharp.RestResponse = client.Execute(request)
+        request.AddHeader("Authorization", "bearer " & Client.Token)
+        Dim response As RestSharp.RestResponse = Client.RestClient.Execute(request)
+        Client.UpdateToken(response.Headers)
         Return JsonConvert.DeserializeObject(Of ApiResponse(Of Boolean))(response.Content)
 
     End Function
-    Public Function GetDefaultJobDataPath(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String) As ApiResponse(Of String)
-        Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api")
-        client.CookieContainer = AuthToken.Data.Cookies
+    Public Function GetDefaultJobDataPath() As ApiResponse(Of String)
+        
         Dim request = New RestSharp.RestRequest("configuration/getConfigurationType/DefaultCaseCollectedFilePath", Method.GET)
         request.RequestFormat = DataFormat.Json
         request.JsonSerializer = New RestSharpJsonNetSerializer
-        Dim response As RestSharp.RestResponse = client.Execute(request)
+        request.AddHeader("Authorization", "bearer " & Client.Token)
+        Dim response As RestSharp.RestResponse = Client.RestClient.Execute(request)
+        Client.UpdateToken(response.Headers)
         Return JsonConvert.DeserializeObject(Of ApiResponse(Of String))(response.Content)
     End Function
-    Public Function GetDefaultProjectsPath(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String) As ApiResponse(Of String)
-        Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api")
-        client.CookieContainer = AuthToken.Data.Cookies
+    Public Function GetDefaultProjectsPath() As ApiResponse(Of String)
+       
         Dim request = New RestSharp.RestRequest("configuration/getConfigurationType/FTKDefaultPath", Method.GET)
         request.RequestFormat = DataFormat.Json
         request.JsonSerializer = New RestSharpJsonNetSerializer
-        Dim response As RestSharp.RestResponse = client.Execute(request)
+        request.AddHeader("Authorization", "bearer " & Client.Token)
+        Dim response As RestSharp.RestResponse = Client.RestClient.Execute(request)
+        Client.UpdateToken(response.Headers)
         Return JsonConvert.DeserializeObject(Of ApiResponse(Of String))(response.Content)
 
     End Function

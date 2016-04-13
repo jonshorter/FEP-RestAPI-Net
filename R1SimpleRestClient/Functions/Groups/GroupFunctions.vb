@@ -9,13 +9,14 @@ Imports FEPRestClient.Models
 
 Public Class GroupFunctions
 
-    Public Function GetGroups(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String) As ApiResponse(Of Groups)
-        Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api")
-        client.CookieContainer = AuthToken.Data.Cookies
+    Public Function GetGroups() As ApiResponse(Of Groups)
+      
         Dim request = New RestSharp.RestRequest("groups", Method.GET)
         request.RequestFormat = DataFormat.Json
         request.JsonSerializer = New RestSharpJsonNetSerializer
-        Dim response As RestSharp.RestResponse = client.Execute(request)
+        request.AddHeader("Authorization", "bearer " & Client.Token)
+        Dim response As RestSharp.RestResponse = Client.RestClient.Execute(request)
+        Client.UpdateToken(response.Headers)
         Return JsonConvert.DeserializeObject(Of ApiResponse(Of Groups))(response.Content)
     End Function
 

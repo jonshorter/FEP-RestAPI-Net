@@ -13,6 +13,8 @@ Public Class Client
     Public Shared Property Server As String
     Public Shared Token As String = ""
     Public Shared RestClient As New RestSharp.RestClient
+
+
     Public ReadOnly Property IsAuthenticated As Boolean
         Get
             If Token <> "" Then
@@ -69,6 +71,31 @@ Public Class Client
         End If
 
     End Function
+
+    Public Sub Logout()
+        Dim request = New RestSharp.RestRequest("configuration/logout", Method.GET)
+        request.RequestFormat = DataFormat.Json
+        request.JsonSerializer = New RestSharpJsonNetSerializer
+        request.AddHeader("Authorization", "bearer " & Client.Token)
+        Dim response As RestSharp.RestResponse = Client.RestClient.Execute(request)
+        Client.UpdateToken(response.Headers)
+        Select Case response.StatusCode
+            Case Is > 200 < 400
+                Dim apiresponse = JsonConvert.DeserializeObject(Of Models.Response.ApiResponse(Of String))(response.Content)
+                Select Case apiresponse.Success
+                    Case True
+                        MsgBox("Logged Out")
+                    Case False
+                        MsgBox("Error: " & apiresponse.Error.Message.ToString)
+                End Select
+            Case Is >= 400
+                MsgBox("Error: " & response.ErrorMessage.ToString)
+            Case Else
+                MsgBox("Error: " & response.ErrorMessage.ToString)
+        End Select
+
+        '        Return "If You See This.... Logout"
+    End Sub
 
 End Class
 

@@ -9,27 +9,27 @@ Imports FEPRestClient.Models
 
 Public Class TemplateFunctions
 
-    Public Function GetTemplates(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String) _
-        As ApiResponse(Of List(Of Templates.Templates))
-        Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api")
-        client.CookieContainer = AuthToken.Data.Cookies
+    Public Function GetTemplates() As ApiResponse(Of List(Of Templates.Templates))
+
         Dim request = New RestSharp.RestRequest("templates", Method.GET)
         request.RequestFormat = DataFormat.Json
         request.JsonSerializer = New RestSharpJsonNetSerializer
-        Dim response As RestSharp.RestResponse = client.Execute(request)
+        request.AddHeader("Authorization", "bearer " & Client.Token)
+        Dim response As RestSharp.RestResponse = Client.RestClient.Execute(request)
+        Client.UpdateToken(response.Headers)
         Dim apiresponse = JsonConvert.DeserializeObject(Of ApiResponse(Of List(Of Templates.Templates)))(response.Content)
         Return apiresponse
-     
+
     End Function
 
-    Public Function GetTemplateIdByName(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String, ByVal TemplateName As String) _
-    As String
-        Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api")
-        client.CookieContainer = AuthToken.Data.Cookies
+    Public Function GetTemplateIdByName(ByVal TemplateName As String) As String
+      
         Dim request = New RestSharp.RestRequest("templates", Method.GET)
         request.RequestFormat = DataFormat.Json
         request.JsonSerializer = New RestSharpJsonNetSerializer
-        Dim response As RestSharp.RestResponse = client.Execute(request)
+        request.AddHeader("Authorization", "bearer " & Client.Token)
+        Dim response As RestSharp.RestResponse = Client.RestClient.Execute(request)
+        Client.UpdateToken(response.Headers)
         Dim apiresponse = JsonConvert.DeserializeObject(Of ApiResponse(Of List(Of Templates.Templates)))(response.Content)
         Dim fndtemplate As String = ""
         For Each template In apiresponse.Data
@@ -41,30 +41,30 @@ Public Class TemplateFunctions
 
     End Function
 
-    Public Function GetCategories(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String) _
-        As ApiResponse(Of List(Of Templates.Categories))
-        Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api")
-        client.CookieContainer = AuthToken.Data.Cookies
+    Public Function GetCategories() As ApiResponse(Of List(Of Templates.Categories))
+
         Dim request = New RestSharp.RestRequest("templates/categories", Method.GET)
         request.RequestFormat = DataFormat.Json
         request.JsonSerializer = New RestSharpJsonNetSerializer
-        Dim response As RestSharp.RestResponse = client.Execute(request)
+        request.AddHeader("Authorization", "bearer " & Client.Token)
+        Dim response As RestSharp.RestResponse = Client.RestClient.Execute(request)
+        Client.UpdateToken(response.Headers)
         Dim apiresponse = JsonConvert.DeserializeObject(Of ApiResponse(Of List(Of Templates.Categories)))(response.Content)
         Return apiresponse
-       
+
     End Function
 
 
 
-    Public Function GetTemplate(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String, ByVal templateid As String) _
-        As ApiResponse(Of Templates.TemplateInformation)
+    Public Function GetTemplate(ByVal templateid As String) As ApiResponse(Of Templates.TemplateInformation)
 
-        Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api")
-        client.CookieContainer = AuthToken.Data.Cookies
+ 
         Dim request = New RestSharp.RestRequest("templates/" & templateid, Method.GET)
         request.RequestFormat = DataFormat.Json
         request.JsonSerializer = New RestSharpJsonNetSerializer
-        Dim response As RestSharp.RestResponse = client.Execute(request)
+        request.AddHeader("Authorization", "bearer " & Client.Token)
+        Dim response As RestSharp.RestResponse = Client.RestClient.Execute(request)
+        Client.UpdateToken(response.Headers)
         Dim apiresponse = JsonConvert.DeserializeObject(Of ApiResponse(Of Templates.TemplateInformation))(response.Content)
         Return apiresponse
     End Function
