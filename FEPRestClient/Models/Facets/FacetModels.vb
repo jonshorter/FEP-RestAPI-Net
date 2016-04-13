@@ -13,6 +13,7 @@
 
     Public Class FacetSearch
         Public Property SearchFields As New List(Of FacetSearchFields)
+        Public Property SearchAny As New List(Of String)
     End Class
     Public Class FacetSearchFields
         Public Property FieldName As String
