@@ -121,7 +121,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\R1SimpleRestClient\FEPRestClient.vbproj">
+    <ProjectReference Include="..\FEPRestClient\FEPRestClient.vbproj">
       <Project>{458007ce-d492-4d53-baa8-a5e04b4ddbc8}</Project>
       <Name>FEPRestClient</Name>
     </ProjectReference>
