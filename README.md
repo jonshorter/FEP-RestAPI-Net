@@ -1,2 +1,2 @@
-# R1-RestAPI-Net
-Resolution1 CyberSecurity RestAPI Client for .Net.
+# FEP-RestAPI-Net
+Fidelis Endpoint RestAPI Client for .Net.
