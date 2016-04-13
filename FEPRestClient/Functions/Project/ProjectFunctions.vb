@@ -8,9 +8,22 @@ Imports FEPRestClient.Models
 
 
 Public Class ProjectFunctions
-    Public Function GetProjectList(Optional Search As String = "") As ApiResponse(Of List(Of ProjectPresenter))
-        If Not Search = "" Then
-            Search = "?where=" & Search
+
+    Public Function GetProjectFacets(Optional ByVal OptionLimit As Integer = 15) As ApiResponse(Of List(Of Facets))
+
+        Dim request = New RestSharp.RestRequest("projectFacets/getprojectsfacets?optionLimit=" & OptionLimit, Method.GET)
+        request.RequestFormat = DataFormat.Json
+        request.JsonSerializer = New RestSharpJsonNetSerializer
+        request.AddHeader("Authorization", "bearer " & Client.Token)
+        Dim response As RestSharp.RestResponse = Client.RestClient.Execute(request)
+        Client.UpdateToken(response.Headers)
+        Return JsonConvert.DeserializeObject(Of Models.Response.ApiResponse(Of List(Of Facets)))(response.Content)
+
+    End Function
+    Public Function GetProjectList(Optional FacetSearchVar As FacetSearch = Nothing) As ApiResponse(Of List(Of ProjectPresenter))
+        Dim Search = ""
+        If Not FacetSearchVar Is Nothing Then
+            Search = "?facetSearch=" & Newtonsoft.Json.JsonConvert.SerializeObject(FacetSearchVar)
         End If
         Dim request = New RestSharp.RestRequest("projects" & Search, Method.GET)
         request.AddHeader("Authorization", "bearer " & Client.Token)

@@ -69,15 +69,41 @@ Public Class JobFunctions
 
     Public Function GetAllJobs(Optional ByVal skip As Integer = 0, _
                                Optional ByVal take As Integer = 0, Optional ByVal sort As String = "CreatedDate Descending", _
-                               Optional ByVal search As String = "") As ApiResponse(Of JobData)
-
-        Dim request = New RestSharp.RestRequest("jobs/getalljobs/" & skip & "/" & take & "/" & sort & "?search=" & search, Method.GET)
+                               Optional ByVal FacetSearchvar As Models.FacetSearch = Nothing) As ApiResponse(Of JobData)
+        Dim Search = ""
+        If Not FacetSearchVar Is Nothing Then
+            Search = "?Search=" & Newtonsoft.Json.JsonConvert.SerializeObject(FacetSearchvar)
+        End If
+        Dim request = New RestSharp.RestRequest("jobs/getalljobs/" & skip & "/" & take & "/" & sort & Search, Method.GET)
         request.RequestFormat = DataFormat.Json
         request.JsonSerializer = New RestSharpJsonNetSerializer
         request.AddHeader("Authorization", "bearer " & Client.Token)
         Dim response As RestSharp.RestResponse = Client.RestClient.Execute(request)
         Client.UpdateToken(response.Headers)
         Return JsonConvert.DeserializeObject(Of Models.Response.ApiResponse(Of JobData))(response.Content)
+
+    End Function
+    Public Function GetJobResultsFacets(Optional ByVal OptionLimit As Integer = 15) As ApiResponse(Of List(Of Facets))
+
+        Dim request = New RestSharp.RestRequest("jobs/getjobresultsfacets?optionLimit=" & OptionLimit, Method.GET)
+        request.RequestFormat = DataFormat.Json
+        request.JsonSerializer = New RestSharpJsonNetSerializer
+        request.AddHeader("Authorization", "bearer " & Client.Token)
+        Dim response As RestSharp.RestResponse = Client.RestClient.Execute(request)
+        Client.UpdateToken(response.Headers)
+        Return JsonConvert.DeserializeObject(Of Models.Response.ApiResponse(Of List(Of Facets)))(response.Content)
+
+    End Function
+
+    Public Function GetJobTargetResultsFacets(ByVal jobResultID As String, Optional ByVal OptionLimit As Integer = 15) As ApiResponse(Of List(Of Facets))
+
+        Dim request = New RestSharp.RestRequest("jobs/getjobtargetresultsfacets/" & jobResultID & "?optionLimit=" & OptionLimit, Method.GET)
+        request.RequestFormat = DataFormat.Json
+        request.JsonSerializer = New RestSharpJsonNetSerializer
+        request.AddHeader("Authorization", "bearer " & Client.Token)
+        Dim response As RestSharp.RestResponse = Client.RestClient.Execute(request)
+        Client.UpdateToken(response.Headers)
+        Return JsonConvert.DeserializeObject(Of Models.Response.ApiResponse(Of List(Of Facets)))(response.Content)
 
     End Function
 

@@ -74,6 +74,7 @@
     <Compile Include="Functions\ClientFunctions.vb" />
     <Compile Include="Functions\Groups\GroupFunctions.vb" />
     <Compile Include="Functions\Job\JobFunctions.vb" />
+    <Compile Include="Functions\ScriptPackages\ScriptPackagesFunctions.vb" />
     <Compile Include="Functions\Permissions\PermissionsFunctions.vb" />
     <Compile Include="Functions\Project\ProjectReportFunctions.vb" />
     <Compile Include="Functions\Project\ProjectFunctions.vb" />
@@ -84,6 +85,7 @@
     <Compile Include="Models\Authentication\AuthenticationModels.vb" />
     <Compile Include="Models\Computers\ComputerModels.vb" />
     <Compile Include="Models\Enum\Enums.vb" />
+    <Compile Include="Models\Facets\FacetModels.vb" />
     <Compile Include="Models\Groups\GroupModels.vb" />
     <Compile Include="Models\Job\JobModels.vb" />
     <Compile Include="Models\Job\JobModels2.vb" />
@@ -131,9 +133,7 @@
     </None>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\General\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

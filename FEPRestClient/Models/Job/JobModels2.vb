@@ -2,6 +2,7 @@
 Imports System.Xml.Serialization
 
 Namespace Models.Job2
+
     Public Class JobFromTemplate
         Public Property ComputerTargets As New List(Of String)
         Public Property ProjectId As String
@@ -570,7 +571,7 @@ Namespace Models.Job2
         Public Property ClientData As String
         Public Property RelativeStartTime As Boolean
     End Class
- 
+
     Public Enum OrdinalUnitEnum
         DayOfMonth
         Day
