@@ -13,11 +13,9 @@ Imports FEPRestClient.Models.Enums
 Imports FEPRestClient.Models.Project
 Imports FEPRestClient.Models.Alert
 Imports System.Collections.ObjectModel
-Imports FEPRestClient
 
 Public Class Form1
     Public RestClient As New FEPRestClient.Client
-    Public Auth As AuthToken = New FEPRestClient.Models.Response.AuthToken
     Dim currproject As String = 0
 
     Private Sub btnRefreshProjectList_Click(sender As Object, e As EventArgs) Handles btnRefreshProjectList.Click
@@ -460,15 +458,18 @@ Public Class Form1
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles btnAuth6.Click
-        Client.Username = txtUsername.Text
-        Client.Password = txtPassword.Text
-        Client.Server = txtServer.Text
+
+        RestClient.Username = txtUsername.Text
+        RestClient.Password = txtPassword.Text
+        RestClient.Server = txtServer.Text
         RestClient.Authenticate()
         If RestClient.IsAuthenticated = True Then
             txtStatusStrip.Text = "Authenticated: True"
             tabTopMenu.TabPages.Add(tabTesting)
             tabTopMenu.SelectedTab = tabTesting
         End If
+
+
     End Sub
 
 

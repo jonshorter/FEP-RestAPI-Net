@@ -71,7 +71,7 @@ Public Class JobFunctions
                                Optional ByVal take As Integer = 0, Optional ByVal sort As String = "CreatedDate Descending", _
                                Optional ByVal search As String = "") As ApiResponse(Of JobData)
 
-        Dim request = New RestSharp.RestRequest("getalljobs/" & skip & "/" & take & "/" & sort & "/" & search, Method.GET)
+        Dim request = New RestSharp.RestRequest("jobs/getalljobs/" & skip & "/" & take & "/" & sort & "/" & search, Method.GET)
         request.RequestFormat = DataFormat.Json
         request.JsonSerializer = New RestSharpJsonNetSerializer
         request.AddHeader("Authorization", "bearer " & Client.Token)

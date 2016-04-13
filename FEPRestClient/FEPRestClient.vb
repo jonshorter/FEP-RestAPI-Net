@@ -8,9 +8,9 @@ Imports FEPRestClient.Models.Response
 
 Public Class Client
     Public Functions As New ClientFunctions
-    Public Shared Property Username As String = ""
-    Public Shared Property Password As String = ""
-    Public Shared Property Server As String
+    Public Property Username As String = ""
+    Public Property Password As String = ""
+    Public Property Server As String
     Public Shared Token As String = ""
     Public Shared RestClient As New RestSharp.RestClient
 
@@ -43,6 +43,8 @@ Public Class Client
         End Select
     End Sub
 
+
+
     Public Shared Sub UpdateToken(ByVal TokenHeader As List(Of RestSharp.Parameter))
         For Each header In TokenHeader
             If header.Name = "Fidelis-Endpoint-Token" Then
@@ -50,6 +52,8 @@ Public Class Client
             End If
         Next
     End Sub
+
+    
 
     Public Function CustomRequest(ByVal Method As RestSharp.Method, ByVal apicall As String, Optional ByVal jsonstr As String = Nothing)
         Dim request = New RestSharp.RestRequest(apicall, Method)
@@ -79,23 +83,17 @@ Public Class Client
         request.AddHeader("Authorization", "bearer " & Client.Token)
         Dim response As RestSharp.RestResponse = Client.RestClient.Execute(request)
         Client.UpdateToken(response.Headers)
-        Select Case response.StatusCode
-            Case Is > 200 < 400
-                Dim apiresponse = JsonConvert.DeserializeObject(Of Models.Response.ApiResponse(Of String))(response.Content)
-                Select Case apiresponse.Success
-                    Case True
-                        MsgBox("Logged Out")
-                    Case False
-                        MsgBox("Error: " & apiresponse.Error.Message.ToString)
-                End Select
-            Case Is >= 400
-                MsgBox("Error: " & response.ErrorMessage.ToString)
-            Case Else
-                MsgBox("Error: " & response.ErrorMessage.ToString)
+        Dim apiresponse = JsonConvert.DeserializeObject(Of Models.Response.ApiResponse(Of String))(response.Content)
+        Select Case apiresponse.Success
+            Case True
+                MsgBox("Logged Out")
+            Case False
+                MsgBox("Error: " & apiresponse.Error.Message.ToString)
         End Select
+     
 
-        '        Return "If You See This.... Logout"
     End Sub
+
 
 End Class
 
