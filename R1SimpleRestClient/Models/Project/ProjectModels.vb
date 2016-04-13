@@ -1,4 +1,4 @@
-﻿Imports R1SimpleRestClient.Models.Enums
+﻿Imports FEPRestClient.Models.Enums
 
 Namespace Models
     Public Class Project

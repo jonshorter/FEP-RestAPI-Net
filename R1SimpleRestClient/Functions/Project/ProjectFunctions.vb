@@ -1,25 +1,21 @@
 ﻿Imports RestSharp
 Imports Newtonsoft.Json
-Imports R1SimpleRestClient.Models.Response
-Imports R1SimpleRestClient.Models.Project
-Imports R1SimpleRestClient.Models.Report
-Imports R1SimpleRestClient.Models.Job
-Imports R1SimpleRestClient.Models
+Imports FEPRestClient.Models.Response
+Imports FEPRestClient.Models.Project
+Imports FEPRestClient.Models.Report
+Imports FEPRestClient.Models.Job
+Imports FEPRestClient.Models
 
 
 Public Class ProjectFunctions
-
-    Public Function GetProjectList(ByVal AuthToken As Models.Response.AuthToken, ByVal Server As String, _
-                                   Optional Search As String = "") As ApiResponse(Of List(Of ProjectPresenter))
-        Dim client As New RestSharp.RestClient("https://" & Server & "/R1/api")
-        client.CookieContainer = AuthToken.Data.Cookies
+    Public Function GetProjectList(Optional Search As String = "") As ApiResponse(Of List(Of ProjectPresenter))
         If Not Search = "" Then
             Search = "?where=" & Search
         End If
         Dim request = New RestSharp.RestRequest("projects" & Search, Method.GET)
         request.RequestFormat = DataFormat.Json
         request.JsonSerializer = New RestSharpJsonNetSerializer
-        Dim response As RestSharp.RestResponse = client.Execute(request)
+        Dim response As RestSharp.RestResponse = Client.RestClient.Execute(request)
         Return JsonConvert.DeserializeObject(Of ApiResponse(Of List(Of ProjectPresenter)))(response.Content)
 
     End Function

@@ -1,10 +1,10 @@
 ﻿Imports RestSharp
 Imports Newtonsoft.Json
-Imports R1SimpleRestClient.Models.Response
-Imports R1SimpleRestClient.Models.Project
-Imports R1SimpleRestClient.Models.Report
-Imports R1SimpleRestClient.Models.Job
-Imports R1SimpleRestClient.Models
+Imports FEPRestClient.Models.Response
+Imports FEPRestClient.Models.Project
+Imports FEPRestClient.Models.Report
+Imports FEPRestClient.Models.Job
+Imports FEPRestClient.Models
 
 
 Public Class UserFunctions

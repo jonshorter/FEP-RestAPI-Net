@@ -99,10 +99,10 @@ Namespace My
      Global.System.Runtime.CompilerServices.CompilerGeneratedAttribute()>  _
     Friend Module MySettingsProperty
         
-        <Global.System.ComponentModel.Design.HelpKeywordAttribute("My.Settings")>  _
-        Friend ReadOnly Property Settings() As Global.R1_Rest_Test.My.MySettings
+        <Global.System.ComponentModel.Design.HelpKeywordAttribute("My.Settings")> _
+        Friend ReadOnly Property Settings() As Global.FEP_Rest_Test.My.MySettings
             Get
-                Return Global.R1_Rest_Test.My.MySettings.Default
+                Return Global.FEP_Rest_Test.My.MySettings.Default
             End Get
         End Property
     End Module

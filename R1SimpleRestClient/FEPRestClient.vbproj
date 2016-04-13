@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{458007CE-D492-4D53-BAA8-A5E04B4DDBC8}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>R1SimpleRestClient</RootNamespace>
-    <AssemblyName>R1SimpleRestClient</AssemblyName>
+    <RootNamespace>FEPRestClient</RootNamespace>
+    <AssemblyName>FEPRestClient</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>Windows</MyType>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
@@ -18,7 +18,7 @@
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\Debug\</OutputPath>
-    <DocumentationFile>R1SimpleRestClient.xml</DocumentationFile>
+    <DocumentationFile>FEPRestClient.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -27,7 +27,7 @@
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DocumentationFile>R1SimpleRestClient.xml</DocumentationFile>
+    <DocumentationFile>FEPRestClient.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup>
@@ -71,7 +71,7 @@
     <Compile Include="Functions\Authentication\AuthenticationFunctions.vb" />
     <Compile Include="Functions\Computers\ComputerFunctions.vb" />
     <Compile Include="Functions\Configuration\ConfigurationFunctions.vb" />
-    <Compile Include="Functions\Functions.vb" />
+    <Compile Include="Functions\ClientFunctions.vb" />
     <Compile Include="Functions\Groups\GroupFunctions.vb" />
     <Compile Include="Functions\Job\JobFunctions.vb" />
     <Compile Include="Functions\Project\ProjectReportFunctions.vb" />
@@ -89,7 +89,7 @@
     <Compile Include="Models\Templates\TemplateModels.vb" />
     <Compile Include="Models\ThreatFilters\ThreatFiltersModels.vb" />
     <Compile Include="Models\User\UserModels.vb" />
-    <Compile Include="R1SimpleRestClient.vb" />
+    <Compile Include="FEPRestClient.vb" />
     <Compile Include="Models\Project\ProjectModels.vb" />
     <Compile Include="Models\Reports\ReportModels.vb" />
     <Compile Include="Models\Responses\ResponseModels.vb" />

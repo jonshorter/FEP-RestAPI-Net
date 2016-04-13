@@ -6,9 +6,9 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{FFD134A6-8EBA-4AA3-8DF4-4D5E6A171B57}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <StartupObject>R1_Rest_Test.My.MyApplication</StartupObject>
-    <RootNamespace>R1_Rest_Test</RootNamespace>
-    <AssemblyName>R1-Rest-Test</AssemblyName>
+    <StartupObject>FEP_Rest_Test.My.MyApplication</StartupObject>
+    <RootNamespace>FEP_Rest_Test</RootNamespace>
+    <AssemblyName>FEP-Rest-Test</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>WindowsForms</MyType>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
@@ -20,7 +20,7 @@
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\Debug\</OutputPath>
-    <DocumentationFile>R1-Rest-Test.xml</DocumentationFile>
+    <DocumentationFile>FEP-Rest-Test.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -30,7 +30,7 @@
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DocumentationFile>R1-Rest-Test.xml</DocumentationFile>
+    <DocumentationFile>FEP-Rest-Test.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup>
@@ -121,9 +121,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\R1SimpleRestClient\R1SimpleRestClient.vbproj">
+    <ProjectReference Include="..\R1SimpleRestClient\FEPRestClient.vbproj">
       <Project>{458007ce-d492-4d53-baa8-a5e04b4ddbc8}</Project>
-      <Name>R1SimpleRestClient</Name>
+      <Name>FEPRestClient</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />

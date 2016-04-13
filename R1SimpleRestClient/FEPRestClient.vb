@@ -4,15 +4,16 @@ Imports System.IO
 Imports RestSharp
 Imports System.Windows.Forms
 Imports Newtonsoft.Json
-Imports R1SimpleRestClient.Models.Response
+Imports FEPRestClient.Models.Response
 
-Public Class R1SimpleRestClient
+Public Class Client
     Public Functions As New ClientFunctions
-    Public Username As String
-    Public Password As String
-    Public Server As String
-    Private Token As String = ""
-    Public ReadOnly Property Authenticated As Boolean
+    Public Shared Property Username As String = ""
+    Public Shared Property Password As String = ""
+    Public Shared Property Server As String
+    Public Shared Token As String = ""
+    Public Shared RestClient As New RestSharp.RestClient
+    Public ReadOnly Property IsAuthenticated As Boolean
         Get
             If Token <> "" Then
                 Return True
@@ -21,14 +22,12 @@ Public Class R1SimpleRestClient
             End If
         End Get
     End Property
-
-
     Public Sub Authenticate()
-        Dim client As New RestSharp.RestClient("https://" & Server & "/Endpoint/api/")
+        RestClient.BaseUrl = New Uri("https://" & Server & "/Endpoint/api/")
         Dim request = New RestSharp.RestRequest("authenticate?username=" & Username & "&password=" & Password, Method.GET)
         request.RequestFormat = DataFormat.Json
         request.JsonSerializer = New RestSharpJsonNetSerializer
-        Dim response As RestSharp.RestResponse = client.Execute(request)
+        Dim response As RestSharp.RestResponse = RestClient.Execute(request)
         Select Case response.StatusCode
             Case 200
                 Dim reply = JsonConvert.DeserializeObject(Of ApiResponse(Of Models.Authentication.Token))(response.Content)
@@ -42,7 +41,7 @@ Public Class R1SimpleRestClient
         End Select
     End Sub
 
-    Public Sub UpdateToken(ByVal TokenHeader As List(Of RestSharp.Parameter))
+    Public Shared Sub UpdateToken(ByVal TokenHeader As List(Of RestSharp.Parameter))
         For Each header In TokenHeader
             If header.Name = "Fidelis-Endpoint-Token" Then
                 Token = header.Value
@@ -51,7 +50,6 @@ Public Class R1SimpleRestClient
     End Sub
 
     Public Function CustomRequest(ByVal Method As RestSharp.Method, ByVal apicall As String, Optional ByVal jsonstr As String = Nothing)
-        Dim client As New RestSharp.RestClient("https://" & Server & "/Endpoint/api")
         Dim request = New RestSharp.RestRequest(apicall, Method)
         If Not jsonstr Is Nothing Then
             request.RequestFormat = DataFormat.Json
@@ -62,11 +60,11 @@ Public Class R1SimpleRestClient
         End If
         request.AddHeader("Authorization", "bearer " & Token)
 
-        Dim response As RestSharp.RestResponse = client.Execute(request)
+        Dim response As RestSharp.RestResponse = RestClient.Execute(request)
         If response.StatusCode <> 200 Then
             Return "Error: Not Found" & vbCrLf & response.Content
         Else
-            Me.UpdateToken(response.Headers)
+            UpdateToken(response.Headers)
             Return response.Content
         End If
 
