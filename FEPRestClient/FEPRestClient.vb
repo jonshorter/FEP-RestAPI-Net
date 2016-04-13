@@ -25,6 +25,7 @@ Public Class Client
         End Get
     End Property
     Public Sub Authenticate()
+
         RestClient.BaseUrl = New Uri("https://" & Server & "/Endpoint/api/")
         Dim request = New RestSharp.RestRequest("authenticate?username=" & Username & "&password=" & Password, Method.GET)
         request.RequestFormat = DataFormat.Json

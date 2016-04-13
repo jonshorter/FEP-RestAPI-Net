@@ -7,6 +7,7 @@ Public Class ClientFunctions
     Public User As New UserFunctions
     Public Templates As New TemplateFunctions
     Public Groups As New GroupFunctions
+    Public Permissions As New PermissionsFunctions
     Public Configuration As New ConfigurationFunctions
     Public ThreatFilters As New ThreatFilterFunctions
     Public Computers As New ComputerFunctions

@@ -74,6 +74,7 @@
     <Compile Include="Functions\ClientFunctions.vb" />
     <Compile Include="Functions\Groups\GroupFunctions.vb" />
     <Compile Include="Functions\Job\JobFunctions.vb" />
+    <Compile Include="Functions\Permissions\PermissionsFunctions.vb" />
     <Compile Include="Functions\Project\ProjectReportFunctions.vb" />
     <Compile Include="Functions\Project\ProjectFunctions.vb" />
     <Compile Include="Functions\Templates\TemplateFunctions.vb" />
