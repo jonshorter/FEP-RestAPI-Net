@@ -95,6 +95,40 @@ Public Class JobFunctions
 
     End Function
 
+    Public Function GetJobEndpointStatusCounts(ByVal jobResultID As String) As ApiResponse(Of Models.Job2.EndPointStatusCounts)
+
+        Dim request = New RestSharp.RestRequest("jobs/getendpointstatuscounts/" & jobResultID, Method.GET)
+        request.RequestFormat = DataFormat.Json
+        request.JsonSerializer = New RestSharpJsonNetSerializer
+        request.AddHeader("Authorization", "bearer " & Client.Token)
+        Dim response As RestSharp.RestResponse = Client.RestClient.Execute(request)
+        Client.UpdateToken(response.Headers)
+        Return JsonConvert.DeserializeObject(Of ApiResponse(Of Models.Job2.EndPointStatusCounts))(response.Content)
+
+    End Function
+
+    Public Function GetJobResults(ByVal JobResultId As String, Optional Page As Integer = 1, Optional Count As Integer = 100, _
+                                  Optional sortPropertyName As String = "_EndpointName", Optional isSortDescending As Boolean = False) As ElasticSearchResult
+        Dim options As String
+        options = "?page=" & Page
+        options = options & "&count=" & Count
+        options = options & "&sortPropertyName=" & sortPropertyName
+        options = options & "&isSortDescending=" & isSortDescending
+
+        Dim request = New RestSharp.RestRequest("jobresults/scriptjob_" & JobResultId & "/" & options, Method.POST)
+        request.RequestFormat = DataFormat.Json
+        request.JsonSerializer = New RestSharpJsonNetSerializer
+        request.AddHeader("Authorization", "bearer " & Client.Token)
+        Dim response As RestSharp.RestResponse = Client.RestClient.Execute(request)
+        Client.UpdateToken(response.Headers)
+        Dim elasticresponse = JsonConvert.DeserializeObject(Of Models.Response.ApiResponse(Of String))(response.Content)
+
+        Dim y = JsonConvert.DeserializeObject(Of Models.ElasticSearchResult)(elasticresponse.Data)
+
+        Return y
+
+    End Function
+
     Public Function GetJobTargetResultsFacets(ByVal jobResultID As String, Optional ByVal OptionLimit As Integer = 15) As ApiResponse(Of List(Of Facets))
 
         Dim request = New RestSharp.RestRequest("jobs/getjobtargetresultsfacets/" & jobResultID & "?optionLimit=" & OptionLimit, Method.GET)
@@ -121,7 +155,7 @@ Public Class JobFunctions
 
     Public Function CancelJobResult(ByVal JobResultID As String, ByVal CancelSchedule As Boolean) As ApiResponse(Of JobInfo)
 
-      
+
         Dim request = New RestSharp.RestRequest("jobs/cancelJobResult/" & JobResultID & "/" & CancelSchedule, Method.GET)
         request.RequestFormat = DataFormat.Json
         request.JsonSerializer = New RestSharpJsonNetSerializer
@@ -134,7 +168,7 @@ Public Class JobFunctions
 
     Public Function CancelJobTargetResults(ByVal JobTargetResultID As List(Of String)) As ApiResponse(Of Boolean)
 
-      
+
         Dim request = New RestSharp.RestRequest("jobs/cancelJobTargetResults/", Method.POST)
         request.RequestFormat = DataFormat.Json
         request.JsonSerializer = New RestSharpJsonNetSerializer
@@ -150,7 +184,7 @@ Public Class JobFunctions
 
     Public Function SetJobSchedule(ByVal JobID As String, ByVal IsIncremental As Boolean, ByVal Schedule As SchedulerEventCore) As ApiResponse(Of SchedulerEventCore)
 
-       
+
         Dim request = New RestSharp.RestRequest("jobs/jobSchedule/" & JobID & "/" & IsIncremental, Method.POST)
         request.RequestFormat = DataFormat.Json
         request.JsonSerializer = New RestSharpJsonNetSerializer
@@ -166,7 +200,7 @@ Public Class JobFunctions
 
     Public Function ThreatScanOptioms(ByVal JobResultID As String, ByVal TSOptions As Job2.ThreatScanJobOptions) As ApiResponse(Of Boolean)
 
-      
+
         Dim request = New RestSharp.RestRequest("jobs/threatScanOptions/" & JobResultID, Method.POST)
         request.RequestFormat = DataFormat.Json
         request.JsonSerializer = New RestSharpJsonNetSerializer
@@ -182,7 +216,7 @@ Public Class JobFunctions
 
     Public Function GetJobStatusCounts(ByVal JobID As String) As ApiResponse(Of JobInfoStatusCounts)
 
-      
+
         Dim request = New RestSharp.RestRequest("jobs/getjobendpointstatuscounts/" & JobID, Method.GET)
         request.RequestFormat = DataFormat.Json
         request.JsonSerializer = New RestSharpJsonNetSerializer
@@ -208,7 +242,7 @@ Public Class JobFunctions
 
 
     Public Function GetResponsivePath(ByVal JobID As String)
-     
+
         Dim request = New RestSharp.RestRequest("jobs/responsivepath/" & Guid.Parse(JobID).ToString, Method.GET)
         request.RequestFormat = DataFormat.Json
         request.JsonSerializer = New RestSharpJsonNetSerializer
@@ -235,7 +269,7 @@ Public Class JobFunctions
                                Optional ByVal take As Integer = 75, Optional ByVal sort As String = "Name Ascending", _
                                Optional ByVal search As String = "") As ApiResponse(Of JobTargets)
 
-      
+
         Dim request = New RestSharp.RestRequest("jobs/getjobtargets/" & JobID & "/" & skip & "/" & take & "/" & sort & "?search=" & search, Method.GET)
         request.RequestFormat = DataFormat.Json
         request.JsonSerializer = New RestSharpJsonNetSerializer

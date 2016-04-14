@@ -473,4 +473,24 @@ Public Class Form1
     End Sub
 
 
+    Private Sub Button1_Click_1(sender As Object, e As EventArgs) Handles Button1.Click
+        Dim z = RestClient.Functions.ScriptPackages.GetFieldsByJobResult("dc5c78a3-1022-4d8c-b6e5-a5e7046912bc")
+        For Each item In z.Data
+            Debug.WriteLine(item)
+        Next
+
+        Dim x As FEPRestClient.Models.ElasticSearchResult = RestClient.Functions.Job.GetJobResults("dc5c78a3-1022-4d8c-b6e5-a5e7046912bc", 1, 1000)
+
+        For Each hit In x.hits.Hits
+            Dim hitdata As Json.Linq.JObject = hit._source
+            For Each item In hitdata
+                Debug.WriteLine(item.Key.ToString & ", " & item.Value.ToString)
+                '  If item.Key = "Name" Then
+                'Debug.WriteLine(item.Value)
+                'End If
+            Next
+        Next
+     
+        Return
+    End Sub
 End Class

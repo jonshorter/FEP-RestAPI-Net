@@ -84,6 +84,7 @@
     <Compile Include="Models\Alerts\AlertModels.vb" />
     <Compile Include="Models\Authentication\AuthenticationModels.vb" />
     <Compile Include="Models\Computers\ComputerModels.vb" />
+    <Compile Include="Models\ElasticSearch\ElasticSearchModels.vb" />
     <Compile Include="Models\Enum\Enums.vb" />
     <Compile Include="Models\Facets\FacetModels.vb" />
     <Compile Include="Models\Groups\GroupModels.vb" />

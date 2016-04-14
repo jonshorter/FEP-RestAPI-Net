@@ -2,7 +2,12 @@
 Imports System.Xml.Serialization
 
 Namespace Models.Job2
-
+    Public Class EndPointStatusCounts
+        Public Property totalCount As Integer
+        Public Property runningCount As Integer
+        Public Property completedCount As Integer
+        Public Property failedCount As Integer
+    End Class
     Public Class JobFromTemplate
         Public Property ComputerTargets As New List(Of String)
         Public Property ProjectId As String
