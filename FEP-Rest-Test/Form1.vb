@@ -462,6 +462,7 @@ Public Class Form1
         RestClient.Username = txtUsername.Text
         RestClient.Password = txtPassword.Text
         RestClient.Server = txtServer.Text
+        RestClient.IgnoreSSL = True
         RestClient.Authenticate()
         If RestClient.IsAuthenticated = True Then
             txtStatusStrip.Text = "Authenticated: True"
@@ -478,8 +479,12 @@ Public Class Form1
         For Each item In z.Data
             Debug.WriteLine(item)
         Next
-
-        Dim x As FEPRestClient.Models.ElasticSearchResult = RestClient.Functions.Job.GetJobResults("dc5c78a3-1022-4d8c-b6e5-a5e7046912bc", 1, 1000)
+        Dim srch As New FEPRestClient.Models.FacetSearch
+        Dim srchfield As New FEPRestClient.Models.FacetSearchFields
+        srchfield.FieldName = "_EndpointName"
+        srchfield.Values.Add("win7client-6x")
+        srch.SearchFields.Add(srchfield)
+        Dim x As FEPRestClient.Models.ElasticSearchResult = RestClient.Functions.Job.GetJobResults("dc5c78a3-1022-4d8c-b6e5-a5e7046912bc", srch, 1, 1000)
 
         For Each hit In x.hits.Hits
             Dim hitdata As Json.Linq.JObject = hit._source

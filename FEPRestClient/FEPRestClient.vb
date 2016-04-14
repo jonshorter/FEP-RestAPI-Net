@@ -11,6 +11,7 @@ Public Class Client
     Public Property Username As String = ""
     Public Property Password As String = ""
     Public Property Server As String
+    Public Property IgnoreSSL As Boolean = False
     Public Shared Token As String = ""
     Public Shared RestClient As New RestSharp.RestClient
 
@@ -24,9 +25,15 @@ Public Class Client
             End If
         End Get
     End Property
+    Public Function AcceptAllCertifications(ByVal sender As Object, ByVal certification As System.Security.Cryptography.X509Certificates.X509Certificate, ByVal chain As System.Security.Cryptography.X509Certificates.X509Chain, ByVal sslPolicyErrors As System.Net.Security.SslPolicyErrors) As Boolean
+        Return True
+    End Function
     Public Sub Authenticate()
-
+        If IgnoreSSL = True Then
+            ServicePointManager.ServerCertificateValidationCallback = AddressOf AcceptAllCertifications
+        End If
         RestClient.BaseUrl = New Uri("https://" & Server & "/Endpoint/api/")
+
         Dim request = New RestSharp.RestRequest("authenticate?username=" & Username & "&password=" & Password, Method.GET)
         request.RequestFormat = DataFormat.Json
         request.JsonSerializer = New RestSharpJsonNetSerializer

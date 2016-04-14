@@ -107,7 +107,7 @@ Public Class JobFunctions
 
     End Function
 
-    Public Function GetJobResults(ByVal JobResultId As String, Optional Page As Integer = 1, Optional Count As Integer = 100, _
+    Public Function GetJobResults(ByVal JobResultId As String, Optional SrchFacet As FacetSearch = Nothing, Optional Page As Integer = 1, Optional Count As Integer = 100, _
                                   Optional sortPropertyName As String = "_EndpointName", Optional isSortDescending As Boolean = False) As ElasticSearchResult
         Dim options As String
         options = "?page=" & Page
@@ -115,9 +115,14 @@ Public Class JobFunctions
         options = options & "&sortPropertyName=" & sortPropertyName
         options = options & "&isSortDescending=" & isSortDescending
 
+
         Dim request = New RestSharp.RestRequest("jobresults/scriptjob_" & JobResultId & "/" & options, Method.POST)
         request.RequestFormat = DataFormat.Json
         request.JsonSerializer = New RestSharpJsonNetSerializer
+        If Not SrchFacet Is Nothing Then
+            request.Parameters.Clear()
+            request.AddParameter("application/json", Newtonsoft.Json.JsonConvert.SerializeObject(SrchFacet), ParameterType.RequestBody)
+        End If
         request.AddHeader("Authorization", "bearer " & Client.Token)
         Dim response As RestSharp.RestResponse = Client.RestClient.Execute(request)
         Client.UpdateToken(response.Headers)
